@@ -1153,8 +1153,8 @@ packages:
   matrix:
     dependency: "direct main"
     description:
-      path: "/home/officialdakari/repos/matrix-dart-sdk"
-      relative: false
+      path: "../matrix-dart-sdk"
+      relative: true
     source: path
     version: "0.40.0"
   meta:
