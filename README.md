@@ -20,11 +20,13 @@ Extera Next is another generation of Extera, made on top of FluffyChat.
 - 🔐 End to end encryption
 - 🔒 Encrypted chat backup
 - 😀 Emoji verification & cross signing
+
+And now what was implemented in Extera Next:
 - Built-in message translation
 - Message recovery for Synapse admins
 - Pitch black theme for AMOLED devices
 
-... and much more.
+... and much more. (actually no)
 
 
 # Build
