@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:fluffychat/utils/poll_events.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:collection/collection.dart';
@@ -123,6 +124,17 @@ abstract class ClientManager {
       importantStateEvents: <String>{
         // To make room emotes work
         'im.ponies.room_emotes',
+      },
+      roomPreviewLastEvents: <String>{
+        EventTypes.Message,
+        EventTypes.Encrypted,
+        EventTypes.Sticker,
+        EventTypes.CallInvite,
+        EventTypes.CallAnswer,
+        EventTypes.CallReject,
+        EventTypes.CallHangup,
+        EventTypes.GroupCallMember,
+        PollEvents.PollStart,
       },
       logLevel: kReleaseMode ? Level.warning : Level.verbose,
       database: await flutterMatrixSdkDatabaseBuilder(clientName),

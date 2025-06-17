@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:fluffychat/utils/poll_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -66,12 +67,12 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     if (!{
       EventTypes.Message,
       EventTypes.Sticker,
       EventTypes.Encrypted,
       EventTypes.CallInvite,
+      PollEvents.PollStart,
     }.contains(event.type)) {
       if (event.type.startsWith('m.call.')) {
         return const SizedBox.shrink();
@@ -100,6 +101,7 @@ class Message extends StatelessWidget {
           EventTypes.Message,
           EventTypes.Sticker,
           EventTypes.Encrypted,
+          PollEvents.PollStart,
         }.contains(nextEvent!.type) &&
         nextEvent!.senderId == event.senderId &&
         !displayTime;
@@ -109,6 +111,7 @@ class Message extends StatelessWidget {
           EventTypes.Message,
           EventTypes.Sticker,
           EventTypes.Encrypted,
+          PollEvents.PollStart,
         }.contains(previousEvent!.type) &&
         previousEvent!.senderId == event.senderId &&
         previousEvent!.originServerTs.sameEnvironment(event.originServerTs);

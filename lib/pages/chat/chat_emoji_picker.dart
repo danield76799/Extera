@@ -75,9 +75,15 @@ class ChatEmojiPicker extends StatelessWidget {
                                 'body': sticker.body,
                                 'info': sticker.info ?? {},
                                 'url': sticker.url.toString(),
+                                'm.relates_to': controller.replyEvent != null ? {
+                                  'm.in_reply_to': {
+                                    'event_id': controller.replyEvent!.eventId
+                                  }
+                                } : null
                               },
                               type: EventTypes.Sticker,
                             );
+                            controller.cancelReplyEventAction();
                             controller.hideEmojiPicker();
                           },
                         ),

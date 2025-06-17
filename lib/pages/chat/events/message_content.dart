@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:fluffychat/pages/chat/events/poll_content.dart';
+import 'package:fluffychat/utils/poll_events.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluffychat/generated/l10n/l10n.dart';
@@ -106,6 +108,9 @@ class MessageContent extends StatelessWidget {
     final fontSize = AppConfig.messageFontSize * AppConfig.fontSizeFactor;
     final buttonTextColor = textColor;
     switch (event.type) {
+      case PollEvents.PollStart:
+        Logs().v("Got poll event ${event.type}");
+        return PollWidget(event, color: textColor, linkColor: linkColor, fontSize: fontSize);
       case EventTypes.Message:
       case EventTypes.Encrypted:
       case EventTypes.Sticker:

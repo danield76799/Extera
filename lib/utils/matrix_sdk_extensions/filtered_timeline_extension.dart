@@ -1,3 +1,4 @@
+import 'package:fluffychat/utils/poll_events.dart';
 import 'package:matrix/matrix.dart';
 
 import '../../config/app_config.dart';
@@ -45,7 +46,7 @@ extension IsStateExtension on Event {
       // if we enabled to hide all redacted events, don't show those
       (!AppConfig.hideRedactedEvents || !redacted) &&
       // if we enabled to hide all unknown events, don't show those
-      (!AppConfig.hideUnknownEvents || isEventTypeKnown) &&
+      (!AppConfig.hideUnknownEvents || isEventTypeKnown || type == PollEvents.PollStart) &&
       // remove state events that we don't want to render
       (isState || !AppConfig.hideAllStateEvents) &&
       // hide simple join/leave member events in public rooms
