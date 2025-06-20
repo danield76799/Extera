@@ -35,6 +35,7 @@ abstract class SettingKeys {
       'chat.fluffy.swipeRightToLeftToReply';
   static const String experimentalVoip = 'chat.fluffy.experimental_voip';
   static const String showPresences = 'chat.fluffy.show_presences';
+  static const String enableGradient = 'xyz.extera.next.enableGradient'; 
 }
 
 enum AppSettings<T> {
@@ -45,6 +46,7 @@ enum AppSettings<T> {
   audioRecordingBitRate<int>('audioRecordingBitRate', 64000),
   audioRecordingSamplingRate<int>('audioRecordingSamplingRate', 44100),
   enableSoftLogout<bool>('enableSoftLogout', false),
+  enableGradient<bool>('enableGradient', true),
   pushNotificationsGatewayUrl<String>(
     'pushNotificationsGatewayUrl',
     'https://push.fluffychat.im/_matrix/push/v1/notify',

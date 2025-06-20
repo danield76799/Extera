@@ -41,6 +41,7 @@ class Message extends StatelessWidget {
   final bool wallpaperMode;
   final ScrollController? scrollController;
   final List<Color> colors;
+  final bool gradient;
 
   const Message(
     this.event, {
@@ -48,6 +49,7 @@ class Message extends StatelessWidget {
     this.previousEvent,
     this.displayReadMarker = false,
     this.longPressSelect = false,
+    this.gradient = false,
     required this.onSelect,
     required this.onInfoTab,
     required this.scrollToEventId,
@@ -328,7 +330,7 @@ class Message extends StatelessWidget {
                                       clipBehavior: Clip.antiAlias,
                                       child: BubbleBackground(
                                         colors: colors,
-                                        ignore: noBubble || !ownMessage,
+                                        ignore: noBubble || !ownMessage || !gradient,
                                         scrollController: scrollController,
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -638,7 +640,7 @@ class BubblePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (!(context.widget is ScrollView || context.widget is SingleChildScrollView)) return;
+    // if (!(context.widget is ScrollView || context.widget is SingleChildScrollView)) return;
     final scrollable = _scrollable ??= Scrollable.of(context);
     final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
     final scrollableRect = Offset.zero & scrollableBox.size;

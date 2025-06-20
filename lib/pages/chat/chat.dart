@@ -761,6 +761,12 @@ class ChatController extends State<ChatPageWithRoom>
   }
 
   void translateEventAction() async {
+    if (room.encrypted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(L10n.of(context).translationDisabledInE2e)),
+      );
+      return;
+    }
     final event = selectedEvents.single;
     var text = event.isRichMessage ? event.formattedText : event.text;
     if (text == null) {

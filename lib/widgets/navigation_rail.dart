@@ -32,7 +32,10 @@ class SpacesNavigationRail extends StatelessWidget {
         .value
         .uri
         .path
-        .startsWith('/rooms/settings');
+        .startsWith('/rooms/settings')
+        && FluffyThemes.isColumnMode(context);
+        // workaround on settings button remaining selected.
+        // who will even see it selected on mobile?
     return StreamBuilder(
       key: ValueKey(
         client.userID.toString(),

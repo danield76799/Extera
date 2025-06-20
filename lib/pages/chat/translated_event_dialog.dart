@@ -49,6 +49,7 @@ class TranslatedEventDialogState extends State<TranslatedEventDialog> {
                         longPressSelect: false,
                         selected: false,
                         wallpaperMode: false,
+                        gradient: false
                       );
 
     return Scaffold(

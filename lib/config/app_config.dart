@@ -12,6 +12,7 @@ abstract class AppConfig {
   static String _defaultHomeserver = 'extera.xyz';
 
   static bool displayNavigationRail = true;
+  static bool enableGradient = true;
 
   static String get defaultHomeserver => _defaultHomeserver;
   static double fontSizeFactor = 1;
@@ -112,6 +113,9 @@ abstract class AppConfig {
     }
     if (json['hide_unknown_events'] is bool) {
       hideUnknownEvents = json['hide_unknown_events'];
+    }
+    if (json['enable_gradient'] is bool) {
+      enableGradient = json['enable_gradient'];
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fluffychat/config/app_config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluffychat/generated/l10n/l10n.dart';
@@ -30,8 +31,7 @@ class ChatListView extends StatelessWidget {
       },
       child: Row(
         children: [
-          if (FluffyThemes.isColumnMode(context) &&
-              controller.widget.displayNavigationRail) ...[
+          if (FluffyThemes.isColumnMode(context) || AppConfig.displayNavigationRail) ...[
             SpacesNavigationRail(
               activeSpaceId: controller.activeSpaceId,
               onGoToChats: controller.clearActiveSpace,

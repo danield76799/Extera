@@ -442,6 +442,10 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
     AppConfig.displayNavigationRail =
         store.getBool(SettingKeys.displayNavigationRail) ??
             AppConfig.displayNavigationRail;
+
+    AppConfig.enableGradient =
+        store.getBool(SettingKeys.enableGradient) ??
+            AppConfig.enableGradient;
   }
 
   @override

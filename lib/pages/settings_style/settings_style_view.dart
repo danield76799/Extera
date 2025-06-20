@@ -233,7 +233,7 @@ class SettingsStyleView extends StatelessWidget {
                                       vertical: 8,
                                     ),
                                     child: Text(
-                                      'Рассказать шутку?',
+                                      'Я такой угарный анекдот про зайца вспомнил, го расскажу прямо на странице настроек?',
                                       style: TextStyle(
                                         color: theme.onBubbleColor,
                                         fontSize: AppConfig.messageFontSize *
@@ -313,6 +313,12 @@ class SettingsStyleView extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    SettingsSwitchListTile.adaptive(
+                      title: L10n.of(context).enableGradient,
+                      onChanged: (b) => AppConfig.enableGradient = b,
+                      storeKey: SettingKeys.enableGradient,
+                      defaultValue: AppConfig.enableGradient,
                     ),
                     Divider(
                       color: theme.dividerColor,
@@ -397,6 +403,12 @@ class SettingsStyleView extends StatelessWidget {
               onChanged: (b) => AppConfig.separateChatTypes = b,
               storeKey: SettingKeys.separateChatTypes,
               defaultValue: AppConfig.separateChatTypes,
+            ),
+            SettingsSwitchListTile.adaptive(
+              title: L10n.of(context).displayNavigationRail,
+              onChanged: (b) => AppConfig.displayNavigationRail = b,
+              storeKey: SettingKeys.displayNavigationRail,
+              defaultValue: AppConfig.displayNavigationRail,
             ),
           ],
         ),

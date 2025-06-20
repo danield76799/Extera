@@ -1,3 +1,4 @@
+import 'package:fluffychat/config/app_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -150,6 +151,7 @@ class ChatEventList extends StatelessWidget {
                 wallpaperMode: hasWallpaper,
                 scrollController: controller.scrollController,
                 colors: colors,
+                gradient: AppConfig.enableGradient,
               ),
             );
           },

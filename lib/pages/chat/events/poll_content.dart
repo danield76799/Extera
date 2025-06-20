@@ -30,7 +30,15 @@ class PollWidgetState extends State<PollWidget> {
       padding: EdgeInsetsGeometry.all(16),
       child: Column(
         children: [
-          Text(content?['question']['m.text'] as String, style: TextStyle(fontWeight: FontWeight.bold))
+          Text(content?['question']['m.text'] as String, style: TextStyle(fontWeight: FontWeight.bold)),
+          Padding(
+            padding: EdgeInsets.fromLTRB(4, 4, 4, 2),
+            child: Column(
+              children: [
+                
+              ],
+            ),
+          )
         ],
       ),
     );
