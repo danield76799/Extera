@@ -1,3 +1,4 @@
+import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluffychat/generated/l10n/l10n.dart';
@@ -15,6 +16,7 @@ void showMemberActionsPopupMenu({
   required User user,
   void Function()? onMention,
 }) async {
+  final mx = Matrix.of(context);
   final theme = Theme.of(context);
   final displayname = user.calcDisplayname();
   final isMe = user.room.client.userID == user.id;
@@ -220,32 +222,36 @@ void showMemberActionsPopupMenu({
       );
       return;
     case _MemberActions.kick:
-      if (await showOkCancelAlertDialog(
+      final reason = await showTextInputDialog(
             context: context,
             title: L10n.of(context).areYouSure,
             okLabel: L10n.of(context).yes,
             cancelLabel: L10n.of(context).no,
             message: L10n.of(context).kickUserDescription,
-          ) ==
-          OkCancelResult.ok) {
+            hintText: L10n.of(context).reason,
+            isDestructive: true
+          );
+      if (reason != null) {
         await showFutureLoadingDialog(
           context: context,
-          future: () => user.kick(),
+          future: () => mx.client.kick(user.room.id, user.id, reason: reason)
         );
       }
       return;
     case _MemberActions.ban:
-      if (await showOkCancelAlertDialog(
+      final reason = await showTextInputDialog(
             context: context,
             title: L10n.of(context).areYouSure,
             okLabel: L10n.of(context).yes,
             cancelLabel: L10n.of(context).no,
             message: L10n.of(context).banUserDescription,
-          ) ==
-          OkCancelResult.ok) {
+            hintText: L10n.of(context).reason,
+            isDestructive: true
+          );
+      if (reason != null) {
         await showFutureLoadingDialog(
           context: context,
-          future: () => user.ban(),
+          future: () => mx.client.ban(user.room.id, user.id, reason: reason)
         );
       }
       return;

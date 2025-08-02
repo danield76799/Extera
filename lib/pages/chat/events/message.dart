@@ -364,7 +364,8 @@ class Message extends StatelessWidget {
                                         colors: colors,
                                         ignore: noBubble ||
                                             !ownMessage ||
-                                            !gradient,
+                                            !gradient ||
+                                            MediaQuery.highContrastOf(context),
                                         scrollController: scrollController,
                                         child: Container(
                                           decoration: BoxDecoration(

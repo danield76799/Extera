@@ -36,7 +36,7 @@ class MxcImageViewer extends StatelessWidget {
           maxScale: 10.0,
           onInteractionEnd: (endDetails) {
             if (endDetails.velocity.pixelsPerSecond.dy >
-                MediaQuery.of(context).size.height * 1.5) {
+                MediaQuery.sizeOf(context).height * 1.5) {
               Navigator.of(context, rootNavigator: false).pop();
             }
           },
