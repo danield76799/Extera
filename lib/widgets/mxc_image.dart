@@ -26,6 +26,7 @@ class MxcImage extends StatefulWidget {
   final Widget Function(BuildContext context)? placeholder;
   final String? cacheKey;
   final Client? client;
+  final BorderRadius borderRadius;
 
   const MxcImage({
     this.uri,
@@ -42,6 +43,7 @@ class MxcImage extends StatefulWidget {
     this.thumbnailMethod = ThumbnailMethod.scale,
     this.cacheKey,
     this.client,
+    this.borderRadius = BorderRadius.zero,
     super.key,
   });
 
@@ -140,9 +142,11 @@ class _MxcImageState extends State<MxcImage> {
     final hasData = data != null && data.isNotEmpty;
 
     return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 128),
+        duration: FluffyThemes.animationDuration,
         child: hasData
-            ? Image.memory(
+            ? ClipRRect(
+              borderRadius: widget.borderRadius,
+              child: Image.memory(
                 data,
                 width: widget.width,
                 height: widget.height,
@@ -165,7 +169,8 @@ class _MxcImageState extends State<MxcImage> {
                     ),
                   );
                 },
-              )
+              ),
+            )
             : placeholder(context));
   }
 }
