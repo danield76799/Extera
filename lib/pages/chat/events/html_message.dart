@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_highlighter/flutter_highlighter.dart';
 import 'package:flutter_highlighter/themes/shades-of-purple.dart';
+import 'package:highlight_selectable/theme_map.dart';
+import 'package:highlight_selectable/highlight_selectable.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -272,37 +274,37 @@ class HtmlMessage extends StatelessWidget {
         );
       case 'code':
         final isInline = node.parent?.localName != 'pre';
-        return WidgetSpan(
-          child: Material(
-            clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(4),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SelectableRegion(
-                  selectionControls: MaterialTextSelectionControls(),
-                  child: HighlightView(
-                    node.text,
-                    language: node.className
-                            .split(' ')
-                            .singleWhereOrNull(
-                              (className) => className.startsWith('language-'),
-                            )
-                            ?.split('language-')
-                            .last ??
-                        'md',
-                    theme: shadesOfPurpleTheme,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: isInline ? 0 : 8,
-                    ),
-                    textStyle: TextStyle(
-                      fontSize: fontSize,
-                      fontFamily: 'RobotoMono',
-                    ),
-                  )),
-            ),
-          ),
-        );
+        return isInline
+            ? TextSpan(
+                text: node.text,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontFamily: 'RobotoMono',
+                  backgroundColor: const Color(0xff2d2b57),
+                  color: const Color(0xffe3dfff),
+                ),
+              )
+            : WidgetSpan(
+                child: HighlightSelectable(
+                  node.text,
+                  language: node.className
+                          .split(' ')
+                          .singleWhereOrNull(
+                              (className) => className.startsWith('language-'))
+                          ?.split('language-')
+                          .last ??
+                      'md',
+                  theme: themeMap['shades-of-purple']!,
+                  selectable: true,
+                  showCopyButton: !isInline,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: isInline ? 0 : 8,
+                  ),
+                  textStyle:
+                      TextStyle(fontSize: fontSize, fontFamily: 'RobotoMono'),
+                ),
+              );
       case 'img':
         final mxcUrl = Uri.tryParse(node.attributes['src'] ?? '');
         if (mxcUrl == null || mxcUrl.scheme != 'mxc') {
