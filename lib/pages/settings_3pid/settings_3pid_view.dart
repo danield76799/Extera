@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/pages/settings_3pid/settings_3pid.dart';
-import 'package:fluffychat/widgets/layouts/max_width_body.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/pages/settings_3pid/settings_3pid.dart';
+import 'package:extera_next/widgets/layouts/max_width_body.dart';
+import 'package:extera_next/widgets/matrix.dart';
 
 class Settings3PidView extends StatelessWidget {
   final Settings3PidController controller;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:fluffychat/pages/settings_password/settings_password_view.dart';
-import 'package:fluffychat/utils/localized_exception_extension.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/pages/settings_password/settings_password_view.dart';
+import 'package:extera_next/utils/localized_exception_extension.dart';
+import 'package:extera_next/widgets/matrix.dart';
 
 class SettingsPassword extends StatefulWidget {
   const SettingsPassword({super.key});

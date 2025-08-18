@@ -1791,7 +1791,7 @@ class L10nRu extends L10n {
 
   @override
   String youHaveWithdrawnTheInvitationFor(String user) {
-    return 'Вы отозвали приглашение для $user';
+    return 'Вы отозвали приглашение для $user.';
   }
 
   @override
@@ -2071,14 +2071,24 @@ class L10nRu extends L10n {
 
   @override
   String get banUserDescription =>
-      'Забаненные пользователи не смогут зайти в чат.';
+      'Вы уверены что хотите забанить этого пользователя? Они больше не смогут войти в этот чат. Вы также можете указать причину.';
 
   @override
   String get unbanUserDescription => 'Пользователь сможет зайти в чат снова.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Выгнать $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Забанить $user';
+  }
+
+  @override
   String get kickUserDescription =>
-      'Пользователь будет выгнан из чата, но не забанен. В общедоступных чатах пользователь может перезайти когда угодно.';
+      'Вы уверены что хотите выгнать этого пользователя? Если чат общедоступный, они смогут перезайти. Вы также можете указать причину.';
 
   @override
   String get makeAdminDescription =>

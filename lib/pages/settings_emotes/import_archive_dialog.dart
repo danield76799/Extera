@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 
 import 'package:archive/archive.dart';
 import 'package:collection/collection.dart';
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/pages/settings_emotes/settings_emotes.dart';
-import 'package:fluffychat/utils/client_manager.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/pages/settings_emotes/settings_emotes.dart';
+import 'package:extera_next/utils/client_manager.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
+import 'package:extera_next/widgets/matrix.dart';
 
 class ImportEmoteArchiveDialog extends StatefulWidget {
   final EmotesSettingsController controller;

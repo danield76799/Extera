@@ -4,8 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:matrix/matrix.dart';
 import 'package:provider/provider.dart';
 
-import 'package:fluffychat/config/setting_keys.dart';
-import 'package:fluffychat/widgets/lock_screen.dart';
+import 'package:extera_next/config/setting_keys.dart';
+import 'package:extera_next/widgets/lock_screen.dart';
 
 class AppLockWidget extends StatefulWidget {
   const AppLockWidget({

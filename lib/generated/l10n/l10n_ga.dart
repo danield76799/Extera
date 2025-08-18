@@ -2100,6 +2100,16 @@ class L10nGa extends L10n {
       'Beidh an t-úsáideoir in ann dul isteach sa chomhrá arís má dhéanann siad iarracht.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Ciceáiltear an t-úsáideoir as an gcomhrá ach níl cosc air. I gcomhráite poiblí, is féidir leis an úsáideoir teacht ar ais ag am ar bith.';
 

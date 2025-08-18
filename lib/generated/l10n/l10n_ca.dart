@@ -2094,6 +2094,16 @@ class L10nCa extends L10n {
       'L\'usuàrïi ja pot tornar a entrar al xat.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Li usuàrïi ha estat expulsadi però no vetadi. Als xats públics, pot tornar-hi a entrar en qualsevol moment.';
 

@@ -2030,6 +2030,16 @@ class L10nKo extends L10n {
   String get unbanUserDescription => '유저가 다시 채팅을 입력할 수 있습니다.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       '유저는 채팅에서 추방되지만 영구 추방되지 않습니다. 공개 채팅의 경우, 언제든 유저가 다시 참가할 수 있습니다.';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
 import '../config/app_config.dart';

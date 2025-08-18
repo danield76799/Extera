@@ -2079,6 +2079,16 @@ class L10nTr extends L10n {
       'Kullanıcı denerse sohbete tekrar girebilecektir.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Kullanıcı sohbetten atılır ancak yasaklanmaz. Herkese açık sohbetlerde kullanıcı istediği zaman yeniden katılabilir.';
 

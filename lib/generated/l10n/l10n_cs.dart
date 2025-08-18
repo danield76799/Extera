@@ -2071,15 +2071,25 @@ class L10nCs extends L10n {
 
   @override
   String get banUserDescription =>
-      'The user will be banned from the chat and will not be able to enter the chat again until they are unbanned.';
+      'Do you want to ban this user? They won\'t be able to rejoin. You also can provide a reason.';
 
   @override
   String get unbanUserDescription =>
       'The user will be able to enter the chat again if they try.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
-      'The user is kicked out of the chat but not banned. In public chats, the user can rejoin at any time.';
+      'Do you want to kick this user? If the room is public, they can rejoin anytime. You also can provide a reason.';
 
   @override
   String get makeAdminDescription =>

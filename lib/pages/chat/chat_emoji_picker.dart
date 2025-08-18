@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/pages/chat/sticker_picker_dialog.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/pages/chat/sticker_picker_dialog.dart';
 import 'chat.dart';
 
 class ChatEmojiPicker extends StatelessWidget {

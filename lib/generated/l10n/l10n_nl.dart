@@ -2080,6 +2080,16 @@ class L10nNl extends L10n {
       'De persoon zal weer in staat zijn om de chat te betreden als ze het proberen.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'De persoon is verwijderd uit de chat, maar is niet verbannen. In openbare chats kan de persoon op elk moment opnieuw deelnemen.';
 

@@ -2096,6 +2096,16 @@ class L10nEs extends L10n {
       'El usuario podrá entrar al chat de nuevo si lo intenta.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Se expulsa al usuario del chat, pero no se le prohíbe volver a entrar. En chats públicos, el usuario podrá volver a entrar en cualquier momento.';
 

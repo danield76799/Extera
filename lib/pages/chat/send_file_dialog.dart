@@ -1,20 +1,20 @@
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cross_file/cross_file.dart';
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 import 'package:mime/mime.dart';
 
-import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/utils/localized_exception_extension.dart';
-import 'package:fluffychat/utils/matrix_sdk_extensions/matrix_file_extension.dart';
-import 'package:fluffychat/utils/other_party_can_receive.dart';
-import 'package:fluffychat/utils/platform_infos.dart';
-import 'package:fluffychat/utils/size_string.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/dialog_text_field.dart';
+import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/utils/localized_exception_extension.dart';
+import 'package:extera_next/utils/matrix_sdk_extensions/matrix_file_extension.dart';
+import 'package:extera_next/utils/other_party_can_receive.dart';
+import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/utils/size_string.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/dialog_text_field.dart';
 import '../../utils/resize_video.dart';
 import 'package:matrix/src/utils/markdown.dart';
 import 'package:html_unescape/html_unescape.dart';

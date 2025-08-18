@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/utils/date_time_extension.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
-import 'package:fluffychat/widgets/avatar.dart';
-import 'package:fluffychat/widgets/presence_builder.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/utils/date_time_extension.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
+import 'package:extera_next/widgets/avatar.dart';
+import 'package:extera_next/widgets/presence_builder.dart';
 import '../../utils/url_launcher.dart';
 import '../future_loading_dialog.dart';
 import '../hover_builder.dart';

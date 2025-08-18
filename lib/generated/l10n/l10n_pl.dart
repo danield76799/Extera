@@ -2086,6 +2086,16 @@ class L10nPl extends L10n {
       'Użytkownik będzie w stanie dołączyć do czatu ponownie.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Użytkownik jest wyrzucony z czatu, ale nie zbanowany. Do czatu publicznego może dołączyć ponownie.';
 

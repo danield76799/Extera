@@ -2061,6 +2061,16 @@ class L10nAr extends L10n {
       'سيتمكن المستخدم من الدخول إلى المحادثة مرة أخرى إذا حاول.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'يتم طرد المستخدم من المحادثة ولكن لا يتم حظره. في المحادثات العامة، يمكن للمستخدم الانضمام مرة أخرى في أي وقت.';
 

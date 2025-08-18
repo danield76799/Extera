@@ -1,19 +1,19 @@
 import 'dart:math';
 
-import 'package:fluffychat/pages/chat/events/poll_content.dart';
-import 'package:fluffychat/utils/poll_events.dart';
+import 'package:extera_next/pages/chat/events/poll_content.dart';
+import 'package:extera_next/utils/poll_events.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/pages/chat/events/video_player.dart';
-import 'package:fluffychat/utils/adaptive_bottom_sheet.dart';
-import 'package:fluffychat/utils/date_time_extension.dart';
-import 'package:fluffychat/utils/matrix_sdk_extensions/matrix_locals.dart';
-import 'package:fluffychat/widgets/avatar.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/pages/chat/events/video_player.dart';
+import 'package:extera_next/utils/adaptive_bottom_sheet.dart';
+import 'package:extera_next/utils/date_time_extension.dart';
+import 'package:extera_next/utils/matrix_sdk_extensions/matrix_locals.dart';
+import 'package:extera_next/widgets/avatar.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import '../../../config/app_config.dart';
 import '../../../utils/platform_infos.dart';
 import '../../../utils/url_launcher.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/show_text_input_dialog.dart';
-import 'package:fluffychat/widgets/future_loading_dialog.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/show_text_input_dialog.dart';
+import 'package:extera_next/widgets/future_loading_dialog.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import 'settings_3pid_view.dart';
 
 class Settings3Pid extends StatefulWidget {

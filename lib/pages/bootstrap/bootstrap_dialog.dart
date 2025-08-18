@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:matrix/encryption.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/utils/error_reporter.dart';
-import 'package:fluffychat/utils/fluffy_share.dart';
-import 'package:fluffychat/utils/localized_exception_extension.dart';
-import 'package:fluffychat/utils/platform_infos.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
-import 'package:fluffychat/widgets/future_loading_dialog.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/utils/error_reporter.dart';
+import 'package:extera_next/utils/fluffy_share.dart';
+import 'package:extera_next/utils/localized_exception_extension.dart';
+import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
+import 'package:extera_next/widgets/future_loading_dialog.dart';
 import '../../utils/adaptive_bottom_sheet.dart';
 import '../key_verification/key_verification_dialog.dart';
 

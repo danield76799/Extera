@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/config/setting_keys.dart';
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/utils/beautify_string_extension.dart';
-import 'package:fluffychat/utils/platform_infos.dart';
-import 'package:fluffychat/widgets/layouts/max_width_body.dart';
-import 'package:fluffychat/widgets/matrix.dart';
-import 'package:fluffychat/widgets/settings_switch_list_tile.dart';
+import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/config/setting_keys.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/utils/beautify_string_extension.dart';
+import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/widgets/layouts/max_width_body.dart';
+import 'package:extera_next/widgets/matrix.dart';
+import 'package:extera_next/widgets/settings_switch_list_tile.dart';
 import 'settings_security.dart';
 
 class SettingsSecurityView extends StatelessWidget {

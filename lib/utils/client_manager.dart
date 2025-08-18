@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
-import 'package:fluffychat/utils/poll_events.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
+import 'package:extera_next/utils/poll_events.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:collection/collection.dart';
@@ -15,12 +15,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_html/html.dart' as html;
 
-import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/config/setting_keys.dart';
-import 'package:fluffychat/utils/custom_http_client.dart';
-import 'package:fluffychat/utils/custom_image_resizer.dart';
-import 'package:fluffychat/utils/init_with_restore.dart';
-import 'package:fluffychat/utils/platform_infos.dart';
+import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/config/setting_keys.dart';
+import 'package:extera_next/utils/custom_http_client.dart';
+import 'package:extera_next/utils/custom_image_resizer.dart';
+import 'package:extera_next/utils/init_with_restore.dart';
+import 'package:extera_next/utils/platform_infos.dart';
 import 'matrix_sdk_extensions/flutter_matrix_dart_sdk_database/builder.dart';
 
 abstract class ClientManager {

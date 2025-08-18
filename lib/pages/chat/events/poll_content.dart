@@ -1,4 +1,4 @@
-import 'package:fluffychat/utils/poll_events.dart';
+import 'package:extera_next/utils/poll_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:matrix/matrix.dart';

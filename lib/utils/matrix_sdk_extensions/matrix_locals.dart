@@ -1,4 +1,4 @@
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
 /// This is a temporary helper class until there is a proper solution to this with the new system

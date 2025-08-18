@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/widgets/app_lock.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/widgets/app_lock.dart';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({super.key});

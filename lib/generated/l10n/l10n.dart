@@ -3750,7 +3750,7 @@ abstract class L10n {
   /// No description provided for @banUserDescription.
   ///
   /// In en, this message translates to:
-  /// **'The user will be banned from the chat and will not be able to enter the chat again until they are unbanned.'**
+  /// **'Do you want to ban this user? They won\'t be able to rejoin. You also can provide a reason.'**
   String get banUserDescription;
 
   /// No description provided for @unbanUserDescription.
@@ -3759,10 +3759,22 @@ abstract class L10n {
   /// **'The user will be able to enter the chat again if they try.'**
   String get unbanUserDescription;
 
+  /// No description provided for @doYouWantToKick.
+  ///
+  /// In en, this message translates to:
+  /// **'Kick {user}'**
+  String doYouWantToKick(String user);
+
+  /// No description provided for @doYouWantToBan.
+  ///
+  /// In en, this message translates to:
+  /// **'Ban {user}'**
+  String doYouWantToBan(String user);
+
   /// No description provided for @kickUserDescription.
   ///
   /// In en, this message translates to:
-  /// **'The user is kicked out of the chat but not banned. In public chats, the user can rejoin at any time.'**
+  /// **'Do you want to kick this user? If the room is public, they can rejoin anytime. You also can provide a reason.'**
   String get kickUserDescription;
 
   /// No description provided for @makeAdminDescription.

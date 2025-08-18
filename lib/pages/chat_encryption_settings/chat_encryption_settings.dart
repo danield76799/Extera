@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/encryption.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/pages/chat_encryption_settings/chat_encryption_settings_view.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
-import 'package:fluffychat/widgets/future_loading_dialog.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/pages/chat_encryption_settings/chat_encryption_settings_view.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog.dart';
+import 'package:extera_next/widgets/future_loading_dialog.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import '../key_verification/key_verification_dialog.dart';
 
 class ChatEncryptionSettings extends StatefulWidget {

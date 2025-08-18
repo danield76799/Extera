@@ -8,8 +8,8 @@ import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/widgets/avatar.dart';
-import 'package:fluffychat/widgets/mxc_image.dart';
+import 'package:extera_next/widgets/avatar.dart';
+import 'package:extera_next/widgets/mxc_image.dart';
 import '../../../utils/url_launcher.dart';
 
 class HtmlMessage extends StatelessWidget {
@@ -278,26 +278,28 @@ class HtmlMessage extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: HighlightView(
-                node.text,
-                language: node.className
-                        .split(' ')
-                        .singleWhereOrNull(
-                          (className) => className.startsWith('language-'),
-                        )
-                        ?.split('language-')
-                        .last ??
-                    'md',
-                theme: shadesOfPurpleTheme,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: isInline ? 0 : 8,
-                ),
-                textStyle: TextStyle(
-                  fontSize: fontSize,
-                  fontFamily: 'RobotoMono',
-                ),
-              ),
+              child: SelectableRegion(
+                  selectionControls: MaterialTextSelectionControls(),
+                  child: HighlightView(
+                    node.text,
+                    language: node.className
+                            .split(' ')
+                            .singleWhereOrNull(
+                              (className) => className.startsWith('language-'),
+                            )
+                            ?.split('language-')
+                            .last ??
+                        'md',
+                    theme: shadesOfPurpleTheme,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: isInline ? 0 : 8,
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: fontSize,
+                      fontFamily: 'RobotoMono',
+                    ),
+                  )),
             ),
           ),
         );

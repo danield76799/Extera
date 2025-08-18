@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/pages/new_group/new_group.dart';
-import 'package:fluffychat/utils/localized_exception_extension.dart';
-import 'package:fluffychat/widgets/avatar.dart';
-import 'package:fluffychat/widgets/layouts/max_width_body.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/pages/new_group/new_group.dart';
+import 'package:extera_next/utils/localized_exception_extension.dart';
+import 'package:extera_next/widgets/avatar.dart';
+import 'package:extera_next/widgets/layouts/max_width_body.dart';
 
 class NewGroupView extends StatelessWidget {
   final NewGroupController controller;

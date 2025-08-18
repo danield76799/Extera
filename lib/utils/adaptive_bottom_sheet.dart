@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/config/themes.dart';
+import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/config/themes.dart';
 
 Future<T?> showAdaptiveBottomSheet<T>({
   required BuildContext context,

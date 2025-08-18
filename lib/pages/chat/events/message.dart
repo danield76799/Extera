@@ -1,23 +1,23 @@
 import 'dart:ui' as ui;
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:fluffychat/utils/adaptive_bottom_sheet.dart';
-import 'package:fluffychat/utils/poll_events.dart';
+import 'package:extera_next/utils/adaptive_bottom_sheet.dart';
+import 'package:extera_next/utils/poll_events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 import 'package:swipe_to_action/swipe_to_action.dart';
 
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/pages/chat/events/room_creation_state_event.dart';
-import 'package:fluffychat/utils/date_time_extension.dart';
-import 'package:fluffychat/utils/file_description.dart';
-import 'package:fluffychat/utils/string_color.dart';
-import 'package:fluffychat/widgets/avatar.dart';
-import 'package:fluffychat/widgets/matrix.dart';
-import 'package:fluffychat/widgets/member_actions_popup_menu_button.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/pages/chat/events/room_creation_state_event.dart';
+import 'package:extera_next/utils/date_time_extension.dart';
+import 'package:extera_next/utils/file_description.dart';
+import 'package:extera_next/utils/string_color.dart';
+import 'package:extera_next/widgets/avatar.dart';
+import 'package:extera_next/widgets/matrix.dart';
+import 'package:extera_next/widgets/member_actions_popup_menu_button.dart';
 import '../../../config/app_config.dart';
 import 'message_content.dart';
 import 'message_reactions.dart';

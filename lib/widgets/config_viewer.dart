@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:fluffychat/config/setting_keys.dart';
-import 'package:fluffychat/widgets/adaptive_dialogs/show_text_input_dialog.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/config/setting_keys.dart';
+import 'package:extera_next/widgets/adaptive_dialogs/show_text_input_dialog.dart';
+import 'package:extera_next/widgets/matrix.dart';
 
 class ConfigViewer extends StatelessWidget {
   const ConfigViewer({super.key});

@@ -2074,6 +2074,16 @@ class L10nVi extends L10n {
       'Người dùng sẽ có thể vào lại cuộc trò chuyện nếu họ thử.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Người dùng bị đuổi khỏi cuộc trò chuyện nhưng không bị cấm. Trong các cuộc trò chuyện công khai, người dùng có thể vào lại bất cứ lúc nào.';
 

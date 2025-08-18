@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/config/app_config.dart';
-import 'package:fluffychat/config/themes.dart';
-import 'package:fluffychat/utils/stream_extension.dart';
-import 'package:fluffychat/widgets/avatar.dart';
-import 'package:fluffychat/widgets/hover_builder.dart';
-import 'package:fluffychat/widgets/matrix.dart';
+import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/config/themes.dart';
+import 'package:extera_next/utils/stream_extension.dart';
+import 'package:extera_next/widgets/avatar.dart';
+import 'package:extera_next/widgets/hover_builder.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import '../../widgets/adaptive_dialogs/user_dialog.dart';
 
 class StatusMessageList extends StatelessWidget {

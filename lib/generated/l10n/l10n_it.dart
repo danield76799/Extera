@@ -2095,6 +2095,16 @@ class L10nIt extends L10n {
   String get unbanUserDescription => 'L\'utente potrà rientrare nella chat.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'L\'utente è stato rimosso, ma non bannato. Nelle chat pubbliche, l\'utente potrà rientrare quando vuole.';
 

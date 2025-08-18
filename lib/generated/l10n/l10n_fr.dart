@@ -2109,6 +2109,16 @@ class L10nFr extends L10n {
       'L\'utilisateur/trice pourra entrer à nouveau dans la discussion si il/elle le souhaite.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'L\'utilisateur/trice est expulsé de la discussion mais n\'est pas banni. Dans les discussions publiques, l\'utilisateur/trice peut revenir à tout moment.';
 

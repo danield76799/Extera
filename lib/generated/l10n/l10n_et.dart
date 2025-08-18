@@ -2089,6 +2089,16 @@ class L10nEt extends L10n {
       'Uuesti proovimisel saab see kasutaja nüüd vestlusega liituda.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'See kasutaja on nüüd jutuoast välja müksatud, kuid talle pole seatud suhtluskeeldu. Avaliku jututoa puhul saab ta alati uuesti liituda.';
 

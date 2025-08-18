@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluffychat/generated/l10n/l10n.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
-import 'package:fluffychat/utils/platform_infos.dart';
-import 'package:fluffychat/widgets/layouts/max_width_body.dart';
-import 'package:fluffychat/widgets/mxc_image.dart';
+import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/widgets/layouts/max_width_body.dart';
+import 'package:extera_next/widgets/mxc_image.dart';
 import '../../widgets/matrix.dart';
 import 'settings_emotes.dart';
 

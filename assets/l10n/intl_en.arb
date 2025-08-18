@@ -2825,7 +2825,7 @@
     "type": "String",
     "placeholders": {
         "user": {
-            "type": "string"
+            "type": "String"
         }
     }
   },
@@ -2834,7 +2834,7 @@
     "type": "String",
     "placeholders": {
         "user": {
-            "type": "string"
+            "type": "String"
         }
     }
   },

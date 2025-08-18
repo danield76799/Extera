@@ -2087,6 +2087,16 @@ class L10nUk extends L10n {
       'Користувач зможе знову увійти в бесіду, якщо спробує.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'Користувача вигнали з бесіди, але не заблокували. До загальнодоступних бесід користувач може приєднатися будь-коли.';
 

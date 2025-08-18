@@ -2008,6 +2008,16 @@ class L10nZh extends L10n {
   String get unbanUserDescription => '如果用户尝试加入则可以再次进入聊天。';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription => '该用户会被踢出聊天但没被封禁。在公开聊天中，该用户可以随时重新加入。';
 
   @override

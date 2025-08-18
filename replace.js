@@ -13,7 +13,7 @@ for (const f of files) {
         if (f.includes('lib/generated')) continue;
         const b = fs.readFileSync(`lib/${f}`, 'utf-8');
             total ++;
-            fs.writeFileSync(`lib/${f}`, b.replace(`package:flutter_gen/gen_l10n/l10n.dart`, `package:fluffychat/generated/l10n/l10n.dart`));
+            fs.writeFileSync(`lib/${f}`, b.replaceAll(`package:fluffychat`, `package:extera_next`));
             console.log(f);
     } catch (error) {
         

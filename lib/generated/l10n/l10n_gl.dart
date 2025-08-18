@@ -2086,6 +2086,16 @@ class L10nGl extends L10n {
       'A usuaria vai poder entrar outra vez na conversa se quere.';
 
   @override
+  String doYouWantToKick(String user) {
+    return 'Kick $user';
+  }
+
+  @override
+  String doYouWantToBan(String user) {
+    return 'Ban $user';
+  }
+
+  @override
   String get kickUserDescription =>
       'A usuaria foi expulsada pero non vetada. En conversas públicas a usuaria pode volver cando queira.';
 
