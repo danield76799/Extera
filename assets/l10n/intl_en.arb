@@ -1564,7 +1564,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "passwordForgotten": "Password forgotten",
+  "passwordForgotten": "Forgot password",
   "@passwordForgotten": {
     "type": "String",
     "placeholders": {}

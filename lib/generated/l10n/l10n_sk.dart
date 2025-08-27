@@ -1095,7 +1095,7 @@ class L10nSk extends L10n {
   String get password => 'Heslo';
 
   @override
-  String get passwordForgotten => 'Password forgotten';
+  String get passwordForgotten => 'Forgot password';
 
   @override
   String get passwordHasBeenChanged => 'Password has been changed';

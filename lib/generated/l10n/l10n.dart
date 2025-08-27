@@ -2076,7 +2076,7 @@ abstract class L10n {
   /// No description provided for @passwordForgotten.
   ///
   /// In en, this message translates to:
-  /// **'Password forgotten'**
+  /// **'Forgot password'**
   String get passwordForgotten;
 
   /// No description provided for @passwordHasBeenChanged.

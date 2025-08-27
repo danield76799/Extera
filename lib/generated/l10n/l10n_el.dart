@@ -1094,7 +1094,7 @@ class L10nEl extends L10n {
   String get password => 'Password';
 
   @override
-  String get passwordForgotten => 'Password forgotten';
+  String get passwordForgotten => 'Forgot password';
 
   @override
   String get passwordHasBeenChanged => 'Password has been changed';
