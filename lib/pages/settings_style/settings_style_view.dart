@@ -233,7 +233,7 @@ class SettingsStyleView extends StatelessWidget {
                                       vertical: 8,
                                     ),
                                     child: Text(
-                                      'Я такой угарный анекдот про зайца вспомнил, го расскажу прямо на странице настроек?',
+                                      'Я такой прикол придумал: с каждой новой версией ${AppConfig.applicationName}, я меняю анекдот на странице настроек.',
                                       style: TextStyle(
                                         color: theme.onBubbleColor,
                                         fontSize: AppConfig.messageFontSize *
@@ -266,7 +266,7 @@ class SettingsStyleView extends StatelessWidget {
                                         vertical: 8,
                                       ),
                                       child: Text(
-                                        'Давай',
+                                        'Классно, а в этот раз что?',
                                         style: TextStyle(
                                           color: theme.colorScheme.onSurface,
                                           fontSize: AppConfig.messageFontSize *
@@ -299,7 +299,7 @@ class SettingsStyleView extends StatelessWidget {
                                       vertical: 8,
                                     ),
                                     child: Text(
-                                      'Видит заяц как лиса кушает помидор. Он спрашивает: "лиса, а что это ты кушаешь?", она отвечает - помидор.\nЗаяц просит: "А можно мне тоже?", на что лиса отвечает "Нет, но в той стороне медведь раздаёт помидоры.".\nЗаяц поскакал куда лиса указала, а чтобы не забыть, всю дорогу говорил "помидор". Вдруг, он упал и забыл это слово.\n"Как там было..." - подумал заяц, и вспомнил: "А, точно, поморда!"\nЗаяц допрыгивает до того места, и спрашивает медведя: "Медведь, а можно мне поморда?".\nНу и медведь шарахнул битой ему по физиономии.',
+                                      'В этот раз мне одноклассник подсказал что добавить. Идёт как-то медведь по лесу и видит как горит дом. Он зашёл туда и сгорел.',
                                       style: TextStyle(
                                         color: theme.onBubbleColor,
                                         fontSize: AppConfig.messageFontSize *
