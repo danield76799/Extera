@@ -15,7 +15,6 @@ import 'package:extera_next/pages/chat/chat_app_bar_title.dart';
 import 'package:extera_next/pages/chat/chat_event_list.dart';
 import 'package:extera_next/pages/chat/encryption_button.dart';
 import 'package:extera_next/pages/chat/pinned_events.dart';
-import 'package:extera_next/pages/chat/reactions_picker.dart';
 import 'package:extera_next/pages/chat/reply_display.dart';
 import 'package:extera_next/utils/account_config.dart';
 import 'package:extera_next/utils/localized_exception_extension.dart';

@@ -10,7 +10,6 @@ import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 import 'package:mime/mime.dart';
 
-import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/utils/localized_exception_extension.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/matrix_file_extension.dart';
 import 'package:extera_next/utils/other_party_can_receive.dart';

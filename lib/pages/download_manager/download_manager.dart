@@ -27,33 +27,33 @@ class Download {
     try {
       final mx = Matrix.of(context).client;
       // final directory = await getDownloadsDirectory();
-      downloadPath =
-          "/sdcard/Download/Extera";
+      downloadPath = "/sdcard/Download/Extera";
 
       httpUrl = (await Uri.parse(url).getDownloadUri(mx)).toString();
 
       if (downloadPath != null) {
         // Create Dio instance
         final dio = Dio();
-        
+
         ct = CancelToken();
 
         // Download the file
-        response = dio.download(
-          httpUrl,
-          "$downloadPath/$name",
-          onReceiveProgress: (received, total) {
-            receivedBytes = received;
-            totalBytes = total;
-            progress = (receivedBytes / totalBytes) * 100;
-            print("Download progress: $progress%");
-          },
-          options: Options(
-              responseType: ResponseType.bytes,
-              headers: {'authorization': "Bearer ${mx.accessToken}"}
-              ),
-            cancelToken: ct
-        );
+        response = dio.download(httpUrl, "$downloadPath/$name",
+            onReceiveProgress: (received, total) {
+          receivedBytes = received;
+          totalBytes = total;
+          progress = (receivedBytes / totalBytes) * 100;
+          if (progress == 100) {
+            Provider.of<DownloadManagerController>(context)
+                .downloads
+                .remove(this);
+          }
+          print("Download progress: $progress%");
+        },
+            options: Options(
+                responseType: ResponseType.bytes,
+                headers: {'authorization': "Bearer ${mx.accessToken}"}),
+            cancelToken: ct);
         print("Download completed and saved to $downloadPath/$name");
       }
     } catch (e) {
@@ -63,6 +63,7 @@ class Download {
 
   void cancel() async {
     ct.cancel();
+    Provider.of<DownloadManagerController>(context).downloads.remove(this);
   }
 }
 

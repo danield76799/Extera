@@ -3,6 +3,10 @@
 	"@@last_modified": "2021-08-14 12:41:09.903021",
 	"noSendPermission": "Вы не можете отправлять сообщения",
 	"@noSendPermission": {},
+  "noMessagesYet": "Нет сообщений",
+  "longPressToRecordVoiceMessage": "Зажмите, чтобы записать голосовое сообщение.",
+  "pause": "Пауза",
+  "resume": "Продолжить",
 	"alwaysUse24HourFormat": "нет",
 	"@alwaysUse24HourFormat": {
 		"description": "Set to true to always display time of day in 24 hour format."

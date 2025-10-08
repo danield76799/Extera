@@ -372,14 +372,14 @@ class InputBar extends StatelessWidget {
     if (suggestion['type'] == 'user') {
       insertText = '${suggestion['mention']!} ';
       startText = replaceText.replaceAllMapped(
-        RegExp(r'(\s|^)(@[-\w]+)$'),
-        (Match m) => '${m[1]}$insertText',
+        RegExp(r'(?:\s|^)@([^ \[\]]+)$', unicode: true),
+        (Match m) => '$insertText',
       );
     }
     if (suggestion['type'] == 'room') {
       insertText = '${suggestion['mxid']!} ';
       startText = replaceText.replaceAllMapped(
-        RegExp(r'(\s|^)(#[-\w]+)$'),
+        RegExp(r'(\s|^)(#[-\w]+)$', unicode: true),
         (Match m) => '${m[1]}$insertText',
       );
     }

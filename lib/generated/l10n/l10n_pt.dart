@@ -12,6 +12,19 @@ class L10nPt extends L10n {
   String get noSendPermission => 'You can\'t send messages here';
 
   @override
+  String get noMessagesYet => 'No messages yet';
+
+  @override
+  String get longPressToRecordVoiceMessage =>
+      'Long press to record voice message.';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String get resume => 'Resume';
+
+  @override
   String get alwaysUse24HourFormat => 'false';
 
   @override

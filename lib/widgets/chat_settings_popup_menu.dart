@@ -10,7 +10,7 @@ import 'package:extera_next/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog
 import 'package:extera_next/widgets/future_loading_dialog.dart';
 import 'matrix.dart';
 
-enum ChatPopupMenuActions { details, mute, unmute, leave, search }
+enum ChatPopupMenuActions { details, mute, unmute, emote, leave, search }
 
 class ChatSettingsPopupMenu extends StatefulWidget {
   final Room room;
@@ -29,6 +29,17 @@ class ChatSettingsPopupMenuState extends State<ChatSettingsPopupMenu> {
   void dispose() {
     notificationChangeSub?.cancel();
     super.dispose();
+  }
+
+  void goToEmoteSettings() async {
+    final room = widget.room;
+    if ((room.states['im.ponies.room_emotes'] ?? <String, Event>{})
+        .keys
+        .any((String s) => s.isNotEmpty)) {
+      context.push('/rooms/${room.id}/details/multiple_emotes');
+    } else {
+      context.push('/rooms/${room.id}/details/emotes');
+    }
   }
 
   @override
@@ -72,6 +83,9 @@ class ChatSettingsPopupMenuState extends State<ChatSettingsPopupMenu> {
                     context.go('/rooms');
                   }
                 }
+                break;
+              case ChatPopupMenuActions.emote:
+                goToEmoteSettings();
                 break;
               case ChatPopupMenuActions.mute:
                 await showFutureLoadingDialog(

@@ -199,6 +199,30 @@ abstract class L10n {
   /// **'You can\'t send messages here'**
   String get noSendPermission;
 
+  /// No description provided for @noMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get noMessagesYet;
+
+  /// No description provided for @longPressToRecordVoiceMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Long press to record voice message.'**
+  String get longPressToRecordVoiceMessage;
+
+  /// No description provided for @pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pause;
+
+  /// No description provided for @resume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get resume;
+
   /// Set to true to always display time of day in 24 hour format.
   ///
   /// In en, this message translates to:

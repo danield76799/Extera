@@ -12,6 +12,19 @@ class L10nRu extends L10n {
   String get noSendPermission => 'Вы не можете отправлять сообщения';
 
   @override
+  String get noMessagesYet => 'Нет сообщений';
+
+  @override
+  String get longPressToRecordVoiceMessage =>
+      'Зажмите, чтобы записать голосовое сообщение.';
+
+  @override
+  String get pause => 'Пауза';
+
+  @override
+  String get resume => 'Продолжить';
+
+  @override
   String get alwaysUse24HourFormat => 'нет';
 
   @override

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:extera_next/pages/chat/recovered_event_dialog.dart';
 import 'package:extera_next/pages/chat/translated_event_dialog.dart';
-import 'package:extera_next/utils/file_description.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/synapse_admin_extension.dart';
 import 'package:extera_next/utils/translator.dart';
 import 'package:flutter/foundation.dart';
@@ -18,7 +17,6 @@ import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:matrix/matrix.dart';
-import 'package:record/record.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_html/html.dart' as html;
@@ -28,7 +26,6 @@ import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/config/themes.dart';
 import 'package:extera_next/pages/chat/chat_view.dart';
 import 'package:extera_next/pages/chat/event_info_dialog.dart';
-import 'package:extera_next/pages/chat/recording_dialog.dart';
 import 'package:extera_next/pages/chat_details/chat_details.dart';
 import 'package:extera_next/utils/error_reporter.dart';
 import 'package:extera_next/utils/file_selector.dart';
@@ -619,45 +616,39 @@ class ChatController extends State<ChatPageWithRoom>
     );
   }
 
-  void voiceMessageAction() async {
+  Future<void> onVoiceMessageSend(
+    String path,
+    int duration,
+    List<int> waveform,
+    String? fileName,
+  ) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    if (PlatformInfos.isAndroid) {
-      final info = await DeviceInfoPlugin().androidInfo;
-      if (info.version.sdkInt < 19) {
-        showOkAlertDialog(
-          context: context,
-          title: L10n.of(context).unsupportedAndroidVersion,
-          message: L10n.of(context).unsupportedAndroidVersionLong,
-          okLabel: L10n.of(context).close,
-        );
-        return;
-      }
-    }
+    final audioFile = XFile(path);
 
-    if (await AudioRecorder().hasPermission() == false) return;
-    final result = await showDialog<RecordingResult>(
+    final bytesResult = await showFutureLoadingDialog(
       context: context,
-      barrierDismissible: false,
-      builder: (c) => const RecordingDialog(),
+      future: audioFile.readAsBytes,
     );
-    if (result == null) return;
-    final audioFile = XFile(result.path);
+    final bytes = bytesResult.result;
+    if (bytes == null) return;
+
     final file = MatrixAudioFile(
-      bytes: await audioFile.readAsBytes(),
-      name: result.fileName ?? audioFile.path,
+      bytes: bytes,
+      name: fileName ?? audioFile.path,
     );
+
     await room.sendFileEvent(
       file,
       inReplyTo: replyEvent,
       extraContent: {
         'info': {
           ...file.info,
-          'duration': result.duration,
+          'duration': duration,
         },
         'org.matrix.msc3245.voice': {},
         'org.matrix.msc1767.audio': {
-          'duration': result.duration,
-          'waveform': result.waveform,
+          'duration': duration,
+          'waveform': waveform,
         },
       },
     ).catchError((e) {
@@ -737,8 +728,11 @@ class ChatController extends State<ChatPageWithRoom>
       return;
     }
     final event = selectedEvents.single;
-    await mx.client.reportEvent(roomId, event.eventId,
-        reason: "Extera (Next) Redacted Event Recover");
+    await mx.client.reportEvent(
+      roomId,
+      event.eventId,
+      reason: "Extera (Next) Redacted Event Recover",
+    );
 
     final reports = await mx.client.getEventReports();
     final report = reports.firstWhere(
@@ -753,11 +747,14 @@ class ChatController extends State<ChatPageWithRoom>
     }
 
     Navigator.of(context).push(new MaterialPageRoute(
-        builder: (BuildContext ctx) {
-          return RecoveredEventDialog(
-              event: recoveredEvent!, timeline: timeline!);
-        },
-        fullscreenDialog: true));
+      builder: (BuildContext ctx) {
+        return RecoveredEventDialog(
+          event: recoveredEvent,
+          timeline: timeline!,
+        );
+      },
+      fullscreenDialog: true,
+    ));
   }
 
   void translateEventAction() async {
@@ -769,12 +766,6 @@ class ChatController extends State<ChatPageWithRoom>
     }
     final event = selectedEvents.single;
     var text = event.isRichMessage ? event.formattedText : event.text;
-    if (text == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(L10n.of(context).errorTranslatingMessage)),
-      );
-      return;
-    }
     var content = {...event.content};
     try {
       text = await Translator.translate(

@@ -1,6 +1,5 @@
 import 'package:extera_next/config/themes.dart';
 import 'package:extera_next/pages/chat/events/message.dart';
-import 'package:extera_next/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 

@@ -207,8 +207,9 @@ class ChatDetailsView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Divider(color: theme.dividerColor),
-                        if (!room.canChangeStateEvent(EventTypes.RoomTopic))
+                        if (room.canChangeStateEvent(EventTypes.RoomTopic) ||
+                            room.topic.isNotEmpty) ...[
+                          Divider(color: theme.dividerColor),
                           ListTile(
                             title: Text(
                               L10n.of(context).chatDescription,
@@ -217,53 +218,46 @@ class ChatDetailsView extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          )
-                        else
+                            trailing:
+                                room.canChangeStateEvent(EventTypes.RoomTopic)
+                                    ? IconButton(
+                                        onPressed: controller.setTopicAction,
+                                        tooltip:
+                                            L10n.of(context).setChatDescription,
+                                        icon: const Icon(Icons.edit_outlined),
+                                      )
+                                    : null,
+                          ),
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: TextButton.icon(
-                              onPressed: controller.setTopicAction,
-                              label: Text(L10n.of(context).setChatDescription),
-                              icon: const Icon(Icons.edit_outlined),
-                              style: TextButton.styleFrom(
-                                iconColor:
-                                    theme.colorScheme.onSecondaryContainer,
-                                backgroundColor:
-                                    theme.colorScheme.secondaryContainer,
-                                foregroundColor:
-                                    theme.colorScheme.onSecondaryContainer,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: SelectableLinkify(
+                              text: room.topic.isEmpty
+                                  ? L10n.of(context).noChatDescriptionYet
+                                  : room.topic,
+                              textScaleFactor:
+                                  MediaQuery.textScalerOf(context).scale(1),
+                              options: const LinkifyOptions(humanize: false),
+                              linkStyle: const TextStyle(
+                                color: Colors.blueAccent,
+                                decorationColor: Colors.blueAccent,
                               ),
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontStyle: room.topic.isEmpty
+                                    ? FontStyle.italic
+                                    : FontStyle.normal,
+                                color: theme.textTheme.bodyMedium!.color,
+                                decorationColor:
+                                    theme.textTheme.bodyMedium!.color,
+                              ),
+                              onOpen: (url) =>
+                                  UrlLauncher(context, url.url).launchUrl(),
                             ),
                           ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                          ),
-                          child: SelectableLinkify(
-                            text: room.topic.isEmpty
-                                ? L10n.of(context).noChatDescriptionYet
-                                : room.topic,
-                            textScaleFactor:
-                                MediaQuery.textScalerOf(context).scale(1),
-                            options: const LinkifyOptions(humanize: false),
-                            linkStyle: const TextStyle(
-                              color: Colors.blueAccent,
-                              decorationColor: Colors.blueAccent,
-                            ),
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontStyle: room.topic.isEmpty
-                                  ? FontStyle.italic
-                                  : FontStyle.normal,
-                              color: theme.textTheme.bodyMedium!.color,
-                              decorationColor:
-                                  theme.textTheme.bodyMedium!.color,
-                            ),
-                            onOpen: (url) =>
-                                UrlLauncher(context, url.url).launchUrl(),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 16),
+                        ],
                         Divider(color: theme.dividerColor),
                         ListTile(
                           leading: CircleAvatar(

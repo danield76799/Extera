@@ -2,6 +2,10 @@
   "@@locale": "en",
   "@@last_modified": "2025-06-05 12:38:37.885451",
   "noSendPermission": "You can't send messages here",
+  "noMessagesYet": "No messages yet",
+  "longPressToRecordVoiceMessage": "Long press to record voice message.",
+  "pause": "Pause",
+  "resume": "Resume",
   "@noSendPermission": {},
   "alwaysUse24HourFormat": "false",
   "@alwaysUse24HourFormat": {
