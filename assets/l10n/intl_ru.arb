@@ -30,6 +30,7 @@
   "pleaseEnterQuestion": "Введите вопрос",
   "atLeastTwoAnswersRequired": "Требуется хотя бы 2 ответа",
   "maxSelections": "Количество ответов",
+  "endPoll": "Завершить опрос",
   "createPoll": "Создать опрос",
 	"alwaysUse24HourFormat": "нет",
 	"@alwaysUse24HourFormat": {

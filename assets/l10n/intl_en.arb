@@ -6,6 +6,7 @@
   "longPressToRecordVoiceMessage": "Long press to record voice message.",
   "pause": "Pause",
   "resume": "Resume",
+  "endPoll": "End poll",
   "anonymousPoll": "Anonymous",
   "publicPoll": "Public",
   "endedPoll": "Ended",

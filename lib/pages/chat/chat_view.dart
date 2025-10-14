@@ -27,7 +27,7 @@ import '../../utils/stream_extension.dart';
 import 'chat_emoji_picker.dart';
 import 'chat_input_row.dart';
 
-enum _EventContextAction { info, recover, translate, report }
+enum _EventContextAction { info, recover, translate, report, endPoll }
 
 class ChatView extends StatelessWidget {
   final ChatController controller;
@@ -92,6 +92,9 @@ class ChatView extends StatelessWidget {
                 case _EventContextAction.translate:
                   controller.translateEventAction();
                   break;
+                case _EventContextAction.endPoll:
+                  controller.endPollAction();
+                  break;
               }
             },
             itemBuilder: (context) => [
@@ -114,6 +117,21 @@ class ChatView extends StatelessWidget {
                     const SizedBox(width: 12),
                     Text(L10n.of(context).recoverMessage),
                   ]),
+                ),
+              if (controller.selectedEvents.single.type == 'org.matrix.msc3381.poll.start' && controller.selectedEvents.single.senderId == Matrix.of(context).client.userID)
+
+                PopupMenuItem(
+                  value: _EventContextAction.endPoll,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.check,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(L10n.of(context).endPoll),
+                    ],
+                  ),
                 ),
               if (controller.selectedEvents.single.status.isSent)
                 PopupMenuItem(

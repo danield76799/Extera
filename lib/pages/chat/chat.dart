@@ -551,8 +551,7 @@ class ChatController extends State<ChatPageWithRoom>
   void sendPollAction() async {
     await showAdaptiveDialog(
         context: context,
-        builder: (c) => SendPollDialog(room: room, outerContext: context)
-    );
+        builder: (c) => SendPollDialog(room: room, outerContext: context));
     replyEvent = null;
   }
 
@@ -870,6 +869,22 @@ class ChatController extends State<ChatPageWithRoom>
         'Error while delete error events action',
       ).onErrorCallback(e, s);
     }
+  }
+
+  void endPollAction() async {
+    final event = selectedEvents.first;
+    if (event == null) return;
+    final client = currentRoomBundle.firstWhere(
+      (cl) => selectedEvents.first.senderId == cl!.userID,
+      orElse: () => null,
+    );
+    if (client == null) return;
+    if (event.senderId != client!.userID) return;
+    await room.sendEvent({
+      'org.matrix.msc1767.text': 'Ended poll',
+      'm.relates_to': {'rel_type': 'm.reference', 'event_id': event.eventId},
+      'body': 'Ended poll'
+    }, type: 'org.matrix.msc3381.poll.end');
   }
 
   void redactEventsAction() async {
