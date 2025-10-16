@@ -25,6 +25,9 @@ class L10nDe extends L10n {
   String get resume => 'Resume';
 
   @override
+  String get endPoll => 'End poll';
+
+  @override
   String get anonymousPoll => 'Anonymous';
 
   @override

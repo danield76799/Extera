@@ -1,5 +1,6 @@
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/utils/poll_events.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
 
@@ -29,6 +30,7 @@ class PollWidgetState extends State<PollWidget> {
   Map<String, int>? pollResults;
   bool hasVoted = false;
   bool isLoading = false;
+  bool hasEnded = false;
 
   @override
   void initState() {
@@ -38,8 +40,7 @@ class PollWidgetState extends State<PollWidget> {
 
   void _loadPollData() {
     final event = widget.event;
-    final content =
-        event.content[PollEvents.PollStart] as Map<String, dynamic>;
+    final content = event.content[PollEvents.PollStart] as Map<String, dynamic>;
 
     // Check if user has already voted
     _checkExistingVote();
@@ -51,47 +52,49 @@ class PollWidgetState extends State<PollWidget> {
     }
   }
 
-  void _checkExistingVote() {
+  void _checkExistingVote() async {
     final room = widget.event.room;
     final currentUserId = room.client.userID;
 
-    
+    final rel = await Matrix.of(context)
+        .client
+        .getRelatingEventsWithRelTypeAndEventType(room.id, widget.event.eventId,
+            "m.reference", "org.matrix.msc3381.poll.response");
 
-    // Find existing poll response events from current user
-    final responses = widget.timeline!.events.where((e) {
-      return e.type == 'org.matrix.msc3381.poll.response' &&
-          e.senderId == currentUserId &&
-          e.relationshipEventId == widget.event.eventId;
-    }).toList();
+    // Get all poll response events for this poll
+    final responses = rel.chunk;
 
     if (responses.isNotEmpty) {
       // Use the latest response
-      final latestResponse = responses.last;
-      final responseContent = latestResponse
-          .content['org.matrix.msc3381.poll.response'] as Map<String, dynamic>;
-      if (responseContent != null) {
-        final List<dynamic> answers = responseContent['answers'];
-        setState(() {
-          selectedAnswers = answers.cast<String>();
-          originalVote = List.from(answers.cast<String>()); // Store original vote
-          hasVoted = true;
-        });
+      for (final response in responses) {
+        final responseContent =
+            response.content['org.matrix.msc3381.poll.response']
+                as Map<String, dynamic>;
+        if (responseContent != null && response.senderId == currentUserId) {
+          final List<dynamic> answers = responseContent['answers'];
+          setState(() {
+            selectedAnswers = answers.cast<String>();
+            originalVote =
+                List.from(answers.cast<String>()); // Store original vote
+            hasVoted = true;
+          });
+        }
       }
     }
   }
 
-  void _calculateResults() {
+  void _calculateResults() async {
     final room = widget.event.room;
     final pollEventId = widget.event.eventId;
     final results = <String, int>{};
 
-    
+    final rel = await Matrix.of(context)
+        .client
+        .getRelatingEventsWithRelTypeAndEventType(room.id, pollEventId,
+            "m.reference", "org.matrix.msc3381.poll.response");
 
     // Get all poll response events for this poll
-    final responses = widget.timeline!.events.where((e) {
-      return e.type == 'org.matrix.msc3381.poll.response' &&
-          e.relationshipEventId == pollEventId;
-    }).toList();
+    final responses = rel.chunk;
 
     // Count votes for each answer
     for (final response in responses) {
@@ -121,18 +124,15 @@ class PollWidgetState extends State<PollWidget> {
       final room = widget.event.room;
 
       // Send poll response event
-      await room.sendEvent(
-        {
-          'm.relates_to': {
-            'rel_type': 'm.reference',
-            'event_id': widget.event.eventId,
-          },
-          'org.matrix.msc3381.poll.response': {
-            'answers': answers,
-          },
+      await room.sendEvent({
+        'm.relates_to': {
+          'rel_type': 'm.reference',
+          'event_id': widget.event.eventId,
         },
-        type: 'org.matrix.msc3381.poll.response'
-      );
+        'org.matrix.msc3381.poll.response': {
+          'answers': answers,
+        },
+      }, type: 'org.matrix.msc3381.poll.response');
 
       setState(() {
         selectedAnswers = answers;
@@ -206,30 +206,35 @@ class PollWidgetState extends State<PollWidget> {
     final isDisclosed = kind == 'org.matrix.msc3381.disclosed';
     final isEnded = _isPollEnded();
 
-    return isDisclosed || isEnded || hasVoted;
+    return isDisclosed ? (isEnded || hasVoted) : isEnded;
   }
 
   double _getAnswerPercentage(String answerId) {
     if (pollResults == null || pollResults!.isEmpty) return 0.0;
-
     final totalVotes = pollResults!.values.reduce((a, b) => a + b);
     if (totalVotes == 0) return 0.0;
 
-    return pollResults![answerId]?.toDouble() ?? 0 / totalVotes.toDouble();
+    // if (_shouldShowResults()) {
+    //   Logs().w("Get answer percentage for $answerId");
+    //   Logs().w(pollResults.toString());
+    //   Logs().w("${pollResults![answerId]?.toDouble() ?? 0} / $totalVotes");
+    // }
+
+    return (pollResults![answerId]?.toDouble() ?? 0) / totalVotes.toDouble();
   }
 
   // Check if the current selection is different from the original vote
   bool _hasSelectionChanged() {
     if (selectedAnswers.length != originalVote.length) return true;
-    
+
     // Sort both lists to compare regardless of order
     final sortedSelected = List.from(selectedAnswers)..sort();
     final sortedOriginal = List.from(originalVote)..sort();
-    
+
     for (int i = 0; i < sortedSelected.length; i++) {
       if (sortedSelected[i] != sortedOriginal[i]) return true;
     }
-    
+
     return false;
   }
 
@@ -364,7 +369,9 @@ class PollWidgetState extends State<PollWidget> {
                             height: 16,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : Text(hasVoted ? L10n.of(context).changeVote : L10n.of(context).vote),
+                        : Text(hasVoted
+                            ? L10n.of(context).changeVote
+                            : L10n.of(context).vote),
                   ),
 
               const Spacer(),
@@ -386,7 +393,8 @@ class PollWidgetState extends State<PollWidget> {
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Text(
-                L10n.of(context).choicesSelected(selectedAnswers.length, maxSelections),
+                L10n.of(context)
+                    .choicesSelected(selectedAnswers.length, maxSelections),
                 style: TextStyle(
                   fontSize: widget.fontSize - 2,
                   color: widget.color.withOpacity(0.6),

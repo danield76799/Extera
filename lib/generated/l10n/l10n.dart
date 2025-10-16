@@ -223,6 +223,12 @@ abstract class L10n {
   /// **'Resume'**
   String get resume;
 
+  /// No description provided for @endPoll.
+  ///
+  /// In en, this message translates to:
+  /// **'End poll'**
+  String get endPoll;
+
   /// No description provided for @anonymousPoll.
   ///
   /// In en, this message translates to:

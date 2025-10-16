@@ -25,6 +25,9 @@ class L10nRu extends L10n {
   String get resume => 'Продолжить';
 
   @override
+  String get endPoll => 'Завершить опрос';
+
+  @override
   String get anonymousPoll => 'Анонимный';
 
   @override
