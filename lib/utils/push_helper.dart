@@ -1,10 +1,10 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:collection/collection.dart';
-import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_shortcuts_new/flutter_shortcuts_new.dart';
 import 'package:matrix/matrix.dart';
@@ -14,7 +14,11 @@ import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/utils/client_download_content_extension.dart';
 import 'package:extera_next/utils/client_manager.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/matrix_locals.dart';
+import 'package:extera_next/utils/notification_background_handler.dart';
 import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
+
+const notificationAvatarDimension = 128;
 
 Future<void> pushHelper(
   PushNotification notification, {
@@ -32,9 +36,9 @@ Future<void> pushHelper(
       flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
     );
   } catch (e, s) {
-    Logs().v('Push Helper has crashed!', e, s);
+    Logs().e('Push Helper has crashed! Writing into temporary file', e, s);
 
-    l10n ??= await lookupL10n(const Locale('en'));
+    l10n ??= await lookupL10n(PlatformDispatcher.instance.locale);
     flutterLocalNotificationsPlugin.show(
       notification.roomId?.hashCode ?? 0,
       l10n.newMessageInFluffyChat,
@@ -86,7 +90,7 @@ Future<void> _tryPushHelper(
       .first;
   final event = await client.getEventByPushNotification(
     notification,
-    storeInDatabase: isBackgroundMessage,
+    storeInDatabase: false,
   );
 
   if (event == null) {
@@ -163,11 +167,12 @@ Future<void> _tryPushHelper(
         : await client
             .downloadMxcCached(
               avatar,
-              thumbnailMethod: ThumbnailMethod.scale,
-              width: 256,
-              height: 256,
+              thumbnailMethod: ThumbnailMethod.crop,
+              width: notificationAvatarDimension,
+              height: notificationAvatarDimension,
               animated: false,
               isThumbnail: true,
+              rounded: true,
             )
             .timeout(const Duration(seconds: 3));
   } catch (e, s) {
@@ -181,11 +186,12 @@ Future<void> _tryPushHelper(
             : await client
                 .downloadMxcCached(
                   senderAvatar,
-                  thumbnailMethod: ThumbnailMethod.scale,
-                  width: 256,
-                  height: 256,
+                  thumbnailMethod: ThumbnailMethod.crop,
+                  width: notificationAvatarDimension,
+                  height: notificationAvatarDimension,
                   animated: false,
                   isThumbnail: true,
+                  rounded: true,
                 )
                 .timeout(const Duration(seconds: 3));
   } catch (e, s) {
@@ -247,13 +253,6 @@ Future<void> _tryPushHelper(
     number: notification.counts?.unread,
     category: AndroidNotificationCategory.message,
     shortcutId: event.room.id,
-    actions: [
-      AndroidNotificationAction("read", l10n.markAsRead),
-      AndroidNotificationAction("reply",
-          l10n.reply, inputs: [
-        AndroidNotificationActionInput(label: l10n.writeAMessage)
-      ])
-    ],
     styleInformation: messagingStyleInformation ??
         MessagingStyleInformation(
           Person(
@@ -279,6 +278,25 @@ Future<void> _tryPushHelper(
     importance: Importance.high,
     priority: Priority.max,
     groupKey: event.room.spaceParents.firstOrNull?.roomId ?? 'rooms',
+    actions: <AndroidNotificationAction>[
+      AndroidNotificationAction(
+        FluffyChatNotificationActions.reply.name,
+        l10n.reply,
+        inputs: [
+          AndroidNotificationActionInput(
+            label: l10n.writeAMessage,
+          ),
+        ],
+        cancelNotification: false,
+        allowGeneratedReplies: true,
+        semanticAction: SemanticAction.reply,
+      ),
+      AndroidNotificationAction(
+        FluffyChatNotificationActions.markAsRead.name,
+        l10n.markAsRead,
+        semanticAction: SemanticAction.markAsRead,
+      ),
+    ],
   );
   const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
   final platformChannelSpecifics = NotificationDetails(
@@ -297,9 +315,28 @@ Future<void> _tryPushHelper(
     title,
     body,
     platformChannelSpecifics,
-    payload: '${event.roomId} ${event.eventId}',
+    payload:
+        NotificationPushPayload(client.clientName, event.room.id, event.eventId)
+            .toString(),
   );
   Logs().v('Push helper has been completed!');
+}
+
+class NotificationPushPayload {
+  final String? clientName, roomId, eventId;
+
+  NotificationPushPayload(this.clientName, this.roomId, this.eventId);
+
+  factory NotificationPushPayload.fromString(String payload) {
+    final parts = payload.split('|');
+    if (parts.length != 3) {
+      return NotificationPushPayload(null, null, null);
+    }
+    return NotificationPushPayload(parts[0], parts[1], parts[2]);
+  }
+
+  @override
+  String toString() => '$clientName|$roomId|$eventId';
 }
 
 /// Creates a shortcut for Android platform but does not block displaying the
@@ -319,9 +356,7 @@ Future<void> _setShortcut(
       action: AppConfig.inviteLinkPrefix + event.room.id,
       shortLabel: title,
       conversationShortcut: true,
-      icon: avatarFile == null
-          ? null
-          : ShortcutMemoryIcon(jpegImage: avatarFile).toString(),
+      icon: avatarFile == null ? null : base64Encode(avatarFile),
       shortcutIconAsset: avatarFile == null
           ? ShortcutIconAsset.androidAsset
           : ShortcutIconAsset.memoryAsset,
