@@ -29,9 +29,9 @@ class CustomHttpClient {
     // Use Nekoray mixed proxy
     // Made it for myself, remove later
     final httpClient = HttpClient(context: context);
-    httpClient.findProxy = (uri) {
-      return 'PROXY localhost:2080;';
-    };
+    // httpClient.findProxy = (uri) {
+    //   return 'PROXY localhost:2080;';
+    // };
 
     return httpClient;
   }
