@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:extera_next/utils/adaptive_bottom_sheet.dart';
 import 'package:extera_next/utils/poll_events.dart';
-import 'package:extera_next/widgets/mxc_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -733,7 +732,8 @@ class Message extends StatelessWidget {
                                               const SizedBox(width: 6),
                                               thread!.lastEvent != null
                                                   ? Text(
-                                                      thread!.lastEvent!.text)
+                                                      thread!.lastEvent!.text,
+                                                    )
                                                   : const Text('Thread'),
                                             ],
                                           ),

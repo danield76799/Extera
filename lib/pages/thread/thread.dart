@@ -3,6 +3,7 @@ import 'package:extera_next/pages/chat/chat.dart';
 import 'package:extera_next/widgets/matrix.dart';
 import 'package:extera_next/widgets/share_scaffold_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix/matrix.dart';
 
 class ThreadPage extends StatelessWidget {
   final String roomId;

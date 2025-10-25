@@ -283,6 +283,12 @@ abstract class L10n {
   /// **'{selected} of {max} selected'**
   String choicesSelected(int selected, int max);
 
+  /// No description provided for @discuss.
+  ///
+  /// In en, this message translates to:
+  /// **'Discuss'**
+  String get discuss;
+
   /// No description provided for @pollType.
   ///
   /// In en, this message translates to:

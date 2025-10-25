@@ -16,6 +16,7 @@
   "vote": "Голосовать",
   "changeVote": "Изменить ответ",
   "choicesSelected": "Выбрано {selected} из {max}",
+  "discuss": "Обсудить",
   "@choicesSelected": {
     "type": "String",
     "placeholders": {

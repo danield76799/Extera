@@ -16,6 +16,7 @@
   "vote": "Vote",
   "changeVote": "Re-vote",
   "choicesSelected": "{selected} of {max} selected",
+  "discuss": "Discuss",
   "@choicesSelected": {
     "type": "String",
     "placeholders": {

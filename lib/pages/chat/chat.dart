@@ -948,6 +948,22 @@ class ChatController extends State<ChatPageWithRoom>
     }
   }
 
+  void discussAction() async {
+    final event = selectedEvents.first;
+    if (!room.threads.containsKey(event.eventId)) {
+      room.threads[event.eventId] = Thread(
+        room: room,
+        rootEvent: event,
+        client: room.client,
+        currentUserParticipated: false,
+        count: 0,
+      );
+    }
+
+    context.go('/rooms/$roomId/${event.eventId}');
+    selectedEvents.clear();
+  }
+
   void endPollAction() async {
     final event = selectedEvents.first;
     final client = currentRoomBundle.firstWhere(

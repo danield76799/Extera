@@ -57,6 +57,9 @@ class L10nRu extends L10n {
   }
 
   @override
+  String get discuss => 'Обсудить';
+
+  @override
   String get pollType => 'Тип опроса';
 
   @override
