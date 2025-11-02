@@ -6,12 +6,12 @@ import 'package:matrix/matrix.dart' as matrix;
 extension SynapseAdmin on matrix.Client {
   Future<List<dynamic>> getEventReports({int from = 0, int limit = 10}) async {
     final requestUri = Uri(
-        path: '/_synapse/admin/v1/event_reports',
-        query: 'from=$from&limit=$limit&order_by=received_ts&dir=b'
-	);
+      path: '/_synapse/admin/v1/event_reports',
+      query: 'from=$from&limit=$limit&order_by=received_ts&dir=b',
+    );
 
     if (baseUri == null) return [];
-    print(baseUri!.resolveUri(requestUri).toString());
+
     final request = Request('GET', baseUri!.resolveUri(requestUri));
     request.headers['authorization'] = 'Bearer $accessToken';
     final response = await httpClient.send(request);
@@ -40,14 +40,13 @@ extension SynapseAdmin on matrix.Client {
 
     if (room == null) return null;
 
-    print('Event content: ${jsonEncode(json['event_json'])}');
-
-    return new matrix.Event(
+    return matrix.Event(
       content: json['event_json']['content'],
       type: json['event_json']['type'],
       eventId: json['event_id'],
       senderId: json['sender'],
-      originServerTs: DateTime.fromMillisecondsSinceEpoch(json['event_json']['origin_server_ts']),
+      originServerTs: DateTime.fromMillisecondsSinceEpoch(
+          json['event_json']['origin_server_ts']),
       room: room,
     );
   }
