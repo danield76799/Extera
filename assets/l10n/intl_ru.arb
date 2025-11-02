@@ -16,6 +16,7 @@
   "vote": "Голосовать",
   "changeVote": "Изменить ответ",
   "choicesSelected": "Выбрано {selected} из {max}",
+  "discuss": "Обсудить",
   "@choicesSelected": {
     "type": "String",
     "placeholders": {
@@ -892,6 +893,9 @@
 	},
 	"chatPermissions": "Права в чате",
 	"@chatPermissions": {},
+  "chatThreads": "Обсуждения",
+  "@chatThreads": {},
+  "chatThreadsDescription": "Список всех обсуждений в этой комнате",
 	"editDisplayname": "Отображаемое имя",
 	"@editDisplayname": {
 		"type": "String",
@@ -936,7 +940,7 @@
 	"@globalChatId": {},
 	"accessAndVisibility": "Доступность и видимость",
 	"@accessAndVisibility": {},
-	"accessAndVisibilityDescription": "Кто может зайти и как найти этот чат.",
+	"accessAndVisibilityDescription": "Кто может зайти и как найти этот чат",
 	"@accessAndVisibilityDescription": {},
 	"calls": "Звонки",
 	"@calls": {},

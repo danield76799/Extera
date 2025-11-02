@@ -13,9 +13,11 @@ import 'package:extera_next/widgets/future_loading_dialog.dart';
 
 class SendLocationDialog extends StatefulWidget {
   final Room room;
+  final Thread? thread;
 
   const SendLocationDialog({
     required this.room,
+    required this.thread,
     super.key,
   });
 
@@ -85,7 +87,13 @@ class SendLocationDialogState extends State<SendLocationDialog> {
         'geo:${position!.latitude},${position!.longitude};u=${position!.accuracy}';
     await showFutureLoadingDialog(
       context: context,
-      future: () => widget.room.sendLocation(body, uri),
+      future: () {
+        if (widget.thread != null) {
+          return widget.thread!.sendLocation(body, uri);
+        } else {
+          return widget.room.sendLocation(body, uri);
+        }
+      },
     );
     Navigator.of(context, rootNavigator: false).pop();
   }

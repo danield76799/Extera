@@ -15,10 +15,12 @@ import 'package:extera_next/utils/platform_infos.dart';
 
 class ChatEventList extends StatelessWidget {
   final ChatController controller;
-
+  final bool showThreadRoots;
+  
   const ChatEventList({
     super.key,
     required this.controller,
+    this.showThreadRoots = false,
   });
 
   @override
@@ -37,8 +39,18 @@ class ChatEventList extends StatelessWidget {
 
     final horizontalPadding = FluffyThemes.isColumnMode(context) ? 8.0 : 0.0;
 	
-    final events = timeline.events.filterByVisibleInGui();
+    var events = timeline.events;
+
+    if (showThreadRoots) {
+      events = events.filterThreadRoots();
+    } else {
+      events = events.filterByThreaded(controller.thread != null);
+    }
+
+    events = events.filterByVisibleInGui();
+
     final animateInEventIndex = controller.animateInEventIndex;
+    final threads = controller.room.threads;
 
     // create a map of eventId --> index to greatly improve performance of
     // ListView's findChildIndexCallback
@@ -120,6 +132,10 @@ class ChatEventList extends StatelessWidget {
             final animateIn = animateInEventIndex != null &&
                 timeline.events.length > animateInEventIndex &&
                 event == timeline.events[animateInEventIndex];
+              
+            final thread = threads.containsKey(event.eventId)
+              ? threads[event.eventId]
+              : null;
 
             return AutoScrollTag(
               key: ValueKey(event.eventId),
@@ -128,6 +144,7 @@ class ChatEventList extends StatelessWidget {
               child: Message(
                 event,
                 animateIn: animateIn,
+                thread: thread,
                 resetAnimateIn: () {
                   controller.animateInEventIndex = null;
                 },

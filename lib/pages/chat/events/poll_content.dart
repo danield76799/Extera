@@ -58,8 +58,12 @@ class PollWidgetState extends State<PollWidget> {
 
     final rel = await Matrix.of(context)
         .client
-        .getRelatingEventsWithRelTypeAndEventType(room.id, widget.event.eventId,
-            "m.reference", "org.matrix.msc3381.poll.response");
+        .getRelatingEventsWithRelTypeAndEventType(
+          room.id,
+          widget.event.eventId,
+          "m.reference",
+          "org.matrix.msc3381.poll.response",
+        );
 
     // Get all poll response events for this poll
     final responses = rel.chunk;
@@ -90,8 +94,12 @@ class PollWidgetState extends State<PollWidget> {
 
     final rel = await Matrix.of(context)
         .client
-        .getRelatingEventsWithRelTypeAndEventType(room.id, pollEventId,
-            "m.reference", "org.matrix.msc3381.poll.response");
+        .getRelatingEventsWithRelTypeAndEventType(
+          room.id,
+          pollEventId,
+          "m.reference",
+          "org.matrix.msc3381.poll.response",
+        );
 
     // Get all poll response events for this poll
     final responses = rel.chunk;
@@ -124,15 +132,18 @@ class PollWidgetState extends State<PollWidget> {
       final room = widget.event.room;
 
       // Send poll response event
-      await room.sendEvent({
-        'm.relates_to': {
-          'rel_type': 'm.reference',
-          'event_id': widget.event.eventId,
+      await room.sendEvent(
+        {
+          'm.relates_to': {
+            'rel_type': 'm.reference',
+            'event_id': widget.event.eventId,
+          },
+          'org.matrix.msc3381.poll.response': {
+            'answers': answers,
+          },
         },
-        'org.matrix.msc3381.poll.response': {
-          'answers': answers,
-        },
-      }, type: 'org.matrix.msc3381.poll.response');
+        type: 'org.matrix.msc3381.poll.response',
+      );
 
       setState(() {
         selectedAnswers = answers;
@@ -369,9 +380,11 @@ class PollWidgetState extends State<PollWidget> {
                             height: 16,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : Text(hasVoted
-                            ? L10n.of(context).changeVote
-                            : L10n.of(context).vote),
+                        : Text(
+                            hasVoted
+                                ? L10n.of(context).changeVote
+                                : L10n.of(context).vote,
+                          ),
                   ),
 
               const Spacer(),

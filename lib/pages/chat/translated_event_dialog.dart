@@ -16,14 +16,13 @@ class TranslatedEventDialog extends StatefulWidget {
   });
 
   @override
-  TranslatedEventDialogState createState() =>
-      TranslatedEventDialogState(event, timeline);
+  TranslatedEventDialogState createState() => TranslatedEventDialogState();
 }
 
 class TranslatedEventDialogState extends State<TranslatedEventDialog> {
-  final Event event;
-  final Timeline timeline;
-  TranslatedEventDialogState(this.event, this.timeline);
+  Event get event => widget.event;
+  Timeline get timeline => widget.timeline;
+  TranslatedEventDialogState();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -33,35 +32,31 @@ class TranslatedEventDialogState extends State<TranslatedEventDialog> {
       theme.bubbleColor,
     ];
 
-	final message = Message(
-                        event,
-                        colors: colors,
-                        onInfoTab: (Event ev) => {},
-                        onMention: () => {},
-                        onSelect: (Event ev) => {},
-                        onSwipe: () => {},
-                        scrollToEventId: (String p0) => {},
-                        timeline: timeline,
-                        animateIn: false,
-                        displayReadMarker: false,
-                        highlightMarker: false,
-                        longPressSelect: false,
-                        selected: false,
-                        wallpaperMode: false,
-                        gradient: false
-                      );
+    final message = Message(
+      event,
+      colors: colors,
+      onInfoTab: (Event ev) => {},
+      onMention: () => {},
+      onSelect: (Event ev) => {},
+      onSwipe: () => {},
+      scrollToEventId: (String p0) => {},
+      timeline: timeline,
+      animateIn: false,
+      displayReadMarker: false,
+      highlightMarker: false,
+      longPressSelect: false,
+      selected: false,
+      wallpaperMode: false,
+      gradient: false,
+    );
 
     return Scaffold(
-		appBar: AppBar(
-			title: Text(L10n.of(context).translatedMessage)
-		),
-		body: Container(
-			child: Column(
-				children: [
-					message,
-				],
-			),
-		),
-	);
+      appBar: AppBar(title: Text(L10n.of(context).translatedMessage)),
+      body: Column(
+        children: [
+          message,
+        ],
+      ),
+    );
   }
 }

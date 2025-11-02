@@ -48,12 +48,20 @@ class ChatView extends StatelessWidget {
           tooltip: L10n.of(context).copy,
           onPressed: controller.copyEventsAction,
         ),
-        if (controller.selectedEvents.length == 1 && controller.selectedEvents.single.content['xyz.extera.translated'] == null)
-        IconButton(
-          icon: const Icon(Icons.translate_outlined),
-          tooltip: L10n.of(context).translateMessage,
-          onPressed: controller.translateEventAction,
-        ),
+        if (controller.selectedEvents.length == 1)
+          IconButton(
+            onPressed: controller.discussAction,
+            icon: const Icon(Icons.chat_bubble_outline),
+            tooltip: L10n.of(context).discuss,
+          ),
+        if (controller.selectedEvents.length == 1 &&
+            controller.selectedEvents.single.content['xyz.extera.translated'] ==
+                null)
+          IconButton(
+            icon: const Icon(Icons.translate_outlined),
+            tooltip: L10n.of(context).translateMessage,
+            onPressed: controller.translateEventAction,
+          ),
         if (controller.canSaveSelectedEvent)
           // Use builder context to correctly position the share dialog on iPad
           Builder(
@@ -118,8 +126,10 @@ class ChatView extends StatelessWidget {
                     Text(L10n.of(context).recoverMessage),
                   ]),
                 ),
-              if (controller.selectedEvents.single.type == 'org.matrix.msc3381.poll.start' && controller.selectedEvents.single.senderId == Matrix.of(context).client.userID)
-
+              if (controller.selectedEvents.single.type ==
+                      'org.matrix.msc3381.poll.start' &&
+                  controller.selectedEvents.single.senderId ==
+                      Matrix.of(context).client.userID)
                 PopupMenuItem(
                   value: _EventContextAction.endPoll,
                   child: Row(
@@ -318,7 +328,10 @@ class ChatView extends StatelessWidget {
                           Expanded(
                             child: GestureDetector(
                               onTap: controller.clearSingleSelectedEvent,
-                              child: ChatEventList(controller: controller),
+                              child: ChatEventList(
+                                controller: controller,
+                                showThreadRoots: controller.showThreadRoots,
+                              ),
                             ),
                           ),
                           if (controller.showScrollDownButton)
@@ -337,7 +350,8 @@ class ChatView extends StatelessWidget {
                               ),
                             )
                           else if (controller.room.canSendDefaultMessages &&
-                              controller.room.membership == Membership.join)
+                              controller.room.membership == Membership.join &&
+                              !controller.showThreadRoots)
                             Container(
                               margin: EdgeInsets.all(bottomSheetPadding),
                               constraints: const BoxConstraints(

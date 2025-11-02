@@ -16,6 +16,7 @@
   "vote": "Vote",
   "changeVote": "Re-vote",
   "choicesSelected": "{selected} of {max} selected",
+  "discuss": "Discuss",
   "@choicesSelected": {
     "type": "String",
     "placeholders": {
@@ -893,6 +894,9 @@
   },
   "chatPermissions": "Chat permissions",
   "@chatPermissions": {},
+  "chatThreads": "Threads",
+  "@chatThreads": {},
+  "chatThreadsDescription": "See all threads in this room",
   "editDisplayname": "Edit displayname",
   "@editDisplayname": {
     "type": "String",

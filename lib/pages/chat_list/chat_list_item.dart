@@ -253,7 +253,7 @@ class ChatListItem extends StatelessWidget {
                 children: <Widget>[
                   if (typingText.isEmpty &&
                       ownMessage &&
-                      room.lastEvent!.status.isSending) ...[
+                      (room.lastEvent?.status.isSending ?? false)) ...[
                     const SizedBox(
                       width: 16,
                       height: 16,

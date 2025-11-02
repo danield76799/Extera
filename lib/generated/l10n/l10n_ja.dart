@@ -57,6 +57,9 @@ class L10nJa extends L10n {
   }
 
   @override
+  String get discuss => 'Discuss';
+
+  @override
   String get pollType => 'Poll type';
 
   @override
@@ -650,6 +653,12 @@ class L10nJa extends L10n {
 
   @override
   String get chatPermissions => 'Chat permissions';
+
+  @override
+  String get chatThreads => 'Threads';
+
+  @override
+  String get chatThreadsDescription => 'See all threads in this room';
 
   @override
   String get editDisplayname => '表示名を編集';

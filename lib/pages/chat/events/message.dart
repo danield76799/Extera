@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:extera_next/generated/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 import 'package:swipe_to_action/swipe_to_action.dart';
 
@@ -45,6 +46,7 @@ class Message extends StatelessWidget {
   final List<Color> colors;
   final bool gradient;
   final bool singleSelected;
+  final Thread? thread;
 
   const Message(
     this.event, {
@@ -54,6 +56,7 @@ class Message extends StatelessWidget {
     this.longPressSelect = false,
     this.gradient = false,
     this.singleSelected = false,
+    this.thread,
     required this.onSelect,
     required this.onInfoTab,
     required this.scrollToEventId,
@@ -688,6 +691,59 @@ class Message extends StatelessWidget {
                                       : const SizedBox.shrink(),
                                 ),
                               ),
+                              thread != null
+                                  ? Align(
+                                      alignment: ownMessage
+                                          ? Alignment.bottomRight
+                                          : Alignment.bottomLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                (thread?.hasNewMessages ?? false) ? Icons.mark_chat_unread_outlined : Icons.chat_bubble_outline,
+                                                color: Colors.grey[200],
+                                                size: 20,
+                                              ),
+                                              const SizedBox(width: 16),
+                                              thread!.lastEvent != null
+                                                  ? FutureBuilder<User?>(
+                                                      future: thread!.lastEvent!
+                                                          .fetchSenderUser(),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        final user = snapshot
+                                                                .data ??
+                                                            event
+                                                                .senderFromMemoryOrFallback;
+
+                                                        return Avatar(
+                                                          mxContent:
+                                                              user.avatarUrl,
+                                                          name: user
+                                                              .calcDisplayname(),
+                                                          size: 24,
+                                                        );
+                                                      },
+                                                    )
+                                                  : const SizedBox.shrink(),
+                                              const SizedBox(width: 6),
+                                              thread!.lastEvent != null
+                                                  ? Text(
+                                                      thread!.lastEvent!.text,
+                                                    )
+                                                  : const Text('Thread'),
+                                            ],
+                                          ),
+                                          onTap: () => context.go(
+                                            '/rooms/${event.roomId}/threads/${event.eventId}',
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
                             ],
                           ),
                         ),

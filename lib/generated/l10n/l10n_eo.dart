@@ -57,6 +57,9 @@ class L10nEo extends L10n {
   }
 
   @override
+  String get discuss => 'Discuss';
+
+  @override
   String get pollType => 'Poll type';
 
   @override
@@ -662,6 +665,12 @@ class L10nEo extends L10n {
 
   @override
   String get chatPermissions => 'Chat permissions';
+
+  @override
+  String get chatThreads => 'Threads';
+
+  @override
+  String get chatThreadsDescription => 'See all threads in this room';
 
   @override
   String get editDisplayname => 'Redakti prezentan nomon';

@@ -23,12 +23,14 @@ import 'package:html_unescape/html_unescape.dart';
 
 class SendFileDialog extends StatefulWidget {
   final Room room;
+  final Thread? thread;
   final List<XFile> files;
   final BuildContext outerContext;
   final Event? replyEvent;
 
   const SendFileDialog({
     required this.room,
+    required this.thread,
     required this.files,
     required this.outerContext,
     this.replyEvent,
@@ -151,6 +153,8 @@ class SendFileDialogState extends State<SendFileDialog> {
             thumbnail: thumbnail,
             shrinkImageMaxDimension: compress ? 1600 : null,
             extraContent: extraContent,
+            threadLastEventId: widget.thread?.lastEvent?.eventId ?? widget.thread?.rootEvent.eventId,
+            threadRootEventId: widget.thread?.rootEvent.eventId
           );
         } on MatrixException catch (e) {
           final retryAfterMs = e.retryAfterMs;

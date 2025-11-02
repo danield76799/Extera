@@ -1,5 +1,4 @@
 import 'package:uuid/uuid.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
@@ -8,9 +7,11 @@ class SendPollDialog extends StatefulWidget {
   final Room room;
   final BuildContext outerContext;
   final Event? replyEvent;
+  final Thread? thread;
 
   const SendPollDialog({
     required this.room,
+    required this.thread,
     required this.outerContext,
     this.replyEvent,
     super.key,
@@ -74,11 +75,13 @@ class SendPollDialogState extends State<SendPollDialog> {
           'm.text': question,
         },
         'answers': answers
-            .map((answer) => {
-                  'id': const Uuid().v4(),
-                  'org.matrix.msc1767.text': answer,
-                  'm.text': answer,
-                })
+            .map(
+              (answer) => {
+                'id': const Uuid().v4(),
+                'org.matrix.msc1767.text': answer,
+                'm.text': answer,
+              },
+            )
             .toList(),
         'max_selections': _maxSelections,
         'kind': _kind,
@@ -86,7 +89,13 @@ class SendPollDialogState extends State<SendPollDialog> {
     };
 
     try {
-      await widget.room.sendEvent(pollContent, type: 'org.matrix.msc3381.poll.start');
+      await widget.room.sendEvent(
+        pollContent,
+        type: 'org.matrix.msc3381.poll.start',
+        threadLastEventId: widget.thread?.lastEvent?.eventId ??
+            widget.thread?.rootEvent.eventId,
+        threadRootEventId: widget.thread?.rootEvent.eventId,
+      );
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
     } catch (e) {
@@ -154,7 +163,7 @@ class SendPollDialogState extends State<SendPollDialog> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<int>(
-              value: _maxSelections,
+              initialValue: _maxSelections,
               decoration: InputDecoration(
                 labelText: L10n.of(context).maxSelections,
                 border: const OutlineInputBorder(),
@@ -170,7 +179,7 @@ class SendPollDialogState extends State<SendPollDialog> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _kind,
+              initialValue: _kind,
               decoration: InputDecoration(
                 labelText: L10n.of(context).pollType,
                 border: const OutlineInputBorder(),

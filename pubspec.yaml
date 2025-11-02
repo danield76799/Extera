@@ -65,9 +65,10 @@ dependencies:
   linkify: ^5.0.0
   material: ^1.0.0+2
   matrix:
-    git:
-      url: https://git.extera.xyz/OfficialDakari/matrix-dart-sdk.git
-      ref: main
+    path: /home/officialdakari/repos/matrix-dart-sdk
+    # git:
+      # url: https://git.extera.xyz/OfficialDakari/matrix-dart-sdk.git
+      # ref: feature/threads
   mime: ^1.0.6
   native_imaging: ^0.2.0
   opus_caf_converter_dart: ^1.0.1
@@ -101,6 +102,7 @@ dependencies:
   wakelock_plus: ^1.2.2
   webrtc_interface: ^1.0.13
   dio: ^5.9.0
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_lints: ^3.0.0

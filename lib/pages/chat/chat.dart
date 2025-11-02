@@ -51,12 +51,14 @@ class ChatPage extends StatelessWidget {
   final String roomId;
   final List<ShareItem>? shareItems;
   final String? eventId;
+  final bool? showThreadRoots;
 
   const ChatPage({
     super.key,
     required this.roomId,
     this.eventId,
     this.shareItems,
+    this.showThreadRoots,
   });
 
   @override
@@ -79,20 +81,25 @@ class ChatPage extends StatelessWidget {
       room: room,
       shareItems: shareItems,
       eventId: eventId,
+      showThreadRoots: showThreadRoots,
     );
   }
 }
 
 class ChatPageWithRoom extends StatefulWidget {
   final Room room;
+  final Thread? thread;
   final List<ShareItem>? shareItems;
   final String? eventId;
+  final bool? showThreadRoots;
 
   const ChatPageWithRoom({
     super.key,
     required this.room,
+    this.thread,
     this.shareItems,
     this.eventId,
+    this.showThreadRoots,
   });
 
   @override
@@ -102,6 +109,10 @@ class ChatPageWithRoom extends StatefulWidget {
 class ChatController extends State<ChatPageWithRoom>
     with WidgetsBindingObserver {
   Room get room => sendingClient.getRoomById(roomId) ?? widget.room;
+  bool get showThreadRoots => (widget.showThreadRoots ?? false);
+  Thread? get thread =>
+      sendingClient.getRoomById(roomId)?.threads[threadRootEventId] ??
+      widget.room.threads[threadRootEventId];
 
   late Client sendingClient;
 
@@ -110,6 +121,7 @@ class ChatController extends State<ChatPageWithRoom>
   late final String readMarkerEventId;
 
   String get roomId => widget.room.id;
+  String? get threadRootEventId => widget.thread?.rootEvent.eventId;
 
   final AutoScrollController scrollController = AutoScrollController();
 
@@ -134,6 +146,7 @@ class ChatController extends State<ChatPageWithRoom>
       builder: (c) => SendFileDialog(
         files: details.files,
         room: room,
+        thread: thread,
         replyEvent: replyEvent,
         outerContext: context,
       ),
@@ -274,6 +287,7 @@ class ChatController extends State<ChatPageWithRoom>
       builder: (c) => SendFileDialog(
         files: files,
         room: room,
+        thread: thread,
         outerContext: context,
         replyEvent: replyEvent,
       ),
@@ -317,11 +331,14 @@ class ChatController extends State<ChatPageWithRoom>
     if (kIsWeb) {
       onFocusSub = html.window.onFocus.listen((_) => setReadMarker());
     }
+
+    _getThreads();
   }
 
   void _tryLoadTimeline() async {
     final initialEventId = widget.eventId;
     loadTimelineFuture = _getTimeline();
+    Logs().v("Trying to load timeline...");
     try {
       await loadTimelineFuture;
       if (initialEventId != null) scrollToEventId(initialEventId);
@@ -369,13 +386,32 @@ class ChatController extends State<ChatPageWithRoom>
         scrollUpBannerEventId = eventId;
       });
 
-  void updateView() {
+  Future<void> updateView() async {
     if (!mounted) return;
     setReadMarker();
+    await updateThreads();
     setState(() {});
   }
 
+  Future<void> updateThreads() async {
+    if (timeline?.events == null) return;
+    final lastEvent = timeline?.events[timeline!.events.length - 1];
+
+    if (lastEvent == null) return;
+    if (lastEvent.relationshipType == RelationshipTypes.thread &&
+        lastEvent.relationshipEventId != null) {
+      final thread = await room.client.database
+          .getThread(room.id, lastEvent.relationshipEventId!, room.client);
+      if (thread != null) {
+        setState(() {
+          threads?[lastEvent.eventId] = thread;
+        });
+      }
+    }
+  }
+
   Future<void>? loadTimelineFuture;
+  Map<String, Thread>? threads = {};
 
   int? animateInEventIndex;
 
@@ -384,15 +420,7 @@ class ChatController extends State<ChatPageWithRoom>
     animateInEventIndex = i;
   }
 
-  Future<void> _getTimeline({
-    String? eventContextId,
-  }) async {
-    await Matrix.of(context).client.roomsLoading;
-    await Matrix.of(context).client.accountDataLoading;
-    if (eventContextId != null &&
-        (!eventContextId.isValidMatrixId || eventContextId.sigil != '\$')) {
-      eventContextId = null;
-    }
+  Future<void> _loadRoomTimeline({String? eventContextId}) async {
     try {
       timeline?.cancelSubscriptions();
       timeline = await room.getTimeline(
@@ -412,10 +440,70 @@ class ChatController extends State<ChatPageWithRoom>
         _showScrollUpMaterialBanner(eventContextId!);
       }
     }
+  }
+
+  Future<void> _loadThreadTimeline({String? eventContextId}) async {
+    if (thread == null) {
+      throw Exception(
+        "_loadThreadTimeline should not be called, thread == null",
+      );
+    }
+    try {
+      timeline?.cancelSubscriptions();
+      timeline = await thread!.getTimeline(
+        onUpdate: updateView,
+        eventContextId: eventContextId,
+        onInsert: onInsert,
+      );
+      Logs().v("Thread timeline loaded");
+    } catch (e, s) {
+      Logs().w(
+        'Unable to load timeline on event ID $eventContextId (in thread)',
+        e,
+        s,
+      );
+      if (!mounted) return;
+      timeline = await thread!.getTimeline(
+        onUpdate: updateView,
+        onInsert: onInsert,
+      );
+      if (!mounted) return;
+      if (e is TimeoutException || e is IOException) {
+        _showScrollUpMaterialBanner(eventContextId!);
+      }
+    }
+    if (timeline is ThreadTimeline) {
+      (timeline as ThreadTimeline).getThreadEvents();
+    }
+  }
+
+  Future<void> _getTimeline({
+    String? eventContextId,
+  }) async {
+    await Matrix.of(context).client.roomsLoading;
+    await Matrix.of(context).client.accountDataLoading;
+    if (eventContextId != null &&
+        (!eventContextId.isValidMatrixId || eventContextId.sigil != '\$')) {
+      eventContextId = null;
+    }
+    if (thread == null) {
+      await _loadRoomTimeline(eventContextId: eventContextId);
+    } else {
+      await _loadThreadTimeline(eventContextId: eventContextId);
+    }
     timeline!.requestKeys(onlineKeyBackupOnly: false);
     if (room.markedUnread) room.markUnread(false);
 
     return;
+  }
+
+  Future<void> _getThreads() async {
+    try {
+      threads = await room.getThreads();
+      Logs().w('Thread amount: ${threads?.length}');
+    } catch (e, s) {
+      Logs().w('Unable to load threads in $roomId', e, s);
+    }
   }
 
   String? scrollToEventIdMarker;
@@ -459,9 +547,13 @@ class ChatController extends State<ChatPageWithRoom>
         .then((_) {
       _setReadMarkerFuture = null;
     });
-    if (eventId == null || eventId == timeline.room.lastEvent?.eventId) {
-      Matrix.of(context).backgroundPush?.cancelNotification(roomId);
+
+    if (timeline is RoomTimeline) {
+      if (eventId == null || eventId == timeline.room.lastEvent?.eventId) {
+        Matrix.of(context).backgroundPush?.cancelNotification(roomId);
+      }
     }
+    // TODO same for Threads
   }
 
   @override
@@ -533,6 +625,9 @@ class ChatController extends State<ChatPageWithRoom>
       inReplyTo: replyEvent,
       editEventId: editEvent?.eventId,
       parseCommands: parseCommands,
+      threadRootEventId: thread?.rootEvent.eventId,
+      threadLastEventId:
+          thread?.lastEvent?.eventId ?? thread?.rootEvent.eventId,
     );
     sendController.value = TextEditingValue(
       text: pendingText,
@@ -550,8 +645,13 @@ class ChatController extends State<ChatPageWithRoom>
 
   void sendPollAction() async {
     await showAdaptiveDialog(
-        context: context,
-        builder: (c) => SendPollDialog(room: room, outerContext: context));
+      context: context,
+      builder: (c) => SendPollDialog(
+        room: room,
+        thread: thread,
+        outerContext: context,
+      ),
+    );
     replyEvent = null;
   }
 
@@ -570,6 +670,7 @@ class ChatController extends State<ChatPageWithRoom>
       builder: (c) => SendFileDialog(
         files: files,
         room: room,
+        thread: thread,
         outerContext: context,
         replyEvent: replyEvent,
       ),
@@ -584,6 +685,7 @@ class ChatController extends State<ChatPageWithRoom>
       builder: (c) => SendFileDialog(
         files: [XFile.fromData(image)],
         room: room,
+        thread: thread,
         outerContext: context,
       ),
     );
@@ -600,6 +702,7 @@ class ChatController extends State<ChatPageWithRoom>
       builder: (c) => SendFileDialog(
         files: [file],
         room: room,
+        thread: thread,
         outerContext: context,
       ),
     );
@@ -619,6 +722,7 @@ class ChatController extends State<ChatPageWithRoom>
       builder: (c) => SendFileDialog(
         files: [file],
         room: room,
+        thread: thread,
         outerContext: context,
       ),
     );
@@ -645,7 +749,8 @@ class ChatController extends State<ChatPageWithRoom>
       name: fileName ?? audioFile.path,
     );
 
-    await room.sendFileEvent(
+    await room
+        .sendFileEvent(
       file,
       inReplyTo: replyEvent,
       extraContent: {
@@ -659,7 +764,10 @@ class ChatController extends State<ChatPageWithRoom>
           'waveform': waveform,
         },
       },
-    ).catchError((e) {
+      threadLastEventId: thread?.lastEvent?.eventId,
+      threadRootEventId: thread?.rootEvent.eventId,
+    )
+        .catchError((e) {
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(
@@ -698,7 +806,10 @@ class ChatController extends State<ChatPageWithRoom>
   void sendLocationAction() async {
     await showAdaptiveDialog(
       context: context,
-      builder: (c) => SendLocationDialog(room: room),
+      builder: (c) => SendLocationDialog(
+        room: room,
+        thread: thread,
+      ),
     );
   }
 
@@ -744,7 +855,8 @@ class ChatController extends State<ChatPageWithRoom>
 
     final reports = await mx.client.getEventReports();
     final report = reports.firstWhere(
-        (rep) => rep['room_id'] == roomId && rep['event_id'] == event.eventId);
+      (rep) => rep['room_id'] == roomId && rep['event_id'] == event.eventId,
+    );
     final recoveredEvent = await mx.client.getReportedEvent(report['id']);
 
     if (recoveredEvent == null) {
@@ -754,15 +866,17 @@ class ChatController extends State<ChatPageWithRoom>
       return;
     }
 
-    Navigator.of(context).push(new MaterialPageRoute(
-      builder: (BuildContext ctx) {
-        return RecoveredEventDialog(
-          event: recoveredEvent,
-          timeline: timeline!,
-        );
-      },
-      fullscreenDialog: true,
-    ));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext ctx) {
+          return RecoveredEventDialog(
+            event: recoveredEvent,
+            timeline: timeline!,
+          );
+        },
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   void translateEventAction() async {
@@ -774,10 +888,12 @@ class ChatController extends State<ChatPageWithRoom>
     }
     final event = selectedEvents.single;
     var text = event.isRichMessage ? event.formattedText : event.text;
-    var content = {...event.content};
+    final content = {...event.content};
     try {
       text = await Translator.translate(
-          text, PlatformDispatcher.instance.locale.languageCode);
+        text,
+        PlatformDispatcher.instance.locale.languageCode,
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(L10n.of(context).errorTranslatingMessage)),
@@ -790,19 +906,24 @@ class ChatController extends State<ChatPageWithRoom>
       content['body'] = text;
     }
     content['xyz.extera.translated'] = true;
-    Navigator.of(context).push(new MaterialPageRoute(
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (BuildContext ctx) {
           return TranslatedEventDialog(
-              event: new Event(
-                  content: content,
-                  type: 'm.room.message',
-                  eventId: event.eventId,
-                  senderId: event.senderId,
-                  originServerTs: event.originServerTs,
-                  room: room),
-              timeline: timeline!);
+            event: Event(
+              content: content,
+              type: 'm.room.message',
+              eventId: event.eventId,
+              senderId: event.senderId,
+              originServerTs: event.originServerTs,
+              room: room,
+            ),
+            timeline: timeline!,
+          );
         },
-        fullscreenDialog: true));
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   void reportEventAction() async {
@@ -871,20 +992,43 @@ class ChatController extends State<ChatPageWithRoom>
     }
   }
 
+  void discussAction() async {
+    final event = selectedEvents.first;
+    if (!room.threads.containsKey(event.eventId)) {
+      room.threads[event.eventId] = Thread(
+        room: room,
+        rootEvent: event,
+        client: room.client,
+        currentUserParticipated: false,
+        count: 0,
+        highlightCount: 0,
+        notificationCount: 0,
+      );
+    }
+
+    context.go('/rooms/$roomId/threads/${event.eventId}');
+    selectedEvents.clear();
+  }
+
   void endPollAction() async {
     final event = selectedEvents.first;
-    if (event == null) return;
     final client = currentRoomBundle.firstWhere(
       (cl) => selectedEvents.first.senderId == cl!.userID,
       orElse: () => null,
     );
     if (client == null) return;
-    if (event.senderId != client!.userID) return;
-    await room.sendEvent({
-      'org.matrix.msc1767.text': 'Ended poll',
-      'm.relates_to': {'rel_type': 'm.reference', 'event_id': event.eventId},
-      'body': 'Ended poll'
-    }, type: 'org.matrix.msc3381.poll.end');
+    if (event.senderId != client.userID) return;
+    await room.sendEvent(
+      {
+        'org.matrix.msc1767.text': 'Ended poll',
+        'm.relates_to': {
+          'rel_type': 'm.reference',
+          'event_id': event.eventId,
+        },
+        'body': 'Ended poll',
+      },
+      type: 'org.matrix.msc3381.poll.end',
+    );
   }
 
   void redactEventsAction() async {

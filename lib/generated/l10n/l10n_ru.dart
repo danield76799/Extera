@@ -57,6 +57,9 @@ class L10nRu extends L10n {
   }
 
   @override
+  String get discuss => 'Обсудить';
+
+  @override
   String get pollType => 'Тип опроса';
 
   @override
@@ -663,6 +666,12 @@ class L10nRu extends L10n {
   String get chatPermissions => 'Права в чате';
 
   @override
+  String get chatThreads => 'Обсуждения';
+
+  @override
+  String get chatThreadsDescription => 'Список всех обсуждений в этой комнате';
+
+  @override
   String get editDisplayname => 'Отображаемое имя';
 
   @override
@@ -695,7 +704,7 @@ class L10nRu extends L10n {
 
   @override
   String get accessAndVisibilityDescription =>
-      'Кто может зайти и как найти этот чат.';
+      'Кто может зайти и как найти этот чат';
 
   @override
   String get calls => 'Звонки';

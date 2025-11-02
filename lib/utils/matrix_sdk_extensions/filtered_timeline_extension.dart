@@ -4,6 +4,14 @@ import 'package:matrix/matrix.dart';
 import '../../config/app_config.dart';
 
 extension VisibleInGuiExtension on List<Event> {
+  List<Event> filterByThreaded(bool threaded) {
+    return where((e) => e.isThreaded == threaded || e.relationshipType == RelationshipTypes.edit || e.relationshipType == RelationshipTypes.reaction).toList();
+  }
+
+  List<Event> filterThreadRoots() {
+    return where((e) => e.room.threads.containsKey(e.eventId)).toList();
+  }
+
   List<Event> filterByVisibleInGui({String? exceptionEventId}) {
     final visibleEvents =
         where((e) => e.isVisibleInGui || e.eventId == exceptionEventId)
@@ -46,7 +54,9 @@ extension IsStateExtension on Event {
       // if we enabled to hide all redacted events, don't show those
       (!AppConfig.hideRedactedEvents || !redacted) &&
       // if we enabled to hide all unknown events, don't show those
-      (!AppConfig.hideUnknownEvents || isEventTypeKnown || type == PollEvents.PollStart) &&
+      (!AppConfig.hideUnknownEvents ||
+          isEventTypeKnown ||
+          type == PollEvents.PollStart) &&
       // remove state events that we don't want to render
       (isState || !AppConfig.hideAllStateEvents) &&
       // hide simple join/leave member events in public rooms
@@ -55,6 +65,10 @@ extension IsStateExtension on Event {
           room.joinRules != JoinRules.public ||
           content.tryGet<String>('membership') == 'ban' ||
           stateKey != senderId);
+
+  bool get isThreaded =>
+      relationshipEventId != null &&
+      relationshipType == RelationshipTypes.thread;
 
   bool get isState => this.stateKey != null;
 }

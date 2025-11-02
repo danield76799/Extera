@@ -264,6 +264,21 @@ class ChatDetailsView extends StatelessWidget {
                             backgroundColor: theme.scaffoldBackgroundColor,
                             foregroundColor: iconColor,
                             child: const Icon(
+                              Icons.chat_bubble_outline,
+                            ),
+                          ),
+                          title: Text(L10n.of(context).chatThreads),
+                          subtitle:
+                              Text(L10n.of(context).chatThreadsDescription),
+                          onTap: () =>
+                              context.push('/rooms/${room.id}?threads=true'),
+                          trailing: const Icon(Icons.chevron_right_outlined),
+                        ),
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: theme.scaffoldBackgroundColor,
+                            foregroundColor: iconColor,
+                            child: const Icon(
                               Icons.insert_emoticon_outlined,
                             ),
                           ),

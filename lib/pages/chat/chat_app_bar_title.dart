@@ -31,22 +31,40 @@ class ChatAppBarTitle extends StatelessWidget {
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      onTap: controller.isArchived
-          ? null
-          : () => FluffyThemes.isThreeColumnMode(context)
-              ? controller.toggleDisplayChatDetailsColumn()
-              : context.go('/rooms/${room.id}/details'),
+      onTap: () {
+        if (controller.thread != null) {
+          if (context.canPop()) {
+            context.pop();
+          } else {
+            context.go('/rooms/${room.id}');
+          }
+          return;
+        }
+        if (!controller.isArchived) {
+          if (FluffyThemes.isThreeColumnMode(context)) {
+            controller.toggleDisplayChatDetailsColumn();
+          } else {
+            context.go('/rooms/${room.id}/details');
+          }
+        }
+      },
       child: Row(
         children: [
           Hero(
             tag: 'content_banner',
-            child: Avatar(
-              mxContent: room.avatar,
-              name: room.getLocalizedDisplayname(
-                MatrixLocals(L10n.of(context)),
-              ),
-              size: 32,
-            ),
+            child: controller.thread == null
+                ? Avatar(
+                    mxContent: room.avatar,
+                    name: room.getLocalizedDisplayname(
+                      MatrixLocals(L10n.of(context)),
+                    ),
+                    size: 32,
+                  )
+                : Icon(
+                    Icons.chat_bubble_outline,
+                    color: Colors.grey[200],
+                    size: 20,
+                  ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -54,7 +72,10 @@ class ChatAppBarTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  room.getLocalizedDisplayname(MatrixLocals(L10n.of(context))),
+                  controller.thread == null
+                      ? room.getLocalizedDisplayname(
+                          MatrixLocals(L10n.of(context)))
+                      : '${controller.thread!.rootEvent.senderFromMemoryOrFallback.displayName ?? controller.thread!.rootEvent.senderId}: ${controller.thread!.rootEvent.text}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(

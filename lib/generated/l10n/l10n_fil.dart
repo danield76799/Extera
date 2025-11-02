@@ -57,6 +57,9 @@ class L10nFil extends L10n {
   }
 
   @override
+  String get discuss => 'Discuss';
+
+  @override
   String get pollType => 'Poll type';
 
   @override
@@ -665,6 +668,12 @@ class L10nFil extends L10n {
 
   @override
   String get chatPermissions => 'Mga pahintulot ng chat';
+
+  @override
+  String get chatThreads => 'Threads';
+
+  @override
+  String get chatThreadsDescription => 'See all threads in this room';
 
   @override
   String get editDisplayname => 'I-edit ang display name';

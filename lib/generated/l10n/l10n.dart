@@ -283,6 +283,12 @@ abstract class L10n {
   /// **'{selected} of {max} selected'**
   String choicesSelected(int selected, int max);
 
+  /// No description provided for @discuss.
+  ///
+  /// In en, this message translates to:
+  /// **'Discuss'**
+  String get discuss;
+
   /// No description provided for @pollType.
   ///
   /// In en, this message translates to:
@@ -1310,6 +1316,18 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Chat permissions'**
   String get chatPermissions;
+
+  /// No description provided for @chatThreads.
+  ///
+  /// In en, this message translates to:
+  /// **'Threads'**
+  String get chatThreads;
+
+  /// No description provided for @chatThreadsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'See all threads in this room'**
+  String get chatThreadsDescription;
 
   /// No description provided for @editDisplayname.
   ///
