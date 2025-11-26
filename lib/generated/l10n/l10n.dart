@@ -108,7 +108,8 @@ import 'l10n_zh.dart' deferred as l10n_zh;
 /// be consistent with the languages listed in the L10n.supportedLocales
 /// property.
 abstract class L10n {
-  L10n(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  L10n(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -128,7 +129,8 @@ abstract class L10n {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -693,7 +695,8 @@ abstract class L10n {
   ///
   /// In en, this message translates to:
   /// **'The homeserver supports the login types:\n{serverVersions}\nBut this app supports only:\n{supportedVersions}'**
-  String badServerLoginTypesException(String serverVersions, String supportedVersions, Object suportedVersions);
+  String badServerLoginTypesException(
+      String serverVersions, String supportedVersions, Object suportedVersions);
 
   /// No description provided for @sendTypingNotifications.
   ///
@@ -717,7 +720,8 @@ abstract class L10n {
   ///
   /// In en, this message translates to:
   /// **'The homeserver supports the Spec versions:\n{serverVersions}\nBut this app supports only {supportedVersions}'**
-  String badServerVersionsException(String serverVersions, String supportedVersions, Object serverVerions, Object suportedVersions);
+  String badServerVersionsException(String serverVersions,
+      String supportedVersions, Object serverVerions, Object suportedVersions);
 
   /// No description provided for @countChatsAndCountParticipants.
   ///
@@ -5169,92 +5173,200 @@ class _L10nDelegate extends LocalizationsDelegate<L10n> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'be', 'bn', 'bo', 'ca', 'cs', 'de', 'el', 'en', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fil', 'fr', 'ga', 'gl', 'he', 'hi', 'hr', 'hu', 'ia', 'id', 'ie', 'it', 'ja', 'ka', 'ko', 'lt', 'lv', 'nb', 'nl', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sr', 'sv', 'ta', 'te', 'th', 'tr', 'uk', 'vi', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'be',
+        'bn',
+        'bo',
+        'ca',
+        'cs',
+        'de',
+        'el',
+        'en',
+        'eo',
+        'es',
+        'et',
+        'eu',
+        'fa',
+        'fi',
+        'fil',
+        'fr',
+        'ga',
+        'gl',
+        'he',
+        'hi',
+        'hr',
+        'hu',
+        'ia',
+        'id',
+        'ie',
+        'it',
+        'ja',
+        'ka',
+        'ko',
+        'lt',
+        'lv',
+        'nb',
+        'nl',
+        'pl',
+        'pt',
+        'ro',
+        'ru',
+        'sk',
+        'sl',
+        'sr',
+        'sv',
+        'ta',
+        'te',
+        'th',
+        'tr',
+        'uk',
+        'vi',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_L10nDelegate old) => false;
 }
 
 Future<L10n> lookupL10n(Locale locale) {
-
   // Lookup logic when language+script codes are specified.
   switch (locale.languageCode) {
-    case 'zh': {
-  switch (locale.scriptCode) {
-    case 'Hant': return l10n_zh.loadLibrary().then((dynamic _) => l10n_zh.L10nZhHant());
-   }
-  break;
-   }
+    case 'zh':
+      {
+        switch (locale.scriptCode) {
+          case 'Hant':
+            return l10n_zh
+                .loadLibrary()
+                .then((dynamic _) => l10n_zh.L10nZhHant());
+        }
+        break;
+      }
   }
 
   // Lookup logic when language+country codes are specified.
   switch (locale.languageCode) {
-    case 'pt': {
-  switch (locale.countryCode) {
-    case 'BR': return l10n_pt.loadLibrary().then((dynamic _) => l10n_pt.L10nPtBr());
-case 'PT': return l10n_pt.loadLibrary().then((dynamic _) => l10n_pt.L10nPtPt());
-   }
-  break;
-   }
+    case 'pt':
+      {
+        switch (locale.countryCode) {
+          case 'BR':
+            return l10n_pt
+                .loadLibrary()
+                .then((dynamic _) => l10n_pt.L10nPtBr());
+          case 'PT':
+            return l10n_pt
+                .loadLibrary()
+                .then((dynamic _) => l10n_pt.L10nPtPt());
+        }
+        break;
+      }
   }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return l10n_ar.loadLibrary().then((dynamic _) => l10n_ar.L10nAr());
-    case 'be': return l10n_be.loadLibrary().then((dynamic _) => l10n_be.L10nBe());
-    case 'bn': return l10n_bn.loadLibrary().then((dynamic _) => l10n_bn.L10nBn());
-    case 'bo': return l10n_bo.loadLibrary().then((dynamic _) => l10n_bo.L10nBo());
-    case 'ca': return l10n_ca.loadLibrary().then((dynamic _) => l10n_ca.L10nCa());
-    case 'cs': return l10n_cs.loadLibrary().then((dynamic _) => l10n_cs.L10nCs());
-    case 'de': return l10n_de.loadLibrary().then((dynamic _) => l10n_de.L10nDe());
-    case 'el': return l10n_el.loadLibrary().then((dynamic _) => l10n_el.L10nEl());
-    case 'en': return l10n_en.loadLibrary().then((dynamic _) => l10n_en.L10nEn());
-    case 'eo': return l10n_eo.loadLibrary().then((dynamic _) => l10n_eo.L10nEo());
-    case 'es': return l10n_es.loadLibrary().then((dynamic _) => l10n_es.L10nEs());
-    case 'et': return l10n_et.loadLibrary().then((dynamic _) => l10n_et.L10nEt());
-    case 'eu': return l10n_eu.loadLibrary().then((dynamic _) => l10n_eu.L10nEu());
-    case 'fa': return l10n_fa.loadLibrary().then((dynamic _) => l10n_fa.L10nFa());
-    case 'fi': return l10n_fi.loadLibrary().then((dynamic _) => l10n_fi.L10nFi());
-    case 'fil': return l10n_fil.loadLibrary().then((dynamic _) => l10n_fil.L10nFil());
-    case 'fr': return l10n_fr.loadLibrary().then((dynamic _) => l10n_fr.L10nFr());
-    case 'ga': return l10n_ga.loadLibrary().then((dynamic _) => l10n_ga.L10nGa());
-    case 'gl': return l10n_gl.loadLibrary().then((dynamic _) => l10n_gl.L10nGl());
-    case 'he': return l10n_he.loadLibrary().then((dynamic _) => l10n_he.L10nHe());
-    case 'hi': return l10n_hi.loadLibrary().then((dynamic _) => l10n_hi.L10nHi());
-    case 'hr': return l10n_hr.loadLibrary().then((dynamic _) => l10n_hr.L10nHr());
-    case 'hu': return l10n_hu.loadLibrary().then((dynamic _) => l10n_hu.L10nHu());
-    case 'ia': return l10n_ia.loadLibrary().then((dynamic _) => l10n_ia.L10nIa());
-    case 'id': return l10n_id.loadLibrary().then((dynamic _) => l10n_id.L10nId());
-    case 'ie': return l10n_ie.loadLibrary().then((dynamic _) => l10n_ie.L10nIe());
-    case 'it': return l10n_it.loadLibrary().then((dynamic _) => l10n_it.L10nIt());
-    case 'ja': return l10n_ja.loadLibrary().then((dynamic _) => l10n_ja.L10nJa());
-    case 'ka': return l10n_ka.loadLibrary().then((dynamic _) => l10n_ka.L10nKa());
-    case 'ko': return l10n_ko.loadLibrary().then((dynamic _) => l10n_ko.L10nKo());
-    case 'lt': return l10n_lt.loadLibrary().then((dynamic _) => l10n_lt.L10nLt());
-    case 'lv': return l10n_lv.loadLibrary().then((dynamic _) => l10n_lv.L10nLv());
-    case 'nb': return l10n_nb.loadLibrary().then((dynamic _) => l10n_nb.L10nNb());
-    case 'nl': return l10n_nl.loadLibrary().then((dynamic _) => l10n_nl.L10nNl());
-    case 'pl': return l10n_pl.loadLibrary().then((dynamic _) => l10n_pl.L10nPl());
-    case 'pt': return l10n_pt.loadLibrary().then((dynamic _) => l10n_pt.L10nPt());
-    case 'ro': return l10n_ro.loadLibrary().then((dynamic _) => l10n_ro.L10nRo());
-    case 'ru': return l10n_ru.loadLibrary().then((dynamic _) => l10n_ru.L10nRu());
-    case 'sk': return l10n_sk.loadLibrary().then((dynamic _) => l10n_sk.L10nSk());
-    case 'sl': return l10n_sl.loadLibrary().then((dynamic _) => l10n_sl.L10nSl());
-    case 'sr': return l10n_sr.loadLibrary().then((dynamic _) => l10n_sr.L10nSr());
-    case 'sv': return l10n_sv.loadLibrary().then((dynamic _) => l10n_sv.L10nSv());
-    case 'ta': return l10n_ta.loadLibrary().then((dynamic _) => l10n_ta.L10nTa());
-    case 'te': return l10n_te.loadLibrary().then((dynamic _) => l10n_te.L10nTe());
-    case 'th': return l10n_th.loadLibrary().then((dynamic _) => l10n_th.L10nTh());
-    case 'tr': return l10n_tr.loadLibrary().then((dynamic _) => l10n_tr.L10nTr());
-    case 'uk': return l10n_uk.loadLibrary().then((dynamic _) => l10n_uk.L10nUk());
-    case 'vi': return l10n_vi.loadLibrary().then((dynamic _) => l10n_vi.L10nVi());
-    case 'zh': return l10n_zh.loadLibrary().then((dynamic _) => l10n_zh.L10nZh());
+    case 'ar':
+      return l10n_ar.loadLibrary().then((dynamic _) => l10n_ar.L10nAr());
+    case 'be':
+      return l10n_be.loadLibrary().then((dynamic _) => l10n_be.L10nBe());
+    case 'bn':
+      return l10n_bn.loadLibrary().then((dynamic _) => l10n_bn.L10nBn());
+    case 'bo':
+      return l10n_bo.loadLibrary().then((dynamic _) => l10n_bo.L10nBo());
+    case 'ca':
+      return l10n_ca.loadLibrary().then((dynamic _) => l10n_ca.L10nCa());
+    case 'cs':
+      return l10n_cs.loadLibrary().then((dynamic _) => l10n_cs.L10nCs());
+    case 'de':
+      return l10n_de.loadLibrary().then((dynamic _) => l10n_de.L10nDe());
+    case 'el':
+      return l10n_el.loadLibrary().then((dynamic _) => l10n_el.L10nEl());
+    case 'en':
+      return l10n_en.loadLibrary().then((dynamic _) => l10n_en.L10nEn());
+    case 'eo':
+      return l10n_eo.loadLibrary().then((dynamic _) => l10n_eo.L10nEo());
+    case 'es':
+      return l10n_es.loadLibrary().then((dynamic _) => l10n_es.L10nEs());
+    case 'et':
+      return l10n_et.loadLibrary().then((dynamic _) => l10n_et.L10nEt());
+    case 'eu':
+      return l10n_eu.loadLibrary().then((dynamic _) => l10n_eu.L10nEu());
+    case 'fa':
+      return l10n_fa.loadLibrary().then((dynamic _) => l10n_fa.L10nFa());
+    case 'fi':
+      return l10n_fi.loadLibrary().then((dynamic _) => l10n_fi.L10nFi());
+    case 'fil':
+      return l10n_fil.loadLibrary().then((dynamic _) => l10n_fil.L10nFil());
+    case 'fr':
+      return l10n_fr.loadLibrary().then((dynamic _) => l10n_fr.L10nFr());
+    case 'ga':
+      return l10n_ga.loadLibrary().then((dynamic _) => l10n_ga.L10nGa());
+    case 'gl':
+      return l10n_gl.loadLibrary().then((dynamic _) => l10n_gl.L10nGl());
+    case 'he':
+      return l10n_he.loadLibrary().then((dynamic _) => l10n_he.L10nHe());
+    case 'hi':
+      return l10n_hi.loadLibrary().then((dynamic _) => l10n_hi.L10nHi());
+    case 'hr':
+      return l10n_hr.loadLibrary().then((dynamic _) => l10n_hr.L10nHr());
+    case 'hu':
+      return l10n_hu.loadLibrary().then((dynamic _) => l10n_hu.L10nHu());
+    case 'ia':
+      return l10n_ia.loadLibrary().then((dynamic _) => l10n_ia.L10nIa());
+    case 'id':
+      return l10n_id.loadLibrary().then((dynamic _) => l10n_id.L10nId());
+    case 'ie':
+      return l10n_ie.loadLibrary().then((dynamic _) => l10n_ie.L10nIe());
+    case 'it':
+      return l10n_it.loadLibrary().then((dynamic _) => l10n_it.L10nIt());
+    case 'ja':
+      return l10n_ja.loadLibrary().then((dynamic _) => l10n_ja.L10nJa());
+    case 'ka':
+      return l10n_ka.loadLibrary().then((dynamic _) => l10n_ka.L10nKa());
+    case 'ko':
+      return l10n_ko.loadLibrary().then((dynamic _) => l10n_ko.L10nKo());
+    case 'lt':
+      return l10n_lt.loadLibrary().then((dynamic _) => l10n_lt.L10nLt());
+    case 'lv':
+      return l10n_lv.loadLibrary().then((dynamic _) => l10n_lv.L10nLv());
+    case 'nb':
+      return l10n_nb.loadLibrary().then((dynamic _) => l10n_nb.L10nNb());
+    case 'nl':
+      return l10n_nl.loadLibrary().then((dynamic _) => l10n_nl.L10nNl());
+    case 'pl':
+      return l10n_pl.loadLibrary().then((dynamic _) => l10n_pl.L10nPl());
+    case 'pt':
+      return l10n_pt.loadLibrary().then((dynamic _) => l10n_pt.L10nPt());
+    case 'ro':
+      return l10n_ro.loadLibrary().then((dynamic _) => l10n_ro.L10nRo());
+    case 'ru':
+      return l10n_ru.loadLibrary().then((dynamic _) => l10n_ru.L10nRu());
+    case 'sk':
+      return l10n_sk.loadLibrary().then((dynamic _) => l10n_sk.L10nSk());
+    case 'sl':
+      return l10n_sl.loadLibrary().then((dynamic _) => l10n_sl.L10nSl());
+    case 'sr':
+      return l10n_sr.loadLibrary().then((dynamic _) => l10n_sr.L10nSr());
+    case 'sv':
+      return l10n_sv.loadLibrary().then((dynamic _) => l10n_sv.L10nSv());
+    case 'ta':
+      return l10n_ta.loadLibrary().then((dynamic _) => l10n_ta.L10nTa());
+    case 'te':
+      return l10n_te.loadLibrary().then((dynamic _) => l10n_te.L10nTe());
+    case 'th':
+      return l10n_th.loadLibrary().then((dynamic _) => l10n_th.L10nTh());
+    case 'tr':
+      return l10n_tr.loadLibrary().then((dynamic _) => l10n_tr.L10nTr());
+    case 'uk':
+      return l10n_uk.loadLibrary().then((dynamic _) => l10n_uk.L10nUk());
+    case 'vi':
+      return l10n_vi.loadLibrary().then((dynamic _) => l10n_vi.L10nVi());
+    case 'zh':
+      return l10n_zh.loadLibrary().then((dynamic _) => l10n_zh.L10nZh());
   }
 
   throw FlutterError(
-    'L10n.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'L10n.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

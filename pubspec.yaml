@@ -138,4 +138,4 @@ msix_config:
   sign_msix: false
   install_certificate: false
 
-dependency_overrides:
+dependency_overrides: {}

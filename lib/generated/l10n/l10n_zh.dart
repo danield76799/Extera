@@ -15,7 +15,8 @@ class L10nZh extends L10n {
   String get noMessagesYet => 'No messages yet';
 
   @override
-  String get longPressToRecordVoiceMessage => 'Long press to record voice message.';
+  String get longPressToRecordVoiceMessage =>
+      'Long press to record voice message.';
 
   @override
   String get pause => 'Pause';
@@ -36,7 +37,8 @@ class L10nZh extends L10n {
   String get moveDown => 'Move down';
 
   @override
-  String get removeFromSpaceDescription => 'The chat will be removed from the space but still appear in your chat list.';
+  String get removeFromSpaceDescription =>
+      'The chat will be removed from the space but still appear in your chat list.';
 
   @override
   String get endPoll => 'End poll';
@@ -104,13 +106,15 @@ class L10nZh extends L10n {
   String get cleanExif => 'Clean EXIF metadata';
 
   @override
-  String get cleanExifDescription => 'Remove EXIF metadata (camera model, geolocation, time) when sending a photo.';
+  String get cleanExifDescription =>
+      'Remove EXIF metadata (camera model, geolocation, time) when sending a photo.';
 
   @override
   String get doNotSendIfCantClean => 'Strictly no EXIF';
 
   @override
-  String get doNotSendIfCantCleanDescription => 'Do not send the image if there was an error cleaning EXIF metadata';
+  String get doNotSendIfCantCleanDescription =>
+      'Do not send the image if there was an error cleaning EXIF metadata';
 
   @override
   String get repeatPassword => '重复输入密码';
@@ -122,7 +126,8 @@ class L10nZh extends L10n {
   String get setCustomPermissionLevel => 'Set custom permission level';
 
   @override
-  String get setPermissionsLevelDescription => 'Please choose a predefined role below or enter a custom permission level between 0 and 100.';
+  String get setPermissionsLevelDescription =>
+      'Please choose a predefined role below or enter a custom permission level between 0 and 100.';
 
   @override
   String get ignoreUser => 'Ignore user';
@@ -140,7 +145,8 @@ class L10nZh extends L10n {
   String get enableGradient => 'Enable bubble background gradient';
 
   @override
-  String get translationDisabledInE2e => 'Cloud translation is disabled in encrypted rooms to preserve privacy. Select specific words and use system context menu to translate with apps that support it.';
+  String get translationDisabledInE2e =>
+      'Cloud translation is disabled in encrypted rooms to preserve privacy. Select specific words and use system context menu to translate with apps that support it.';
 
   @override
   String get remove => '移除';
@@ -278,7 +284,8 @@ class L10nZh extends L10n {
   String get autoplayImages => '自动播放动态贴纸和表情';
 
   @override
-  String badServerLoginTypesException(String serverVersions, String supportedVersions, Object suportedVersions) {
+  String badServerLoginTypesException(String serverVersions,
+      String supportedVersions, Object suportedVersions) {
     return '主服务器支持的登录方式：\n$serverVersions\n但此应用仅支持：\n$supportedVersions';
   }
 
@@ -292,7 +299,8 @@ class L10nZh extends L10n {
   String get sendOnEnter => '按 Enter 键发送';
 
   @override
-  String badServerVersionsException(String serverVersions, String supportedVersions, Object serverVerions, Object suportedVersions) {
+  String badServerVersionsException(String serverVersions,
+      String supportedVersions, Object serverVerions, Object suportedVersions) {
     return '主服务器支持的 Spec 版本：\n$serverVersions\n但此应用仅支持 $supportedVersions 版本';
   }
 
@@ -1042,7 +1050,8 @@ class L10nZh extends L10n {
   String get noEncryptionForPublicRooms => '你只能在聊天室不可被公众访问时才能启用加密。';
 
   @override
-  String get noGoogleServicesWarning => '看起来你手机上没有 Firebase Cloud Messaging。如果仍希望接收 FluffyChat 的推送通知，推荐安装 ntfy。借助 ntfy 或另一个 Unified Push 程序，你可以以一种数据安全的方式接收推送通知。你可以从 PlayStore 或 F-Droid 商店下载 ntfy。';
+  String get noGoogleServicesWarning =>
+      '看起来你手机上没有 Firebase Cloud Messaging。如果仍希望接收 FluffyChat 的推送通知，推荐安装 ntfy。借助 ntfy 或另一个 Unified Push 程序，你可以以一种数据安全的方式接收推送通知。你可以从 PlayStore 或 F-Droid 商店下载 ntfy。';
 
   @override
   String noMatrixServer(String server1, String server2) {
@@ -1166,7 +1175,8 @@ class L10nZh extends L10n {
   String get hideMemberChangesInPublicChats => '在公开聊天中隐藏成员变化';
 
   @override
-  String get hideMemberChangesInPublicChatsBody => '不在聊天时间线中显示某人是否加入或离开了公开聊天来改进可读性。';
+  String get hideMemberChangesInPublicChatsBody =>
+      '不在聊天时间线中显示某人是否加入或离开了公开聊天来改进可读性。';
 
   @override
   String get overview => '概览';
@@ -1304,7 +1314,8 @@ class L10nZh extends L10n {
   String get translatedMessage => 'Translated message';
 
   @override
-  String get errorTranslatingMessage => 'An error has occured while translating the message.';
+  String get errorTranslatingMessage =>
+      'An error has occured while translating the message.';
 
   @override
   String get recoverMessage => 'Recover message';
@@ -1313,10 +1324,12 @@ class L10nZh extends L10n {
   String get recoveredMessage => 'Recovered message';
 
   @override
-  String get errorRecoveringMessage => 'An error has occured while recovering the message.';
+  String get errorRecoveringMessage =>
+      'An error has occured while recovering the message.';
 
   @override
-  String get errorRecoveringMessageNoAdmin => 'This feature is available on Synapse homeservers only for adminstrators.';
+  String get errorRecoveringMessageNoAdmin =>
+      'This feature is available on Synapse homeservers only for adminstrators.';
 
   @override
   String get requestPermission => '请求权限';
@@ -1460,7 +1473,8 @@ class L10nZh extends L10n {
   String get hideAvatarsInInvites => 'Hide avatars in invites';
 
   @override
-  String get hideAvatarsInInvitesDescription => 'Do not show room avatars in invites';
+  String get hideAvatarsInInvitesDescription =>
+      'Do not show room avatars in invites';
 
   @override
   String get presencesToggle => '显示其他用户的状态消息';
@@ -1714,7 +1728,8 @@ class L10nZh extends L10n {
   String get start => '开始';
 
   @override
-  String get pleaseEnterRecoveryKeyDescription => '要解锁你的旧邮件，请输入你在之前会话中生成的恢复密钥。 你的恢复密钥不是你的密码。';
+  String get pleaseEnterRecoveryKeyDescription =>
+      '要解锁你的旧邮件，请输入你在之前会话中生成的恢复密钥。 你的恢复密钥不是你的密码。';
 
   @override
   String get publish => '发布';
@@ -1760,10 +1775,12 @@ class L10nZh extends L10n {
   String get unsupportedAndroidVersion => '不受支持的 Android 版本';
 
   @override
-  String get unsupportedAndroidVersionLong => '这个功能需要较新版本的 Android 系统。请检查更新或 Lineage OS 支持。';
+  String get unsupportedAndroidVersionLong =>
+      '这个功能需要较新版本的 Android 系统。请检查更新或 Lineage OS 支持。';
 
   @override
-  String get videoCallsBetaWarning => '请注意，视频通话目前处于测试阶段。它们可能不能像预期的那样工作，或者在所有平台上都不能工作。';
+  String get videoCallsBetaWarning =>
+      '请注意，视频通话目前处于测试阶段。它们可能不能像预期的那样工作，或者在所有平台上都不能工作。';
 
   @override
   String get experimentalVideoCalls => '实验性的视频通话';
@@ -1775,7 +1792,8 @@ class L10nZh extends L10n {
   String get indexedDbErrorTitle => '私有模式问题';
 
   @override
-  String get indexedDbErrorLong => '遗憾的是，默认情况下未在私有模式下启用消息存储。\n请访问\n - about:config\n - 将 dom.indexedDB.privateBrowsing.enabled 设置为 true\n否则，无法运行 FluffyChat。';
+  String get indexedDbErrorLong =>
+      '遗憾的是，默认情况下未在私有模式下启用消息存储。\n请访问\n - about:config\n - 将 dom.indexedDB.privateBrowsing.enabled 设置为 true\n否则，无法运行 FluffyChat。';
 
   @override
   String switchToAccount(String number) {
@@ -1945,7 +1963,8 @@ class L10nZh extends L10n {
   String get appearOnTop => '显示在其它应用上方';
 
   @override
-  String get appearOnTopDetails => '允许应用显示在顶部（如果你已经将 Fluffychat 设置为呼叫账户，则不需要授予此权限）';
+  String get appearOnTopDetails =>
+      '允许应用显示在顶部（如果你已经将 Fluffychat 设置为呼叫账户，则不需要授予此权限）';
 
   @override
   String get otherCallingPermissions => '麦克风、摄像头和其它 FluffyChat 权限';
@@ -1954,7 +1973,8 @@ class L10nZh extends L10n {
   String get whyIsThisMessageEncrypted => '为什么此消息不可读？';
 
   @override
-  String get noKeyForThisMessage => '如果消息是在你在此设备上登录账户前发送的，就可能发生这种情况。\n\n也有可能是发送者屏蔽了你的设备或网络连接出了问题。\n\n你能在另一个会话中读取消息吗？如果是的话，你可以从它那里传递信息！点击设置 > 设备，并确保你的设备已经相互验证。当你下次打开聊天室，且两个会话都在前台，密钥就会自动传输。\n\n你不想在注销或切换设备时丢失密钥？请确保在设置中启用了聊天备份。';
+  String get noKeyForThisMessage =>
+      '如果消息是在你在此设备上登录账户前发送的，就可能发生这种情况。\n\n也有可能是发送者屏蔽了你的设备或网络连接出了问题。\n\n你能在另一个会话中读取消息吗？如果是的话，你可以从它那里传递信息！点击设置 > 设备，并确保你的设备已经相互验证。当你下次打开聊天室，且两个会话都在前台，密钥就会自动传输。\n\n你不想在注销或切换设备时丢失密钥？请确保在设置中启用了聊天备份。';
 
   @override
   String get newGroup => '新群组';
@@ -2086,7 +2106,8 @@ class L10nZh extends L10n {
   String get archiveRoomDescription => '聊天将被移至存档。其他用户将能看到你已离开聊天。';
 
   @override
-  String get roomUpgradeDescription => '将使用新版聊天室来重新创建当前聊天室。所有参与者都会收到通知以切换到新的聊天室。有关聊天室版本的更多信息，请访问 https://spec.matrix.org/latest/rooms/';
+  String get roomUpgradeDescription =>
+      '将使用新版聊天室来重新创建当前聊天室。所有参与者都会收到通知以切换到新的聊天室。有关聊天室版本的更多信息，请访问 https://spec.matrix.org/latest/rooms/';
 
   @override
   String get removeDevicesDescription => '你将从此设备登出，无法再接收消息。';
@@ -2280,13 +2301,15 @@ class L10nZh extends L10n {
   String get verifyOtherUser => '🔐 验证其他用户';
 
   @override
-  String get verifyOtherUserDescription => '如果你验证了其他用户，就可以确保你清楚自己正在与谁进行通信。💪\n\n当你开始验证时，你和其他用户将在应用中看到一个弹出窗口。然后你会看到一系列表情符号或数字，你和其他用户需要比较它们是否一致。\n\n最好的方式是线下会面或开始视频通话。👭';
+  String get verifyOtherUserDescription =>
+      '如果你验证了其他用户，就可以确保你清楚自己正在与谁进行通信。💪\n\n当你开始验证时，你和其他用户将在应用中看到一个弹出窗口。然后你会看到一系列表情符号或数字，你和其他用户需要比较它们是否一致。\n\n最好的方式是线下会面或开始视频通话。👭';
 
   @override
   String get verifyOtherDevice => '🔐 验证其它设备';
 
   @override
-  String get verifyOtherDeviceDescription => '当你验证另一个设备时，这些设备可以交换密钥，从而提高整体安全性。 💪 当你开始验证时，两个设备上的应用都将显示一个弹出窗口。然后你会看到一系列表情符号或数字，你需要比较两个设备上显示的内容。在开始验证之前，最好将两个设备都放在手边。🤳';
+  String get verifyOtherDeviceDescription =>
+      '当你验证另一个设备时，这些设备可以交换密钥，从而提高整体安全性。 💪 当你开始验证时，两个设备上的应用都将显示一个弹出窗口。然后你会看到一系列表情符号或数字，你需要比较两个设备上显示的内容。在开始验证之前，最好将两个设备都放在手边。🤳';
 
   @override
   String acceptedKeyVerification(String sender) {
@@ -2413,7 +2436,8 @@ class L10nZh extends L10n {
   String get changeTheDescriptionOfTheGroup => '更改聊天描述';
 
   @override
-  String get chatPermissionsDescription => '定义此聊天中哪个权限等级对特定操作是必需的。权限等级 0、50 和 100 通常代表用户、主持人和管理员，但你可以自定义任何等级。';
+  String get chatPermissionsDescription =>
+      '定义此聊天中哪个权限等级对特定操作是必需的。权限等级 0、50 和 100 通常代表用户、主持人和管理员，但你可以自定义任何等级。';
 
   @override
   String updateInstalled(String version) {
@@ -2436,7 +2460,8 @@ class L10nZh extends L10n {
   String get whatIsAHomeserver => '什么是主服务器？';
 
   @override
-  String get homeserverDescription => '主服务器上就像电子邮件提供商，你的所有数据都存储在上面。你可以选择你想使用哪个主服务器。在 https://matrix.org 上了解更多信息。';
+  String get homeserverDescription =>
+      '主服务器上就像电子邮件提供商，你的所有数据都存储在上面。你可以选择你想使用哪个主服务器。在 https://matrix.org 上了解更多信息。';
 
   @override
   String get doesNotSeemToBeAValidHomeserver => '似乎不是兼容的主服务器。URL 不正确？';
@@ -2470,13 +2495,15 @@ class L10nZh extends L10n {
   String get oneOfYourDevicesIsNotVerified => '您设备中的一台未验证';
 
   @override
-  String get noticeChatBackupDeviceVerification => '注意：当你连接所有设备到聊天备份时，这些设备将被自动验证。';
+  String get noticeChatBackupDeviceVerification =>
+      '注意：当你连接所有设备到聊天备份时，这些设备将被自动验证。';
 
   @override
   String get continueText => '继续';
 
   @override
-  String get welcomeText => '你好呀 👋 欢迎来到 FluffyChat。你可以登录任意兼容 https://matrix.org 的 homeserver，然后和任何人聊天。这是个巨大的去中心化消息网络！';
+  String get welcomeText =>
+      '你好呀 👋 欢迎来到 FluffyChat。你可以登录任意兼容 https://matrix.org 的 homeserver，然后和任何人聊天。这是个巨大的去中心化消息网络！';
 
   @override
   String get blur => '模糊：';
@@ -2559,7 +2586,8 @@ class L10nZh extends L10n {
   String get waitingForServer => '正在等待服务器…';
 
   @override
-  String get appIntroduction => 'FluffyChat 让使用不同即时通信工具的你和你的好友得以聊天。 访问 https://matrix.org 了解详情或轻按 *继续*。';
+  String get appIntroduction =>
+      'FluffyChat 让使用不同即时通信工具的你和你的好友得以聊天。 访问 https://matrix.org 了解详情或轻按 *继续*。';
 
   @override
   String get newChatRequest => '📩 新的聊天请求';
@@ -2583,7 +2611,8 @@ class L10nZh extends L10n {
   String get notificationRuleContainsUserName => '包含用户名';
 
   @override
-  String get notificationRuleContainsUserNameDescription => '当消息包含用户名时通知使用该用户名的用户。';
+  String get notificationRuleContainsUserNameDescription =>
+      '当消息包含用户名时通知使用该用户名的用户。';
 
   @override
   String get notificationRuleMaster => '静音所有通知';
@@ -2595,7 +2624,8 @@ class L10nZh extends L10n {
   String get notificationRuleSuppressNotices => '隐藏自动消息';
 
   @override
-  String get notificationRuleSuppressNoticesDescription => '隐藏来自 bot 等自动客户端的通知。';
+  String get notificationRuleSuppressNoticesDescription =>
+      '隐藏来自 bot 等自动客户端的通知。';
 
   @override
   String get notificationRuleInviteForMe => '给我的邀请';
@@ -2613,13 +2643,15 @@ class L10nZh extends L10n {
   String get notificationRuleIsUserMention => '用户提及';
 
   @override
-  String get notificationRuleIsUserMentionDescription => '当消息中直接提到用户名时通知使用该用户名的用户。';
+  String get notificationRuleIsUserMentionDescription =>
+      '当消息中直接提到用户名时通知使用该用户名的用户。';
 
   @override
   String get notificationRuleContainsDisplayName => '包含展示名称';
 
   @override
-  String get notificationRuleContainsDisplayNameDescription => '当消息包含用户的展示名时提醒使用该展示名的用户。';
+  String get notificationRuleContainsDisplayNameDescription =>
+      '当消息包含用户的展示名时提醒使用该展示名的用户。';
 
   @override
   String get notificationRuleIsRoomMention => '聊天室提及';
@@ -2649,7 +2681,8 @@ class L10nZh extends L10n {
   String get notificationRuleRoomServerAcl => '聊天室服务器 ACL';
 
   @override
-  String get notificationRuleRoomServerAclDescription => '隐藏聊天室服务器访问控制列表（ACL）通知。';
+  String get notificationRuleRoomServerAclDescription =>
+      '隐藏聊天室服务器访问控制列表（ACL）通知。';
 
   @override
   String get notificationRuleSuppressEdits => '隐藏编辑';
@@ -2667,7 +2700,8 @@ class L10nZh extends L10n {
   String get notificationRuleEncryptedRoomOneToOne => '已加密一对一聊天室';
 
   @override
-  String get notificationRuleEncryptedRoomOneToOneDescription => '在已加密一对一聊天室中提醒用户消息。';
+  String get notificationRuleEncryptedRoomOneToOneDescription =>
+      '在已加密一对一聊天室中提醒用户消息。';
 
   @override
   String get notificationRuleRoomOneToOne => '一对一聊天室';
@@ -2750,12 +2784,13 @@ class L10nZh extends L10n {
   String get youHaveKnocked => 'You have knocked';
 
   @override
-  String get pleaseWaitUntilInvited => 'Please wait now, until someone from the room invites you.';
+  String get pleaseWaitUntilInvited =>
+      'Please wait now, until someone from the room invites you.';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
 class L10nZhHant extends L10nZh {
-  L10nZhHant(): super('zh_Hant');
+  L10nZhHant() : super('zh_Hant');
 
   @override
   String get alwaysUse24HourFormat => 'false';
@@ -2902,7 +2937,8 @@ class L10nZhHant extends L10nZh {
   String get autoplayImages => '自動播放動態貼圖和表情';
 
   @override
-  String badServerLoginTypesException(String serverVersions, String supportedVersions, Object suportedVersions) {
+  String badServerLoginTypesException(String serverVersions,
+      String supportedVersions, Object suportedVersions) {
     return '目前伺服器支援的登入類型：\n$serverVersions\n但本應用程式僅支援：\n$supportedVersions';
   }
 
@@ -2916,7 +2952,8 @@ class L10nZhHant extends L10nZh {
   String get sendOnEnter => '按 Enter 鍵傳送';
 
   @override
-  String badServerVersionsException(String serverVersions, String supportedVersions, Object serverVerions, Object suportedVersions) {
+  String badServerVersionsException(String serverVersions,
+      String supportedVersions, Object serverVerions, Object suportedVersions) {
     return '目前伺服器支援的協議版本：\n$serverVersions\n但本應用程式僅支援 $supportedVersions';
   }
 
@@ -3660,7 +3697,8 @@ class L10nZhHant extends L10nZh {
   String get noEncryptionForPublicRooms => '您只能在這個聊天室不再被允許公開訪問後，才能啟用加密。';
 
   @override
-  String get noGoogleServicesWarning => '您手機上沒有安裝 Google 服務框架。這或許對於保護您的隱私而言是個好事！但為了收到 FluffyChat 的推播通知，我們建議您使用 https://microg.org 或 https://unifiedpush.org。';
+  String get noGoogleServicesWarning =>
+      '您手機上沒有安裝 Google 服務框架。這或許對於保護您的隱私而言是個好事！但為了收到 FluffyChat 的推播通知，我們建議您使用 https://microg.org 或 https://unifiedpush.org。';
 
   @override
   String noMatrixServer(String server1, String server2) {
@@ -3781,7 +3819,8 @@ class L10nZhHant extends L10nZh {
   String get hideMemberChangesInPublicChats => '在公開聊天室中隱藏成員變動';
 
   @override
-  String get hideMemberChangesInPublicChatsBody => '若有人加入或離開公開聊天室，將不在聊天室時間軸顯示，以提升資訊可讀性。';
+  String get hideMemberChangesInPublicChatsBody =>
+      '若有人加入或離開公開聊天室，將不在聊天室時間軸顯示，以提升資訊可讀性。';
 
   @override
   String get overview => '概觀';
@@ -4296,7 +4335,8 @@ class L10nZhHant extends L10nZh {
   String get start => '開始';
 
   @override
-  String get pleaseEnterRecoveryKeyDescription => '要解鎖您的舊訊息，請輸入在之前的會話中生成的恢復密鑰。您的恢復密鑰不是您的密碼。';
+  String get pleaseEnterRecoveryKeyDescription =>
+      '要解鎖您的舊訊息，請輸入在之前的會話中生成的恢復密鑰。您的恢復密鑰不是您的密碼。';
 
   @override
   String get publish => '發布';
@@ -4342,10 +4382,12 @@ class L10nZhHant extends L10nZh {
   String get unsupportedAndroidVersion => '不支持的Android版本';
 
   @override
-  String get unsupportedAndroidVersionLong => '此功能需要較新的 Android 版本。請檢查更新或 Lineage OS 支持。';
+  String get unsupportedAndroidVersionLong =>
+      '此功能需要較新的 Android 版本。請檢查更新或 Lineage OS 支持。';
 
   @override
-  String get videoCallsBetaWarning => '請注意，視訊通話目前處於測試階段。它們可能不會按預期工作，或者在所有平台上都不工作。';
+  String get videoCallsBetaWarning =>
+      '請注意，視訊通話目前處於測試階段。它們可能不會按預期工作，或者在所有平台上都不工作。';
 
   @override
   String get experimentalVideoCalls => '實驗性視訊通話';
@@ -4357,7 +4399,8 @@ class L10nZhHant extends L10nZh {
   String get indexedDbErrorTitle => '私密模式問題';
 
   @override
-  String get indexedDbErrorLong => '預設情況下，私密模式不啟用消息存儲。\n請訪問\n - about:config\n - 將 dom.indexedDB.privateBrowsing.enabled 設定為 true\n否則，無法運行 FluffyChat。';
+  String get indexedDbErrorLong =>
+      '預設情況下，私密模式不啟用消息存儲。\n請訪問\n - about:config\n - 將 dom.indexedDB.privateBrowsing.enabled 設定為 true\n否則，無法運行 FluffyChat。';
 
   @override
   String switchToAccount(String number) {
@@ -4536,7 +4579,8 @@ class L10nZhHant extends L10nZh {
   String get whyIsThisMessageEncrypted => '為什麼這條訊息無法讀取？';
 
   @override
-  String get noKeyForThisMessage => '如果訊息是在您登入此裝置之前傳送的，就可能會發生這種情況。\n\n也有可能是傳送者已經封鎖了您的裝置，或者網絡連接出了問題。\n\n如果您能在另一個會話中讀取該訊息，那麼您可以從中轉移訊息！前往設定 > 裝置，並確保您的裝置已相互驗證。當您下次打開房間且兩個會話都在前景時，密鑰將自動傳輸。\n\n不想在登出或切換裝置時丟失密鑰？請確保您已在設定中啟用了聊天室備份。';
+  String get noKeyForThisMessage =>
+      '如果訊息是在您登入此裝置之前傳送的，就可能會發生這種情況。\n\n也有可能是傳送者已經封鎖了您的裝置，或者網絡連接出了問題。\n\n如果您能在另一個會話中讀取該訊息，那麼您可以從中轉移訊息！前往設定 > 裝置，並確保您的裝置已相互驗證。當您下次打開房間且兩個會話都在前景時，密鑰將自動傳輸。\n\n不想在登出或切換裝置時丟失密鑰？請確保您已在設定中啟用了聊天室備份。';
 
   @override
   String get newGroup => '新群組';
@@ -4668,7 +4712,8 @@ class L10nZhHant extends L10nZh {
   String get archiveRoomDescription => '聊天室將被移動到存檔中。其他使用者將能看到您已離開聊天室。';
 
   @override
-  String get roomUpgradeDescription => '將使用新版本聊天室來重新建立聊天室。所有本聊天室的參與者都會收到通知，他們都需要換到新的聊天室裡。若您想知道有關新版本的更多資訊，請前往 https://spec.matrix.org/latest/rooms/';
+  String get roomUpgradeDescription =>
+      '將使用新版本聊天室來重新建立聊天室。所有本聊天室的參與者都會收到通知，他們都需要換到新的聊天室裡。若您想知道有關新版本的更多資訊，請前往 https://spec.matrix.org/latest/rooms/';
 
   @override
   String get removeDevicesDescription => '您將從這個裝置登出，並將不再能夠接收消息。';
@@ -4683,7 +4728,8 @@ class L10nZhHant extends L10nZh {
   String get kickUserDescription => '該使用者被踢出聊天室，但未被禁止。在公開聊天室中，該使用者可以隨時重新加入。';
 
   @override
-  String get makeAdminDescription => '一旦您讓這個使用者成為管理員，您可能無法撤銷此操作，因為他們將擁有與您相同的權限。';
+  String get makeAdminDescription =>
+      '一旦您讓這個使用者成為管理員，您可能無法撤銷此操作，因為他們將擁有與您相同的權限。';
 
   @override
   String get pushNotificationsNotAvailable => '推送通知不可用';
@@ -4852,13 +4898,15 @@ class L10nZhHant extends L10nZh {
   String get verifyOtherUser => '🔐 驗證其他使用者';
 
   @override
-  String get verifyOtherUserDescription => '如果您驗證了另一個使用者，您可以確定您真正與誰通信。💪\n\n當您開始驗證時，您和另一個使用者將在應用程式中看到一個彈出視窗。在那裡，您將看到一系列的表情符號或數字，您需要相互比較。\n\n最好的方式是見面或開始視訊通話。👭';
+  String get verifyOtherUserDescription =>
+      '如果您驗證了另一個使用者，您可以確定您真正與誰通信。💪\n\n當您開始驗證時，您和另一個使用者將在應用程式中看到一個彈出視窗。在那裡，您將看到一系列的表情符號或數字，您需要相互比較。\n\n最好的方式是見面或開始視訊通話。👭';
 
   @override
   String get verifyOtherDevice => '🔐 驗證其他裝置';
 
   @override
-  String get verifyOtherDeviceDescription => '當您驗證另一個裝置時，這些裝置可以交換密鑰，提升您的整體安全性。💪 當您開始驗證時，一個彈出視窗將在兩個裝置上的應用程式中出現。在那裡，您將看到一系列的表情符號或數字，您需要相互比較。在開始驗證之前最好有兩個裝置在手邊。🤳';
+  String get verifyOtherDeviceDescription =>
+      '當您驗證另一個裝置時，這些裝置可以交換密鑰，提升您的整體安全性。💪 當您開始驗證時，一個彈出視窗將在兩個裝置上的應用程式中出現。在那裡，您將看到一系列的表情符號或數字，您需要相互比較。在開始驗證之前最好有兩個裝置在手邊。🤳';
 
   @override
   String acceptedKeyVerification(String sender) {
@@ -4972,7 +5020,8 @@ class L10nZhHant extends L10nZh {
   String get changeTheDescriptionOfTheGroup => '變更聊天室說明';
 
   @override
-  String get chatPermissionsDescription => '定義此聊天中某些操作需要哪個權限等級。 權限等級0、50和100通常代表使用者、版主和管理員，但任何分級都是可能的。';
+  String get chatPermissionsDescription =>
+      '定義此聊天中某些操作需要哪個權限等級。 權限等級0、50和100通常代表使用者、版主和管理員，但任何分級都是可能的。';
 
   @override
   String updateInstalled(String version) {
@@ -4995,7 +5044,8 @@ class L10nZhHant extends L10nZh {
   String get whatIsAHomeserver => '什麼是歸屬伺服器?';
 
   @override
-  String get homeserverDescription => '您的所有資料都儲存在歸屬伺服器上，就像電子郵件提供商一樣。 您可以選擇要使用的歸屬伺服器，同時您仍然可以與每個人溝通。 請訪問https://matrix.org瞭解更多資訊。';
+  String get homeserverDescription =>
+      '您的所有資料都儲存在歸屬伺服器上，就像電子郵件提供商一樣。 您可以選擇要使用的歸屬伺服器，同時您仍然可以與每個人溝通。 請訪問https://matrix.org瞭解更多資訊。';
 
   @override
   String get doesNotSeemToBeAValidHomeserver => '似乎不是能匹配的歸屬伺服器。伺服器域名打錯了嗎？';
@@ -5029,13 +5079,15 @@ class L10nZhHant extends L10nZh {
   String get oneOfYourDevicesIsNotVerified => '你的其中一個裝置尚未驗證';
 
   @override
-  String get noticeChatBackupDeviceVerification => '注意：當您將所有裝置連線到聊天備份時，它們會自動驗證。';
+  String get noticeChatBackupDeviceVerification =>
+      '注意：當您將所有裝置連線到聊天備份時，它們會自動驗證。';
 
   @override
   String get continueText => '繼續';
 
   @override
-  String get welcomeText => '嘿，嘿👋這是FluffyChat。 您可以登入任何與https://matrix.org相容的歸屬伺服器後和任何人聊天。 這是一個巨大的去中心化訊息網路！';
+  String get welcomeText =>
+      '嘿，嘿👋這是FluffyChat。 您可以登入任何與https://matrix.org相容的歸屬伺服器後和任何人聊天。 這是一個巨大的去中心化訊息網路！';
 
   @override
   String get blur => '模糊:';
@@ -5118,7 +5170,8 @@ class L10nZhHant extends L10nZh {
   String get waitingForServer => '等待伺服器中...';
 
   @override
-  String get appIntroduction => 'FluffyChat 讓你和你的朋友跨越工具聊天。在 https://matrix.org 了解更多或*繼續*。';
+  String get appIntroduction =>
+      'FluffyChat 讓你和你的朋友跨越工具聊天。在 https://matrix.org 了解更多或*繼續*。';
 
   @override
   String get newChatRequest => '📩 新的聊天邀請';

@@ -1377,6 +1377,12 @@ class ChatController extends State<ChatPageWithRoom>
     if (choice == 'file') {
       sendFileAction();
     }
+    if (choice == 'image') {
+      sendFileAction(type: FileSelectorType.images);
+    }
+    if (choice == 'video') {
+      sendFileAction(type: FileSelectorType.videos);
+    }
     if (choice == 'poll') {
       sendPollAction();
     }

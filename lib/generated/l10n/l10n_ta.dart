@@ -15,7 +15,8 @@ class L10nTa extends L10n {
   String get noMessagesYet => 'No messages yet';
 
   @override
-  String get longPressToRecordVoiceMessage => 'Long press to record voice message.';
+  String get longPressToRecordVoiceMessage =>
+      'Long press to record voice message.';
 
   @override
   String get pause => 'Pause';
@@ -36,7 +37,8 @@ class L10nTa extends L10n {
   String get moveDown => 'Move down';
 
   @override
-  String get removeFromSpaceDescription => 'The chat will be removed from the space but still appear in your chat list.';
+  String get removeFromSpaceDescription =>
+      'The chat will be removed from the space but still appear in your chat list.';
 
   @override
   String get endPoll => 'End poll';
@@ -104,13 +106,15 @@ class L10nTa extends L10n {
   String get cleanExif => 'Clean EXIF metadata';
 
   @override
-  String get cleanExifDescription => 'Remove EXIF metadata (camera model, geolocation, time) when sending a photo.';
+  String get cleanExifDescription =>
+      'Remove EXIF metadata (camera model, geolocation, time) when sending a photo.';
 
   @override
   String get doNotSendIfCantClean => 'Strictly no EXIF';
 
   @override
-  String get doNotSendIfCantCleanDescription => 'Do not send the image if there was an error cleaning EXIF metadata';
+  String get doNotSendIfCantCleanDescription =>
+      'Do not send the image if there was an error cleaning EXIF metadata';
 
   @override
   String get repeatPassword => 'கடவுச்சொல்லை மீண்டும் செய்யவும்';
@@ -122,7 +126,8 @@ class L10nTa extends L10n {
   String get setCustomPermissionLevel => 'Set custom permission level';
 
   @override
-  String get setPermissionsLevelDescription => 'Please choose a predefined role below or enter a custom permission level between 0 and 100.';
+  String get setPermissionsLevelDescription =>
+      'Please choose a predefined role below or enter a custom permission level between 0 and 100.';
 
   @override
   String get ignoreUser => 'Ignore user';
@@ -140,7 +145,8 @@ class L10nTa extends L10n {
   String get enableGradient => 'Enable bubble background gradient';
 
   @override
-  String get translationDisabledInE2e => 'Cloud translation is disabled in encrypted rooms to preserve privacy. Select specific words and use system context menu to translate with apps that support it.';
+  String get translationDisabledInE2e =>
+      'Cloud translation is disabled in encrypted rooms to preserve privacy. Select specific words and use system context menu to translate with apps that support it.';
 
   @override
   String get remove => 'அகற்று';
@@ -188,7 +194,8 @@ class L10nTa extends L10n {
   String get addEmail => 'மின்னஞ்சல் சேர்க்கவும்';
 
   @override
-  String get confirmMatrixId => 'உங்கள் கணக்கை நீக்க உங்கள் மேட்ரிக்ச் ஐடியை உறுதிப்படுத்தவும்.';
+  String get confirmMatrixId =>
+      'உங்கள் கணக்கை நீக்க உங்கள் மேட்ரிக்ச் ஐடியை உறுதிப்படுத்தவும்.';
 
   @override
   String supposedMxid(String mxid) {
@@ -214,7 +221,8 @@ class L10nTa extends L10n {
   String get allChats => 'அனைத்து அரட்டைகளும்';
 
   @override
-  String get commandHint_roomupgrade => 'Upgrade this room to the given room version';
+  String get commandHint_roomupgrade =>
+      'Upgrade this room to the given room version';
 
   @override
   String get commandHint_googly => 'சில கூகிள் கண்களை அனுப்பவும்';
@@ -252,22 +260,26 @@ class L10nTa extends L10n {
   String get appLock => 'பயன்பாட்டு பூட்டு';
 
   @override
-  String get appLockDescription => 'முள் குறியீட்டைக் கொண்டு பயன்படுத்தாதபோது பயன்பாட்டைப் பூட்டவும்';
+  String get appLockDescription =>
+      'முள் குறியீட்டைக் கொண்டு பயன்படுத்தாதபோது பயன்பாட்டைப் பூட்டவும்';
 
   @override
   String get archive => 'காப்பகம்';
 
   @override
-  String get areGuestsAllowedToJoin => 'விருந்தினர் பயனர்கள் சேர அனுமதிக்கப்படுகிறார்களா';
+  String get areGuestsAllowedToJoin =>
+      'விருந்தினர் பயனர்கள் சேர அனுமதிக்கப்படுகிறார்களா';
 
   @override
   String get areYouSure => 'நீங்கள் உறுதியாக இருக்கிறீர்களா?';
 
   @override
-  String get areYouSureYouWantToLogout => 'நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?';
+  String get areYouSureYouWantToLogout =>
+      'நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?';
 
   @override
-  String get askSSSSSign => 'மற்ற நபரில் கையெழுத்திட, தயவுசெய்து உங்கள் பாதுகாப்பான கடை பாச்ஃபிரேச் அல்லது மீட்பு விசையை உள்ளிடவும்.';
+  String get askSSSSSign =>
+      'மற்ற நபரில் கையெழுத்திட, தயவுசெய்து உங்கள் பாதுகாப்பான கடை பாச்ஃபிரேச் அல்லது மீட்பு விசையை உள்ளிடவும்.';
 
   @override
   String askVerificationRequest(String username) {
@@ -275,10 +287,12 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get autoplayImages => 'அனிமேசன் செய்யப்பட்ட ச்டிக்கர்கள் மற்றும் உணர்ச்சிகளை தானாக இயக்கவும்';
+  String get autoplayImages =>
+      'அனிமேசன் செய்யப்பட்ட ச்டிக்கர்கள் மற்றும் உணர்ச்சிகளை தானாக இயக்கவும்';
 
   @override
-  String badServerLoginTypesException(String serverVersions, String supportedVersions, Object suportedVersions) {
+  String badServerLoginTypesException(String serverVersions,
+      String supportedVersions, Object suportedVersions) {
     return 'உள்நாட்டு வகைகளை ஓம்சர்வர் ஆதரிக்கிறது:\n $serverVersions\n ஆனால் இந்த பயன்பாடு மட்டுமே ஆதரிக்கிறது:\n $supportedVersions';
   }
 
@@ -286,13 +300,15 @@ class L10nTa extends L10n {
   String get sendTypingNotifications => 'தட்டச்சு அறிவிப்புகளை அனுப்பவும்';
 
   @override
-  String get swipeRightToLeftToReply => 'பதிலளிக்க வலமிருந்து இடமாக ச்வைப் செய்யவும்';
+  String get swipeRightToLeftToReply =>
+      'பதிலளிக்க வலமிருந்து இடமாக ச்வைப் செய்யவும்';
 
   @override
   String get sendOnEnter => 'Enter ஐ அனுப்பவும்';
 
   @override
-  String badServerVersionsException(String serverVersions, String supportedVersions, Object serverVerions, Object suportedVersions) {
+  String badServerVersionsException(String serverVersions,
+      String supportedVersions, Object serverVerions, Object suportedVersions) {
     return 'ஓம்சர்வர் ச்பெக் பதிப்புகளை ஆதரிக்கிறது:\n $serverVersions\n ஆனால் இந்த பயன்பாடு $supportedVersions மட்டுமே ஆதரிக்கிறது';
   }
 
@@ -305,7 +321,8 @@ class L10nTa extends L10n {
   String get noMoreChatsFound => 'இனி அரட்டைகள் கிடைக்கவில்லை ...';
 
   @override
-  String get noChatsFoundHere => 'இங்கே அரட்டைகள் எதுவும் காணப்படவில்லை. கீழே உள்ள பொத்தானைப் பயன்படுத்தி ஒருவருடன் புதிய அரட்டையைத் தொடங்கவும். .';
+  String get noChatsFoundHere =>
+      'இங்கே அரட்டைகள் எதுவும் காணப்படவில்லை. கீழே உள்ள பொத்தானைப் பயன்படுத்தி ஒருவருடன் புதிய அரட்டையைத் தொடங்கவும். .';
 
   @override
   String get joinedChats => 'இணைந்த அரட்டைகள்';
@@ -442,19 +459,22 @@ class L10nTa extends L10n {
   String get chat => 'அரட்டை';
 
   @override
-  String get yourChatBackupHasBeenSetUp => 'உங்கள் அரட்டை காப்புப்பிரதி அமைக்கப்பட்டுள்ளது.';
+  String get yourChatBackupHasBeenSetUp =>
+      'உங்கள் அரட்டை காப்புப்பிரதி அமைக்கப்பட்டுள்ளது.';
 
   @override
   String get chatBackup => 'அரட்டை காப்புப்பிரதி';
 
   @override
-  String get chatBackupDescription => 'உங்கள் பழைய செய்திகள் மீட்பு விசையுடன் பாதுகாக்கப்படுகின்றன. நீங்கள் அதை இழக்கவில்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.';
+  String get chatBackupDescription =>
+      'உங்கள் பழைய செய்திகள் மீட்பு விசையுடன் பாதுகாக்கப்படுகின்றன. நீங்கள் அதை இழக்கவில்லை என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.';
 
   @override
   String get chatDetails => 'அரட்டை விவரங்கள்';
 
   @override
-  String get chatHasBeenAddedToThisSpace => 'இந்த இடத்தில் அரட்டை சேர்க்கப்பட்டுள்ளது';
+  String get chatHasBeenAddedToThisSpace =>
+      'இந்த இடத்தில் அரட்டை சேர்க்கப்பட்டுள்ளது';
 
   @override
   String get chats => 'அரட்டைகள்';
@@ -469,37 +489,43 @@ class L10nTa extends L10n {
   String get close => 'மூடு';
 
   @override
-  String get commandHint_markasdm => 'கொடுக்கப்பட்ட மேட்ரிக்சிற்கான நேரடி செய்தி அறையாக குறிக்கவும்';
+  String get commandHint_markasdm =>
+      'கொடுக்கப்பட்ட மேட்ரிக்சிற்கான நேரடி செய்தி அறையாக குறிக்கவும்';
 
   @override
   String get commandHint_markasgroup => 'குழுவாக குறி';
 
   @override
-  String get commandHint_ban => 'கொடுக்கப்பட்ட பயனரை இந்த அறையிலிருந்து தடை செய்யுங்கள்';
+  String get commandHint_ban =>
+      'கொடுக்கப்பட்ட பயனரை இந்த அறையிலிருந்து தடை செய்யுங்கள்';
 
   @override
   String get commandHint_clearcache => 'தெளிவான தற்காலிக சேமிப்பு';
 
   @override
-  String get commandHint_create => 'வெற்று குழு அரட்டையை உருவாக்கவும்\n குறியாக்கத்தை முடக்க-இல்லை-குறியாக்கத்தைப் பயன்படுத்தவும்';
+  String get commandHint_create =>
+      'வெற்று குழு அரட்டையை உருவாக்கவும்\n குறியாக்கத்தை முடக்க-இல்லை-குறியாக்கத்தைப் பயன்படுத்தவும்';
 
   @override
   String get commandHint_discardsession => 'அமர்வை நிராகரிக்கவும்';
 
   @override
-  String get commandHint_dm => 'நேரடி அரட்டையைத் தொடங்கவும்\n குறியாக்கத்தை முடக்க-இல்லை-குறியாக்கத்தைப் பயன்படுத்தவும்';
+  String get commandHint_dm =>
+      'நேரடி அரட்டையைத் தொடங்கவும்\n குறியாக்கத்தை முடக்க-இல்லை-குறியாக்கத்தைப் பயன்படுத்தவும்';
 
   @override
   String get commandHint_html => 'உஉகுமொ வடிவமைக்கப்பட்ட உரையை அனுப்பவும்';
 
   @override
-  String get commandHint_invite => 'கொடுக்கப்பட்ட பயனரை இந்த அறைக்கு அழைக்கவும்';
+  String get commandHint_invite =>
+      'கொடுக்கப்பட்ட பயனரை இந்த அறைக்கு அழைக்கவும்';
 
   @override
   String get commandHint_join => 'கொடுக்கப்பட்ட அறையில் சேரவும்';
 
   @override
-  String get commandHint_kick => 'இந்த அறையிலிருந்து கொடுக்கப்பட்ட பயனரை அகற்றவும்';
+  String get commandHint_kick =>
+      'இந்த அறையிலிருந்து கொடுக்கப்பட்ட பயனரை அகற்றவும்';
 
   @override
   String get commandHint_leave => 'இந்த அறையை விட்டு விடுங்கள்';
@@ -508,13 +534,16 @@ class L10nTa extends L10n {
   String get commandHint_me => 'உங்களை விவரிக்கவும்';
 
   @override
-  String get commandHint_myroomavatar => 'இந்த அறைக்கு உங்கள் படத்தை அமைக்கவும் (MXC-URI எழுதியது)';
+  String get commandHint_myroomavatar =>
+      'இந்த அறைக்கு உங்கள் படத்தை அமைக்கவும் (MXC-URI எழுதியது)';
 
   @override
-  String get commandHint_myroomnick => 'இந்த அறைக்கு உங்கள் காட்சி பெயரை அமைக்கவும்';
+  String get commandHint_myroomnick =>
+      'இந்த அறைக்கு உங்கள் காட்சி பெயரை அமைக்கவும்';
 
   @override
-  String get commandHint_op => 'கொடுக்கப்பட்ட பயனரின் ஆற்றல் மட்டத்தை அமைக்கவும் (இயல்புநிலை: 50)';
+  String get commandHint_op =>
+      'கொடுக்கப்பட்ட பயனரின் ஆற்றல் மட்டத்தை அமைக்கவும் (இயல்புநிலை: 50)';
 
   @override
   String get commandHint_plain => 'வடிவமைக்கப்படாத உரையை அனுப்பவும்';
@@ -526,7 +555,8 @@ class L10nTa extends L10n {
   String get commandHint_send => 'உரையை அனுப்பவும்';
 
   @override
-  String get commandHint_unban => 'இந்த அறையிலிருந்து கொடுக்கப்பட்ட பயனரைத் தடுக்கிறது';
+  String get commandHint_unban =>
+      'இந்த அறையிலிருந்து கொடுக்கப்பட்ட பயனரைத் தடுக்கிறது';
 
   @override
   String get commandInvalid => 'கட்டளை தவறானது';
@@ -552,7 +582,8 @@ class L10nTa extends L10n {
   String get connect => 'இணை';
 
   @override
-  String get contactHasBeenInvitedToTheGroup => 'குழுவிற்கு தொடர்பு அழைக்கப்பட்டுள்ளது';
+  String get contactHasBeenInvitedToTheGroup =>
+      'குழுவிற்கு தொடர்பு அழைக்கப்பட்டுள்ளது';
 
   @override
   String get containsDisplayName => 'காட்சி பெயரைக் கொண்டுள்ளது';
@@ -561,7 +592,8 @@ class L10nTa extends L10n {
   String get containsUserName => 'பயனர்பெயர் உள்ளது';
 
   @override
-  String get contentHasBeenReported => 'உள்ளடக்கம் சேவையக நிர்வாகிகளுக்கு தெரிவிக்கப்பட்டுள்ளது';
+  String get contentHasBeenReported =>
+      'உள்ளடக்கம் சேவையக நிர்வாகிகளுக்கு தெரிவிக்கப்பட்டுள்ளது';
 
   @override
   String get copiedToClipboard => 'இடைநிலைப்பலகைக்கு நகலெடுக்கப்பட்டது';
@@ -618,10 +650,12 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get deactivateAccountWarning => 'இது உங்கள் பயனர் கணக்கை செயலிழக்கச் செய்யும். இதை செயல்தவிர்க்க முடியாது! நீங்கள் உறுதியாக இருக்கிறீர்களா?';
+  String get deactivateAccountWarning =>
+      'இது உங்கள் பயனர் கணக்கை செயலிழக்கச் செய்யும். இதை செயல்தவிர்க்க முடியாது! நீங்கள் உறுதியாக இருக்கிறீர்களா?';
 
   @override
-  String get defaultPermissionLevel => 'புதிய பயனர்களுக்கான இயல்புநிலை இசைவு நிலை';
+  String get defaultPermissionLevel =>
+      'புதிய பயனர்களுக்கான இயல்புநிலை இசைவு நிலை';
 
   @override
   String get delete => 'நீக்கு';
@@ -684,7 +718,8 @@ class L10nTa extends L10n {
   String get emoteInvalid => 'தவறான எமோட் சார்ட்கோட்!';
 
   @override
-  String get emoteKeyboardNoRecents => 'அண்மைக் காலத்தில் பயன்படுத்தப்பட்ட உணர்ச்சிகள் இங்கே தோன்றும் ...';
+  String get emoteKeyboardNoRecents =>
+      'அண்மைக் காலத்தில் பயன்படுத்தப்பட்ட உணர்ச்சிகள் இங்கே தோன்றும் ...';
 
   @override
   String get emotePacks => 'அறைக்கு எமோட் பொதிகள்';
@@ -699,22 +734,26 @@ class L10nTa extends L10n {
   String get accessAndVisibility => 'அணுகல் மற்றும் தெரிவுநிலை';
 
   @override
-  String get accessAndVisibilityDescription => 'இந்த அரட்டையில் யார் சேர அனுமதிக்கப்படுகிறார்கள், அரட்டையை எவ்வாறு கண்டுபிடிப்பது.';
+  String get accessAndVisibilityDescription =>
+      'இந்த அரட்டையில் யார் சேர அனுமதிக்கப்படுகிறார்கள், அரட்டையை எவ்வாறு கண்டுபிடிப்பது.';
 
   @override
   String get calls => 'அழைப்புகள்';
 
   @override
-  String get customEmojisAndStickers => 'தனிப்பயன் ஈமோசிகள் மற்றும் ச்டிக்கர்கள்';
+  String get customEmojisAndStickers =>
+      'தனிப்பயன் ஈமோசிகள் மற்றும் ச்டிக்கர்கள்';
 
   @override
-  String get customEmojisAndStickersBody => 'எந்தவொரு அரட்டையிலும் பயன்படுத்தக்கூடிய தனிப்பயன் ஈமோசிகள் அல்லது ச்டிக்கர்களைச் சேர்க்கவும் அல்லது பகிரவும்.';
+  String get customEmojisAndStickersBody =>
+      'எந்தவொரு அரட்டையிலும் பயன்படுத்தக்கூடிய தனிப்பயன் ஈமோசிகள் அல்லது ச்டிக்கர்களைச் சேர்க்கவும் அல்லது பகிரவும்.';
 
   @override
   String get emoteShortcode => 'சார்ட்கோட் எமோட்';
 
   @override
-  String get emoteWarnNeedToPick => 'நீங்கள் ஒரு எமோட் சார்ட்கோட் மற்றும் ஒரு படத்தை எடுக்க வேண்டும்!';
+  String get emoteWarnNeedToPick =>
+      'நீங்கள் ஒரு எமோட் சார்ட்கோட் மற்றும் ஒரு படத்தை எடுக்க வேண்டும்!';
 
   @override
   String get emptyChat => 'வெற்று அரட்டை';
@@ -726,7 +765,8 @@ class L10nTa extends L10n {
   String get enableEncryption => 'குறியாக்கத்தை இயக்கவும்';
 
   @override
-  String get enableEncryptionWarning => 'நீங்கள் இனி குறியாக்கத்தை முடக்க முடியாது. நீங்கள் உறுதியாக இருக்கிறீர்களா?';
+  String get enableEncryptionWarning =>
+      'நீங்கள் இனி குறியாக்கத்தை முடக்க முடியாது. நீங்கள் உறுதியாக இருக்கிறீர்களா?';
 
   @override
   String get encrypted => 'குறியாக்கப்பட்டது';
@@ -824,10 +864,12 @@ class L10nTa extends L10n {
   String get hideRedactedMessages => 'சரிசெய்யப்பட்ட செய்திகளை மறைக்கவும்';
 
   @override
-  String get hideRedactedMessagesBody => 'யாராவது ஒரு செய்தியை மாற்றியமைத்தால், இந்த செய்தி இனி அரட்டையில் காணப்படாது.';
+  String get hideRedactedMessagesBody =>
+      'யாராவது ஒரு செய்தியை மாற்றியமைத்தால், இந்த செய்தி இனி அரட்டையில் காணப்படாது.';
 
   @override
-  String get hideInvalidOrUnknownMessageFormats => 'தவறான அல்லது அறியப்படாத செய்தி வடிவங்களை மறைக்கவும்';
+  String get hideInvalidOrUnknownMessageFormats =>
+      'தவறான அல்லது அறியப்படாத செய்தி வடிவங்களை மறைக்கவும்';
 
   @override
   String get howOffensiveIsThisContent => 'இந்த உள்ளடக்கம் எவ்வளவு ஆபத்தானது?';
@@ -845,7 +887,8 @@ class L10nTa extends L10n {
   String get blockedUsers => 'தடுக்கப்பட்ட பயனர்கள்';
 
   @override
-  String get blockListDescription => 'உங்களை தொந்தரவு செய்யும் பயனர்களைத் தடுக்கலாம். உங்கள் தனிப்பட்ட தொகுதி பட்டியலில் பயனர்களிடமிருந்து எந்த செய்திகளையும் அல்லது அறை அழைப்புகளையும் நீங்கள் பெற முடியாது.';
+  String get blockListDescription =>
+      'உங்களை தொந்தரவு செய்யும் பயனர்களைத் தடுக்கலாம். உங்கள் தனிப்பட்ட தொகுதி பட்டியலில் பயனர்களிடமிருந்து எந்த செய்திகளையும் அல்லது அறை அழைப்புகளையும் நீங்கள் பெற முடியாது.';
 
   @override
   String get blockUsername => 'பயனர்பெயரை புறக்கணிக்கவும்';
@@ -873,7 +916,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get noChatDescriptionYet => 'அரட்டை விளக்கம் இதுவரை உருவாக்கப்படவில்லை.';
+  String get noChatDescriptionYet =>
+      'அரட்டை விளக்கம் இதுவரை உருவாக்கப்படவில்லை.';
 
   @override
   String get tryAgain => 'மீண்டும் முயற்சிக்கவும்';
@@ -885,10 +929,12 @@ class L10nTa extends L10n {
   String get invited => 'அழைக்கப்பட்டார்';
 
   @override
-  String get redactMessageDescription => 'இந்த உரையாடலில் பங்கேற்பாளர்கள் அனைவருக்கும் செய்தி திருத்தப்படும். இதை செயல்தவிர்க்க முடியாது.';
+  String get redactMessageDescription =>
+      'இந்த உரையாடலில் பங்கேற்பாளர்கள் அனைவருக்கும் செய்தி திருத்தப்படும். இதை செயல்தவிர்க்க முடியாது.';
 
   @override
-  String get optionalRedactReason => '(விரும்பினால்) இந்த செய்தியை மாற்றியமைப்பதற்கான காரணம் ...';
+  String get optionalRedactReason =>
+      '(விரும்பினால்) இந்த செய்தியை மாற்றியமைப்பதற்கான காரணம் ...';
 
   @override
   String invitedUser(String username, String targetName) {
@@ -956,19 +1002,22 @@ class L10nTa extends L10n {
   String get dehydrate => 'ஏற்றுமதி அமர்வு மற்றும் சாதனத்தை துடைக்கவும்';
 
   @override
-  String get dehydrateWarning => 'இந்த செயலை செயல்தவிர்க்க முடியாது. காப்புப்பிரதி கோப்பை பாதுகாப்பாக சேமித்து வைக்கவும்.';
+  String get dehydrateWarning =>
+      'இந்த செயலை செயல்தவிர்க்க முடியாது. காப்புப்பிரதி கோப்பை பாதுகாப்பாக சேமித்து வைக்கவும்.';
 
   @override
   String get dehydrateTor => 'டோர் பயனர்கள்: ஏற்றுமதி அமர்வு';
 
   @override
-  String get dehydrateTorLong => 'TOR பயனர்களுக்கு, சாளரத்தை மூடுவதற்கு முன் அமர்வை ஏற்றுமதி செய்ய பரிந்துரைக்கப்படுகிறது.';
+  String get dehydrateTorLong =>
+      'TOR பயனர்களுக்கு, சாளரத்தை மூடுவதற்கு முன் அமர்வை ஏற்றுமதி செய்ய பரிந்துரைக்கப்படுகிறது.';
 
   @override
   String get hydrateTor => 'டோர் பயனர்கள்: இறக்குமதி அமர்வு ஏற்றுமதி';
 
   @override
-  String get hydrateTorLong => 'உங்கள் அமர்வை கடைசியாக டோரில் ஏற்றுமதி செய்தீர்களா? விரைவாக அதை இறக்குமதி செய்து அரட்டையடிக்கவும்.';
+  String get hydrateTorLong =>
+      'உங்கள் அமர்வை கடைசியாக டோரில் ஏற்றுமதி செய்தீர்களா? விரைவாக அதை இறக்குமதி செய்து அரட்டையடிக்கவும்.';
 
   @override
   String get hydrate => 'காப்பு கோப்பிலிருந்து மீட்டமைக்கவும்';
@@ -980,10 +1029,12 @@ class L10nTa extends L10n {
   String get loadMore => 'மேலும் ஏற்றவும்…';
 
   @override
-  String get locationDisabledNotice => 'இருப்பிட சேவைகள் முடக்கப்பட்டுள்ளன. தயவுசெய்து உங்கள் இருப்பிடத்தைப் பகிர்ந்து கொள்ள அவர்களுக்கு உதவவும்.';
+  String get locationDisabledNotice =>
+      'இருப்பிட சேவைகள் முடக்கப்பட்டுள்ளன. தயவுசெய்து உங்கள் இருப்பிடத்தைப் பகிர்ந்து கொள்ள அவர்களுக்கு உதவவும்.';
 
   @override
-  String get locationPermissionDeniedNotice => 'இருப்பிட இசைவு மறுக்கப்பட்டது. உங்கள் இருப்பிடத்தைப் பகிர்ந்து கொள்ள தயவுசெய்து அவர்களுக்கு வழங்குங்கள்.';
+  String get locationPermissionDeniedNotice =>
+      'இருப்பிட இசைவு மறுக்கப்பட்டது. உங்கள் இருப்பிடத்தைப் பகிர்ந்து கொள்ள தயவுசெய்து அவர்களுக்கு வழங்குங்கள்.';
 
   @override
   String get login => 'புகுபதிவு';
@@ -1015,7 +1066,8 @@ class L10nTa extends L10n {
   String get muteChat => 'முடக்கு அரட்டை';
 
   @override
-  String get needPantalaimonWarning => 'இப்போதைக்கு இறுதி முதல் இறுதி குறியாக்கத்தைப் பயன்படுத்த உங்களுக்கு பாண்டலாயமன் தேவை என்பதை நினைவில் கொள்க.';
+  String get needPantalaimonWarning =>
+      'இப்போதைக்கு இறுதி முதல் இறுதி குறியாக்கத்தைப் பயன்படுத்த உங்களுக்கு பாண்டலாயமன் தேவை என்பதை நினைவில் கொள்க.';
 
   @override
   String get newChat => 'புதிய அரட்டை';
@@ -1039,10 +1091,12 @@ class L10nTa extends L10n {
   String get noEmotesFound => 'உணர்ச்சிகள் எதுவும் காணப்படவில்லை. .';
 
   @override
-  String get noEncryptionForPublicRooms => 'அறை இனி பகிரங்கமாக அணுக முடியாதவுடன் மட்டுமே நீங்கள் குறியாக்கத்தை செயல்படுத்த முடியும்.';
+  String get noEncryptionForPublicRooms =>
+      'அறை இனி பகிரங்கமாக அணுக முடியாதவுடன் மட்டுமே நீங்கள் குறியாக்கத்தை செயல்படுத்த முடியும்.';
 
   @override
-  String get noGoogleServicesWarning => 'ஃபயர்பேச் முகில் செய்தி உங்கள் சாதனத்தில் கிடைக்கவில்லை. இன்னும் புச் அறிவிப்புகளைப் பெற, NTFY ஐ நிறுவ பரிந்துரைக்கிறோம். NTFY அல்லது மற்றொரு ஒருங்கிணைந்த புச் வழங்குநருடன் நீங்கள் தரவு பாதுகாப்பான வழியில் புச் அறிவிப்புகளைப் பெறலாம். நீங்கள் பிளேச்டோரிலிருந்து அல்லது எஃப்-டிராய்டிலிருந்து NTFY ஐ பதிவிறக்கம் செய்யலாம்.';
+  String get noGoogleServicesWarning =>
+      'ஃபயர்பேச் முகில் செய்தி உங்கள் சாதனத்தில் கிடைக்கவில்லை. இன்னும் புச் அறிவிப்புகளைப் பெற, NTFY ஐ நிறுவ பரிந்துரைக்கிறோம். NTFY அல்லது மற்றொரு ஒருங்கிணைந்த புச் வழங்குநருடன் நீங்கள் தரவு பாதுகாப்பான வழியில் புச் அறிவிப்புகளைப் பெறலாம். நீங்கள் பிளேச்டோரிலிருந்து அல்லது எஃப்-டிராய்டிலிருந்து NTFY ஐ பதிவிறக்கம் செய்யலாம்.';
 
   @override
   String noMatrixServer(String server1, String server2) {
@@ -1059,7 +1113,8 @@ class L10nTa extends L10n {
   String get none => 'எதுவுமில்லை';
 
   @override
-  String get noPasswordRecoveryDescription => 'உங்கள் கடவுச்சொல்லை மீட்டெடுப்பதற்கான வழியை நீங்கள் இன்னும் சேர்க்கவில்லை.';
+  String get noPasswordRecoveryDescription =>
+      'உங்கள் கடவுச்சொல்லை மீட்டெடுப்பதற்கான வழியை நீங்கள் இன்னும் சேர்க்கவில்லை.';
 
   @override
   String get noPermission => 'இசைவு இல்லை';
@@ -1071,7 +1126,8 @@ class L10nTa extends L10n {
   String get notifications => 'அறிவிப்புகள்';
 
   @override
-  String get notificationsEnabledForThisAccount => 'இந்த கணக்கிற்கு அறிவிப்புகள் இயக்கப்பட்டன';
+  String get notificationsEnabledForThisAccount =>
+      'இந்த கணக்கிற்கு அறிவிப்புகள் இயக்கப்பட்டன';
 
   @override
   String numUsersTyping(int count) {
@@ -1094,16 +1150,19 @@ class L10nTa extends L10n {
   String get online => 'ஆன்லைனில்';
 
   @override
-  String get onlineKeyBackupEnabled => 'நிகழ்நிலை விசை காப்புப்பிரதி இயக்கப்பட்டது';
+  String get onlineKeyBackupEnabled =>
+      'நிகழ்நிலை விசை காப்புப்பிரதி இயக்கப்பட்டது';
 
   @override
-  String get oopsPushError => 'அச்சச்சோ! துரதிர்ச்டவசமாக, புச் அறிவிப்புகளை அமைக்கும் போது பிழை ஏற்பட்டது.';
+  String get oopsPushError =>
+      'அச்சச்சோ! துரதிர்ச்டவசமாக, புச் அறிவிப்புகளை அமைக்கும் போது பிழை ஏற்பட்டது.';
 
   @override
   String get oopsSomethingWentWrong => 'அச்சச்சோ, ஏதோ தவறு நடந்தது…';
 
   @override
-  String get openAppToReadMessages => 'செய்திகளைப் படிக்க பயன்பாட்டைத் திறக்கவும்';
+  String get openAppToReadMessages =>
+      'செய்திகளைப் படிக்க பயன்பாட்டைத் திறக்கவும்';
 
   @override
   String get openCamera => 'திறந்த கேமரா';
@@ -1112,13 +1171,15 @@ class L10nTa extends L10n {
   String get openVideoCamera => 'வீடியோவுக்கு கேமரா திறக்கவும்';
 
   @override
-  String get oneClientLoggedOut => 'உங்கள் வாடிக்கையாளர்களில் ஒருவர் உள்நுழைந்துள்ளார்';
+  String get oneClientLoggedOut =>
+      'உங்கள் வாடிக்கையாளர்களில் ஒருவர் உள்நுழைந்துள்ளார்';
 
   @override
   String get addAccount => 'கணக்கைச் சேர்க்கவும்';
 
   @override
-  String get editBundlesForAccount => 'இந்த கணக்கிற்கான மூட்டைகளைத் திருத்தவும்';
+  String get editBundlesForAccount =>
+      'இந்த கணக்கிற்கான மூட்டைகளைத் திருத்தவும்';
 
   @override
   String get addToBundle => 'மூட்டையில் சேர்க்கவும்';
@@ -1130,7 +1191,8 @@ class L10nTa extends L10n {
   String get bundleName => 'மூட்டை பெயர்';
 
   @override
-  String get enableMultiAccounts => '(பீட்டா) இந்த சாதனத்தில் பல கணக்குகளை இயக்கவும்';
+  String get enableMultiAccounts =>
+      '(பீட்டா) இந்த சாதனத்தில் பல கணக்குகளை இயக்கவும்';
 
   @override
   String get openInMaps => 'வரைபடங்களில் திறந்திருக்கும்';
@@ -1139,7 +1201,8 @@ class L10nTa extends L10n {
   String get link => 'இணைப்பு';
 
   @override
-  String get serverRequiresEmail => 'இந்த சேவையகம் பதிவுக்கு உங்கள் மின்னஞ்சல் முகவரியை சரிபார்க்க வேண்டும்.';
+  String get serverRequiresEmail =>
+      'இந்த சேவையகம் பதிவுக்கு உங்கள் மின்னஞ்சல் முகவரியை சரிபார்க்க வேண்டும்.';
 
   @override
   String get or => 'அல்லது';
@@ -1163,10 +1226,12 @@ class L10nTa extends L10n {
   String get passwordHasBeenChanged => 'கடவுச்சொல் மாற்றப்பட்டுள்ளது';
 
   @override
-  String get hideMemberChangesInPublicChats => 'பொது அரட்டைகளில் உறுப்பினர் மாற்றங்களை மறைக்கவும்';
+  String get hideMemberChangesInPublicChats =>
+      'பொது அரட்டைகளில் உறுப்பினர் மாற்றங்களை மறைக்கவும்';
 
   @override
-  String get hideMemberChangesInPublicChatsBody => 'வாசிப்புத்திறனை மேம்படுத்த யாராவது ஒரு பொது அரட்டையில் சேர்ந்தால் அல்லது விட்டுவிட்டால் அரட்டை காலவரிசையில் காட்ட வேண்டாம்.';
+  String get hideMemberChangesInPublicChatsBody =>
+      'வாசிப்புத்திறனை மேம்படுத்த யாராவது ஒரு பொது அரட்டையில் சேர்ந்தால் அல்லது விட்டுவிட்டால் அரட்டை காலவரிசையில் காட்ட வேண்டாம்.';
 
   @override
   String get overview => 'கண்ணோட்டம்';
@@ -1201,10 +1266,12 @@ class L10nTa extends L10n {
   String get pleaseChooseAPasscode => 'பாச் குறியீட்டைத் தேர்வுசெய்க';
 
   @override
-  String get pleaseClickOnLink => 'மின்னஞ்சலில் உள்ள இணைப்பைக் சொடுக்கு செய்து தொடரவும்.';
+  String get pleaseClickOnLink =>
+      'மின்னஞ்சலில் உள்ள இணைப்பைக் சொடுக்கு செய்து தொடரவும்.';
 
   @override
-  String get pleaseEnter4Digits => 'பயன்பாட்டு பூட்டை முடக்க 4 இலக்கங்களை உள்ளிடவும் அல்லது காலியாக விடவும்.';
+  String get pleaseEnter4Digits =>
+      'பயன்பாட்டு பூட்டை முடக்க 4 இலக்கங்களை உள்ளிடவும் அல்லது காலியாக விடவும்.';
 
   @override
   String get pleaseEnterRecoveryKey => 'உங்கள் மீட்பு விசையை உள்ளிடவும்:';
@@ -1219,7 +1286,8 @@ class L10nTa extends L10n {
   String get pleaseEnterYourUsername => 'உங்கள் பயனர்பெயரை உள்ளிடவும்';
 
   @override
-  String get pleaseFollowInstructionsOnWeb => 'வலைத்தளத்தின் வழிமுறைகளைப் பின்பற்றி அடுத்து தட்டவும்.';
+  String get pleaseFollowInstructionsOnWeb =>
+      'வலைத்தளத்தின் வழிமுறைகளைப் பின்பற்றி அடுத்து தட்டவும்.';
 
   @override
   String get privacy => 'தனியுரிமை';
@@ -1304,7 +1372,8 @@ class L10nTa extends L10n {
   String get translatedMessage => 'Translated message';
 
   @override
-  String get errorTranslatingMessage => 'An error has occured while translating the message.';
+  String get errorTranslatingMessage =>
+      'An error has occured while translating the message.';
 
   @override
   String get recoverMessage => 'Recover message';
@@ -1313,10 +1382,12 @@ class L10nTa extends L10n {
   String get recoveredMessage => 'Recovered message';
 
   @override
-  String get errorRecoveringMessage => 'An error has occured while recovering the message.';
+  String get errorRecoveringMessage =>
+      'An error has occured while recovering the message.';
 
   @override
-  String get errorRecoveringMessageNoAdmin => 'This feature is available on Synapse homeservers only for adminstrators.';
+  String get errorRecoveringMessageNoAdmin =>
+      'This feature is available on Synapse homeservers only for adminstrators.';
 
   @override
   String get requestPermission => 'இசைவு கோருங்கள்';
@@ -1416,7 +1487,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get separateChatTypes => 'நேரடி அரட்டைகள் மற்றும் குழுக்களை பிரிக்கவும்';
+  String get separateChatTypes =>
+      'நேரடி அரட்டைகள் மற்றும் குழுக்களை பிரிக்கவும்';
 
   @override
   String get setAsCanonicalAlias => 'முதன்மையான மாற்றுப்பெயராக அமைக்கவும்';
@@ -1460,7 +1532,8 @@ class L10nTa extends L10n {
   String get hideAvatarsInInvites => 'Hide avatars in invites';
 
   @override
-  String get hideAvatarsInInvitesDescription => 'Do not show room avatars in invites';
+  String get hideAvatarsInInvitesDescription =>
+      'Do not show room avatars in invites';
 
   @override
   String get presencesToggle => 'பிற பயனர்களிடமிருந்து நிலை செய்திகளைக் காட்டு';
@@ -1501,7 +1574,8 @@ class L10nTa extends L10n {
   String get submit => 'சமர்ப்பிக்கவும்';
 
   @override
-  String get synchronizingPleaseWait => 'ஒத்திசைத்தல்… தயவுசெய்து காத்திருங்கள்.';
+  String get synchronizingPleaseWait =>
+      'ஒத்திசைத்தல்… தயவுசெய்து காத்திருங்கள்.';
 
   @override
   String synchronizingPleaseWaitCounter(String percentage) {
@@ -1530,7 +1604,8 @@ class L10nTa extends L10n {
   String get toggleUnread => 'மார்க் படிக்க/படிக்கவில்லை';
 
   @override
-  String get tooManyRequestsWarning => 'பல கோரிக்கைகள். தயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும்!';
+  String get tooManyRequestsWarning =>
+      'பல கோரிக்கைகள். தயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும்!';
 
   @override
   String get transferFromAnotherDevice => 'மற்றொரு சாதனத்திலிருந்து மாற்றவும்';
@@ -1630,7 +1705,8 @@ class L10nTa extends L10n {
   String get visibilityOfTheChatHistory => 'அரட்டை வரலாற்றின் தெரிவுநிலை';
 
   @override
-  String get visibleForAllParticipants => 'பங்கேற்பாளர்கள் அனைவருக்கும் தெரியும்';
+  String get visibleForAllParticipants =>
+      'பங்கேற்பாளர்கள் அனைவருக்கும் தெரியும்';
 
   @override
   String get visibleForEveryone => 'அனைவருக்கும் தெரியும்';
@@ -1639,13 +1715,16 @@ class L10nTa extends L10n {
   String get voiceMessage => 'குரல் செய்தி';
 
   @override
-  String get waitingPartnerAcceptRequest => 'கூட்டாளர் கோரிக்கையை ஏற்றுக்கொள்வதற்காக காத்திருக்கிறார்…';
+  String get waitingPartnerAcceptRequest =>
+      'கூட்டாளர் கோரிக்கையை ஏற்றுக்கொள்வதற்காக காத்திருக்கிறார்…';
 
   @override
-  String get waitingPartnerEmoji => 'பங்குதாரர் ஈமோசியை ஏற்றுக்கொள்வதற்காக காத்திருக்கிறார்…';
+  String get waitingPartnerEmoji =>
+      'பங்குதாரர் ஈமோசியை ஏற்றுக்கொள்வதற்காக காத்திருக்கிறார்…';
 
   @override
-  String get waitingPartnerNumbers => 'பங்குதாரர் எண்களை ஏற்றுக்கொள்வதற்காக காத்திருக்கிறார்…';
+  String get waitingPartnerNumbers =>
+      'பங்குதாரர் எண்களை ஏற்றுக்கொள்வதற்காக காத்திருக்கிறார்…';
 
   @override
   String get wallpaper => 'வால்பேப்பர்:';
@@ -1654,22 +1733,27 @@ class L10nTa extends L10n {
   String get warning => 'எச்சரிக்கை!';
 
   @override
-  String get weSentYouAnEmail => 'நாங்கள் உங்களுக்கு ஒரு மின்னஞ்சல் அனுப்பினோம்';
+  String get weSentYouAnEmail =>
+      'நாங்கள் உங்களுக்கு ஒரு மின்னஞ்சல் அனுப்பினோம்';
 
   @override
   String get whoCanPerformWhichAction => 'எந்த செயலைச் செய்ய முடியும்';
 
   @override
-  String get whoIsAllowedToJoinThisGroup => 'இந்த குழுவில் சேர யார் அனுமதிக்கப்படுகிறார்கள்';
+  String get whoIsAllowedToJoinThisGroup =>
+      'இந்த குழுவில் சேர யார் அனுமதிக்கப்படுகிறார்கள்';
 
   @override
-  String get whyDoYouWantToReportThis => 'இதை ஏன் புகாரளிக்க விரும்புகிறீர்கள்?';
+  String get whyDoYouWantToReportThis =>
+      'இதை ஏன் புகாரளிக்க விரும்புகிறீர்கள்?';
 
   @override
-  String get wipeChatBackup => 'புதிய மீட்பு விசையை உருவாக்க உங்கள் அரட்டை காப்புப்பிரதியைத் துடைக்கவா?';
+  String get wipeChatBackup =>
+      'புதிய மீட்பு விசையை உருவாக்க உங்கள் அரட்டை காப்புப்பிரதியைத் துடைக்கவா?';
 
   @override
-  String get withTheseAddressesRecoveryDescription => 'இந்த முகவரிகள் மூலம் உங்கள் கடவுச்சொல்லை மீட்டெடுக்கலாம்.';
+  String get withTheseAddressesRecoveryDescription =>
+      'இந்த முகவரிகள் மூலம் உங்கள் கடவுச்சொல்லை மீட்டெடுக்கலாம்.';
 
   @override
   String get writeAMessage => 'ஒரு செய்தியை எழுதுங்கள்…';
@@ -1681,10 +1765,12 @@ class L10nTa extends L10n {
   String get you => 'நீங்கள்';
 
   @override
-  String get youAreNoLongerParticipatingInThisChat => 'இந்த அரட்டையில் நீங்கள் இனி பங்கேற்கவில்லை';
+  String get youAreNoLongerParticipatingInThisChat =>
+      'இந்த அரட்டையில் நீங்கள் இனி பங்கேற்கவில்லை';
 
   @override
-  String get youHaveBeenBannedFromThisChat => 'இந்த அரட்டையிலிருந்து உங்களுக்கு தடை விதிக்கப்பட்டுள்ளது';
+  String get youHaveBeenBannedFromThisChat =>
+      'இந்த அரட்டையிலிருந்து உங்களுக்கு தடை விதிக்கப்பட்டுள்ளது';
 
   @override
   String get yourPublicKey => 'உங்கள் பொது விசை';
@@ -1708,13 +1794,15 @@ class L10nTa extends L10n {
   String get removeFromSpace => 'இடத்திலிருந்து அகற்று';
 
   @override
-  String get addToSpaceDescription => 'இந்த அரட்டையைச் சேர்க்க ஒரு இடத்தைத் தேர்ந்தெடுக்கவும்.';
+  String get addToSpaceDescription =>
+      'இந்த அரட்டையைச் சேர்க்க ஒரு இடத்தைத் தேர்ந்தெடுக்கவும்.';
 
   @override
   String get start => 'தொடங்கு';
 
   @override
-  String get pleaseEnterRecoveryKeyDescription => 'உங்கள் பழைய செய்திகளைத் திறக்க, முந்தைய அமர்வில் உருவாக்கப்பட்ட உங்கள் மீட்பு விசையை உள்ளிடவும். உங்கள் மீட்பு விசை உங்கள் கடவுச்சொல் அல்ல.';
+  String get pleaseEnterRecoveryKeyDescription =>
+      'உங்கள் பழைய செய்திகளைத் திறக்க, முந்தைய அமர்வில் உருவாக்கப்பட்ட உங்கள் மீட்பு விசையை உள்ளிடவும். உங்கள் மீட்பு விசை உங்கள் கடவுச்சொல் அல்ல.';
 
   @override
   String get publish => 'வெளியிடுங்கள்';
@@ -1760,10 +1848,12 @@ class L10nTa extends L10n {
   String get unsupportedAndroidVersion => 'ஆதரிக்கப்படாத ஆண்ட்ராய்டு பதிப்பு';
 
   @override
-  String get unsupportedAndroidVersionLong => 'இந்த அம்சத்திற்கு புதிய ஆண்ட்ராய்டு பதிப்பு தேவைப்படுகிறது. புதுப்பிப்புகள் அல்லது பரம்பரை OS ஆதரவை சரிபார்க்கவும்.';
+  String get unsupportedAndroidVersionLong =>
+      'இந்த அம்சத்திற்கு புதிய ஆண்ட்ராய்டு பதிப்பு தேவைப்படுகிறது. புதுப்பிப்புகள் அல்லது பரம்பரை OS ஆதரவை சரிபார்க்கவும்.';
 
   @override
-  String get videoCallsBetaWarning => 'வீடியோ அழைப்புகள் தற்போது பீட்டாவில் உள்ளன என்பதை நினைவில் கொள்க. அவர்கள் எதிர்பார்த்தபடி வேலை செய்யக்கூடாது அல்லது எல்லா தளங்களிலும் வேலை செய்யக்கூடாது.';
+  String get videoCallsBetaWarning =>
+      'வீடியோ அழைப்புகள் தற்போது பீட்டாவில் உள்ளன என்பதை நினைவில் கொள்க. அவர்கள் எதிர்பார்த்தபடி வேலை செய்யக்கூடாது அல்லது எல்லா தளங்களிலும் வேலை செய்யக்கூடாது.';
 
   @override
   String get experimentalVideoCalls => 'சோதனை வீடியோ அழைப்புகள்';
@@ -1775,7 +1865,8 @@ class L10nTa extends L10n {
   String get indexedDbErrorTitle => 'தனியார் பயன்முறை சிக்கல்கள்';
 
   @override
-  String get indexedDbErrorLong => 'செய்தி சேமிப்பு துரதிர்ச்டவசமாக இயல்புநிலையாக தனிப்பட்ட பயன்முறையில் இயக்கப்படவில்லை.\n தயவுசெய்து பார்வையிடவும்\n - பற்றி: கட்டமைப்பு\n - கணம் dom.indexedDB.privateBrowsing.enabled பெறுநர் true\n இல்லையெனில், பஞ்சுபோன்றவை இயக்க முடியாது.';
+  String get indexedDbErrorLong =>
+      'செய்தி சேமிப்பு துரதிர்ச்டவசமாக இயல்புநிலையாக தனிப்பட்ட பயன்முறையில் இயக்கப்படவில்லை.\n தயவுசெய்து பார்வையிடவும்\n - பற்றி: கட்டமைப்பு\n - கணம் dom.indexedDB.privateBrowsing.enabled பெறுநர் true\n இல்லையெனில், பஞ்சுபோன்றவை இயக்க முடியாது.';
 
   @override
   String switchToAccount(String number) {
@@ -1822,7 +1913,8 @@ class L10nTa extends L10n {
   String get youJoinedTheChat => 'நீங்கள் அரட்டையில் சேர்ந்தீர்கள்';
 
   @override
-  String get youAcceptedTheInvitation => '👍 நீங்கள் அழைப்பை ஏற்றுக்கொண்டீர்கள்';
+  String get youAcceptedTheInvitation =>
+      '👍 நீங்கள் அழைப்பை ஏற்றுக்கொண்டீர்கள்';
 
   @override
   String youBannedUser(String user) {
@@ -1886,7 +1978,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get noPublicLinkHasBeenCreatedYet => 'பொது இணைப்பு இதுவரை உருவாக்கப்படவில்லை';
+  String get noPublicLinkHasBeenCreatedYet =>
+      'பொது இணைப்பு இதுவரை உருவாக்கப்படவில்லை';
 
   @override
   String get knock => 'தட்டவும்';
@@ -1898,10 +1991,12 @@ class L10nTa extends L10n {
   String get unlockOldMessages => 'பழைய செய்திகளைத் திறக்கவும்';
 
   @override
-  String get storeInSecureStorageDescription => 'மீட்பு விசையை இந்த சாதனத்தின் பாதுகாப்பான சேமிப்பகத்தில் சேமிக்கவும்.';
+  String get storeInSecureStorageDescription =>
+      'மீட்பு விசையை இந்த சாதனத்தின் பாதுகாப்பான சேமிப்பகத்தில் சேமிக்கவும்.';
 
   @override
-  String get saveKeyManuallyDescription => 'கணினி பகிர்வு உரையாடல் அல்லது கிளிப்போர்டைத் தூண்டுவதன் மூலம் இந்த விசையை கைமுறையாக சேமிக்கவும்.';
+  String get saveKeyManuallyDescription =>
+      'கணினி பகிர்வு உரையாடல் அல்லது கிளிப்போர்டைத் தூண்டுவதன் மூலம் இந்த விசையை கைமுறையாக சேமிக்கவும்.';
 
   @override
   String get storeInAndroidKeystore => 'ஆண்ட்ராய்டு கீச்டோரில் சேமிக்கவும்';
@@ -1910,7 +2005,8 @@ class L10nTa extends L10n {
   String get storeInAppleKeyChain => 'ஆப்பிள் கீச்சினில் சேமிக்கவும்';
 
   @override
-  String get storeSecurlyOnThisDevice => 'இந்த சாதனத்தில் பாதுகாப்பாக சேமிக்கவும்';
+  String get storeSecurlyOnThisDevice =>
+      'இந்த சாதனத்தில் பாதுகாப்பாக சேமிக்கவும்';
 
   @override
   String countFiles(int count) {
@@ -1924,13 +2020,15 @@ class L10nTa extends L10n {
   String get custom => 'தனிப்பயன்';
 
   @override
-  String get foregroundServiceRunning => 'முன்புற பணி இயங்கும்போது இந்த அறிவிப்பு தோன்றும்.';
+  String get foregroundServiceRunning =>
+      'முன்புற பணி இயங்கும்போது இந்த அறிவிப்பு தோன்றும்.';
 
   @override
   String get screenSharingTitle => 'திரை பகிர்வு';
 
   @override
-  String get screenSharingDetail => 'உங்கள் திரையை FUFFYCHAT இல் பகிர்கிறீர்கள்';
+  String get screenSharingDetail =>
+      'உங்கள் திரையை FUFFYCHAT இல் பகிர்கிறீர்கள்';
 
   @override
   String get callingPermissions => 'அழைப்பு அனுமதிகள்';
@@ -1939,22 +2037,26 @@ class L10nTa extends L10n {
   String get callingAccount => 'அழைப்பு கணக்கு';
 
   @override
-  String get callingAccountDetails => 'சொந்த ஆண்ட்ராய்டு டயலர் பயன்பாட்டைப் பயன்படுத்த பஞ்சுபோன்றது அனுமதிக்கிறது.';
+  String get callingAccountDetails =>
+      'சொந்த ஆண்ட்ராய்டு டயலர் பயன்பாட்டைப் பயன்படுத்த பஞ்சுபோன்றது அனுமதிக்கிறது.';
 
   @override
   String get appearOnTop => 'மேலே தோன்றும்';
 
   @override
-  String get appearOnTopDetails => 'பயன்பாடு மேலே தோன்ற அனுமதிக்கிறது (நீங்கள் ஏற்கனவே ஒரு அழைப்பு கணக்காக பஞ்சுபோன்ற அமைப்பைக் கொண்டிருந்தால் தேவையில்லை)';
+  String get appearOnTopDetails =>
+      'பயன்பாடு மேலே தோன்ற அனுமதிக்கிறது (நீங்கள் ஏற்கனவே ஒரு அழைப்பு கணக்காக பஞ்சுபோன்ற அமைப்பைக் கொண்டிருந்தால் தேவையில்லை)';
 
   @override
-  String get otherCallingPermissions => 'மைக்ரோஃபோன், கேமரா மற்றும் பிற பஞ்சுபோன்ற அனுமதிகள்';
+  String get otherCallingPermissions =>
+      'மைக்ரோஃபோன், கேமரா மற்றும் பிற பஞ்சுபோன்ற அனுமதிகள்';
 
   @override
   String get whyIsThisMessageEncrypted => 'இந்த செய்தி ஏன் படிக்க முடியாதது?';
 
   @override
-  String get noKeyForThisMessage => 'இந்த சாதனத்தில் உங்கள் கணக்கில் கையொப்பமிடுவதற்கு முன்பு செய்தி அனுப்பப்பட்டால் இது நிகழலாம்.\n\n அனுப்புநர் உங்கள் சாதனத்தைத் தடுத்துள்ளார் அல்லது இணைய இணைப்பில் ஏதேனும் தவறு ஏற்பட்டுள்ளது.\n\n மற்றொரு அமர்வில் செய்தியைப் படிக்க முடியுமா? அதிலிருந்து செய்தியை மாற்றலாம்! அமைப்புகள்> சாதனங்களுக்குச் சென்று, உங்கள் சாதனங்கள் ஒருவருக்கொருவர் சரிபார்த்துள்ளன என்பதை உறுதிப்படுத்தவும். அடுத்த முறை நீங்கள் அறையைத் திறக்கும்போது, இரண்டு அமர்வுகளும் முன்னணியில் இருக்கும்போது, விசைகள் தானாகவே அனுப்பப்படும்.\n\n வெளியேறும்போது அல்லது சாதனங்களை மாற்றும்போது விசைகளை இழக்க நீங்கள் விரும்பவில்லையா? அமைப்புகளில் அரட்டை காப்புப்பிரதியை நீங்கள் இயக்கியுள்ளீர்கள் என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.';
+  String get noKeyForThisMessage =>
+      'இந்த சாதனத்தில் உங்கள் கணக்கில் கையொப்பமிடுவதற்கு முன்பு செய்தி அனுப்பப்பட்டால் இது நிகழலாம்.\n\n அனுப்புநர் உங்கள் சாதனத்தைத் தடுத்துள்ளார் அல்லது இணைய இணைப்பில் ஏதேனும் தவறு ஏற்பட்டுள்ளது.\n\n மற்றொரு அமர்வில் செய்தியைப் படிக்க முடியுமா? அதிலிருந்து செய்தியை மாற்றலாம்! அமைப்புகள்> சாதனங்களுக்குச் சென்று, உங்கள் சாதனங்கள் ஒருவருக்கொருவர் சரிபார்த்துள்ளன என்பதை உறுதிப்படுத்தவும். அடுத்த முறை நீங்கள் அறையைத் திறக்கும்போது, இரண்டு அமர்வுகளும் முன்னணியில் இருக்கும்போது, விசைகள் தானாகவே அனுப்பப்படும்.\n\n வெளியேறும்போது அல்லது சாதனங்களை மாற்றும்போது விசைகளை இழக்க நீங்கள் விரும்பவில்லையா? அமைப்புகளில் அரட்டை காப்புப்பிரதியை நீங்கள் இயக்கியுள்ளீர்கள் என்பதை உறுதிப்படுத்திக் கொள்ளுங்கள்.';
 
   @override
   String get newGroup => 'புதிய குழு';
@@ -1977,7 +2079,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get hideUnimportantStateEvents => 'முக்கியமற்ற மாநில நிகழ்வுகளை மறைக்கவும்';
+  String get hideUnimportantStateEvents =>
+      'முக்கியமற்ற மாநில நிகழ்வுகளை மறைக்கவும்';
 
   @override
   String get hidePresences => 'நிலை பட்டியலை மறைக்கவா?';
@@ -1991,13 +2094,15 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get newSpaceDescription => 'உங்கள் அரட்டைகளை ஒருங்கிணைத்து தனியார் அல்லது பொது சமூகங்களை உருவாக்க இடைவெளிகள் உங்களை அனுமதிக்கிறது.';
+  String get newSpaceDescription =>
+      'உங்கள் அரட்டைகளை ஒருங்கிணைத்து தனியார் அல்லது பொது சமூகங்களை உருவாக்க இடைவெளிகள் உங்களை அனுமதிக்கிறது.';
 
   @override
   String get encryptThisChat => 'இந்த அரட்டையை குறியாக்கவும்';
 
   @override
-  String get disableEncryptionWarning => 'பாதுகாப்பு காரணங்களுக்காக நீங்கள் ஒரு அரட்டையில் குறியாக்கத்தை முடக்க முடியாது, அது இதற்கு முன்பு இயக்கப்பட்டிருக்கிறது.';
+  String get disableEncryptionWarning =>
+      'பாதுகாப்பு காரணங்களுக்காக நீங்கள் ஒரு அரட்டையில் குறியாக்கத்தை முடக்க முடியாது, அது இதற்கு முன்பு இயக்கப்பட்டிருக்கிறது.';
 
   @override
   String get sorryThatsNotPossible => 'மன்னிக்கவும் ... அது சாத்தியமில்லை';
@@ -2009,7 +2114,8 @@ class L10nTa extends L10n {
   String get reopenChat => 'அரட்டையை மீண்டும் திறக்கவும்';
 
   @override
-  String get noBackupWarning => 'எச்சரிக்கை! அரட்டை காப்புப்பிரதியை இயக்காமல், உங்கள் மறைகுறியாக்கப்பட்ட செய்திகளுக்கான அணுகலை இழப்பீர்கள். வெளியேறுவதற்கு முன் முதலில் அரட்டை காப்புப்பிரதியை இயக்க மிகவும் பரிந்துரைக்கப்படுகிறது.';
+  String get noBackupWarning =>
+      'எச்சரிக்கை! அரட்டை காப்புப்பிரதியை இயக்காமல், உங்கள் மறைகுறியாக்கப்பட்ட செய்திகளுக்கான அணுகலை இழப்பீர்கள். வெளியேறுவதற்கு முன் முதலில் அரட்டை காப்புப்பிரதியை இயக்க மிகவும் பரிந்துரைக்கப்படுகிறது.';
 
   @override
   String get noOtherDevicesFound => 'வேறு சாதனங்கள் எதுவும் கிடைக்கவில்லை';
@@ -2037,7 +2143,8 @@ class L10nTa extends L10n {
   String get openLinkInBrowser => 'உலாவியில் திறந்த இணைப்பை திறக்கவும்';
 
   @override
-  String get reportErrorDescription => '😭 ஓ இல்லை. ஏதோ தவறு நடந்தது. நீங்கள் விரும்பினால், இந்த பிழையை டெவலப்பர்களிடம் புகாரளிக்கலாம்.';
+  String get reportErrorDescription =>
+      '😭 ஓ இல்லை. ஏதோ தவறு நடந்தது. நீங்கள் விரும்பினால், இந்த பிழையை டெவலப்பர்களிடம் புகாரளிக்கலாம்.';
 
   @override
   String get report => 'அறிக்கை';
@@ -2046,7 +2153,8 @@ class L10nTa extends L10n {
   String get signInWithPassword => 'கடவுச்சொல்லுடன் உள்நுழைக';
 
   @override
-  String get pleaseTryAgainLaterOrChooseDifferentServer => 'தயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும் அல்லது வேறு சேவையகத்தைத் தேர்வுசெய்க.';
+  String get pleaseTryAgainLaterOrChooseDifferentServer =>
+      'தயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும் அல்லது வேறு சேவையகத்தைத் தேர்வுசெய்க.';
 
   @override
   String signInWith(String provider) {
@@ -2054,7 +2162,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get profileNotFound => 'பயனரை சேவையகத்தில் காண முடியவில்லை. ஒரு இணைப்பு சிக்கல் இருக்கலாம் அல்லது பயனர் இல்லை.';
+  String get profileNotFound =>
+      'பயனரை சேவையகத்தில் காண முடியவில்லை. ஒரு இணைப்பு சிக்கல் இருக்கலாம் அல்லது பயனர் இல்லை.';
 
   @override
   String get setTheme => 'கருப்பொருள் அமைக்கவும்:';
@@ -2080,22 +2189,28 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get pleaseEnterANumber => 'தயவுசெய்து 0 ஐ விட அதிகமான எண்ணை உள்ளிடவும்';
+  String get pleaseEnterANumber =>
+      'தயவுசெய்து 0 ஐ விட அதிகமான எண்ணை உள்ளிடவும்';
 
   @override
-  String get archiveRoomDescription => 'அரட்டை காப்பகத்திற்கு நகர்த்தப்படும். மற்ற பயனர்கள் நீங்கள் அரட்டையை விட்டுவிட்டீர்கள் என்பதைக் காண முடியும்.';
+  String get archiveRoomDescription =>
+      'அரட்டை காப்பகத்திற்கு நகர்த்தப்படும். மற்ற பயனர்கள் நீங்கள் அரட்டையை விட்டுவிட்டீர்கள் என்பதைக் காண முடியும்.';
 
   @override
-  String get roomUpgradeDescription => 'அரட்டை பின்னர் புதிய அறை பதிப்பில் மீண்டும் உருவாக்கப்படும். பங்கேற்பாளர்கள் அனைவருக்கும் புதிய அரட்டைக்கு மாற வேண்டும் என்று அறிவிக்கப்படும். அறை பதிப்புகள் பற்றி மேலும் அறிய https://spec.matrix.org/latest/rooms/';
+  String get roomUpgradeDescription =>
+      'அரட்டை பின்னர் புதிய அறை பதிப்பில் மீண்டும் உருவாக்கப்படும். பங்கேற்பாளர்கள் அனைவருக்கும் புதிய அரட்டைக்கு மாற வேண்டும் என்று அறிவிக்கப்படும். அறை பதிப்புகள் பற்றி மேலும் அறிய https://spec.matrix.org/latest/rooms/';
 
   @override
-  String get removeDevicesDescription => 'நீங்கள் இந்த சாதனத்திலிருந்து வெளியேறுவீர்கள், இனி செய்திகளைப் பெற முடியாது.';
+  String get removeDevicesDescription =>
+      'நீங்கள் இந்த சாதனத்திலிருந்து வெளியேறுவீர்கள், இனி செய்திகளைப் பெற முடியாது.';
 
   @override
-  String get banUserDescription => 'பயனர் அரட்டையிலிருந்து தடைசெய்யப்படுவார், மேலும் அவை தடைசெய்யப்படாத வரை மீண்டும் அரட்டையில் நுழைய முடியாது.';
+  String get banUserDescription =>
+      'பயனர் அரட்டையிலிருந்து தடைசெய்யப்படுவார், மேலும் அவை தடைசெய்யப்படாத வரை மீண்டும் அரட்டையில் நுழைய முடியாது.';
 
   @override
-  String get unbanUserDescription => 'அவர்கள் முயற்சித்தால் பயனர் மீண்டும் அரட்டையை உள்ளிட முடியும்.';
+  String get unbanUserDescription =>
+      'அவர்கள் முயற்சித்தால் பயனர் மீண்டும் அரட்டையை உள்ளிட முடியும்.';
 
   @override
   String doYouWantToKick(String user) {
@@ -2108,10 +2223,12 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get kickUserDescription => 'பயனர் அரட்டையிலிருந்து வெளியேற்றப்படுகிறார், ஆனால் தடை செய்யப்படவில்லை. பொது அரட்டைகளில், பயனர் எந்த நேரத்திலும் மீண்டும் சேரலாம்.';
+  String get kickUserDescription =>
+      'பயனர் அரட்டையிலிருந்து வெளியேற்றப்படுகிறார், ஆனால் தடை செய்யப்படவில்லை. பொது அரட்டைகளில், பயனர் எந்த நேரத்திலும் மீண்டும் சேரலாம்.';
 
   @override
-  String get makeAdminDescription => 'இந்த பயனர் நிர்வாகியை நீங்கள் செய்தவுடன், இதை நீங்கள் செயல்தவிர்க்க முடியாமல் போகலாம், ஏனெனில் அவை உங்களைப் போன்ற அதே அனுமதிகளைக் கொண்டிருக்கும்.';
+  String get makeAdminDescription =>
+      'இந்த பயனர் நிர்வாகியை நீங்கள் செய்தவுடன், இதை நீங்கள் செயல்தவிர்க்க முடியாமல் போகலாம், ஏனெனில் அவை உங்களைப் போன்ற அதே அனுமதிகளைக் கொண்டிருக்கும்.';
 
   @override
   String get pushNotificationsNotAvailable => 'புச் அறிவிப்புகள் கிடைக்கவில்லை';
@@ -2145,13 +2262,15 @@ class L10nTa extends L10n {
   String get groupName => 'குழு பெயர்';
 
   @override
-  String get createGroupAndInviteUsers => 'ஒரு குழுவை உருவாக்கி பயனர்களை அழைக்கவும்';
+  String get createGroupAndInviteUsers =>
+      'ஒரு குழுவை உருவாக்கி பயனர்களை அழைக்கவும்';
 
   @override
   String get groupCanBeFoundViaSearch => 'தேடல் வழியாக குழுவை காணலாம்';
 
   @override
-  String get wrongRecoveryKey => 'மன்னிக்கவும் ... இது சரியான மீட்பு விசையாகத் தெரியவில்லை.';
+  String get wrongRecoveryKey =>
+      'மன்னிக்கவும் ... இது சரியான மீட்பு விசையாகத் தெரியவில்லை.';
 
   @override
   String get startConversation => 'உரையாடலைத் தொடங்குங்கள்';
@@ -2163,7 +2282,8 @@ class L10nTa extends L10n {
   String get databaseMigrationTitle => 'தரவுத்தளம் உகந்ததாக உள்ளது';
 
   @override
-  String get databaseMigrationBody => 'தயவுசெய்து காத்திருங்கள். இது ஒரு கணம் ஆகலாம்.';
+  String get databaseMigrationBody =>
+      'தயவுசெய்து காத்திருங்கள். இது ஒரு கணம் ஆகலாம்.';
 
   @override
   String get leaveEmptyToClearStatus => 'உங்கள் நிலையை அழிக்க காலியாக விடவும்.';
@@ -2175,7 +2295,8 @@ class L10nTa extends L10n {
   String get searchForUsers => '@Users ஐத் தேடுங்கள் ...';
 
   @override
-  String get pleaseEnterYourCurrentPassword => 'உங்கள் தற்போதைய கடவுச்சொல்லை உள்ளிடவும்';
+  String get pleaseEnterYourCurrentPassword =>
+      'உங்கள் தற்போதைய கடவுச்சொல்லை உள்ளிடவும்';
 
   @override
   String get newPassword => 'புதிய கடவுச்சொல்';
@@ -2265,28 +2386,33 @@ class L10nTa extends L10n {
   String get sendReadReceipts => 'வாசிப்பு ரசீதுகளை அனுப்பவும்';
 
   @override
-  String get sendTypingNotificationsDescription => 'அரட்டையில் பங்கேற்பாளர்கள் நீங்கள் ஒரு புதிய செய்தியைத் தட்டச்சு செய்யும் போது காணலாம்.';
+  String get sendTypingNotificationsDescription =>
+      'அரட்டையில் பங்கேற்பாளர்கள் நீங்கள் ஒரு புதிய செய்தியைத் தட்டச்சு செய்யும் போது காணலாம்.';
 
   @override
-  String get sendReadReceiptsDescription => 'அரட்டையில் பங்கேற்பாளர்கள் நீங்கள் ஒரு செய்தியைப் படிக்கும்போது பார்க்கலாம்.';
+  String get sendReadReceiptsDescription =>
+      'அரட்டையில் பங்கேற்பாளர்கள் நீங்கள் ஒரு செய்தியைப் படிக்கும்போது பார்க்கலாம்.';
 
   @override
   String get formattedMessages => 'வடிவமைக்கப்பட்ட செய்திகள்';
 
   @override
-  String get formattedMessagesDescription => 'மார்க் டவுனைப் பயன்படுத்தி தைரியமான உரை போன்ற பணக்கார செய்தி உள்ளடக்கத்தைக் காண்பி.';
+  String get formattedMessagesDescription =>
+      'மார்க் டவுனைப் பயன்படுத்தி தைரியமான உரை போன்ற பணக்கார செய்தி உள்ளடக்கத்தைக் காண்பி.';
 
   @override
   String get verifyOtherUser => 'Poser மற்ற பயனரை சரிபார்க்கவும்';
 
   @override
-  String get verifyOtherUserDescription => 'நீங்கள் மற்றொரு பயனரைச் சரிபார்த்தால், நீங்கள் உண்மையில் யாருக்கு எழுதுகிறீர்கள் என்பது உங்களுக்குத் தெரியும் என்பதை நீங்கள் உறுதியாக நம்பலாம். .\n\n நீங்கள் ஒரு சரிபார்ப்பைத் தொடங்கும்போது, நீங்களும் மற்ற பயனரும் பயன்பாட்டில் ஒரு பாப்அப்பைக் காண்பீர்கள். நீங்கள் ஒருவருக்கொருவர் ஒப்பிட வேண்டிய தொடர்ச்சியான ஈமோசிகள் அல்லது எண்களைக் காண்பீர்கள்.\n\n இதைச் செய்வதற்கான சிறந்த வழி வீடியோ அழைப்பைச் சந்திப்பது அல்லது தொடங்குவது. .';
+  String get verifyOtherUserDescription =>
+      'நீங்கள் மற்றொரு பயனரைச் சரிபார்த்தால், நீங்கள் உண்மையில் யாருக்கு எழுதுகிறீர்கள் என்பது உங்களுக்குத் தெரியும் என்பதை நீங்கள் உறுதியாக நம்பலாம். .\n\n நீங்கள் ஒரு சரிபார்ப்பைத் தொடங்கும்போது, நீங்களும் மற்ற பயனரும் பயன்பாட்டில் ஒரு பாப்அப்பைக் காண்பீர்கள். நீங்கள் ஒருவருக்கொருவர் ஒப்பிட வேண்டிய தொடர்ச்சியான ஈமோசிகள் அல்லது எண்களைக் காண்பீர்கள்.\n\n இதைச் செய்வதற்கான சிறந்த வழி வீடியோ அழைப்பைச் சந்திப்பது அல்லது தொடங்குவது. .';
 
   @override
   String get verifyOtherDevice => 'Sevice பிற சாதனத்தை சரிபார்க்கவும்';
 
   @override
-  String get verifyOtherDeviceDescription => 'நீங்கள் மற்றொரு சாதனத்தை சரிபார்க்கும்போது, அந்த சாதனங்கள் விசைகளை பரிமாறிக்கொள்ளலாம், உங்கள் ஒட்டுமொத்த பாதுகாப்பை அதிகரிக்கும். So நீங்கள் ஒரு சரிபார்ப்பைத் தொடங்கும்போது, இரண்டு சாதனங்களிலும் பயன்பாட்டில் ஒரு பாப்அப் தோன்றும். நீங்கள் ஒருவருக்கொருவர் ஒப்பிட வேண்டிய தொடர்ச்சியான ஈமோசிகள் அல்லது எண்களைக் காண்பீர்கள். நீங்கள் சரிபார்ப்பைத் தொடங்குவதற்கு முன்பு இரண்டு சாதனங்களையும் எளிதில் வைத்திருப்பது நல்லது. .';
+  String get verifyOtherDeviceDescription =>
+      'நீங்கள் மற்றொரு சாதனத்தை சரிபார்க்கும்போது, அந்த சாதனங்கள் விசைகளை பரிமாறிக்கொள்ளலாம், உங்கள் ஒட்டுமொத்த பாதுகாப்பை அதிகரிக்கும். So நீங்கள் ஒரு சரிபார்ப்பைத் தொடங்கும்போது, இரண்டு சாதனங்களிலும் பயன்பாட்டில் ஒரு பாப்அப் தோன்றும். நீங்கள் ஒருவருக்கொருவர் ஒப்பிட வேண்டிய தொடர்ச்சியான ஈமோசிகள் அல்லது எண்களைக் காண்பீர்கள். நீங்கள் சரிபார்ப்பைத் தொடங்குவதற்கு முன்பு இரண்டு சாதனங்களையும் எளிதில் வைத்திருப்பது நல்லது. .';
 
   @override
   String acceptedKeyVerification(String sender) {
@@ -2334,10 +2460,12 @@ class L10nTa extends L10n {
   String get discover => 'கண்டுபிடி';
 
   @override
-  String get commandHint_ignore => 'கொடுக்கப்பட்ட மேட்ரிக்ச் ஐடியை புறக்கணிக்கவும்';
+  String get commandHint_ignore =>
+      'கொடுக்கப்பட்ட மேட்ரிக்ச் ஐடியை புறக்கணிக்கவும்';
 
   @override
-  String get commandHint_unignore => 'கொடுக்கப்பட்ட மேட்ரிக்ச் ஐடியை இணைக்கவும்';
+  String get commandHint_unignore =>
+      'கொடுக்கப்பட்ட மேட்ரிக்ச் ஐடியை இணைக்கவும்';
 
   @override
   String unreadChatsInApp(String appname, String unread) {
@@ -2345,7 +2473,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get noDatabaseEncryption => 'இந்த மேடையில் தரவுத்தள குறியாக்கம் ஆதரிக்கப்படவில்லை';
+  String get noDatabaseEncryption =>
+      'இந்த மேடையில் தரவுத்தள குறியாக்கம் ஆதரிக்கப்படவில்லை';
 
   @override
   String thereAreCountUsersBlocked(Object count) {
@@ -2401,19 +2530,23 @@ class L10nTa extends L10n {
   String get changeTheChatPermissions => 'அரட்டை அனுமதிகளை மாற்றவும்';
 
   @override
-  String get changeTheVisibilityOfChatHistory => 'அரட்டை வரலாற்றின் தெரிவுநிலையை மாற்றவும்';
+  String get changeTheVisibilityOfChatHistory =>
+      'அரட்டை வரலாற்றின் தெரிவுநிலையை மாற்றவும்';
 
   @override
-  String get changeTheCanonicalRoomAlias => 'முக்கிய பொது அரட்டை முகவரியை மாற்றவும்';
+  String get changeTheCanonicalRoomAlias =>
+      'முக்கிய பொது அரட்டை முகவரியை மாற்றவும்';
 
   @override
   String get sendRoomNotifications => 'ஒரு @ROOM அறிவிப்புகளை அனுப்பவும்';
 
   @override
-  String get changeTheDescriptionOfTheGroup => 'அரட்டையின் விளக்கத்தை மாற்றவும்';
+  String get changeTheDescriptionOfTheGroup =>
+      'அரட்டையின் விளக்கத்தை மாற்றவும்';
 
   @override
-  String get chatPermissionsDescription => 'இந்த அரட்டையில் சில செயல்களுக்கு எந்த ஆற்றல் நிலை தேவை என்பதை வரையறுக்கவும். 0, 50 மற்றும் 100 ஆற்றல் நிலைகள் பொதுவாக பயனர்கள், மதிப்பீட்டாளர்கள் மற்றும் நிர்வாகிகளைக் குறிக்கின்றன, ஆனால் எந்த தரமும் சாத்தியமாகும்.';
+  String get chatPermissionsDescription =>
+      'இந்த அரட்டையில் சில செயல்களுக்கு எந்த ஆற்றல் நிலை தேவை என்பதை வரையறுக்கவும். 0, 50 மற்றும் 100 ஆற்றல் நிலைகள் பொதுவாக பயனர்கள், மதிப்பீட்டாளர்கள் மற்றும் நிர்வாகிகளைக் குறிக்கின்றன, ஆனால் எந்த தரமும் சாத்தியமாகும்.';
 
   @override
   String updateInstalled(String version) {
@@ -2436,10 +2569,12 @@ class L10nTa extends L10n {
   String get whatIsAHomeserver => 'ஓம்சர்வர் என்றால் என்ன?';
 
   @override
-  String get homeserverDescription => 'உங்கள் எல்லா தரவுகளும் ஒரு மின்னஞ்சல் வழங்குநரைப் போலவே ஓம்சர்வரில் சேமிக்கப்படுகின்றன. நீங்கள் எந்த ஓம்சர்வரை பயன்படுத்த விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு செய்யலாம், அதே நேரத்தில் நீங்கள் எல்லோரிடமும் தொடர்பு கொள்ளலாம். Https://matrix.org இல் மேலும் அறிக.';
+  String get homeserverDescription =>
+      'உங்கள் எல்லா தரவுகளும் ஒரு மின்னஞ்சல் வழங்குநரைப் போலவே ஓம்சர்வரில் சேமிக்கப்படுகின்றன. நீங்கள் எந்த ஓம்சர்வரை பயன்படுத்த விரும்புகிறீர்கள் என்பதை நீங்கள் தேர்வு செய்யலாம், அதே நேரத்தில் நீங்கள் எல்லோரிடமும் தொடர்பு கொள்ளலாம். Https://matrix.org இல் மேலும் அறிக.';
 
   @override
-  String get doesNotSeemToBeAValidHomeserver => 'இணக்கமான ஓம்சர்வர் என்று தெரியவில்லை. தவறான URL?';
+  String get doesNotSeemToBeAValidHomeserver =>
+      'இணக்கமான ஓம்சர்வர் என்று தெரியவில்லை. தவறான URL?';
 
   @override
   String get calculatingFileSize => 'கோப்பு அளவைக் கணக்கிடுகிறது ...';
@@ -2451,7 +2586,8 @@ class L10nTa extends L10n {
   String get sendingAttachment => 'இணைப்பை அனுப்புகிறது ...';
 
   @override
-  String get generatingVideoThumbnail => 'வீடியோ சிறு உருவத்தை உருவாக்குதல் ...';
+  String get generatingVideoThumbnail =>
+      'வீடியோ சிறு உருவத்தை உருவாக்குதல் ...';
 
   @override
   String get compressVideo => 'அமைக்கும் வீடியோ ...';
@@ -2467,16 +2603,19 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get oneOfYourDevicesIsNotVerified => 'உங்கள் சாதனங்களில் ஒன்று சரிபார்க்கப்படவில்லை';
+  String get oneOfYourDevicesIsNotVerified =>
+      'உங்கள் சாதனங்களில் ஒன்று சரிபார்க்கப்படவில்லை';
 
   @override
-  String get noticeChatBackupDeviceVerification => 'குறிப்பு: உங்கள் எல்லா சாதனங்களையும் அரட்டை காப்புப்பிரதியுடன் இணைக்கும்போது, அவை தானாகவே சரிபார்க்கப்படும்.';
+  String get noticeChatBackupDeviceVerification =>
+      'குறிப்பு: உங்கள் எல்லா சாதனங்களையும் அரட்டை காப்புப்பிரதியுடன் இணைக்கும்போது, அவை தானாகவே சரிபார்க்கப்படும்.';
 
   @override
   String get continueText => 'தொடரவும்';
 
   @override
-  String get welcomeText => 'ஏய் ஏய் 👋 இது பஞ்சுபோன்றது. Https://matrix.org உடன் இணக்கமான எந்த ஓம்சர்வரில் நீங்கள் உள்நுழையலாம். பின்னர் யாருடனும் அரட்டையடிக்கவும். இது ஒரு பெரிய பரவலாக்கப்பட்ட செய்தியிடல் நெட்வொர்க்!';
+  String get welcomeText =>
+      'ஏய் ஏய் 👋 இது பஞ்சுபோன்றது. Https://matrix.org உடன் இணக்கமான எந்த ஓம்சர்வரில் நீங்கள் உள்நுழையலாம். பின்னர் யாருடனும் அரட்டையடிக்கவும். இது ஒரு பெரிய பரவலாக்கப்பட்ட செய்தியிடல் நெட்வொர்க்!';
 
   @override
   String get blur => 'மங்கலானது:';
@@ -2491,7 +2630,8 @@ class L10nTa extends L10n {
   String get manageAccount => 'கணக்கை நிர்வகிக்கவும்';
 
   @override
-  String get noContactInformationProvided => 'சேவையகம் எந்த சரியான தொடர்பு தகவலையும் வழங்காது';
+  String get noContactInformationProvided =>
+      'சேவையகம் எந்த சரியான தொடர்பு தகவலையும் வழங்காது';
 
   @override
   String get contactServerAdmin => 'சேவையக நிர்வாகி தொடர்பு';
@@ -2536,13 +2676,15 @@ class L10nTa extends L10n {
   String get addLink => 'இணைப்பைச் சேர்க்கவும்';
 
   @override
-  String get unableToJoinChat => 'அரட்டையில் சேர முடியவில்லை. ஒருவேளை மற்ற கட்சி ஏற்கனவே உரையாடலை மூடியிருக்கலாம்.';
+  String get unableToJoinChat =>
+      'அரட்டையில் சேர முடியவில்லை. ஒருவேளை மற்ற கட்சி ஏற்கனவே உரையாடலை மூடியிருக்கலாம்.';
 
   @override
   String get previous => 'Previous';
 
   @override
-  String get otherPartyNotLoggedIn => 'The other party is currently not logged in and therefore cannot receive messages!';
+  String get otherPartyNotLoggedIn =>
+      'The other party is currently not logged in and therefore cannot receive messages!';
 
   @override
   String appWantsToUseForLogin(String server) {
@@ -2550,7 +2692,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get appWantsToUseForLoginDescription => 'You hereby allow the app and website to share information about you.';
+  String get appWantsToUseForLoginDescription =>
+      'You hereby allow the app and website to share information about you.';
 
   @override
   String get open => 'Open';
@@ -2559,7 +2702,8 @@ class L10nTa extends L10n {
   String get waitingForServer => 'Waiting for server...';
 
   @override
-  String get appIntroduction => 'Extera lets you chat with your friends across different messengers. Learn more at https://matrix.org or just tap *Continue*.';
+  String get appIntroduction =>
+      'Extera lets you chat with your friends across different messengers. Learn more at https://matrix.org or just tap *Continue*.';
 
   @override
   String get newChatRequest => '📩 New chat request';
@@ -2574,7 +2718,8 @@ class L10nTa extends L10n {
   String get roomNotificationSettings => 'Room notification settings';
 
   @override
-  String get userSpecificNotificationSettings => 'User specific notification settings';
+  String get userSpecificNotificationSettings =>
+      'User specific notification settings';
 
   @override
   String get otherNotificationSettings => 'Other notification settings';
@@ -2583,121 +2728,142 @@ class L10nTa extends L10n {
   String get notificationRuleContainsUserName => 'Contains User Name';
 
   @override
-  String get notificationRuleContainsUserNameDescription => 'Notifies the user when a message contains their username.';
+  String get notificationRuleContainsUserNameDescription =>
+      'Notifies the user when a message contains their username.';
 
   @override
   String get notificationRuleMaster => 'Mute all notifications';
 
   @override
-  String get notificationRuleMasterDescription => 'Overrides all other rules and disables all notifications.';
+  String get notificationRuleMasterDescription =>
+      'Overrides all other rules and disables all notifications.';
 
   @override
   String get notificationRuleSuppressNotices => 'Suppress Automated Messages';
 
   @override
-  String get notificationRuleSuppressNoticesDescription => 'Suppresses notifications from automated clients like bots.';
+  String get notificationRuleSuppressNoticesDescription =>
+      'Suppresses notifications from automated clients like bots.';
 
   @override
   String get notificationRuleInviteForMe => 'Invite for Me';
 
   @override
-  String get notificationRuleInviteForMeDescription => 'Notifies the user when they are invited to a room.';
+  String get notificationRuleInviteForMeDescription =>
+      'Notifies the user when they are invited to a room.';
 
   @override
   String get notificationRuleMemberEvent => 'Member Event';
 
   @override
-  String get notificationRuleMemberEventDescription => 'Suppresses notifications for membership events.';
+  String get notificationRuleMemberEventDescription =>
+      'Suppresses notifications for membership events.';
 
   @override
   String get notificationRuleIsUserMention => 'User Mention';
 
   @override
-  String get notificationRuleIsUserMentionDescription => 'Notifies the user when they are directly mentioned in a message.';
+  String get notificationRuleIsUserMentionDescription =>
+      'Notifies the user when they are directly mentioned in a message.';
 
   @override
   String get notificationRuleContainsDisplayName => 'Contains Display Name';
 
   @override
-  String get notificationRuleContainsDisplayNameDescription => 'Notifies the user when a message contains their display name.';
+  String get notificationRuleContainsDisplayNameDescription =>
+      'Notifies the user when a message contains their display name.';
 
   @override
   String get notificationRuleIsRoomMention => 'Room Mention';
 
   @override
-  String get notificationRuleIsRoomMentionDescription => 'Notifies the user when there is a room mention.';
+  String get notificationRuleIsRoomMentionDescription =>
+      'Notifies the user when there is a room mention.';
 
   @override
   String get notificationRuleRoomnotif => 'Room Notification';
 
   @override
-  String get notificationRuleRoomnotifDescription => 'Notifies the user when a message contains \'@room\'.';
+  String get notificationRuleRoomnotifDescription =>
+      'Notifies the user when a message contains \'@room\'.';
 
   @override
   String get notificationRuleTombstone => 'Tombstone';
 
   @override
-  String get notificationRuleTombstoneDescription => 'Notifies the user about room deactivation messages.';
+  String get notificationRuleTombstoneDescription =>
+      'Notifies the user about room deactivation messages.';
 
   @override
   String get notificationRuleReaction => 'Reaction';
 
   @override
-  String get notificationRuleReactionDescription => 'Suppresses notifications for reactions.';
+  String get notificationRuleReactionDescription =>
+      'Suppresses notifications for reactions.';
 
   @override
   String get notificationRuleRoomServerAcl => 'Room Server ACL';
 
   @override
-  String get notificationRuleRoomServerAclDescription => 'Suppresses notifications for room server access control lists (ACL).';
+  String get notificationRuleRoomServerAclDescription =>
+      'Suppresses notifications for room server access control lists (ACL).';
 
   @override
   String get notificationRuleSuppressEdits => 'Suppress Edits';
 
   @override
-  String get notificationRuleSuppressEditsDescription => 'Suppresses notifications for edited messages.';
+  String get notificationRuleSuppressEditsDescription =>
+      'Suppresses notifications for edited messages.';
 
   @override
   String get notificationRuleCall => 'Call';
 
   @override
-  String get notificationRuleCallDescription => 'Notifies the user about calls.';
+  String get notificationRuleCallDescription =>
+      'Notifies the user about calls.';
 
   @override
-  String get notificationRuleEncryptedRoomOneToOne => 'Encrypted Room One-to-One';
+  String get notificationRuleEncryptedRoomOneToOne =>
+      'Encrypted Room One-to-One';
 
   @override
-  String get notificationRuleEncryptedRoomOneToOneDescription => 'Notifies the user about messages in encrypted one-to-one rooms.';
+  String get notificationRuleEncryptedRoomOneToOneDescription =>
+      'Notifies the user about messages in encrypted one-to-one rooms.';
 
   @override
   String get notificationRuleRoomOneToOne => 'Room One-to-One';
 
   @override
-  String get notificationRuleRoomOneToOneDescription => 'Notifies the user about messages in one-to-one rooms.';
+  String get notificationRuleRoomOneToOneDescription =>
+      'Notifies the user about messages in one-to-one rooms.';
 
   @override
   String get notificationRuleMessage => 'Message';
 
   @override
-  String get notificationRuleMessageDescription => 'Notifies the user about general messages.';
+  String get notificationRuleMessageDescription =>
+      'Notifies the user about general messages.';
 
   @override
   String get notificationRuleEncrypted => 'Encrypted';
 
   @override
-  String get notificationRuleEncryptedDescription => 'Notifies the user about messages in encrypted rooms.';
+  String get notificationRuleEncryptedDescription =>
+      'Notifies the user about messages in encrypted rooms.';
 
   @override
   String get notificationRuleJitsi => 'Jitsi';
 
   @override
-  String get notificationRuleJitsiDescription => 'Notifies the user about Jitsi widget events.';
+  String get notificationRuleJitsiDescription =>
+      'Notifies the user about Jitsi widget events.';
 
   @override
   String get notificationRuleServerAcl => 'Suppress Server ACL Events';
 
   @override
-  String get notificationRuleServerAclDescription => 'Suppresses notifications for Server ACL events.';
+  String get notificationRuleServerAclDescription =>
+      'Suppresses notifications for Server ACL events.';
 
   @override
   String unknownPushRule(String rule) {
@@ -2705,7 +2871,8 @@ class L10nTa extends L10n {
   }
 
   @override
-  String get deletePushRuleCanNotBeUndone => 'If you delete this notification setting, this can not be undone.';
+  String get deletePushRuleCanNotBeUndone =>
+      'If you delete this notification setting, this can not be undone.';
 
   @override
   String get more => 'More';
@@ -2714,13 +2881,15 @@ class L10nTa extends L10n {
   String get shareKeysWith => 'Share keys with...';
 
   @override
-  String get shareKeysWithDescription => 'Which devices should be trusted so that they can read along your messages in encrypted chats?';
+  String get shareKeysWithDescription =>
+      'Which devices should be trusted so that they can read along your messages in encrypted chats?';
 
   @override
   String get allDevices => 'All devices';
 
   @override
-  String get crossVerifiedDevicesIfEnabled => 'Cross verified devices if enabled';
+  String get crossVerifiedDevicesIfEnabled =>
+      'Cross verified devices if enabled';
 
   @override
   String get crossVerifiedDevices => 'Cross verified devices';
@@ -2750,5 +2919,6 @@ class L10nTa extends L10n {
   String get youHaveKnocked => 'You have knocked';
 
   @override
-  String get pleaseWaitUntilInvited => 'Please wait now, until someone from the room invites you.';
+  String get pleaseWaitUntilInvited =>
+      'Please wait now, until someone from the room invites you.';
 }
