@@ -154,10 +154,9 @@ class MessageContent extends StatelessWidget {
           case MessageTypes.Audio:
             if (PlatformInfos.isMobile ||
                     PlatformInfos.isMacOS ||
-                    PlatformInfos.isWeb
-                // Disabled until https://github.com/bleonard252/just_audio_mpv/issues/3
-                // is fixed
-                //   || PlatformInfos.isLinux
+                    PlatformInfos.isWeb || 
+                    // Extera Next is not being built for snap, so enable this.
+                    PlatformInfos.isLinux
                 ) {
               return AudioPlayerWidget(
                 event,
