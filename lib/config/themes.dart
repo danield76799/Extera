@@ -33,7 +33,7 @@ abstract class FluffyThemes {
     );
   }
 
-  static const Duration animationDuration = Duration(milliseconds: 3000);
+  static const Duration animationDuration = Duration(milliseconds: 300);
   static const Curve animationCurve = Curves.easeInOut;
 
   static ThemeData buildTheme(
