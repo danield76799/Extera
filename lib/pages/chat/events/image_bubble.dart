@@ -157,7 +157,9 @@ class ImageBubble extends StatelessWidget {
               ),
             ),
           ),
-        if (fileDescription != null && textColor != null && event.isRichFileDescription)
+        if (fileDescription != null &&
+            textColor != null &&
+            event.isRichFileDescription)
           SizedBox(
             width: width,
             child: Padding(
@@ -166,20 +168,19 @@ class ImageBubble extends StatelessWidget {
                 vertical: 8,
               ),
               child: HtmlMessage(
-                  html: fileDescription,
-                  textColor: textColor,
-                  room: event.room,
+                html: fileDescription,
+                textColor: textColor,
+                room: event.room,
+                fontSize: AppConfig.fontSizeFactor * AppConfig.messageFontSize,
+                linkStyle: TextStyle(
+                  color: linkColor,
                   fontSize:
                       AppConfig.fontSizeFactor * AppConfig.messageFontSize,
-                  linkStyle: TextStyle(
-                    color: linkColor,
-                    fontSize:
-                        AppConfig.fontSizeFactor * AppConfig.messageFontSize,
-                    decoration: TextDecoration.underline,
-                    decorationColor: linkColor,
-                  ),
-                  onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
+                  decoration: TextDecoration.underline,
+                  decorationColor: linkColor,
                 ),
+                onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
+              ),
             ),
           ),
       ],
