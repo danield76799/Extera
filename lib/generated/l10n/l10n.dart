@@ -5228,6 +5228,36 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'Emoji'**
   String get useAsEmoji;
+
+  /// No description provided for @xrayDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get xrayDisabled;
+
+  /// No description provided for @xrayShadowsocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Shadowsocks'**
+  String get xrayShadowsocks;
+
+  /// No description provided for @xrayRuLte.
+  ///
+  /// In en, this message translates to:
+  /// **'RU LTE whitelist'**
+  String get xrayRuLte;
+
+  /// No description provided for @proxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Proxy'**
+  String get proxy;
+
+  /// No description provided for @findConfig.
+  ///
+  /// In en, this message translates to:
+  /// **'Find config'**
+  String get findConfig;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

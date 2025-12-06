@@ -71,6 +71,7 @@ void main() async {
   Logs().i(
     '${AppConfig.applicationName} started in foreground mode. Rendering GUI...',
   );
+
   await startGui(clients, store);
 }
 

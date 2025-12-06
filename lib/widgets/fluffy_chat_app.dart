@@ -1,4 +1,5 @@
 import 'package:extera_next/pages/download_manager/download_manager.dart';
+import 'package:extera_next/widgets/proxy_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:extera_next/generated/l10n/l10n.dart';
@@ -63,10 +64,13 @@ class FluffyChatApp extends StatelessWidget {
           // displaying dialogs
           child: ChangeNotifierProvider(
             create: (context) => DownloadManagerController(),
-            child: Matrix(
-              clients: clients,
+            child: ProxyManager(
               store: store,
-              child: testWidget ?? child,
+              child: Matrix(
+                clients: clients,
+                store: store,
+                child: testWidget ?? child,
+              ),
             ),
           ),
         ),

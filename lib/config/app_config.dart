@@ -5,6 +5,12 @@ import 'package:matrix/matrix.dart';
 abstract class AppConfig {
   static const String pushIsolatePortName = 'push_isolate';
   static const String mainIsolatePortName = 'main_isolate';
+  static const String xrayExecutablePath = '/data/data/xyz.extera.next/xray';
+  static const String xraySubscriptionCache = '/data/data/xyz.extera.next/subscription.txt';
+  static const String shadowsocksSubscription = 'https://extera.xyz/sub.txt';
+  static const String proxyCheckURL = "https://cp.cloudflare.com";
+
+  static String xrayConfigPath = '/data/data/xyz.extera.next/xray.json';
 
   static String _applicationName = 'Extera';
 
@@ -19,6 +25,9 @@ abstract class AppConfig {
   static bool cleanExif = true;
   static bool doNotSendIfCantClean = true;
 
+  // disabled | random_shadowsocks | russian_lte | custom
+  static String xrayStrategy = "disabled";
+  static String xrayConfig = "";
 
   static String? httpProxy;
   static String get defaultHomeserver => _defaultHomeserver;

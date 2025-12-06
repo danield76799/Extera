@@ -120,7 +120,7 @@ class SendPollDialogState extends State<SendPollDialog> {
   Widget build(BuildContext context) {
     final l10n = L10n.of(context);
     // Ensure max slider value is at least 1 to prevent division by zero errors
-    final double maxAnswers = _answerControllers.isNotEmpty
+    final maxAnswers = _answerControllers.isNotEmpty
         ? _answerControllers.length.toDouble()
         : 1.0;
 

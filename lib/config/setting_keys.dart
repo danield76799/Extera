@@ -4,6 +4,9 @@ abstract class SettingKeys {
   static const String httpProxy = 'xyz.extera.next.httpProxy';
   static const String cleanExif = 'xyz.extera.next.cleanExif';
   static const String doNotSendIfCantClean = 'xyz.extera.next.doNotSendIfCantClean';
+  static const String xrayStrategy = 'xyz.extera.next.xrayStrategy';
+  static const String xrayConfigPath = 'xyz.extera.next.xrayConfigPath';
+  static const String xrayConfig = 'xyz.extera.next.xrayConfig';
   static const String displayNavigationRail = 'chat.fluffy.displayNavigationRail';
   static const String hideAvatarsInInvites = 'xyz.extera.next.hideAvatarsInInvites';
   static const String pureBlack = 'xyz.extera.next.pureBlack';
@@ -42,6 +45,10 @@ abstract class SettingKeys {
 }
 
 enum AppSettings<T> {
+  xrayStrategy<String>('xyz.extera.next.xrayStrategy', 'disabled'),
+  xrayConfig<String>('xyz.extera.next.xrayConfig', ''),
+  xrayConfigPath<String>('xyz.extera.next.xrayConfigPath', ''),
+  httpProxy<String>('xyz.extera.next.httpProxy', ''),
   audioRecordingNumChannels<int>('audioRecordingNumChannels', 1),
   audioRecordingAutoGain<bool>('audioRecordingAutoGain', true),
   audioRecordingEchoCancel<bool>('audioRecordingEchoCancel', false),

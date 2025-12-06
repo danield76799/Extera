@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:extera_next/pages/chat_thread/thread.dart';
+import 'package:extera_next/pages/settings_proxy/settings_proxy.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -238,6 +239,15 @@ abstract class AppRoutes {
                         context,
                         state,
                         const SettingsStyle(),
+                      ),
+                      redirect: loggedOutRedirect,
+                    ),
+                    GoRoute(
+                      path: 'proxy',
+                      pageBuilder: (context, state) => defaultPageBuilder(
+                        context,
+                        state,
+                        const SettingsProxy(),
                       ),
                       redirect: loggedOutRedirect,
                     ),

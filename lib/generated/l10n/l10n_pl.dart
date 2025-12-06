@@ -2941,4 +2941,19 @@ class L10nPl extends L10n {
 
   @override
   String get useAsEmoji => 'Emoji';
+
+  @override
+  String get xrayDisabled => 'Disabled';
+
+  @override
+  String get xrayShadowsocks => 'Shadowsocks';
+
+  @override
+  String get xrayRuLte => 'RU LTE whitelist';
+
+  @override
+  String get proxy => 'Proxy';
+
+  @override
+  String get findConfig => 'Find config';
 }

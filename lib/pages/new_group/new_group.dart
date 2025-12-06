@@ -81,11 +81,11 @@ class NewGroupController extends State<NewGroup> {
           ),
         sdk.StateEvent(
           type: sdk.EventTypes.RoomJoinRules,
-          content: {'join_rule': publicGroup ? 'public' : 'invite'}
-        )
+          content: {'join_rule': publicGroup ? 'public' : 'invite'},
+        ),
       ],
     );
-    final room = Matrix.of(context).client.getRoomById(roomId);
+    // final room = Matrix.of(context).client.getRoomById(roomId);
     // if (room != null) {
     //   room.setJoinRules(publicGroup ? JoinRules.public : JoinRules.invite);
     // }

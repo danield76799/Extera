@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 
@@ -33,7 +34,7 @@ class CustomHttpClient {
 
     if (AppConfig.httpProxy != null) {
       client.findProxy = (uri) {
-        return "PROXY ${AppConfig.httpProxy};";
+        return "PROXY ${AppConfig.httpProxy}";
       };
     }
 

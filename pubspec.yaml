@@ -124,6 +124,7 @@ flutter:
     - assets/
     - assets/sounds/
     - assets/js/
+    - assets/xray/xray-arm64-v8a
 
 msix_config:
   display_name: Extera Next

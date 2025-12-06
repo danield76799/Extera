@@ -226,6 +226,15 @@ class SettingsView extends StatelessWidget {
                             ? theme.colorScheme.surfaceContainerHigh
                             : null,
                   ),
+                  ListTile(
+                    leading: const Icon(Icons.alt_route_outlined),
+                    title: Text(L10n.of(context).proxy),
+                    onTap: () => context.go('/rooms/settings/proxy'),
+                    tileColor:
+                        activeRoute.startsWith('/rooms/settings/proxy')
+                            ? theme.colorScheme.surfaceContainerHigh
+                            : null,
+                  ),
                   Divider(color: theme.dividerColor),
                   ListTile(
                     leading: const Icon(Icons.dns_outlined),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:extera_next/widgets/proxy_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -365,6 +366,13 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
     }
 
     createVoipPlugin();
+    startProxy();
+  }
+
+  void startProxy() async {
+    if (AppConfig.xrayStrategy != 'disabled') {
+      ProxyManager.of(context).start();
+    }
   }
 
   void createVoipPlugin() async {
@@ -444,8 +452,19 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
             AppConfig.displayNavigationRail;
 
     AppConfig.enableGradient =
-        store.getBool(SettingKeys.enableGradient) ??
-            AppConfig.enableGradient;
+        store.getBool(SettingKeys.enableGradient) ?? AppConfig.enableGradient;
+
+    AppConfig.xrayConfig =
+        store.getString(SettingKeys.xrayConfig) ?? AppConfig.xrayConfig;
+
+    AppConfig.httpProxy =
+        store.getString(SettingKeys.httpProxy) ?? AppConfig.httpProxy;
+
+    AppConfig.xrayConfigPath =
+        store.getString(SettingKeys.xrayConfigPath) ?? AppConfig.xrayConfigPath;
+
+    AppConfig.xrayStrategy =
+        store.getString(SettingKeys.xrayStrategy) ?? AppConfig.xrayStrategy;
   }
 
   @override
