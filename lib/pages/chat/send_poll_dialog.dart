@@ -74,6 +74,7 @@ class SendPollDialogState extends State<SendPollDialog> {
           'org.matrix.msc1767.text': question,
           'm.text': question,
           'body': question,
+          'msgtype': 'm.text',
         },
         'answers': answers
             .map(
@@ -87,6 +88,7 @@ class SendPollDialogState extends State<SendPollDialog> {
         'max_selections': _maxSelections,
         'kind': _kind,
       },
+      'org.matrix.msc1767.text': "$question\n${answers.join('\n')}",
     };
 
     try {
