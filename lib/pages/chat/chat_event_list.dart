@@ -1,4 +1,5 @@
 import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ import 'package:extera_next/utils/platform_infos.dart';
 class ChatEventList extends StatelessWidget {
   final ChatController controller;
   final bool showThreadRoots;
-  
+
   const ChatEventList({
     super.key,
     required this.controller,
@@ -38,7 +39,7 @@ class ChatEventList extends StatelessWidget {
     ];
 
     final horizontalPadding = FluffyThemes.isColumnMode(context) ? 8.0 : 0.0;
-	
+
     var events = timeline.events;
 
     if (showThreadRoots) {
@@ -80,16 +81,20 @@ class ChatEventList extends StatelessWidget {
           (BuildContext context, int i) {
             // Footer to display typing indicator and read receipts:
             if (i == 0) {
-              if (timeline.isRequestingFuture) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(strokeWidth: 2),
-                );
-              }
               if (timeline.canRequestFuture) {
                 return Center(
-                  child: IconButton(
+                  child: ElevatedButton(
                     onPressed: controller.requestFuture,
-                    icon: const Icon(Icons.refresh_outlined),
+                    child: timeline.isRequestingFuture
+                        ? const LinearProgressIndicator()
+                        : Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.arrow_downward),
+                              const SizedBox(width: 5),
+                              Text(L10n.of(context).loadMore),
+                            ],
+                          ),
                   ),
                 );
               }
@@ -104,20 +109,24 @@ class ChatEventList extends StatelessWidget {
 
             // Request history button or progress indicator:
             if (i == events.length + 1) {
-              if (timeline.isRequestingHistory) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(strokeWidth: 2),
-                );
-              }
               if (timeline.canRequestHistory) {
                 return Builder(
                   builder: (context) {
                     WidgetsBinding.instance
                         .addPostFrameCallback(controller.requestHistory);
                     return Center(
-                      child: IconButton(
+                      child: ElevatedButton(
                         onPressed: controller.requestHistory,
-                        icon: const Icon(Icons.refresh_outlined),
+                        child: timeline.isRequestingHistory
+                            ? const LinearProgressIndicator()
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.arrow_upward),
+                                  const SizedBox(width: 5),
+                                  Text(L10n.of(context).loadMore),
+                                ],
+                              ),
                       ),
                     );
                   },
@@ -132,10 +141,10 @@ class ChatEventList extends StatelessWidget {
             final animateIn = animateInEventIndex != null &&
                 timeline.events.length > animateInEventIndex &&
                 event == timeline.events[animateInEventIndex];
-              
+
             final thread = threads.containsKey(event.eventId)
-              ? threads[event.eventId]
-              : null;
+                ? threads[event.eventId]
+                : null;
 
             return AutoScrollTag(
               key: ValueKey(event.eventId),
@@ -148,8 +157,8 @@ class ChatEventList extends StatelessWidget {
                 resetAnimateIn: () {
                   controller.animateInEventIndex = null;
                 },
-                singleSelected: controller.selectedEvents.length == 1
-                  && controller.selectedEvents.first.eventId == event.eventId,
+                singleSelected: controller.selectedEvents.length == 1 &&
+                    controller.selectedEvents.first.eventId == event.eventId,
                 onSwipe: () => controller.replyAction(replyTo: event),
                 onInfoTab: controller.showEventInfo,
                 onMention: () => controller.sendController.text +=
