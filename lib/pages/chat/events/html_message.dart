@@ -79,6 +79,8 @@ class HtmlMessage extends StatelessWidget {
     'rt',
     'html',
     'body',
+    // tg-forward will be rendered without formatting otherwise
+    'tg-forward',
   };
 
   static const Set<String> ignoredHtmlTags = {
