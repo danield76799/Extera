@@ -177,83 +177,10 @@ class ProfileView extends StatelessWidget {
                           onOpen: (url) =>
                               UrlLauncher(context, url.url).launchUrl(),
                         ),
-                      // HoverBuilder(
-                      //   builder: (context, hovered) => StatefulBuilder(
-                      //     builder: (context, setState) => MouseRegion(
-                      //       cursor: SystemMouseCursors.click,
-                      //       child: GestureDetector(
-                      //         onTap: () {
-                      //           Clipboard.setData(
-                      //             ClipboardData(text: profile.userId),
-                      //           );
-                      //           setState(() {
-                      //             copied = true;
-                      //           });
-                      //         },
-                      //         child: RichText(
-                      //           text: TextSpan(
-                      //             children: [
-                      //               WidgetSpan(
-                      //                 child: Padding(
-                      //                   padding:
-                      //                       const EdgeInsets.only(right: 4.0),
-                      //                   child: AnimatedScale(
-                      //                     duration:
-                      //                         FluffyThemes.animationDuration,
-                      //                     curve: FluffyThemes.animationCurve,
-                      //                     scale: hovered
-                      //                         ? 1.33
-                      //                         : copied
-                      //                             ? 1.25
-                      //                             : 1.0,
-                      //                     child: Icon(
-                      //                       copied
-                      //                           ? Icons.check_circle
-                      //                           : Icons.copy,
-                      //                       size: 12,
-                      //                       color: copied ? Colors.green : null,
-                      //                     ),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               TextSpan(text: profile.userId),
-                      //             ],
-                      //             style: theme.textTheme.bodyMedium
-                      //                 ?.copyWith(fontSize: 10),
-                      //           ),
-                      //           textAlign: TextAlign.center,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 );
               },
-            ),
-            const SizedBox(height: 8),
-            ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.alternate_email),
-                  trailing: const Icon(Icons.copy),
-                  title: Text(profile.userId),
-                  subtitle: Text(L10n.of(context).matrixId),
-                  onTap: () {
-                    Clipboard.setData(
-                      ClipboardData(text: profile.userId),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(L10n.of(context).copiedToClipboard),
-                      ),
-                    );
-                  },
-                ),
-              ],
             ),
             const SizedBox(height: 8),
             Padding(
@@ -305,6 +232,29 @@ class ProfileView extends StatelessWidget {
                   );
                 },
               ),
+            ),
+            const SizedBox(height: 8),
+            ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.alternate_email),
+                  trailing: const Icon(Icons.copy),
+                  title: Text(profile.userId),
+                  subtitle: Text(L10n.of(context).matrixId),
+                  onTap: () {
+                    Clipboard.setData(
+                      ClipboardData(text: profile.userId),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(L10n.of(context).copiedToClipboard),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             if (controller.mutualRooms.isNotEmpty)
