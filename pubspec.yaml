@@ -1,8 +1,8 @@
 name: extera_next
 description: Chat with your friends.
 publish_to: none
-# On version bump also increase the build number for F-Droid
-version: 2.1.1
+# Version schema: <YEAR>.<MAJOR UPDATE>.<MINOR><PATCH>
+version: 25.1.0
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
