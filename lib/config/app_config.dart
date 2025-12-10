@@ -34,7 +34,7 @@ abstract class AppConfig {
   static const Color primaryColorLight = Color(0xFFCCBDEA);
   static const Color secondaryColor = Color(0xFF41a2bc);
   static String _privacyUrl =
-      'https://github.com/krille-chan/fluffychat/blob/main/PRIVACY.md';
+      'https://git.extera.xyz/OfficialDakari/ExteraNext/src/branch/main/PRIVACY.md';
 
   static String get privacyUrl => _privacyUrl;
   static const String website = 'https://extera.xyz';
