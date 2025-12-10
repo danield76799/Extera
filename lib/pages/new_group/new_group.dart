@@ -85,10 +85,7 @@ class NewGroupController extends State<NewGroup> {
         ),
       ],
     );
-    final room = Matrix.of(context).client.getRoomById(roomId);
-    // if (room != null) {
-    //   room.setJoinRules(publicGroup ? JoinRules.public : JoinRules.invite);
-    // }
+    Matrix.of(context).client.getRoomById(roomId);
     if (!mounted) return;
     context.go('/rooms/$roomId/invite');
   }
