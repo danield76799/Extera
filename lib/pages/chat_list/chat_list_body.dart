@@ -60,6 +60,7 @@ class ChatListViewBody extends StatelessWidget {
         .toList();
     final userSearchResult = controller.userSearchResult;
     const dummyChatCount = 4;
+    final filter = controller.searchController.text.toLowerCase();
     return StreamBuilder(
       key: ValueKey(
         client.userID.toString(),
