@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:extera_next/config/app_config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:collection/collection.dart';
@@ -25,13 +26,69 @@ class Settings extends StatefulWidget {
 }
 
 class SettingsController extends State<Settings> {
+  Future<String?>? aboutFuture;
+  bool isQueryingAbout = false;
+
+  Future<String?> _getAbout() async {
+    final client = Matrix.of(context).client;
+    try {
+      final aboutResponse = await client.getProfileField(
+      client.userID!,
+      AppConfig.aboutProfileField,
+    );
+    if (aboutResponse.containsKey(AppConfig.aboutProfileField) &&
+        aboutResponse[AppConfig.aboutProfileField] is String &&
+        aboutResponse[AppConfig.aboutProfileField].toString().length <= 256) {
+      return aboutResponse[AppConfig.aboutProfileField].toString();
+    }
+    } catch (ex) {
+      Logs().e("Failed to query About field", ex);
+    }
+    return null;
+  }
+  // bool aboutUpdated = false;
+
   Future<Profile>? profileFuture;
-  bool profileUpdated = false;
+  // bool profileUpdated = false;
 
   void updateProfile() => setState(() {
-        profileUpdated = true;
+        // profileUpdated = true;
         profileFuture = null;
       });
+
+  void updateAbout() => setState(() {
+        // aboutUpdated = true;
+        aboutFuture = null;
+      });
+
+  void setAboutAction() async {
+    final about = await aboutFuture;
+    final input = await showTextInputDialog(
+      useRootNavigator: false,
+      context: context,
+      title: L10n.of(context).editAbout,
+      message: L10n.of(context).editAboutDescription,
+      okLabel: L10n.of(context).ok,
+      cancelLabel: L10n.of(context).cancel,
+      initialText: about ?? "",
+      hintText: L10n.of(context).aboutExample,
+      maxLength: 256,
+      maxLines: 1,
+    );
+    if (input == null) return;
+    final matrix = Matrix.of(context);
+    final success = await showFutureLoadingDialog(
+      context: context,
+      future: () => matrix.client.setProfileField(
+        matrix.client.userID!,
+        'xyz.extera.about',
+        {'xyz.extera.about': input},
+      ),
+    );
+    if (success.error == null) {
+      updateAbout();
+    }
+  }
 
   void setDisplaynameAction() async {
     final profile = await profileFuture;
@@ -51,7 +108,7 @@ class SettingsController extends State<Settings> {
       future: () => matrix.client.setProfileField(
         matrix.client.userID!,
         'displayname',
-        { 'displayname': input },
+        {'displayname': input},
       ),
     );
     if (success.error == null) {
@@ -209,6 +266,7 @@ class SettingsController extends State<Settings> {
     profileFuture ??= client.getProfileFromUserId(
       client.userID!,
     );
+    aboutFuture ??= _getAbout();
     return SettingsView(this);
   }
 }

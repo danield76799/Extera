@@ -71,6 +71,7 @@ class SettingsView extends StatelessWidget {
                           L10n.of(context).user;
                       final displayname =
                           profile?.displayName ?? mxid.localpart ?? mxid;
+                      
                       return Row(
                         children: [
                           Padding(
@@ -153,6 +154,19 @@ class SettingsView extends StatelessWidget {
                             ),
                           ),
                         ],
+                      );
+                    },
+                  ),
+                  FutureBuilder<String?>(
+                    future: controller.aboutFuture,
+                    builder: (context, snapshot) {
+                      final data = snapshot.data; 
+                      return ListTile(
+                        leading: const Icon(Icons.wysiwyg),
+                        title: Text(data ?? L10n.of(context).notSet),
+                        subtitle: Text(L10n.of(context).aboutUser),
+                        trailing: const Icon(Icons.edit),
+                        onTap: controller.setAboutAction,
                       );
                     },
                   ),
