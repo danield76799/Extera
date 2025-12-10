@@ -49,11 +49,11 @@ class ChatView extends StatelessWidget {
           onPressed: controller.copyEventsAction,
         ),
         if (controller.selectedEvents.length > 1)
-        IconButton(
-          icon: const Icon(Icons.link),
-          tooltip: L10n.of(context).copyLink,
-          onPressed: controller.copyLinkAction,
-        ),
+          IconButton(
+            icon: const Icon(Icons.link),
+            tooltip: L10n.of(context).copyLink,
+            onPressed: controller.copyLinkAction,
+          ),
         if (controller.selectedEvents.length == 1)
           IconButton(
             onPressed: controller.discussAction,
@@ -62,7 +62,8 @@ class ChatView extends StatelessWidget {
           ),
         if (controller.selectedEvents.length == 1 &&
             controller.selectedEvents.single.content['xyz.extera.translated'] ==
-                null)
+                null &&
+            !controller.room.encrypted)
           IconButton(
             icon: const Icon(Icons.translate_outlined),
             tooltip: L10n.of(context).translateMessage,
@@ -137,11 +138,14 @@ class ChatView extends StatelessWidget {
               if (controller.selectedEvents.single.redacted)
                 PopupMenuItem(
                   value: _EventContextAction.recover,
-                  child: Row(mainAxisSize: MainAxisSize.min, children: [
-                    const Icon(Icons.redo),
-                    const SizedBox(width: 12),
-                    Text(L10n.of(context).recoverMessage),
-                  ],),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.redo),
+                      const SizedBox(width: 12),
+                      Text(L10n.of(context).recoverMessage),
+                    ],
+                  ),
                 ),
               if (controller.selectedEvents.single.type ==
                       'org.matrix.msc3381.poll.start' &&
