@@ -125,7 +125,7 @@ class ChatView extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                value: _EventContextAction.info,
+                value: _EventContextAction.copyLink,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
