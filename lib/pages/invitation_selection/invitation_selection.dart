@@ -35,9 +35,7 @@ class InvitationSelectionController extends State<InvitationSelection> {
     final client = Matrix.of(context).client;
     final room = client.getRoomById(roomId!)!;
 
-    final participants = (room.summary.mJoinedMemberCount ?? 0) > 100
-        ? room.getParticipants()
-        : await room.requestParticipants();
+    final participants = room.getParticipants();
     participants.removeWhere(
       (u) => ![Membership.join, Membership.invite].contains(u.membership),
     );
