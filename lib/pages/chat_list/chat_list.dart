@@ -603,7 +603,7 @@ class ChatListController extends State<ChatList>
               ],
             ),
           ),
-        if (room.isDirectChat)
+        if (room.isDirectChat || room.membership == Membership.invite)
           PopupMenuItem(
             value: ChatContextAction.block,
             child: Row(

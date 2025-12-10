@@ -118,7 +118,7 @@ class SendLocationDialogState extends State<SendLocationDialog> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CupertinoActivityIndicator(),
+          const CircularProgressIndicator.adaptive(),
           const SizedBox(width: 12),
           Text(L10n.of(context).obtainingLocation),
         ],

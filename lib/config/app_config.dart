@@ -54,11 +54,11 @@ abstract class AppConfig {
   static const String supportUrl =
       'https://github.com/krille-chan/fluffychat/issues';
   static const String changelogUrl =
-      'https://github.com/krille-chan/fluffychat/blob/main/CHANGELOG.md';
+      'https://git.extera.xyz/OfficialDakari/ExteraNext/src/branch/main/CHANGELOG.md';
   static final Uri newIssueUrl = Uri(
     scheme: 'https',
-    host: 'github.com',
-    path: '/krille-chan/fluffychat/issues/new',
+    host: 'git.extera.xyz',
+    path: '/OfficialDakari/ExteraNext/issues',
   );
   static bool renderHtml = true;
   static bool hideRedactedEvents = false;
