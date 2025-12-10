@@ -6,6 +6,8 @@ abstract class AppConfig {
   static const String pushIsolatePortName = 'push_isolate';
   static const String mainIsolatePortName = 'main_isolate';
 
+  static const String aboutProfileField = 'xyz.extera.about';
+
   static String _applicationName = 'Extera';
 
   static String get applicationName => _applicationName;

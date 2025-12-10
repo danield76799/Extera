@@ -1219,8 +1219,8 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "3703a3fbbd8916bbb6a8317d745a869dddd78322"
-      url: "https://git.extera.xyz/OfficialDakari/matrix-dart-sdk.git"
+      resolved-ref: cf4a9514eeb76c5e15197d622827a72b2d041fa7
+      url: "https://git.extera.xyz/OfficialDakari/matrix-dart-sdk"
     source: git
     version: "4.0.0"
   meta:

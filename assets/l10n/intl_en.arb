@@ -3394,5 +3394,10 @@
   "useAsEmoji": "Emoji",
   "mutualRooms": "Mutual rooms",
   "matrixId": "Matrix ID",
-  "copyLink": "Copy link"
+  "copyLink": "Copy link",
+  "aboutUser": "About",
+  "editAbout": "Edit about",
+  "editAboutDescription": "You can tell something about yourself. This will be visible to everyone.",
+  "aboutExample": "Hello! I am From Tokyo",
+  "notSet": "Not set"
 }
