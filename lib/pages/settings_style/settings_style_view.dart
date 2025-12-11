@@ -233,7 +233,7 @@ class SettingsStyleView extends StatelessWidget {
                                       vertical: 8,
                                     ),
                                     child: Text(
-                                      'А вот и Extera 2.0.1, теперь она стирает EXIF перед отправкой.',
+                                      L10n.of(context).settingsStyleMessage1,
                                       style: TextStyle(
                                         color: theme.onBubbleColor,
                                         fontSize: AppConfig.messageFontSize *
@@ -266,7 +266,7 @@ class SettingsStyleView extends StatelessWidget {
                                         vertical: 8,
                                       ),
                                       child: Text(
-                                        'Каждую версию здесь новый анекдот. Что ты придумал в этот раз?',
+                                        L10n.of(context).settingsStyleMessage2,
                                         style: TextStyle(
                                           color: theme.colorScheme.onSurface,
                                           fontSize: AppConfig.messageFontSize *
@@ -299,7 +299,7 @@ class SettingsStyleView extends StatelessWidget {
                                       vertical: 8,
                                     ),
                                     child: Text(
-                                      'Поспорили как-то русский, башкир и чукча кто дольше без еды продержится. Закрылись в комнатах, а те кто хотели кушать должны были позвонить по телефону. Русский продержался 2 дня, башкир - 3. Прошло уже 4 дня, а чукча всё не выходит. Ну решили они проведать чукчу, заходят к нему, а он там говорит: "Телефоны телефоны чукча тоже есть хочет"',
+                                      L10n.of(context).settingsStyleMessage3,
                                       style: TextStyle(
                                         color: theme.onBubbleColor,
                                         fontSize: AppConfig.messageFontSize *
