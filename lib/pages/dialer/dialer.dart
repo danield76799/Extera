@@ -311,6 +311,7 @@ class CallingView extends State<Calling> {
   }
 
   void _hangUp() {
+    Matrix.of(context).voipPlugin?.stopCallingSound();
     setState(() {
       if (call.isRinging) {
         call.reject();

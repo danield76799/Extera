@@ -3451,5 +3451,6 @@
   "muteCam": "Mute camera",
   "ringtone": "Ringtone",
   "ringtoneDescription": "Choose which ringtone should be played when you receive a call.",
-  "ringtoneSystem": "System ringtone"
+  "systemRingtone": "System ringtone",
+  "chooseRingtone": "Choose a ringtone"
 }

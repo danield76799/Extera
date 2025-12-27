@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:extera_next/config/app_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +84,14 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   @override
   Future<void> playRingtone() async {
     try {
-      FlutterRingtonePlayer().playRingtone(looping: true);
+      if (AppConfig.ringtone == 'system') {
+        FlutterRingtonePlayer().playRingtone(looping: true);
+      } else if (kIsWeb || PlatformInfos.isMobile || PlatformInfos.isMacOS) {
+        final player = callSoundPlayer = AudioPlayer();
+        await player.setAsset(AppConfig.ringtoneFiles[AppConfig.ringtone]!);
+        player.setLoopMode(LoopMode.one);
+        player.play();
+      }
     } catch (ex) {
       Logs().e("Failed to play ringtone", ex);
     }
@@ -92,14 +100,23 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   @override
   Future<void> stopRingtone() async {
     try {
-      FlutterRingtonePlayer().stop();
-    } catch (_) {}
+      Logs().w("Stopping ringtone");
+      if (AppConfig.ringtone == 'system') {
+        FlutterRingtonePlayer().stop();
+      } else {
+        await callSoundPlayer?.stop();
+        await callSoundPlayer?.dispose();
+        callSoundPlayer = null;
+      }
+    } catch (ex) {
+      Logs().e("Failed to stop ringtone", ex);
+    }
   }
 
   AudioPlayer? callSoundPlayer;
 
   Future<void> playCallingSound(CallSession call) async {
-    await stopCallingSound();
+    if (callSoundPlayer != null) return;
     if (call.direction == CallDirection.kOutgoing) {
       if (!{CallState.kInviteSent, CallState.kConnecting, CallState.kRinging}
           .contains(call.state)) {
@@ -124,6 +141,7 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   Future<void> stopCallingSound() async {
     if (callSoundPlayer != null) {
       await callSoundPlayer?.stop();
+      await callSoundPlayer?.dispose();
       callSoundPlayer = null;
     }
     stopRingtone();
@@ -158,6 +176,7 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   @override
   Future<void> handleCallEnded(CallSession session) async {
     currentCallSession = null;
+    stopCallingSound();
     Logs().w("ended call session ${session.callId}");
     if (overlayEntry != null) {
       overlayEntry!.remove();

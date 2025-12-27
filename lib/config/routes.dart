@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:extera_next/pages/chat_thread/thread.dart';
 import 'package:extera_next/pages/notifications/notifications.dart';
 import 'package:extera_next/pages/profile/profile.dart';
+import 'package:extera_next/pages/settings_ringtone/settings_ringtone.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -311,6 +312,15 @@ abstract class AppRoutes {
                           ),
                         ),
                       ],
+                      redirect: loggedOutRedirect,
+                    ),
+                    GoRoute(
+                      path: 'ringtone',
+                      pageBuilder: (context, state) => defaultPageBuilder(
+                        context,
+                        state,
+                        const SettingsRingtone(),
+                      ),
                       redirect: loggedOutRedirect,
                     ),
                     GoRoute(

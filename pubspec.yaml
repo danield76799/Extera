@@ -124,7 +124,7 @@ flutter:
   assets:
     - assets/
     - assets/sounds/
-    - assets/js/
+    - assets/sounds/ringtones/
 
 msix_config:
   display_name: Extera Next

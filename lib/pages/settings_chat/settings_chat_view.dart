@@ -116,6 +116,15 @@ class SettingsChatView extends StatelessWidget {
                 storeKey: SettingKeys.experimentalVoip,
                 defaultValue: AppConfig.experimentalVoip,
               ),
+              ListTile(
+                title: Text(L10n.of(context).ringtone),
+                subtitle: Text(L10n.of(context).ringtoneDescription),
+                trailing: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Icon(Icons.chevron_right_outlined),
+                ),
+                onTap: () => context.go('/rooms/settings/ringtone'),
+              )
             ],
           ),
         ),

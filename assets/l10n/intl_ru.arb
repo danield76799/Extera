@@ -3547,5 +3547,6 @@
 "backToCall": "Вернуться к звонку",
   "ringtone": "Рингтон",
   "ringtoneDescription": "Выберите рингтон, который будет звучать при входящем звонке.",
-  "ringtoneSystem": "Системный рингтон"
+  "systemRingtone": "Системный рингтон",
+  "chooseRingtone": "Выберите рингтон"
 }
