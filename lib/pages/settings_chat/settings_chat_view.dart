@@ -123,8 +123,8 @@ class SettingsChatView extends StatelessWidget {
                   padding: EdgeInsets.all(16.0),
                   child: Icon(Icons.chevron_right_outlined),
                 ),
-                onTap: () => context.go('/rooms/settings/ringtone'),
-              )
+                onTap: () => context.push('/rooms/settings/ringtone'),
+              ),
             ],
           ),
         ),

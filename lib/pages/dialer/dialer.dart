@@ -219,6 +219,19 @@ class CallingView extends State<Calling> {
   void initialize() async {
     final call = this.call;
 
+    if (call.direction == CallDirection.kOutgoing) {
+      registerListeners();
+    }
+    
+    _state = call.state;
+
+    try {
+      // Enable wakelock (keep screen on)
+      unawaited(WakelockPlus.enable());
+    } catch (_) {}
+  }
+
+  void registerListeners() {
     onCallStateChangedSubscription =
         call.onCallStateChanged.stream.listen(_handleCallState);
     onCallEventChangedSubscription =
@@ -235,12 +248,6 @@ class CallingView extends State<Calling> {
         );
       }
     });
-    _state = call.state;
-
-    try {
-      // Enable wakelock (keep screen on)
-      unawaited(WakelockPlus.enable());
-    } catch (_) {}
   }
 
   void cleanUp() {
@@ -305,6 +312,7 @@ class CallingView extends State<Calling> {
   }
 
   void _answerCall() {
+    registerListeners();
     setState(() {
       call.answer();
     });

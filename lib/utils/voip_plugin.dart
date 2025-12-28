@@ -15,6 +15,8 @@ import 'package:extera_next/pages/chat_list/chat_list.dart';
 import 'package:extera_next/pages/dialer/dialer.dart';
 import 'package:extera_next/utils/platform_infos.dart';
 import '../widgets/matrix.dart';
+// ignore: depend_on_referenced_packages
+import 'package:audio_session/audio_session.dart' show AndroidAudioAttributes, AndroidAudioUsage, AndroidAudioContentType, AndroidAudioFlags;
 
 class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   final MatrixState matrix;
@@ -88,8 +90,15 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
         FlutterRingtonePlayer().playRingtone(looping: true);
       } else if (kIsWeb || PlatformInfos.isMobile || PlatformInfos.isMacOS) {
         final player = callSoundPlayer = AudioPlayer();
+        await player.setAndroidAudioAttributes(
+          const AndroidAudioAttributes(
+            usage: AndroidAudioUsage.notificationRingtone,
+            flags: AndroidAudioFlags(0x00000006),
+            contentType: AndroidAudioContentType.unknown,
+          ),
+        );
         await player.setAsset(AppConfig.ringtoneFiles[AppConfig.ringtone]!);
-        player.setLoopMode(LoopMode.one);
+        await player.setLoopMode(LoopMode.one);
         player.play();
       }
     } catch (ex) {
