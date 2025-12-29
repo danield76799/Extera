@@ -25,10 +25,7 @@ class _LockScreenState extends State<LockScreen> {
     setState(() {
       _errorText = null;
     });
-    if (text.length < 4) return;
-
-    final enteredPin = int.tryParse(text);
-    if (enteredPin == null || text.length != 4) {
+    if (text.length != 4) {
       setState(() {
         _errorText = L10n.of(context).invalidInput;
       });
@@ -36,7 +33,7 @@ class _LockScreenState extends State<LockScreen> {
       return;
     }
 
-    if (AppLock.of(context).unlock(enteredPin.toString())) {
+    if (AppLock.of(context).unlock(text)) {
       setState(() {
         _inputBlocked = false;
         _errorText = null;
