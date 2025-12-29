@@ -268,7 +268,6 @@ class HtmlMessage extends StatelessWidget {
                 ),
               ),
               style: TextStyle(
-                fontStyle: FontStyle.italic,
                 fontSize: fontSize,
                 color: textColor,
               ),

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 flutter build linux
-cp -r build/linux/x64/release/bundle appimage/Extera.AppDir
+cp -r build/linux/x64/release/bundle/* appimage/Extera.AppDir
 cd appimage
 
 # prepare AppImage files

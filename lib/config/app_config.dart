@@ -50,7 +50,7 @@ abstract class AppConfig {
 
   static String get webBaseUrl => _webBaseUrl;
   static const String sourceCodeUrl =
-      'https://github.com/krille-chan/fluffychat';
+      'https://git.extera.xyz/OfficialDakari/ExteraNext';
   static const String supportUrl =
       'https://github.com/krille-chan/fluffychat/issues';
   static const String changelogUrl =

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:extera_next/pages/bootstrap/bootstrap_dialog.dart';
 import 'package:extera_next/pages/chat_privacy/chat_privacy.dart';
 import 'package:extera_next/pages/chat_thread/thread.dart';
 import 'package:extera_next/pages/notifications/notifications.dart';
@@ -99,6 +100,15 @@ abstract class AppRoutes {
         context,
         state,
         const ConfigViewer(),
+      ),
+    ),
+    GoRoute(
+      path: '/backup',
+      redirect: loggedOutRedirect,
+      pageBuilder: (context, state) => defaultPageBuilder(
+        context,
+        state,
+        BootstrapDialog(wipe: state.uri.queryParameters['wipe'] == 'true'),
       ),
     ),
     ShellRoute(

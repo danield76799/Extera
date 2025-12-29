@@ -1519,6 +1519,7 @@ class ChatController extends State<ChatPageWithRoom>
                                       emoji.emoji,
                                     ),
                                     config: Config(
+                                      locale: Localizations.localeOf(context),
                                       emojiViewConfig: const EmojiViewConfig(
                                         backgroundColor: Colors.transparent,
                                       ),
