@@ -5,6 +5,8 @@
 - Always use foreground service for calls.
 - Slide to answer/reject call on mobile.
 - Custom privacy settings per room.
+- Add ringtone "Homebase"
+- Ringtone and calling sounds on Linux
 
 ## Extera 25.1.0
 - Brought back calls. Just enable "Experimental video calls" and press that phone button in a chat - calls will probably work.
