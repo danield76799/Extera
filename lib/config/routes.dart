@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:extera_next/pages/chat_privacy/chat_privacy.dart';
 import 'package:extera_next/pages/chat_thread/thread.dart';
 import 'package:extera_next/pages/notifications/notifications.dart';
 import 'package:extera_next/pages/profile/profile.dart';
@@ -518,6 +519,17 @@ abstract class AppRoutes {
                         context,
                         state,
                         const ChatPermissionsSettings(),
+                      ),
+                      redirect: loggedOutRedirect,
+                    ),
+                    GoRoute(
+                      path: 'privacy',
+                      pageBuilder: (context, state) => defaultPageBuilder(
+                        context,
+                        state,
+                        ChatPrivacy(
+                          roomId: state.pathParameters['roomid']!,
+                        ),
                       ),
                       redirect: loggedOutRedirect,
                     ),

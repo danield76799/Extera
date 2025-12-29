@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
+import 'package:extera_next/utils/privacy_options.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_vodozemac/flutter_vodozemac.dart' as vod;
 import 'package:go_router/go_router.dart';
@@ -162,7 +163,7 @@ Future<void> notificationTap(
           await room.setReadMarker(
             payload.eventId ?? room.lastEvent!.eventId,
             mRead: payload.eventId ?? room.lastEvent!.eventId,
-            public: AppConfig.sendPublicReadReceipts,
+            public: shouldSendPublicReadReceipts(client, roomId),
           );
         case FluffyChatNotificationActions.reply:
           final input = notificationResponse.input;

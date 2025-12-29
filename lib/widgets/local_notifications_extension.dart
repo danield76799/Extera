@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:extera_next/utils/privacy_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -104,7 +105,7 @@ extension LocalNotificationsExtension on MatrixState {
             event.room.setReadMarker(
               event.eventId,
               mRead: event.eventId,
-              public: AppConfig.sendPublicReadReceipts,
+              public: shouldSendPublicReadReceipts(client, roomId),
             );
             break;
           case DesktopNotificationActions.openChat:

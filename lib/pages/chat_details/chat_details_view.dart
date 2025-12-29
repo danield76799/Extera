@@ -321,6 +321,22 @@ class ChatDetailsView extends StatelessWidget {
                             onTap: () => context
                                 .push('/rooms/${room.id}/details/permissions'),
                           ),
+                          ListTile(
+                            title: Text(L10n.of(context).chatPrivacy),
+                            subtitle: Text(
+                              L10n.of(context).chatPrivacyDescription,
+                            ),
+                            leading: CircleAvatar(
+                              backgroundColor: theme.scaffoldBackgroundColor,
+                              foregroundColor: iconColor,
+                              child: const Icon(
+                                Icons.edit_attributes_outlined,
+                              ),
+                            ),
+                            trailing: const Icon(Icons.chevron_right_outlined),
+                            onTap: () => context
+                                .push('/rooms/${room.id}/details/privacy'),
+                          ),
                         Divider(color: theme.dividerColor),
                         ListTile(
                           title: Text(

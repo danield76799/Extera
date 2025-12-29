@@ -174,7 +174,7 @@ class InputBar extends StatelessWidget {
         }
       }
     }
-    final roomMatch = RegExp(r'(?:\s|^)#([-\w]+)$').firstMatch(searchText);
+    final roomMatch = RegExp(r'(?:\s|^)#([^ \[\]]+)$').firstMatch(searchText);
     if (roomMatch != null) {
       final roomSearch = roomMatch[1]!.toLowerCase();
       for (final r in room.client.rooms) {
@@ -372,17 +372,18 @@ class InputBar extends StatelessWidget {
     if (suggestion['type'] == 'user') {
       insertText = '${suggestion['mention']!} ';
       startText = replaceText.replaceAllMapped(
-        RegExp(r'(?:\s|^)@([^ \[\]]+)$', unicode: true),
+        RegExp(r'(?<=\s|^)@([^ \[\]]+)$', unicode: true),
         (Match m) => insertText,
       );
     }
     if (suggestion['type'] == 'room') {
       insertText = '${suggestion['mxid']!} ';
       startText = replaceText.replaceAllMapped(
-        RegExp(r'(\s|^)(#[-\w]+)$', unicode: true),
+        RegExp(r'(\s|^)(#[^ \[\]]+)$', unicode: true),
         (Match m) => '${m[1]}$insertText',
       );
     }
+    
     if (insertText.isNotEmpty && startText.isNotEmpty) {
       controller!.text = startText + afterText;
       controller!.selection = TextSelection(

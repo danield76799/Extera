@@ -7,6 +7,7 @@ import 'package:extera_next/pages/chat/send_poll_dialog.dart';
 import 'package:extera_next/pages/chat/translated_event_dialog.dart';
 import 'package:extera_next/utils/adaptive_bottom_sheet.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/synapse_admin_extension.dart';
+import 'package:extera_next/utils/privacy_options.dart';
 import 'package:extera_next/utils/room_status_extension.dart';
 import 'package:extera_next/utils/translator.dart';
 import 'package:flutter/foundation.dart' hide Category;
@@ -543,7 +544,7 @@ class ChatController extends State<ChatPageWithRoom>
     _setReadMarkerFuture = timeline
         .setReadMarker(
       eventId: eventId,
-      public: AppConfig.sendPublicReadReceipts,
+      public: shouldSendPublicReadReceipts(room.client, roomId),
     )
         .then((_) {
       _setReadMarkerFuture = null;
@@ -1948,7 +1949,7 @@ class ChatController extends State<ChatPageWithRoom>
         }
       }
     }
-    if (AppConfig.sendTypingNotifications) {
+    if (shouldSendTypingNotifications(room.client, roomId)) {
       typingCoolDown?.cancel();
       typingCoolDown = Timer(const Duration(seconds: 2), () {
         typingCoolDown = null;
