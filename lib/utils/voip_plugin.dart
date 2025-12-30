@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:extera_next/config/app_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart' as webrtc_impl;
-import 'package:just_audio/just_audio.dart';
 import 'package:matrix/matrix.dart';
 import 'package:webrtc_interface/webrtc_interface.dart' hide Navigator;
 
@@ -15,8 +15,6 @@ import 'package:extera_next/pages/chat_list/chat_list.dart';
 import 'package:extera_next/pages/dialer/dialer.dart';
 import 'package:extera_next/utils/platform_infos.dart';
 import '../widgets/matrix.dart';
-// ignore: depend_on_referenced_packages
-import 'package:audio_session/audio_session.dart';
 
 class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   final MatrixState matrix;
@@ -39,7 +37,8 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState? state) {
-    background = (state == AppLifecycleState.detached ||
+    background =
+        (state == AppLifecycleState.detached ||
         state == AppLifecycleState.paused);
   }
 
@@ -80,27 +79,9 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   Future<RTCPeerConnection> createPeerConnection(
     Map<String, dynamic> configuration, [
     Map<String, dynamic> constraints = const {},
-  ]) =>
-      webrtc_impl.createPeerConnection(configuration, constraints);
+  ]) => webrtc_impl.createPeerConnection(configuration, constraints);
 
   Future<bool> get hasCallingAccount async => false;
-
-  Future<void> setAudioAttributes() async {
-    try {
-      Logs().w("configuring audio attributes");
-      final session = await AudioSession.instance;
-      await session.configure(
-        const AudioSessionConfiguration(
-          androidAudioAttributes: AndroidAudioAttributes(
-            usage: AndroidAudioUsage.notificationRingtone,
-          ),
-        ),
-      );
-      Logs().w("configured audio attributes");
-    } catch (ex) {
-      Logs().e("Failed to set attributes", ex);
-    }
-  }
 
   @override
   Future<void> playRingtone() async {
@@ -111,13 +92,16 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
           PlatformInfos.isMobile ||
           PlatformInfos.isMacOS ||
           PlatformInfos.isLinux) {
-        await setAudioAttributes();
-        final player = callSoundPlayer = AudioPlayer(
-          androidApplyAudioAttributes: false,
+        final player = callSoundPlayer = AudioPlayer(playerId: 'ringtone');
+        player.setAudioContext(
+          AudioContext(
+            android: const AudioContextAndroid(
+              audioMode: AndroidAudioMode.ringtone,
+              usageType: AndroidUsageType.notificationRingtone,
+            ),
+          ),
         );
-        await player.setAsset(AppConfig.ringtoneFiles[AppConfig.ringtone]!);
-        await player.setLoopMode(LoopMode.one);
-        player.play();
+        player.play(AssetSource(AppConfig.ringtoneFiles[AppConfig.ringtone]!));
       }
     } catch (ex) {
       Logs().e("Failed to play ringtone", ex);
@@ -132,6 +116,7 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
         FlutterRingtonePlayer().stop();
       } else {
         await callSoundPlayer?.stop();
+        await callSoundPlayer?.release();
         await callSoundPlayer?.dispose();
         callSoundPlayer = null;
       }
@@ -145,8 +130,11 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
   Future<void> playCallingSound(CallSession call) async {
     if (callSoundPlayer != null) return;
     if (call.direction == CallDirection.kOutgoing) {
-      if (!{CallState.kInviteSent, CallState.kConnecting, CallState.kRinging}
-          .contains(call.state)) {
+      if (!{
+        CallState.kInviteSent,
+        CallState.kConnecting,
+        CallState.kRinging,
+      }.contains(call.state)) {
         return;
       }
       Logs().w("Playing kOutgoing call sound");
@@ -154,11 +142,16 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
       if (kIsWeb ||
           PlatformInfos.isMobile ||
           PlatformInfos.isMacOS ||
-          PlatformInfos.isLinux) {
-        final player = callSoundPlayer = AudioPlayer();
-        await player.setAsset(path);
-        player.setLoopMode(LoopMode.one);
-        player.play();
+          PlatformInfos.isLinux) {final player = callSoundPlayer = AudioPlayer(playerId: 'ringtone');
+        player.setAudioContext(
+          AudioContext(
+            android: const AudioContextAndroid(
+              audioMode: AndroidAudioMode.ringtone,
+              usageType: AndroidUsageType.notificationRingtone,
+            ),
+          ),
+        );
+        player.play(AssetSource(path));
       } else {
         Logs().w('Playing sound not implemented for this platform!');
       }

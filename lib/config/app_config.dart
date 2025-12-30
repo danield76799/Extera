@@ -93,7 +93,7 @@ abstract class AppConfig {
   // See CREDITS.md
   static const Map<String, String> ringtoneFiles = {
     // people won't answer calls listening to this banger
-    'Homebase': 'assets/sounds/ringtones/homebase.mp3',
+    'Homebase': 'sounds/ringtones/homebase.mp3',
   };
 
   static void loadFromJson(Map<String, dynamic> json) {

@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:extera_next/pages/chat/events/html_message.dart';
+import 'package:extera_next/widgets/matrix.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:matrix/matrix.dart';
 import 'package:opus_caf_converter_dart/opus_caf_converter_dart.dart';
 import 'package:path_provider/path_provider.dart';
@@ -61,9 +62,11 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
 
   @override
   void dispose() {
-    if (audioPlayer?.playerState.playing == true) {
+    if (audioPlayer?.state == PlayerState.playing) {
       audioPlayer?.stop();
     }
+    audioPlayer?.release();
+
     onAudioPositionChanged?.cancel();
     onDurationChanged?.cancel();
     onPlayerStateChanged?.cancel();
@@ -115,34 +118,29 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
       _playAction();
     } catch (e, s) {
       Logs().v('Could not download audio file', e, s);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toLocalizedString(context)),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toLocalizedString(context))));
     }
   }
 
   void _playAction() async {
-    final audioPlayer = this.audioPlayer ??= AudioPlayer();
+    final client = Matrix.of(context).client;
+    final audioPlayer = this.audioPlayer ??= AudioPlayer(
+      playerId: 'audio_message',
+    );
     if (AudioPlayerWidget.currentId != widget.event.eventId) {
       if (AudioPlayerWidget.currentId != null) {
-        if (audioPlayer.playerState.playing) {
+        if (audioPlayer.state == PlayerState.playing) {
           await audioPlayer.stop();
           setState(() {});
         }
       }
       AudioPlayerWidget.currentId = widget.event.eventId;
     }
-    if (audioPlayer.playerState.playing) {
-      await audioPlayer.pause();
-      return;
-    } else if (audioPlayer.position != Duration.zero) {
-      await audioPlayer.play();
-      return;
-    }
+    final audioFile = this.audioFile;
 
-    onAudioPositionChanged ??= audioPlayer.positionStream.listen((state) {
+    onAudioPositionChanged ??= audioPlayer.onPositionChanged.listen((state) {
       if (maxPosition <= 0) return;
       setState(() {
         statusText =
@@ -151,24 +149,39 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
       });
       if (state.inMilliseconds.toDouble() == maxPosition) {
         audioPlayer.stop();
-        audioPlayer.seek(null);
+        audioPlayer.seek(Duration.zero);
       }
     });
-    onDurationChanged ??= audioPlayer.durationStream.listen((max) {
-      if (max == null || max == Duration.zero) return;
+    onDurationChanged ??= audioPlayer.onDurationChanged.listen((max) {
+      if (max == Duration.zero) return;
       setState(() => maxPosition = max.inMilliseconds.toDouble());
     });
-    onPlayerStateChanged ??=
-        audioPlayer.playingStream.listen((_) => setState(() {}));
-    final audioFile = this.audioFile;
-    if (audioFile != null) {
-      audioPlayer.setFilePath(audioFile.path);
-    } else {
-      await audioPlayer.setAudioSource(MatrixFileAudioSource(matrixFile!));
+    onPlayerStateChanged ??= audioPlayer.onPlayerStateChanged.listen(
+      (_) => setState(() {}),
+    );
+    
+    if (audioPlayer.state == PlayerState.playing) {
+      await audioPlayer.pause();
+      return;
+    } else if (await audioPlayer.getCurrentPosition() != Duration.zero) {
+      await audioPlayer.play(
+        DeviceFileSource(audioFile!.path, mimeType: matrixFile?.mimeType),
+      );
+      return;
     }
-    audioPlayer.play().onError(
-          ErrorReporter(context, 'Unable to play audio message')
-              .onErrorCallback,
+    audioPlayer
+        .play(
+          UrlSource(
+            (await widget.event.attachmentMxcUrl?.getDownloadUri(
+              client,
+            )).toString(),
+          ),
+        )
+        .onError(
+          ErrorReporter(
+            context,
+            'Unable to play audio message',
+          ).onErrorCallback,
         );
   }
 
@@ -209,22 +222,22 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
   void _toggleSpeed() async {
     final audioPlayer = this.audioPlayer;
     if (audioPlayer == null) return;
-    switch (audioPlayer.speed) {
+    switch (audioPlayer.playbackRate) {
       case 1.0:
-        await audioPlayer.setSpeed(1.25);
+        await audioPlayer.setPlaybackRate(1.25);
         break;
       case 1.25:
-        await audioPlayer.setSpeed(1.5);
+        await audioPlayer.setPlaybackRate(1.5);
         break;
       case 1.5:
-        await audioPlayer.setSpeed(2.0);
+        await audioPlayer.setPlaybackRate(2.0);
         break;
       case 2.0:
-        await audioPlayer.setSpeed(0.5);
+        await audioPlayer.setPlaybackRate(0.5);
         break;
       case 0.5:
       default:
-        await audioPlayer.setSpeed(1.0);
+        await audioPlayer.setPlaybackRate(1.0);
         break;
     }
     setState(() {});
@@ -259,8 +272,9 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ConstrainedBox(
-            constraints:
-                const BoxConstraints(maxWidth: FluffyThemes.columnWidth),
+            constraints: const BoxConstraints(
+              maxWidth: FluffyThemes.columnWidth,
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -280,7 +294,7 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
                             color: widget.color.withAlpha(64),
                             borderRadius: BorderRadius.circular(64),
                             child: Icon(
-                              audioPlayer?.playerState.playing == true
+                              audioPlayer?.state == PlayerState.playing
                                   ? Icons.pause_outlined
                                   : Icons.play_arrow_outlined,
                               color: widget.color,
@@ -297,9 +311,11 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Row(
                             children: [
-                              for (var i = 0;
-                                  i < AudioPlayerWidget.wavesCount;
-                                  i++)
+                              for (
+                                var i = 0;
+                                i < AudioPlayerWidget.wavesCount;
+                                i++
+                              )
                                 Expanded(
                                   child: Container(
                                     height: 32,
@@ -324,7 +340,8 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
                       SizedBox(
                         height: 32,
                         child: Slider(
-                          thumbColor: widget.event.senderId ==
+                          thumbColor:
+                              widget.event.senderId ==
                                   widget.event.room.client.userID
                               ? theme.colorScheme.onPrimary
                               : theme.colorScheme.primary,
@@ -351,38 +368,30 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
                   width: 36,
                   child: Text(
                     statusText,
-                    style: TextStyle(
-                      color: widget.color,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: widget.color, fontSize: 12),
                   ),
                 ),
                 const SizedBox(width: 8),
                 AnimatedCrossFade(
                   firstChild: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
-                      Icons.mic_none_outlined,
-                      color: widget.color,
-                    ),
+                    child: Icon(Icons.mic_none_outlined, color: widget.color),
                   ),
                   secondChild: Material(
                     color: widget.color.withAlpha(64),
                     borderRadius: BorderRadius.circular(AppConfig.borderRadius),
                     child: InkWell(
-                      borderRadius:
-                          BorderRadius.circular(AppConfig.borderRadius),
+                      borderRadius: BorderRadius.circular(
+                        AppConfig.borderRadius,
+                      ),
                       onTap: _toggleSpeed,
                       child: SizedBox(
                         width: 32,
                         height: 20,
                         child: Center(
                           child: Text(
-                            '${audioPlayer?.speed.toString()}x',
-                            style: TextStyle(
-                              color: widget.color,
-                              fontSize: 9,
-                            ),
+                            '${audioPlayer?.playbackRate.toString()}x',
+                            style: TextStyle(color: widget.color, fontSize: 9),
                           ),
                         ),
                       ),
@@ -397,13 +406,11 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
               ],
             ),
           ),
-          if (fileDescription != null && !widget.event.isRichFileDescription) ...[
+          if (fileDescription != null &&
+              !widget.event.isRichFileDescription) ...[
             const SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Linkify(
                 text: fileDescription,
                 textScaleFactor: MediaQuery.textScalerOf(context).scale(1),
@@ -422,52 +429,29 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
               ),
             ),
           ],
-          if (fileDescription != null && widget.event.isRichFileDescription) ...[
+          if (fileDescription != null &&
+              widget.event.isRichFileDescription) ...[
             const SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: HtmlMessage(
-                  html: fileDescription,
-                  textColor: textColor,
-                  room: widget.event.room,
+                html: fileDescription,
+                textColor: textColor,
+                room: widget.event.room,
+                fontSize: AppConfig.fontSizeFactor * AppConfig.messageFontSize,
+                linkStyle: TextStyle(
+                  color: linkColor,
                   fontSize:
                       AppConfig.fontSizeFactor * AppConfig.messageFontSize,
-                  linkStyle: TextStyle(
-                    color: linkColor,
-                    fontSize:
-                        AppConfig.fontSizeFactor * AppConfig.messageFontSize,
-                    decoration: TextDecoration.underline,
-                    decorationColor: linkColor,
-                  ),
-                  onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
+                  decoration: TextDecoration.underline,
+                  decorationColor: linkColor,
                 ),
+                onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
+              ),
             ),
           ],
         ],
       ),
-    );
-  }
-}
-
-/// To use a MatrixFile as an AudioSource for the just_audio package
-class MatrixFileAudioSource extends StreamAudioSource {
-  final MatrixFile file;
-
-  MatrixFileAudioSource(this.file);
-
-  @override
-  Future<StreamAudioResponse> request([int? start, int? end]) async {
-    start ??= 0;
-    end ??= file.bytes.length;
-    return StreamAudioResponse(
-      sourceLength: file.bytes.length,
-      contentLength: end - start,
-      offset: start,
-      stream: Stream.value(file.bytes.sublist(start, end)),
-      contentType: file.mimeType,
     );
   }
 }
