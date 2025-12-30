@@ -46,31 +46,39 @@ class FluffyChatApp extends StatelessWidget {
     return ThemeBuilder(
       builder: (context, themeMode, primaryColor, pureBlack) =>
           MaterialApp.router(
-        title: AppConfig.applicationName,
-        themeMode: themeMode,
-        theme: FluffyThemes.buildTheme(
-            context, Brightness.light, primaryColor, pureBlack,),
-        darkTheme: FluffyThemes.buildTheme(
-            context, Brightness.dark, primaryColor, pureBlack,),
-        scrollBehavior: CustomScrollBehavior(),
-        localizationsDelegates: L10n.localizationsDelegates,
-        supportedLocales: L10n.supportedLocales,
-        routerConfig: router,
-        builder: (context, child) => AppLockWidget(
-          pincode: pincode,
-          clients: clients,
-          // Need a navigator above the Matrix widget for
-          // displaying dialogs
-          child: ChangeNotifierProvider(
-            create: (context) => DownloadManagerController(),
-            child: Matrix(
+            title: AppConfig.applicationName,
+            themeMode: themeMode,
+            theme: FluffyThemes.buildTheme(
+              context,
+              Brightness.light,
+              primaryColor,
+              pureBlack,
+            ),
+            darkTheme: FluffyThemes.buildTheme(
+              context,
+              Brightness.dark,
+              primaryColor,
+              pureBlack,
+            ),
+            scrollBehavior: CustomScrollBehavior(),
+            localizationsDelegates: L10n.localizationsDelegates,
+            supportedLocales: L10n.supportedLocales,
+            routerConfig: router,
+            builder: (context, child) => AppLockWidget(
+              pincode: pincode,
               clients: clients,
-              store: store,
-              child: testWidget ?? child,
+              // Need a navigator above the Matrix widget for
+              // displaying dialogs
+              child: ChangeNotifierProvider(
+                create: (context) => DownloadManagerController(),
+                child: Matrix(
+                  clients: clients,
+                  store: store,
+                  child: testWidget ?? child,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
     );
   }
 }

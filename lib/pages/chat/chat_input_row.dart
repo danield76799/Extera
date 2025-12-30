@@ -342,10 +342,6 @@ class ChatInputRow extends StatelessWidget {
                             ),
                             onLongPress: () => recordingViewModel
                                 .startRecording(controller.room),
-                            style: IconButton.styleFrom(
-                              backgroundColor: theme.bubbleColor,
-                              foregroundColor: theme.onBubbleColor,
-                            ),
                             icon: const Icon(Icons.mic_none_outlined),
                           )
                         : IconButton(

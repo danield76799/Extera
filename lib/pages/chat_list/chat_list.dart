@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+import 'package:extera_next/utils/check_updates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -30,10 +30,6 @@ import '../../../utils/account_bundles.dart';
 import '../../config/setting_keys.dart';
 import '../../utils/url_launcher.dart';
 import '../../widgets/matrix.dart';
-import '../bootstrap/bootstrap_dialog.dart';
-
-import 'package:extera_next/utils/tor_stub.dart'
-    if (dart.library.html) 'package:tor_detector_web/tor_detector_web.dart';
 
 enum PopupMenuAction {
   settings,
@@ -293,8 +289,6 @@ class ChatListController extends State<ChatList>
     if (unfocus) searchFocusNode.unfocus();
   }
 
-  bool isTorBrowser = false;
-
   BoxConstraints? snappingSheetContainerSize;
 
   final ScrollController scrollController = ScrollController();
@@ -406,7 +400,7 @@ class ChatListController extends State<ChatList>
       );
     });
 
-    _checkTorBrowser();
+    checkForUpdates(context);
 
     super.initState();
   }
@@ -917,12 +911,6 @@ class ChatListController extends State<ChatList>
 
   void _hackyWebRTCFixForWeb() {
     ChatList.contextForVoip = context;
-  }
-
-  Future<void> _checkTorBrowser() async {
-    if (!kIsWeb) return;
-    final isTor = await TorBrowserDetector.isTorBrowser;
-    isTorBrowser = isTor;
   }
 
   Future<void> dehydrate() => Matrix.of(context).dehydrateAction(context);

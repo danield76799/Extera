@@ -42,10 +42,7 @@ class ProfileView extends StatelessWidget {
           children: [
             Icon(icon),
             const SizedBox(height: 4),
-            Text(
-              label,
-              textScaler: const TextScaler.linear(0.8),
-            ),
+            Text(label, textScaler: const TextScaler.linear(0.8)),
           ],
         ),
       ),
@@ -59,9 +56,7 @@ class ProfileView extends StatelessWidget {
     final client = Matrix.of(context).client;
 
     return StreamBuilder(
-      key: ValueKey(
-        userId,
-      ),
+      key: ValueKey(userId),
       stream: client.onSync.stream
           .where((s) => s.hasRoomUpdate)
           .rateLimit(const Duration(seconds: 1)),
@@ -93,7 +88,8 @@ class ProfileView extends StatelessWidget {
     final profile = controller.widget.profile;
     final client = Matrix.of(context).client;
     // final dmRoomId = client.getDirectChatFromUserId(profile.userId);
-    final displayname = profile.displayName ??
+    final displayname =
+        profile.displayName ??
         profile.userId.localpart ??
         L10n.of(context).user;
     final theme = Theme.of(context);
@@ -102,9 +98,7 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Center(
-          child: BackButton(
-            onPressed: Navigator.of(context).pop,
-          ),
+          child: BackButton(onPressed: Navigator.of(context).pop),
         ),
       ),
       body: MaxWidthBody(
@@ -121,10 +115,10 @@ class ProfileView extends StatelessWidget {
                 final presenceText = presence.currentlyActive == true
                     ? L10n.of(context).currentlyActive
                     : lastActiveTimestamp != null
-                        ? L10n.of(context).lastActiveAgo(
-                            lastActiveTimestamp.localizedTimeShort(context),
-                          )
-                        : null;
+                    ? L10n.of(context).lastActiveAgo(
+                        lastActiveTimestamp.localizedTimeShort(context),
+                      )
+                    : null;
                 return SingleChildScrollView(
                   child: Column(
                     spacing: 4,
@@ -138,9 +132,9 @@ class ProfileView extends StatelessWidget {
                           size: Avatar.defaultSize * 2,
                           onTap: avatar != null
                               ? () => showDialog(
-                                    context: context,
-                                    builder: (_) => MxcImageViewer(avatar),
-                                  )
+                                  context: context,
+                                  builder: (_) => MxcImageViewer(avatar),
+                                )
                               : null,
                         ),
                       ),
@@ -163,8 +157,9 @@ class ProfileView extends StatelessWidget {
                       if (statusMsg != null)
                         SelectableLinkify(
                           text: statusMsg,
-                          textScaleFactor:
-                              MediaQuery.textScalerOf(context).scale(1),
+                          textScaleFactor: MediaQuery.textScalerOf(
+                            context,
+                          ).scale(1),
                           textAlign: TextAlign.center,
                           options: const LinkifyOptions(humanize: false),
                           linkStyle: TextStyle(
@@ -201,16 +196,25 @@ class ProfileView extends StatelessWidget {
                               final router = GoRouter.of(context);
                               final roomIdResult =
                                   await showFutureLoadingDialog(
-                                context: context,
-                                future: () =>
-                                    client.startDirectChat(profile.userId),
-                              );
+                                    context: context,
+                                    future: () =>
+                                        client.startDirectChat(profile.userId),
+                                  );
                               final roomId = roomIdResult.result;
                               if (roomId == null) return;
                               if (context.mounted) Navigator.of(context).pop();
                               router.go('/rooms/$roomId');
                             },
                           ),
+                          if (controller.showCallButton)
+                            _buildActionButton(
+                              context: context,
+                              icon: Icons.call,
+                              label: L10n.of(context).placeCall,
+                              onPressed: () {
+                                controller.onCallTap();
+                              },
+                            ),
                           _buildActionButton(
                             context: context,
                             icon: Icons.block,
@@ -238,13 +242,9 @@ class ProfileView extends StatelessWidget {
               title: Text(profile.userId),
               subtitle: Text(L10n.of(context).matrixId),
               onTap: () {
-                Clipboard.setData(
-                  ClipboardData(text: profile.userId),
-                );
+                Clipboard.setData(ClipboardData(text: profile.userId));
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(L10n.of(context).copiedToClipboard),
-                  ),
+                  SnackBar(content: Text(L10n.of(context).copiedToClipboard)),
                 );
               },
             ),

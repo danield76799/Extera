@@ -49,14 +49,12 @@ abstract class AppRoutes {
   static FutureOr<String?> loggedInRedirect(
     BuildContext context,
     GoRouterState state,
-  ) =>
-      Matrix.of(context).client.isLogged() ? '/rooms' : null;
+  ) => Matrix.of(context).client.isLogged() ? '/rooms' : null;
 
   static FutureOr<String?> loggedOutRedirect(
     BuildContext context,
     GoRouterState state,
-  ) =>
-      Matrix.of(context).client.isLogged() ? null : '/home';
+  ) => Matrix.of(context).client.isLogged() ? null : '/home';
 
   AppRoutes();
 
@@ -88,19 +86,13 @@ abstract class AppRoutes {
     ),
     GoRoute(
       path: '/logs',
-      pageBuilder: (context, state) => defaultPageBuilder(
-        context,
-        state,
-        const LogViewer(),
-      ),
+      pageBuilder: (context, state) =>
+          defaultPageBuilder(context, state, const LogViewer()),
     ),
     GoRoute(
       path: '/configs',
-      pageBuilder: (context, state) => defaultPageBuilder(
-        context,
-        state,
-        const ConfigViewer(),
-      ),
+      pageBuilder: (context, state) =>
+          defaultPageBuilder(context, state, const ConfigViewer()),
     ),
     GoRoute(
       path: '/backup',
@@ -134,11 +126,8 @@ abstract class AppRoutes {
         GoRoute(
           path: '/user',
           redirect: loggedOutRedirect,
-          pageBuilder: (context, state) => defaultPageBuilder(
-            context,
-            state,
-            const EmptyPage(),
-          ),
+          pageBuilder: (context, state) =>
+              defaultPageBuilder(context, state, const EmptyPage()),
           routes: [
             GoRoute(
               path: ':user_id',
@@ -149,8 +138,8 @@ abstract class AppRoutes {
                   Profile(
                     userId: state.pathParameters['user_id']!,
                     displayName: state.uri.queryParameters['display_name'],
-                    avatarUrl: state.uri.queryParameters
-                            .containsKey('avatar_uri')
+                    avatarUrl:
+                        state.uri.queryParameters.containsKey('avatar_uri')
                         ? Uri.parse(state.uri.queryParameters['avatar_uri']!)
                         : null,
                   ),
@@ -170,27 +159,19 @@ abstract class AppRoutes {
             state,
             FluffyThemes.isColumnMode(context)
                 ? const EmptyPage()
-                : ChatList(
-                    activeChat: state.pathParameters['roomid'],
-                  ),
+                : ChatList(activeChat: state.pathParameters['roomid']),
           ),
           routes: [
             GoRoute(
               path: '/notifications',
-              pageBuilder: (context, state) => defaultPageBuilder(
-                context,
-                state,
-                const Notifications(),
-              ),
+              pageBuilder: (context, state) =>
+                  defaultPageBuilder(context, state, const Notifications()),
               redirect: loggedOutRedirect,
             ),
             GoRoute(
               path: 'archive',
-              pageBuilder: (context, state) => defaultPageBuilder(
-                context,
-                state,
-                const Archive(),
-              ),
+              pageBuilder: (context, state) =>
+                  defaultPageBuilder(context, state, const Archive()),
               routes: [
                 GoRoute(
                   path: ':roomid',
@@ -230,20 +211,14 @@ abstract class AppRoutes {
             ),
             GoRoute(
               path: 'newprivatechat',
-              pageBuilder: (context, state) => defaultPageBuilder(
-                context,
-                state,
-                const NewPrivateChat(),
-              ),
+              pageBuilder: (context, state) =>
+                  defaultPageBuilder(context, state, const NewPrivateChat()),
               redirect: loggedOutRedirect,
             ),
             GoRoute(
               path: 'newgroup',
-              pageBuilder: (context, state) => defaultPageBuilder(
-                context,
-                state,
-                const NewGroup(),
-              ),
+              pageBuilder: (context, state) =>
+                  defaultPageBuilder(context, state, const NewGroup()),
               redirect: loggedOutRedirect,
             ),
             GoRoute(
@@ -348,9 +323,7 @@ abstract class AppRoutes {
                           pageBuilder: (context, state) => defaultPageBuilder(
                             context,
                             state,
-                            Login(
-                              client: state.extra as Client,
-                            ),
+                            Login(client: state.extra as Client),
                           ),
                           redirect: loggedOutRedirect,
                         ),
@@ -465,9 +438,7 @@ abstract class AppRoutes {
                   pageBuilder: (context, state) => defaultPageBuilder(
                     context,
                     state,
-                    ChatSearchPage(
-                      roomId: state.pathParameters['roomid']!,
-                    ),
+                    ChatSearchPage(roomId: state.pathParameters['roomid']!),
                   ),
                   redirect: loggedOutRedirect,
                 ),
@@ -496,9 +467,7 @@ abstract class AppRoutes {
                   pageBuilder: (context, state) => defaultPageBuilder(
                     context,
                     state,
-                    ChatDetails(
-                      roomId: state.pathParameters['roomid']!,
-                    ),
+                    ChatDetails(roomId: state.pathParameters['roomid']!),
                   ),
                   routes: [
                     GoRoute(
@@ -537,9 +506,7 @@ abstract class AppRoutes {
                       pageBuilder: (context, state) => defaultPageBuilder(
                         context,
                         state,
-                        ChatPrivacy(
-                          roomId: state.pathParameters['roomid']!,
-                        ),
+                        ChatPrivacy(roomId: state.pathParameters['roomid']!),
                       ),
                       redirect: loggedOutRedirect,
                     ),
@@ -568,9 +535,7 @@ abstract class AppRoutes {
                       pageBuilder: (context, state) => defaultPageBuilder(
                         context,
                         state,
-                        EmotesSettings(
-                          roomId: state.pathParameters['roomid'],
-                        ),
+                        EmotesSettings(roomId: state.pathParameters['roomid']),
                       ),
                       redirect: loggedOutRedirect,
                     ),
@@ -579,9 +544,7 @@ abstract class AppRoutes {
                       pageBuilder: (context, state) => defaultPageBuilder(
                         context,
                         state,
-                        EmotesSettings(
-                          roomId: state.pathParameters['roomid'],
-                        ),
+                        EmotesSettings(roomId: state.pathParameters['roomid']),
                       ),
                       redirect: loggedOutRedirect,
                     ),
@@ -600,23 +563,21 @@ abstract class AppRoutes {
     BuildContext context,
     GoRouterState state,
     Widget child,
-  ) =>
-      NoTransitionPage(
-        key: state.pageKey,
-        restorationId: state.pageKey.value,
-        child: child,
-      );
+  ) => NoTransitionPage(
+    key: state.pageKey,
+    restorationId: state.pageKey.value,
+    child: child,
+  );
 
   static Page defaultPageBuilder(
     BuildContext context,
     GoRouterState state,
     Widget child,
-  ) =>
-      FluffyThemes.isColumnMode(context)
-          ? noTransitionPageBuilder(context, state, child)
-          : MaterialPage(
-              key: state.pageKey,
-              restorationId: state.pageKey.value,
-              child: child,
-            );
+  ) => FluffyThemes.isColumnMode(context)
+      ? noTransitionPageBuilder(context, state, child)
+      : MaterialPage(
+          key: state.pageKey,
+          restorationId: state.pageKey.value,
+          child: child,
+        );
 }

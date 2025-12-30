@@ -16,7 +16,6 @@ import 'package:extera_next/widgets/adaptive_dialogs/show_ok_cancel_alert_dialog
 import 'package:extera_next/widgets/adaptive_dialogs/show_text_input_dialog.dart';
 import 'package:extera_next/widgets/future_loading_dialog.dart';
 import '../../widgets/matrix.dart';
-import '../bootstrap/bootstrap_dialog.dart';
 import 'settings_view.dart';
 
 class Settings extends StatefulWidget {

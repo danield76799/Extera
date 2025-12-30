@@ -3471,5 +3471,18 @@
   "loadingMessages": "Loading messages",
   "setupChatBackup": "Set up chat backup",
   "individualChatPrivacySettings": "Chat settings",
-  "individualChatPrivacySettingsDescription": "Set different privacy settings for every chat."
+  "individualChatPrivacySettingsDescription": "Set different privacy settings for every chat.",
+  "updateAvailableTitle": "An update is available",
+  "updateAvailable": "Extera {version} is ready to be downloaded! New versions include additional features, fixes and more.",
+  "@updateAvailable": {
+    "placeholders": {
+        "version": {
+            "type": "String"
+        }
+    }
+  },
+  "downloadUpdateButton": "Download",
+  "changelogButton": "Changelog",
+  "updateCheckTitle": "Check for updates",
+  "updateCheckSubtitle": "Check whether a new version of Extera is out on every start."
 }

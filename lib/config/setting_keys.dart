@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SettingKeys {
+  static const String checkForUpdates = 'xyz.extera.next.checkForUpdates';
   static const String ringtone = 'xyz.extera.next.ringtone';
   static const String httpProxy = 'xyz.extera.next.httpProxy';
   static const String cleanExif = 'xyz.extera.next.cleanExif';
@@ -43,6 +44,7 @@ abstract class SettingKeys {
 }
 
 enum AppSettings<T> {
+  checkForUpdates<bool>('xyz.extera.next.checkForUpdates', true),
   ringtone<String>('xyz.extera.next.ringtone', 'system'),
   audioRecordingNumChannels<int>('audioRecordingNumChannels', 1),
   audioRecordingAutoGain<bool>('audioRecordingAutoGain', true),

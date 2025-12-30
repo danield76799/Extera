@@ -1,3 +1,9 @@
+## Extera 25.1.2
+- Fixed audio messages not playing.
+- Fixed ringtone on Android.
+- Brought back image previews before sending.
+- Added a list of privacy settings set for different chats.
+
 ## Extera 25.1.1
 - Added context menu for messages. Now, when selecting a single message, a context menu will appear. Multi-selection is still available.
 - Added timestamp and message status icon in message bubbles.

@@ -7,6 +7,8 @@ abstract class AppConfig {
   static const String mainIsolatePortName = 'main_isolate';
 
   static const String aboutProfileField = 'xyz.extera.about';
+  static const String updateCheckUrl = 'https://extera.xyz/next/version.txt';
+  static const String downloadUpdateUrl = 'https://extera.xyz/';
 
   static String _applicationName = 'Extera';
 
@@ -20,7 +22,8 @@ abstract class AppConfig {
   static bool enableGradient = true;
   static bool cleanExif = true;
   static bool doNotSendIfCantClean = true;
-
+  static bool checkForUpdates = true;
+  static bool alreadyCheckedUpdates = false;
 
   static String? httpProxy;
   static String get defaultHomeserver => _defaultHomeserver;

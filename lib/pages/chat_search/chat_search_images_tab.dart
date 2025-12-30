@@ -27,7 +27,6 @@ class ChatSearchImagesTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final borderRadius = BorderRadius.circular(AppConfig.borderRadius / 2);
     return StreamBuilder(
       stream: searchStream,
