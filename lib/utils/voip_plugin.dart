@@ -182,7 +182,7 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
           'wasForeground',
           wasForeground == true ? 'true' : 'false',
         );
-        FlutterForegroundTask.setOnLockScreenVisibility(true);
+        FlutterForegroundTask.setOnLockScreenVisibility(AppConfig.incomingCallsOnLockScreen);
         FlutterForegroundTask.wakeUpScreen();
         FlutterForegroundTask.launchApp();
       } catch (e) {
@@ -212,7 +212,7 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
       overlayEntry!.remove();
       overlayEntry = null;
       if (PlatformInfos.isAndroid) {
-        FlutterForegroundTask.setOnLockScreenVisibility(AppConfig.incomingCallsOnLockScreen);
+        FlutterForegroundTask.setOnLockScreenVisibility(false);
         FlutterForegroundTask.stopService();
         final wasForeground = matrix.store.getString('wasForeground');
         wasForeground == 'false' ? FlutterForegroundTask.minimizeApp() : null;

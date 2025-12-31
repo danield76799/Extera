@@ -124,10 +124,10 @@
         </service>
 
         <service android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
-             android:foregroundServiceType="camera|microphone|mediaProjection">
+             android:foregroundServiceType="mediaProjection">
         </service>
 
-        <service android:name="io.wazo.callkeep.VoiceConnectionService"
+        <!-- <service android:name="io.wazo.callkeep.VoiceConnectionService"
           android:label="Wazo"
           android:foregroundServiceType="camera|microphone|mediaProjection"
           android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
@@ -135,7 +135,7 @@
           <intent-filter>
               <action android:name="android.telecom.ConnectionService" />
           </intent-filter>
-        </service>
+        </service> -->
 
         <receiver android:name="org.unifiedpush.flutter.connector.UnifiedPushReceiver"
             tools:replace="android:enabled"

@@ -17,6 +17,8 @@ class WidgetInfo extends StatelessWidget {
     final data = content.tryGet<Map<String, dynamic>>('data') ?? {};
     var url = content.tryGet<String>('url')!;
 
+    if (!url.startsWith('https://')) return;
+
     final profile = await client.getUserProfile(client.userID!);
 
     data['matrix_user_id'] = client.userID!;
