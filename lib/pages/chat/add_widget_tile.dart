@@ -4,6 +4,7 @@ import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:matrix/matrix.dart';
 
 import 'package:extera_next/pages/chat/add_widget_tile_view.dart';
+import 'package:uuid/uuid.dart';
 
 class AddWidgetTile extends StatefulWidget {
   final Room room;
@@ -30,7 +31,14 @@ class AddWidgetTileState extends State<AddWidgetTile> {
     super.initState();
   }
 
-  void setWidgetType(String value) => setState(() => widgetType = value);
+  void setWidgetType(String value) {
+    setState(() {
+      widgetType = value;
+      if (value == 'm.jitsi') {
+        urlController.text = 'https://meet.element.io/${const Uuid().v4()}';
+      }
+    });
+  }
 
   void addWidget() {
     try {
