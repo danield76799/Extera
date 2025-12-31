@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/pages/settings_ringtone/settings_ringtone_view.dart';
@@ -16,6 +18,7 @@ class SettingsRingtone extends StatefulWidget {
 class SettingsRingtoneController extends State<SettingsRingtone> {
 
   late final SharedPreferences store;
+  bool ringtonePlaying = false;
 
   @override
   void initState() {
@@ -33,7 +36,20 @@ class SettingsRingtoneController extends State<SettingsRingtone> {
     setState(() {
       AppConfig.ringtone = ringtone;
       store.setString(SettingKeys.ringtone, ringtone);
+      previewRingtone();
     });
+  }
+
+  void previewRingtone() {
+    final voipPlugin = Matrix.of(context).voipPlugin;
+    if (ringtonePlaying) {
+      ringtonePlaying = false;
+      voipPlugin?.stopRingtone();
+      return;
+    }
+    ringtonePlaying = true;
+    voipPlugin?.playRingtone();
+    Timer(const Duration(seconds: 15), voipPlugin!.stopRingtone);
   }
 
   @override

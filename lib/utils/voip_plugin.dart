@@ -143,12 +143,13 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
       if (kIsWeb ||
           PlatformInfos.isMobile ||
           PlatformInfos.isMacOS ||
-          PlatformInfos.isLinux) {final player = callSoundPlayer = AudioPlayer(playerId: 'ringtone');
+          PlatformInfos.isLinux) {
+        final player = callSoundPlayer = AudioPlayer(playerId: 'ringtone');
         player.setAudioContext(
           AudioContext(
             android: const AudioContextAndroid(
-              audioMode: AndroidAudioMode.ringtone,
-              usageType: AndroidUsageType.notificationRingtone,
+              audioMode: AndroidAudioMode.inCall,
+              usageType: AndroidUsageType.voiceCommunication,
             ),
           ),
         );
