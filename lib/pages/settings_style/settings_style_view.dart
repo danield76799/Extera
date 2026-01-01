@@ -324,7 +324,7 @@ class SettingsStyleView extends StatelessWidget {
                       storeKey: SettingKeys.enableGradient,
                       defaultValue: AppConfig.enableGradient,
                     ),
-                    if (!PlatformInfos.isMobile)
+                    if (!PlatformInfos.isMobile && !AppConfig.twemojiFont)
                       SettingsSwitchListTile.adaptive(
                         title: L10n.of(context).useTwemoji,
                         onChanged: (b) => AppConfig.twemojiFont = b,
