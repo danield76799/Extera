@@ -212,41 +212,44 @@ class SettingsStyleView extends StatelessWidget {
                                   stateKey: client.userID!,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 12 + 12 + Avatar.defaultSize,
-                                  right: 12,
-                                  top: accountConfig.wallpaperUrl == null
-                                      ? 0
-                                      : 12,
-                                  bottom: 12,
-                                ),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: theme.bubbleColor,
-                                    borderRadius: BorderRadius.circular(
-                                      AppConfig.borderRadius,
-                                    ),
+                              Align(
+                                alignment: .centerRight,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 12 + 12 + Avatar.defaultSize,
+                                    right: 12,
+                                    top: accountConfig.wallpaperUrl == null
+                                        ? 0
+                                        : 12,
+                                    bottom: 12,
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: theme.bubbleColor,
+                                      borderRadius: BorderRadius.circular(
+                                        AppConfig.borderRadius,
+                                      ),
                                     ),
-                                    child: Text(
-                                      L10n.of(context).settingsStyleMessage1,
-                                      style: TextStyle(
-                                        color: theme.onBubbleColor,
-                                        fontSize:
-                                            AppConfig.messageFontSize *
-                                            AppConfig.fontSizeFactor,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 8,
+                                      ),
+                                      child: Text(
+                                        L10n.of(context).settingsStyleMessage1,
+                                        style: TextStyle(
+                                          color: theme.onBubbleColor,
+                                          fontSize:
+                                              AppConfig.messageFontSize *
+                                              AppConfig.fontSizeFactor,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
                               Align(
-                                alignment: Alignment.centerLeft,
+                                alignment: .centerLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     right: 12,
@@ -280,34 +283,37 @@ class SettingsStyleView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 12 + 12 + Avatar.defaultSize,
-                                  right: 12,
-                                  top: accountConfig.wallpaperUrl == null
-                                      ? 0
-                                      : 12,
-                                  bottom: 12,
-                                ),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: theme.bubbleColor,
-                                    borderRadius: BorderRadius.circular(
-                                      AppConfig.borderRadius,
-                                    ),
+                              Align(
+                                alignment: .centerRight,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 12 + 12 + Avatar.defaultSize,
+                                    right: 12,
+                                    top: accountConfig.wallpaperUrl == null
+                                        ? 0
+                                        : 12,
+                                    bottom: 12,
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: theme.bubbleColor,
+                                      borderRadius: BorderRadius.circular(
+                                        AppConfig.borderRadius,
+                                      ),
                                     ),
-                                    child: Text(
-                                      L10n.of(context).settingsStyleMessage3,
-                                      style: TextStyle(
-                                        color: theme.onBubbleColor,
-                                        fontSize:
-                                            AppConfig.messageFontSize *
-                                            AppConfig.fontSizeFactor,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 8,
+                                      ),
+                                      child: Text(
+                                        L10n.of(context).settingsStyleMessage3,
+                                        style: TextStyle(
+                                          color: theme.onBubbleColor,
+                                          fontSize:
+                                              AppConfig.messageFontSize *
+                                              AppConfig.fontSizeFactor,
+                                        ),
                                       ),
                                     ),
                                   ),
