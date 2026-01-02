@@ -119,7 +119,7 @@ class SettingsChatView extends StatelessWidget {
               if (PlatformInfos.isDesktop)
                 SettingsSwitchListTile.adaptive(
                   title: L10n.of(context).pushToTalkHotkey,
-                  subtitle: Text(L10n.of(context).pushToTalkHotkeyDescription),
+                  subtitle: L10n.of(context).pushToTalkHotkeyDescription,
                   onChanged: (b) => AppConfig.pushToTalkHotkey = b,
                   storeKey: SettingKeys.pushToTalkHotkey,
                   defaultValue: AppConfig.pushToTalkHotkey,

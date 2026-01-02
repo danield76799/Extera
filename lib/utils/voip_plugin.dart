@@ -139,12 +139,13 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
         return;
       }
       Logs().w("Playing kOutgoing call sound");
-      final path = 'assets/sounds/${call.state.name}.ogg';
+      final path = 'sounds/${call.state.name}.ogg';
       if (kIsWeb ||
           PlatformInfos.isMobile ||
           PlatformInfos.isMacOS ||
           PlatformInfos.isLinux) {
         final player = callSoundPlayer = AudioPlayer(playerId: 'ringtone');
+        player.setReleaseMode(ReleaseMode.loop);
         player.setAudioContext(
           AudioContext(
             android: const AudioContextAndroid(
@@ -160,6 +161,33 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
     } else if (call.state == CallState.kRinging) {
       Logs().w("Playing ringtone, ${call.direction.name}");
       playRingtone();
+    }
+  }
+
+  Future<void> playSoundEffect(String name) async {
+    try {
+      Logs().w("Playing $name call sfx");
+      final path = 'sounds/$name.ogg';
+      if (kIsWeb ||
+          PlatformInfos.isMobile ||
+          PlatformInfos.isMacOS ||
+          PlatformInfos.isLinux) {
+        final player = callSoundPlayer = AudioPlayer(playerId: 'sfx');
+        player.setReleaseMode(ReleaseMode.release);
+        player.setAudioContext(
+          AudioContext(
+            android: const AudioContextAndroid(
+              audioMode: AndroidAudioMode.inCall,
+              usageType: AndroidUsageType.voiceCommunication,
+            ),
+          ),
+        );
+        player.play(AssetSource(path));
+      } else {
+        Logs().w('Playing sound not implemented for this platform!');
+      }
+    } catch (e) {
+      Logs().e("Failed to play sound effect", e);
     }
   }
 

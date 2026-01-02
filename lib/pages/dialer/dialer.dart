@@ -335,6 +335,10 @@ class CallingView extends State<Calling> {
   void _muteMic() {
     setState(() {
       call.setMicrophoneMuted(!call.isMicrophoneMuted);
+
+      Matrix.of(context).voipPlugin?.playSoundEffect(
+        call.isMicrophoneMuted ? 'microphone_muted' : 'microphone_unmuted',
+      );
     });
   }
 
