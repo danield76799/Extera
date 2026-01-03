@@ -20,6 +20,8 @@ class ChatListItem extends StatelessWidget {
   final Room room;
   final Room? space;
   final bool activeChat;
+  final bool firstElement;
+  final bool lastElement;
   final void Function(BuildContext context)? onLongPress;
   final void Function()? onForget;
   final void Function() onTap;
@@ -33,6 +35,8 @@ class ChatListItem extends StatelessWidget {
     this.onForget,
     this.filter,
     this.space,
+    this.firstElement = false,
+    this.lastElement = false,
     super.key,
   });
 
@@ -48,8 +52,9 @@ class ChatListItem extends StatelessWidget {
     final directChatMatrixId = room.directChatMatrixID;
     final isDirectChat = directChatMatrixId != null;
     final hasNotifications = room.notificationCount > 0;
-    final backgroundColor =
-        activeChat ? theme.colorScheme.secondaryContainer : null;
+    final backgroundColor = activeChat
+        ? theme.colorScheme.secondaryContainer
+        : theme.colorScheme.surfaceContainerHigh;
     final displayname = room.getLocalizedDisplayname(
       MatrixLocals(L10n.of(context)),
     );
@@ -63,13 +68,31 @@ class ChatListItem extends StatelessWidget {
         : room.getState(EventTypes.RoomMember, lastEvent.senderId) == null;
     final space = this.space;
 
+    var borderRadius = BorderRadius.circular(AppConfig.borderRadius);
+
+    if (firstElement) {
+      borderRadius = borderRadius.copyWith(
+        bottomLeft: Radius.zero,
+        bottomRight: Radius.zero,
+      );
+    } else if (lastElement) {
+      borderRadius = borderRadius.copyWith(
+        topLeft: Radius.zero,
+        topRight: Radius.zero,
+      );
+    } else if (!activeChat) {
+      borderRadius = borderRadius.copyWith(
+        topLeft: Radius.zero,
+        topRight: Radius.zero,
+        bottomLeft: Radius.zero,
+        bottomRight: Radius.zero,
+      );
+    }
+
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 1,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
       child: Material(
-        borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+        borderRadius: borderRadius,
         clipBehavior: Clip.hardEdge,
         color: backgroundColor,
         child: FutureBuilder(
@@ -96,7 +119,8 @@ class ChatListItem extends StatelessWidget {
                             child: Avatar(
                               border: BorderSide(
                                 width: 2,
-                                color: backgroundColor ??
+                                color:
+                                    backgroundColor ??
                                     theme.colorScheme.surface,
                               ),
                               borderRadius: BorderRadius.circular(
@@ -114,14 +138,15 @@ class ChatListItem extends StatelessWidget {
                           child: Avatar(
                             border: space == null
                                 ? room.isSpace
-                                    ? BorderSide(
-                                        width: 1,
-                                        color: theme.dividerColor,
-                                      )
-                                    : null
+                                      ? BorderSide(
+                                          width: 1,
+                                          color: theme.dividerColor,
+                                        )
+                                      : null
                                 : BorderSide(
                                     width: 2,
-                                    color: backgroundColor ??
+                                    color:
+                                        backgroundColor ??
                                         theme.colorScheme.surface,
                                   ),
                             borderRadius: room.isSpace
@@ -182,10 +207,7 @@ class ChatListItem extends StatelessWidget {
                   if (isMuted)
                     const Padding(
                       padding: EdgeInsets.only(left: 4.0),
-                      child: Icon(
-                        Icons.notifications_off_outlined,
-                        size: 16,
-                      ),
+                      child: Icon(Icons.notifications_off_outlined, size: 16),
                     ),
                   if (room.isFavourite)
                     Padding(
@@ -202,8 +224,9 @@ class ChatListItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
                       child: Text(
-                        room.latestEventReceivedTime
-                            .localizedTimeShort(context),
+                        room.latestEventReceivedTime.localizedTimeShort(
+                          context,
+                        ),
                         style: TextStyle(
                           fontSize: 12,
                           color: theme.colorScheme.outline,
@@ -249,69 +272,67 @@ class ChatListItem extends StatelessWidget {
                             style: TextStyle(color: theme.colorScheme.outline),
                           )
                         : typingText.isNotEmpty
-                            ? Text(
-                                typingText,
-                                style: TextStyle(
-                                  color: theme.colorScheme.primary,
-                                ),
-                                maxLines: 1,
-                                softWrap: false,
-                              )
-                            : FutureBuilder(
-                                key: ValueKey(
-                                  '${lastEvent?.eventId}_${lastEvent?.type}_${lastEvent?.redacted}',
-                                ),
-                                future: needLastEventSender
-                                    ? lastEvent.calcLocalizedBody(
-                                        MatrixLocals(L10n.of(context)),
-                                        hideReply: true,
-                                        hideEdit: true,
-                                        plaintextBody: true,
-                                        removeMarkdown: true,
-                                        withSenderNamePrefix: (!isDirectChat ||
-                                            directChatMatrixId !=
-                                                room.lastEvent?.senderId),
-                                      )
+                        ? Text(
+                            typingText,
+                            style: TextStyle(color: theme.colorScheme.primary),
+                            maxLines: 1,
+                            softWrap: false,
+                          )
+                        : FutureBuilder(
+                            key: ValueKey(
+                              '${lastEvent?.eventId}_${lastEvent?.type}_${lastEvent?.redacted}',
+                            ),
+                            future: needLastEventSender
+                                ? lastEvent.calcLocalizedBody(
+                                    MatrixLocals(L10n.of(context)),
+                                    hideReply: true,
+                                    hideEdit: true,
+                                    plaintextBody: true,
+                                    removeMarkdown: true,
+                                    withSenderNamePrefix:
+                                        (!isDirectChat ||
+                                        directChatMatrixId !=
+                                            room.lastEvent?.senderId),
+                                  )
+                                : null,
+                            initialData: lastEvent?.calcLocalizedBodyFallback(
+                              MatrixLocals(L10n.of(context)),
+                              hideReply: true,
+                              hideEdit: true,
+                              plaintextBody: true,
+                              removeMarkdown: true,
+                              withSenderNamePrefix:
+                                  (!isDirectChat ||
+                                  directChatMatrixId !=
+                                      room.lastEvent?.senderId),
+                            ),
+                            builder: (context, snapshot) => Text(
+                              room.membership == Membership.invite
+                                  ? room
+                                            .getState(
+                                              EventTypes.RoomMember,
+                                              room.client.userID!,
+                                            )
+                                            ?.content
+                                            .tryGet<String>('reason') ??
+                                        (isDirectChat
+                                            ? L10n.of(context).newChatRequest
+                                            : L10n.of(context).inviteGroupChat)
+                                  : snapshot.data ??
+                                        L10n.of(context).noMessagesYet,
+                              softWrap: false,
+                              maxLines: room.notificationCount >= 1 ? 2 : 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: unread || room.hasNewMessages
+                                    ? theme.colorScheme.onSurface
+                                    : theme.colorScheme.outline,
+                                decoration: room.lastEvent?.redacted == true
+                                    ? TextDecoration.lineThrough
                                     : null,
-                                initialData:
-                                    lastEvent?.calcLocalizedBodyFallback(
-                                  MatrixLocals(L10n.of(context)),
-                                  hideReply: true,
-                                  hideEdit: true,
-                                  plaintextBody: true,
-                                  removeMarkdown: true,
-                                  withSenderNamePrefix: (!isDirectChat ||
-                                      directChatMatrixId !=
-                                          room.lastEvent?.senderId),
-                                ),
-                                builder: (context, snapshot) => Text(
-                                  room.membership == Membership.invite
-                                      ? room
-                                              .getState(
-                                                EventTypes.RoomMember,
-                                                room.client.userID!,
-                                              )
-                                              ?.content
-                                              .tryGet<String>('reason') ??
-                                          (isDirectChat
-                                              ? L10n.of(context).newChatRequest
-                                              : L10n.of(context)
-                                                  .inviteGroupChat)
-                                      : snapshot.data ??
-                                          L10n.of(context).noMessagesYet,
-                                  softWrap: false,
-                                  maxLines: room.notificationCount >= 1 ? 2 : 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: unread || room.hasNewMessages
-                                        ? theme.colorScheme.onSurface
-                                        : theme.colorScheme.outline,
-                                    decoration: room.lastEvent?.redacted == true
-                                        ? TextDecoration.lineThrough
-                                        : null,
-                                  ),
-                                ),
                               ),
+                            ),
+                          ),
                   ),
                   const SizedBox(width: 8),
                   UnreadBubble(room: room),
@@ -320,27 +341,27 @@ class ChatListItem extends StatelessWidget {
               onTap: onTap,
               trailing: onForget == null
                   ? room.membership == Membership.invite
-                      ? IconButton(
-                          tooltip: L10n.of(context).decline,
-                          icon: const Icon(Icons.delete_forever_outlined),
-                          color: theme.colorScheme.error,
-                          onPressed: () async {
-                            final consent = await showOkCancelAlertDialog(
-                              context: context,
-                              title: L10n.of(context).decline,
-                              message: L10n.of(context).areYouSure,
-                              okLabel: L10n.of(context).yes,
-                              isDestructive: true,
-                            );
-                            if (consent != OkCancelResult.ok) return;
-                            if (!context.mounted) return;
-                            await showFutureLoadingDialog(
-                              context: context,
-                              future: room.leave,
-                            );
-                          },
-                        )
-                      : null
+                        ? IconButton(
+                            tooltip: L10n.of(context).decline,
+                            icon: const Icon(Icons.delete_forever_outlined),
+                            color: theme.colorScheme.error,
+                            onPressed: () async {
+                              final consent = await showOkCancelAlertDialog(
+                                context: context,
+                                title: L10n.of(context).decline,
+                                message: L10n.of(context).areYouSure,
+                                okLabel: L10n.of(context).yes,
+                                isDestructive: true,
+                              );
+                              if (consent != OkCancelResult.ok) return;
+                              if (!context.mounted) return;
+                              await showFutureLoadingDialog(
+                                context: context,
+                                future: room.leave,
+                              );
+                            },
+                          )
+                        : null
                   : IconButton(
                       icon: const Icon(Icons.delete_outlined),
                       onPressed: onForget,
