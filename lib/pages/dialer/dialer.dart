@@ -1,21 +1,3 @@
-/*
- *   Famedly
- *   Copyright (C) 2019, 2020, 2021 Famedly GmbH
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Affero General Public License as
- *   published by the Free Software Foundation, either version 3 of the
- *   License, or (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *   GNU Affero General Public License for more details.
- *
- *   You should have received a copy of the GNU Affero General Public License
- *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 import 'dart:async';
 import 'dart:math';
 
@@ -39,6 +21,13 @@ import 'package:extera_next/utils/platform_infos.dart';
 import 'package:extera_next/utils/voip/video_renderer.dart';
 import 'package:extera_next/widgets/avatar.dart';
 import 'pip/pip_view.dart';
+
+// Add this outside of the Calling class
+@pragma('vm:entry-point')
+void startCallback() {
+  // The background isolate entry point.
+  FlutterForegroundTask.setTaskHandler(DialerTaskHandler());
+}
 
 class _StreamView extends StatelessWidget {
   const _StreamView(
@@ -193,6 +182,16 @@ class CallingView extends State<Calling> {
     scope: HotKeyScope.system, // Set as inapp-wide hotkey.
   );
 
+  void onDataReceived(Object data) {
+    if (data == 'mute') {
+      _muteMic();
+    } else if (data == 'speaker') {
+      _switchSpeaker();
+    } else if (data == 'hangup') {
+      _hangUp();
+    }
+  }
+
   void initialize() async {
     final call = this.call;
 
@@ -231,16 +230,10 @@ class CallingView extends State<Calling> {
         ForegroundServiceTypes.microphone,
         ForegroundServiceTypes.camera,
       ],
-      callback: () {
-        FlutterForegroundTask.setTaskHandler(
-          DialerTaskHandler(
-            muteMicrophone: _muteMic,
-            switchSpeaker: _switchSpeaker,
-            hangUp: _hangUp,
-          ),
-        );
-      },
+      callback: startCallback,
     );
+
+    FlutterForegroundTask.addTaskDataCallback(onDataReceived);
 
     if (AppConfig.pushToTalkHotkey) {
       await hotKeyManager.register(
@@ -280,6 +273,7 @@ class CallingView extends State<Calling> {
 
   void cleanUp() {
     Timer(const Duration(seconds: 2), () => widget.onClear?.call());
+    FlutterForegroundTask.removeTaskDataCallback(onDataReceived);
     try {
       unawaited(WakelockPlus.disable());
     } catch (_) {}
@@ -367,6 +361,7 @@ class CallingView extends State<Calling> {
 
   void _screenSharing() async {
     if (PlatformInfos.isAndroid) {
+      FlutterForegroundTask.removeTaskDataCallback(onDataReceived);
       if (!call.screensharingEnabled) {
         if (await FlutterForegroundTask.isRunningService) {
           await FlutterForegroundTask.stopService();
@@ -393,15 +388,7 @@ class CallingView extends State<Calling> {
               textColor: Colors.red,
             ),
           ],
-          callback: () {
-            FlutterForegroundTask.setTaskHandler(
-              DialerTaskHandler(
-                muteMicrophone: _muteMic,
-                switchSpeaker: _switchSpeaker,
-                hangUp: _hangUp,
-              ),
-            );
-          },
+          callback: startCallback,
         );
       } else {
         await FlutterForegroundTask.stopService();
@@ -426,26 +413,12 @@ class CallingView extends State<Calling> {
               textColor: Colors.red,
             ),
           ],
-          callback: () {
-            FlutterForegroundTask.setTaskHandler(
-              DialerTaskHandler(
-                muteMicrophone: _muteMic,
-                switchSpeaker: _switchSpeaker,
-                hangUp: _hangUp,
-              ),
-            );
-          },
+          callback: startCallback,
         );
       }
     }
 
-    FlutterForegroundTask.setTaskHandler(
-      DialerTaskHandler(
-        muteMicrophone: _muteMic,
-        switchSpeaker: _switchSpeaker,
-        hangUp: _hangUp,
-      ),
-    );
+    FlutterForegroundTask.addTaskDataCallback(onDataReceived);
 
     setState(() {
       call.setScreensharingEnabled(!call.screensharingEnabled);
