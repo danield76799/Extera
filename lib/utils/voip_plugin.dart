@@ -164,6 +164,8 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
     }
   }
 
+  AudioPlayer? sfxPlayer;
+
   Future<void> playSoundEffect(String name) async {
     try {
       Logs().w("Playing $name call sfx");
@@ -172,7 +174,7 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
           PlatformInfos.isMobile ||
           PlatformInfos.isMacOS ||
           PlatformInfos.isLinux) {
-        final player = callSoundPlayer = AudioPlayer(playerId: 'sfx');
+        final player = sfxPlayer = AudioPlayer(playerId: 'sfx');
         player.setReleaseMode(ReleaseMode.release);
         player.setAudioContext(
           AudioContext(
@@ -196,6 +198,11 @@ class VoipPlugin with WidgetsBindingObserver implements WebRTCDelegate {
       await callSoundPlayer?.stop();
       await callSoundPlayer?.dispose();
       callSoundPlayer = null;
+    }
+    if (sfxPlayer != null) {
+      await sfxPlayer?.stop();
+      await sfxPlayer?.dispose();
+      sfxPlayer = null;
     }
     stopRingtone();
   }

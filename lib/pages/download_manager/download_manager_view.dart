@@ -1,5 +1,6 @@
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/download_manager/download_manager.dart';
+import 'package:extera_next/utils/adaptive_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,10 +9,9 @@ class DownloadManagerView extends StatelessWidget {
   const DownloadManagerView(this.controller, {super.key});
 
   static void showDownloads(BuildContext context) {
-    showAdaptiveDialog(
+    showAdaptiveBottomSheet(
       context: context,
       builder: (context) => DownloadManagerView(Provider.of<DownloadManagerController>(context)),
-      barrierDismissible: true
     );
   }
 
@@ -29,7 +29,7 @@ class DownloadManagerView extends StatelessWidget {
               subtitle: LinearProgressIndicator(
                 value: download.progress / 100,
                 backgroundColor: Colors.grey[200],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
               ),
               trailing: ElevatedButton(
                 onPressed: () {
