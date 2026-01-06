@@ -96,19 +96,28 @@ class ChatListViewBody extends StatelessWidget {
                 SliverList(
                   delegate: SliverChildListDelegate([
                     if (controller.isSearchMode) ...[
-                      SearchTitle(
-                        title: L10n.of(context).publicRooms,
-                        icon: const Icon(Icons.explore_outlined),
+                      Padding(
+                        padding: const .all(8),
+                        child: SearchTitle(
+                          title: L10n.of(context).publicRooms,
+                          icon: const Icon(Icons.explore_outlined),
+                        ),
                       ),
                       PublicRoomsHorizontalList(publicRooms: publicRooms),
-                      SearchTitle(
-                        title: L10n.of(context).publicSpaces,
-                        icon: const Icon(Icons.workspaces_outlined),
+                      Padding(
+                        padding: const .all(8),
+                        child: SearchTitle(
+                          title: L10n.of(context).publicSpaces,
+                          icon: const Icon(Icons.workspaces_outlined),
+                        ),
                       ),
                       PublicRoomsHorizontalList(publicRooms: publicSpaces),
-                      SearchTitle(
-                        title: L10n.of(context).users,
-                        icon: const Icon(Icons.group_outlined),
+                      Padding(
+                        padding: const .all(8),
+                        child: SearchTitle(
+                          title: L10n.of(context).users,
+                          icon: const Icon(Icons.group_outlined),
+                        ),
                       ),
                       AnimatedContainer(
                         clipBehavior: Clip.hardEdge,
@@ -150,9 +159,12 @@ class ChatListViewBody extends StatelessWidget {
                         ),
                       ),
                     if (controller.isSearchMode)
-                      SearchTitle(
-                        title: L10n.of(context).chats,
-                        icon: const Icon(Icons.forum_outlined),
+                      Padding(
+                        padding: const .all(8),
+                        child: SearchTitle(
+                          title: L10n.of(context).chats,
+                          icon: const Icon(Icons.forum_outlined),
+                        ),
                       ),
                     if (client.prevBatch != null &&
                         rooms.isEmpty &&
@@ -218,17 +230,17 @@ class ChatListViewBody extends StatelessWidget {
                       final room = rooms[i];
                       final space = spaceDelegateCandidates[room.id];
                       return ChatListItem(
-                          room,
-                          space: space,
-                          key: Key('chat_list_item_${room.id}'),
-                          filter: filter,
-                          onTap: () => controller.onChatTap(room),
-                          onLongPress: (context) => controller
-                              .chatContextAction(room, context, space),
-                          activeChat: controller.activeChat == room.id,
-                          firstElement: i == 0,
-                          lastElement: rooms.length - 1 == i,
-                        );
+                        room,
+                        space: space,
+                        key: Key('chat_list_item_${room.id}'),
+                        filter: filter,
+                        onTap: () => controller.onChatTap(room),
+                        onLongPress: (context) =>
+                            controller.chatContextAction(room, context, space),
+                        activeChat: controller.activeChat == room.id,
+                        firstElement: i == 0,
+                        lastElement: rooms.length - 1 == i,
+                      );
                     },
                   ),
               ],

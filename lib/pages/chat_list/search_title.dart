@@ -1,3 +1,4 @@
+import 'package:extera_next/config/app_config.dart';
 import 'package:flutter/material.dart';
 
 class SearchTitle extends StatelessWidget {
@@ -21,17 +22,8 @@ class SearchTitle extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Material(
-      shape: Border(
-        top: BorderSide(
-          color: theme.dividerColor,
-          width: 1,
-        ),
-        bottom: BorderSide(
-          color: theme.dividerColor,
-          width: 1,
-        ),
-      ),
-      color: color ?? theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+      color: color ?? theme.colorScheme.surfaceContainer,
       child: InkWell(
         onTap: onTap,
         splashColor: theme.colorScheme.surface,
