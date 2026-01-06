@@ -547,14 +547,14 @@
 		"type": "String",
 		"placeholders": {}
 	},
-	"yourChatBackupHasBeenSetUp": "Настроено резервное копирование чатов.",
+	"yourChatBackupHasBeenSetUp": "Настроено резервное копирование ключей.",
 	"@yourChatBackupHasBeenSetUp": {},
-	"chatBackup": "Резервное копирование чатов",
+	"chatBackup": "Резервное копирование ключей",
 	"@chatBackup": {
 		"type": "String",
 		"placeholders": {}
 	},
-	"chatBackupDescription": "Резервная копия сообщений защищена ключом восстановления. Сохраните его в надёжном месте.",
+	"chatBackupDescription": "Резервная копия ключей защищена ключом восстановления. Сохраните его в надёжном месте.",
 	"@chatBackupDescription": {
 		"type": "String",
 		"placeholders": {}
@@ -2459,7 +2459,7 @@
 		"type": "String",
 		"placeholders": {}
 	},
-	"wipeChatBackup": "Удалить резервную копию чата, чтобы создать новый ключ восстановления?",
+	"wipeChatBackup": "Удалить резервную копию ключей, чтобы создать новый ключ восстановления?",
 	"@wipeChatBackup": {
 		"type": "String",
 		"placeholders": {}
@@ -3270,7 +3270,7 @@
 		}
 	},
 	"oneOfYourDevicesIsNotVerified": "Одно из ваших устройств не подтверждено",
-	"noticeChatBackupDeviceVerification": "Примечание: Если вы подключите все свои устройства к резервному копированию чатов, то они автоматически станут подтверждёнными.",
+	"noticeChatBackupDeviceVerification": "Примечание: Если вы подключите все свои устройства к резервному копированию ключей, они будут подтверждены автоматически.",
 	"continueText": "Продолжить",
 	"welcomeText": "Добро пожаловать в Extera - приложение для Matrix, огромной децентрализованной сети обмена сообщениями!",
 	"blur": "Размытие:",

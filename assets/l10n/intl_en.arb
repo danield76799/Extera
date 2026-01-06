@@ -538,9 +538,9 @@
     "type": "String",
     "placeholders": {}
   },
-  "yourChatBackupHasBeenSetUp": "Your chat backup has been set up.",
+  "yourChatBackupHasBeenSetUp": "Your key backup has been set up.",
   "@yourChatBackupHasBeenSetUp": {},
-  "chatBackup": "Chat backup",
+  "chatBackup": "Key backup",
   "@chatBackup": {
     "type": "String",
     "placeholders": {}
@@ -2466,7 +2466,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "wipeChatBackup": "Wipe your chat backup to create a new recovery key?",
+  "wipeChatBackup": "Wipe your key backup to create a new recovery key?",
   "@wipeChatBackup": {
     "type": "String",
     "placeholders": {}
@@ -3280,7 +3280,7 @@
     }
   },
   "oneOfYourDevicesIsNotVerified": "One of your devices is not verified",
-  "noticeChatBackupDeviceVerification": "Note: When you connect all your devices to the chat backup, they are automatically verified.",
+  "noticeChatBackupDeviceVerification": "Note: When you connect all your devices to the key backup, they are automatically verified.",
   "continueText": "Continue",
   "welcomeText": "Hey Hey 👋 This is Extera. You can sign in to any homeserver, which is compatible with https://matrix.org. And then chat with anyone. It's a huge decentralized messaging network!",
   "blur": "Blur:",
@@ -3467,10 +3467,10 @@
   "chatPrivacy": "Privacy settings",
   "chatPrivacyDescription": "Individual privacy settings for this chat",
   "chatPrivacyTitle": "Chat privacy",
-  "skipChatBackup": "Skip chat backup",
-  "skipChatBackupWarning": "Do you want to continue without chat backup? You may lose access to your encrypted messages if you change your device.",
+  "skipChatBackup": "Skip key backup",
+  "skipChatBackupWarning": "Do you want to continue without key backup? You may lose access to your encrypted messages if you change your device.",
   "loadingMessages": "Loading messages",
-  "setupChatBackup": "Set up chat backup",
+  "setupChatBackup": "Set up key backup",
   "individualChatPrivacySettings": "Chat settings",
   "individualChatPrivacySettingsDescription": "Set different privacy settings for every chat.",
   "updateAvailableTitle": "An update is available",

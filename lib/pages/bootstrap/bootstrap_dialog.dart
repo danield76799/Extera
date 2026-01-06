@@ -139,7 +139,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
         appBar: AppBar(
           centerTitle: true,
           leading: CloseButton(onPressed: _cancelAction),
-          title: Text(L10n.of(context).loadingMessages),
+          title: Text(L10n.of(context).chatBackup),
         ),
         body: Center(
           child: StreamBuilder(
