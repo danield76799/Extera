@@ -3605,5 +3605,6 @@
   "roomAddress": "Адрес комнаты",
   "imageEditFailed": "Не удалось отредактировать изображение",
   "autoMarkUnavailable": "Автоматический статус \"Недоступен\"",
-  "autoMarkUnavailableDescription": "Устанавливать статус \"Недоступен\", когда приложение свёрнуто"
+  "autoMarkUnavailableDescription": "Устанавливать статус \"Недоступен\", когда приложение свёрнуто",
+  "avatarBorderRadius": "Радиус закругления аватаров"
 }

@@ -467,6 +467,9 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
 
     AppConfig.autoMarkUnavailable = 
         store.getBool(SettingKeys.autoMarkUnavailable) ?? AppConfig.autoMarkUnavailable;
+
+    AppConfig.avatarBorderRadius = 
+        store.getDouble(SettingKeys.avatarBorderRadius) ?? AppConfig.avatarBorderRadius;
   }
 
   @override

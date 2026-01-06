@@ -24,10 +24,7 @@ class SettingsStyleController extends State<SettingsStyle> {
 
   void setWallpaper() async {
     final client = Matrix.of(context).client;
-    final picked = await selectFiles(
-      context,
-      type: FileSelectorType.images,
-    );
+    final picked = await selectFiles(context, type: FileSelectorType.images);
     final pickedFile = picked.firstOrNull;
     if (pickedFile == null) return;
 
@@ -101,14 +98,11 @@ class SettingsStyleController extends State<SettingsStyle> {
   }
 
   void deleteChatWallpaper() => showFutureLoadingDialog(
-        context: context,
-        future: () => Matrix.of(context).client.setApplicationAccountConfig(
-              const ApplicationAccountConfig(
-                wallpaperUrl: null,
-                wallpaperBlur: null,
-              ),
-            ),
-      );
+    context: context,
+    future: () => Matrix.of(context).client.setApplicationAccountConfig(
+      const ApplicationAccountConfig(wallpaperUrl: null, wallpaperBlur: null),
+    ),
+  );
 
   ThemeMode get currentTheme => ThemeController.of(context).themeMode;
   Color? get currentColor => ThemeController.of(context).primaryColor;
@@ -158,9 +152,17 @@ class SettingsStyleController extends State<SettingsStyle> {
   void changeFontSizeFactor(double d) {
     setState(() => AppConfig.fontSizeFactor = d);
     Matrix.of(context).store.setString(
-          SettingKeys.fontSizeFactor,
-          AppConfig.fontSizeFactor.toString(),
-        );
+      SettingKeys.fontSizeFactor,
+      AppConfig.fontSizeFactor.toString(),
+    );
+  }
+
+  void changeAvatarBorderRadius(double d) {
+    setState(() => AppConfig.avatarBorderRadius = d);
+    Matrix.of(context).store.setDouble(
+      SettingKeys.avatarBorderRadius,
+      AppConfig.avatarBorderRadius,
+    );
   }
 
   @override

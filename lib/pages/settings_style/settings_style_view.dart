@@ -304,52 +304,66 @@ class SettingsStyleView extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Align(
-                                              alignment: .centerLeft,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                  right: 12,
-                                                  left: 12,
-                                                  top:
-                                                      accountConfig
-                                                              .wallpaperUrl ==
-                                                          null
-                                                      ? 0
-                                                      : 12,
-                                                  bottom: 12,
-                                                ),
-                                                child: Material(
-                                                  color: theme
-                                                      .colorScheme
-                                                      .surfaceContainerHigh,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                        AppConfig.borderRadius,
-                                                      ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment: .start,
+                                              children: [
+                                                const Avatar(name: "K"),
+                                                Align(
+                                                  alignment: .centerLeft,
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          horizontal: 16,
-                                                          vertical: 8,
+                                                    padding: EdgeInsets.only(
+                                                      right: 12,
+                                                      left: 12,
+                                                      top:
+                                                          accountConfig
+                                                                  .wallpaperUrl ==
+                                                              null
+                                                          ? 0
+                                                          : 12,
+                                                      bottom: 12,
+                                                    ),
+                                                    child: Column(
+                                                      children: [
+                                                        Material(
+                                                          color: theme
+                                                              .colorScheme
+                                                              .surfaceContainerHigh,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                AppConfig
+                                                                    .borderRadius,
+                                                              ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                      16,
+                                                                  vertical: 8,
+                                                                ),
+                                                            child: Text(
+                                                              L10n.of(
+                                                                context,
+                                                              ).settingsStyleMessage2,
+                                                              style: TextStyle(
+                                                                color: theme
+                                                                    .colorScheme
+                                                                    .onSurface,
+                                                                fontSize:
+                                                                    AppConfig
+                                                                        .messageFontSize *
+                                                                    AppConfig
+                                                                        .fontSizeFactor,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                    child: Text(
-                                                      L10n.of(
-                                                        context,
-                                                      ).settingsStyleMessage2,
-                                                      style: TextStyle(
-                                                        color: theme
-                                                            .colorScheme
-                                                            .onSurface,
-                                                        fontSize:
-                                                            AppConfig
-                                                                .messageFontSize *
-                                                            AppConfig
-                                                                .fontSizeFactor,
-                                                      ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                             Align(
                                               alignment: .centerRight,
@@ -483,6 +497,19 @@ class SettingsStyleView extends StatelessWidget {
                       value: AppConfig.fontSizeFactor,
                       semanticFormatterCallback: (d) => d.toString(),
                       onChanged: controller.changeFontSizeFactor,
+                    ),
+                    const ListDivider(),
+                    ListTile(
+                      title: Text(L10n.of(context).avatarBorderRadius),
+                      trailing: Text('× ${AppConfig.avatarBorderRadius}'),
+                    ),
+                    Slider.adaptive(
+                      min: 0.5,
+                      max: 1,
+                      divisions: 20,
+                      value: AppConfig.avatarBorderRadius,
+                      semanticFormatterCallback: (d) => d.toString(),
+                      onChanged: controller.changeAvatarBorderRadius,
                     ),
                   ],
                 ),

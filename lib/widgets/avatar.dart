@@ -1,3 +1,4 @@
+import 'package:extera_next/config/app_config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:matrix/matrix.dart';
@@ -48,8 +49,9 @@ class Avatar extends StatelessWidget {
     final noPic = mxContent == null ||
         mxContent.toString().isEmpty ||
         mxContent.toString() == 'null';
-    final borderRadius = this.borderRadius ?? BorderRadius.circular(size / 2);
+    final borderRadius = this.borderRadius ?? BorderRadius.circular((size / 2) * AppConfig.avatarBorderRadius);
     final presenceUserId = this.presenceUserId;
+    
     final container = Stack(
       children: [
         SizedBox(

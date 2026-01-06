@@ -101,6 +101,8 @@ abstract class AppConfig {
   );
   static const Set<String> defaultReactions = {'👍', '❤️', '😂', '😮', '😢'};
 
+  static double avatarBorderRadius = 1;
+
   // See CREDITS.md
   static const Map<String, String> ringtoneFiles = {
     // people won't answer calls listening to this banger

@@ -137,10 +137,10 @@ class PresenceAvatar extends StatelessWidget {
                       duration: FluffyThemes.animationDuration,
                       curve: FluffyThemes.animationCurve,
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(avatarSize),
+                        borderRadius: BorderRadius.circular(avatarSize * AppConfig.avatarBorderRadius),
                         onTap: profile == null ? null : () => onTap(profile),
                         child: Material(
-                          borderRadius: BorderRadius.circular(avatarSize),
+                          borderRadius: BorderRadius.circular(avatarSize * AppConfig.avatarBorderRadius),
                           child: Stack(
                             children: [
                               Container(
@@ -148,7 +148,7 @@ class PresenceAvatar extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   gradient: presence.gradient,
                                   borderRadius:
-                                      BorderRadius.circular(avatarSize),
+                                      BorderRadius.circular(avatarSize * AppConfig.avatarBorderRadius * 0.5),
                                 ),
                                 child: Avatar(
                                   name: displayName,
