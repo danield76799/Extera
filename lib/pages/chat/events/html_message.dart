@@ -151,6 +151,8 @@ class HtmlMessage extends StatelessWidget {
       // Single linebreak nodes between Elements are ignored:
       if (text == '\n') text = '';
 
+      text = text.replaceAll(RegExp(r' +', unicode: true), ' ');
+
       return LinkifySpan(
         text: text,
         options: const LinkifyOptions(humanize: false),
