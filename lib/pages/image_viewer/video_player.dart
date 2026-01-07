@@ -82,12 +82,14 @@ class EventVideoPlayerState extends State<EventVideoPlayer> {
           videoPlayerController = VideoPlayerController.file(file);
         }
       } else {
+        final videoUrl = await widget.event.attachmentMxcUrl!.getDownloadUri(
+          widget.event.room.client,
+        );
+        Logs().d("Video url: $videoUrl");
         videoPlayerController = VideoPlayerController.networkUrl(
-          await widget.event.attachmentMxcUrl!.getDownloadUri(
-            widget.event.room.client,
-          ),
+          videoUrl,
           httpHeaders: {
-            'authorization': 'Bearer ${widget.event.room.client.accessToken}'
+            'authorization': 'Bearer ${widget.event.room.client.accessToken}',
           },
         );
       }
