@@ -44,7 +44,7 @@ class FluffyChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ThemeBuilder(
-      builder: (context, themeMode, primaryColor, pureBlack, twemoji) =>
+      builder: (context, themeMode, primaryColor, schemeVariant, pureBlack, twemoji) =>
           MaterialApp.router(
             title: AppConfig.applicationName,
             themeMode: themeMode,
@@ -52,6 +52,7 @@ class FluffyChatApp extends StatelessWidget {
               context,
               Brightness.light,
               primaryColor,
+              schemeVariant,
               pureBlack,
               twemoji,
             ),
@@ -59,6 +60,7 @@ class FluffyChatApp extends StatelessWidget {
               context,
               Brightness.dark,
               primaryColor,
+              schemeVariant,
               pureBlack,
               twemoji,
             ),

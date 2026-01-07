@@ -251,6 +251,28 @@ class ChatDetailsView extends StatelessWidget {
                       ),
                     ),
                   ],
+                  if (room.canonicalAlias.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    Material(
+                      clipBehavior: .hardEdge,
+                      color: theme.colorScheme.surfaceContainerHigh,
+                      borderRadius: borderRadius,
+                      child: ListTile(
+                        title: Text(room.canonicalAlias),
+                        subtitle: Text(L10n.of(context).roomAddress),
+                        leading: CircleAvatar(
+                          backgroundColor: theme.colorScheme.primary,
+                          child: Icon(
+                            Icons.link,
+                            color: theme.colorScheme.onPrimary,
+                          ),
+                        ),
+                        trailing: const Icon(Icons.qr_code),
+                        onTap: () =>
+                            showQrCodeViewer(context, room.canonicalAlias),
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 8),
                   Material(
                     clipBehavior: .hardEdge,
@@ -258,23 +280,6 @@ class ChatDetailsView extends StatelessWidget {
                     borderRadius: borderRadius,
                     child: Column(
                       children: [
-                        if (room.canonicalAlias.isNotEmpty) ...[
-                          ListTile(
-                            title: Text(room.canonicalAlias),
-                            subtitle: Text(L10n.of(context).roomAddress),
-                            leading: CircleAvatar(
-                              backgroundColor: theme.colorScheme.primary,
-                              child: Icon(
-                                Icons.link,
-                                color: theme.colorScheme.onPrimary,
-                              ),
-                            ),
-                            trailing: const Icon(Icons.qr_code),
-                            onTap: () =>
-                                showQrCodeViewer(context, room.canonicalAlias),
-                          ),
-                        ],
-                        const ListDivider(),
                         ListTile(
                           leading: CircleAvatar(
                             backgroundColor: theme.colorScheme.secondary,

@@ -214,14 +214,14 @@ class Message extends StatelessWidget {
       children: [
         Text(
           event.originServerTs.localizedTimeOfDay(context),
-          style: TextStyle(color: textColor.withAlpha(164), fontSize: 11),
+          style: TextStyle(color: textColor.withAlpha(200), fontSize: 11),
         ),
         if (event.hasAggregatedEvents(timeline, RelationshipTypes.edit))
           Padding(
             padding: const EdgeInsets.only(left: 4.0),
             child: Icon(
               Icons.edit_outlined,
-              color: textColor.withAlpha(164),
+              color: textColor.withAlpha(200),
               size: 14,
             ),
           ),
@@ -236,7 +236,7 @@ class Message extends StatelessWidget {
                   : hasBeenRead
                   ? Icons.done_all
                   : Icons.check,
-              color: textColor.withAlpha(164),
+              color: textColor.withAlpha(200),
               size: 14,
             ),
           ),
@@ -518,6 +518,7 @@ class Message extends StatelessWidget {
                                                                       child: AbsorbPointer(
                                                                         child: ReplyContent(
                                                                           replyEvent,
+                                                                          textColor: textColor,
                                                                           ownMessage:
                                                                               ownMessage,
                                                                           timeline:

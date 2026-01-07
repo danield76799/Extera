@@ -37,6 +37,7 @@ abstract class FluffyThemes {
     BuildContext context,
     Brightness brightness, [
     Color? seed,
+    DynamicSchemeVariant? variant,
     bool? pureBlack,
     bool? twemoji,
   ]) {
@@ -70,6 +71,7 @@ abstract class FluffyThemes {
       surfaceTint: extraDarkColors['surfaceTint'],
       surfaceVariant: extraDarkColors['surfaceVariant'],
       background: extraDarkColors['background'],
+      dynamicSchemeVariant: variant ?? DynamicSchemeVariant.tonalSpot,
     );
     final isColumnMode = FluffyThemes.isColumnMode(context);
     return ThemeData(

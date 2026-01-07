@@ -3502,5 +3502,15 @@
   "roomAddress": "Room address",
   "imageEditFailed": "Failed to edit image",
   "autoMarkUnavailable": "Set unavailable when AFK",
-  "autoMarkUnavailableDescription": "Automatically set unavailable status when the app is unfocused"
+  "autoMarkUnavailableDescription": "Automatically set unavailable status when the app is unfocused",
+  "colorPalette": "Color palette",
+  "palette_tonalSpot": "Tonal spot",
+  "palette_fidelity": "Fidelity",
+  "palette_monochrome": "Monochrome",
+  "palette_neutral": "Neutral",
+  "palette_vibrant": "Vibrant",
+  "palette_expressive": "Expressive",
+  "palette_content": "Content",
+  "palette_rainbow": "Rainbow",
+  "palette_fruitSalad": "Fruit salad"
 }

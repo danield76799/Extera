@@ -12,14 +12,17 @@ class ThemeBuilder extends StatefulWidget {
     BuildContext context,
     ThemeMode themeMode,
     Color? primaryColor,
+    DynamicSchemeVariant schemeVariant,
     bool pureBlack,
     bool twemoji,
-  ) builder;
+  )
+  builder;
 
   final String themeModeSettingsKey;
   final String primaryColorSettingsKey;
   final String pureBlackSettingsKey;
   final String twemojiSettingsKey;
+  final String schemeVariantSettingsKey;
 
   const ThemeBuilder({
     required this.builder,
@@ -27,6 +30,7 @@ class ThemeBuilder extends StatefulWidget {
     this.primaryColorSettingsKey = 'primary_color',
     this.pureBlackSettingsKey = 'pure_black',
     this.twemojiSettingsKey = 'xyz.extera.next.twemojiFont',
+    this.schemeVariantSettingsKey = 'xyz.extera.next.schemeVariant',
     super.key,
   });
 
@@ -40,6 +44,7 @@ class ThemeController extends State<ThemeBuilder> {
   Color? _primaryColor;
   bool? _pureBlack;
   bool? _twemoji;
+  DynamicSchemeVariant? _variant;
 
   ThemeMode get themeMode => _themeMode ?? ThemeMode.system;
 
@@ -49,33 +54,38 @@ class ThemeController extends State<ThemeBuilder> {
 
   bool get twemoji => _twemoji ?? false;
 
+  DynamicSchemeVariant get variant =>
+      _variant ?? DynamicSchemeVariant.tonalSpot;
+
   static ThemeController of(BuildContext context) =>
-      Provider.of<ThemeController>(
-        context,
-        listen: false,
-      );
+      Provider.of<ThemeController>(context, listen: false);
 
   void _loadData(_) async {
-    final preferences =
-        _sharedPreferences ??= await SharedPreferences.getInstance();
+    final preferences = _sharedPreferences ??=
+        await SharedPreferences.getInstance();
 
     final rawThemeMode = preferences.getString(widget.themeModeSettingsKey);
     final rawColor = preferences.getInt(widget.primaryColorSettingsKey);
     final rawPureBlack = preferences.getBool(widget.pureBlackSettingsKey);
     final rawTwemoji = preferences.getBool(widget.twemojiSettingsKey);
+    final rawVariant =
+        preferences.getInt(widget.schemeVariantSettingsKey) ??
+        DynamicSchemeVariant.values.indexOf(.tonalSpot);
 
     setState(() {
-      _themeMode = ThemeMode.values
-          .singleWhereOrNull((value) => value.name == rawThemeMode);
+      _themeMode = ThemeMode.values.singleWhereOrNull(
+        (value) => value.name == rawThemeMode,
+      );
       _primaryColor = rawColor == null ? null : Color(rawColor);
       _pureBlack = rawPureBlack;
       _twemoji = rawTwemoji;
+      _variant = .values[rawVariant];
     });
   }
 
   Future<void> setThemeMode(ThemeMode newThemeMode) async {
-    final preferences =
-        _sharedPreferences ??= await SharedPreferences.getInstance();
+    final preferences = _sharedPreferences ??=
+        await SharedPreferences.getInstance();
     await preferences.setString(widget.themeModeSettingsKey, newThemeMode.name);
     setState(() {
       _themeMode = newThemeMode;
@@ -83,8 +93,8 @@ class ThemeController extends State<ThemeBuilder> {
   }
 
   Future<void> setPrimaryColor(Color? newPrimaryColor) async {
-    final preferences =
-        _sharedPreferences ??= await SharedPreferences.getInstance();
+    final preferences = _sharedPreferences ??=
+        await SharedPreferences.getInstance();
     if (newPrimaryColor == null) {
       await preferences.remove(widget.primaryColorSettingsKey);
     } else {
@@ -98,9 +108,25 @@ class ThemeController extends State<ThemeBuilder> {
     });
   }
 
+  Future<void> setSchemeVariant(DynamicSchemeVariant? newVariant) async {
+    final preferences = _sharedPreferences ??=
+        await SharedPreferences.getInstance();
+    if (newVariant == null) {
+      await preferences.remove(widget.schemeVariantSettingsKey);
+    } else {
+      await preferences.setInt(
+        widget.schemeVariantSettingsKey,
+        DynamicSchemeVariant.values.indexOf(newVariant),
+      );
+    }
+    setState(() {
+      _variant = newVariant;
+    });
+  }
+
   Future<void> setPureBlack(bool newPureBlack) async {
-    final preferences =
-        _sharedPreferences ??= await SharedPreferences.getInstance();
+    final preferences = _sharedPreferences ??=
+        await SharedPreferences.getInstance();
     await preferences.setBool(widget.pureBlackSettingsKey, newPureBlack);
     setState(() {
       _pureBlack = newPureBlack;
@@ -108,8 +134,8 @@ class ThemeController extends State<ThemeBuilder> {
   }
 
   Future<void> setTwemoji(bool newTwemoji) async {
-    final preferences =
-        _sharedPreferences ??= await SharedPreferences.getInstance();
+    final preferences = _sharedPreferences ??=
+        await SharedPreferences.getInstance();
     await preferences.setBool(widget.twemojiSettingsKey, newTwemoji);
     setState(() {
       _twemoji = newTwemoji;
@@ -131,6 +157,7 @@ class ThemeController extends State<ThemeBuilder> {
           context,
           themeMode,
           primaryColor ?? light?.primary,
+          variant,
           pureBlack,
           twemoji,
         ),

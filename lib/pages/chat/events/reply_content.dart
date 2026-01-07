@@ -10,9 +10,11 @@ class ReplyContent extends StatelessWidget {
   final Event replyEvent;
   final bool ownMessage;
   final Timeline? timeline;
+  final Color? textColor;
 
   const ReplyContent(
     this.replyEvent, {
+    this.textColor = null,
     this.ownMessage = false,
     super.key,
     this.timeline,
@@ -33,7 +35,9 @@ class ReplyContent extends StatelessWidget {
         : replyEvent;
     final fontSize = AppConfig.messageFontSize * AppConfig.fontSizeFactor;
     final color = theme.brightness == Brightness.dark
-        ? theme.colorScheme.onTertiaryContainer
+        ? ownMessage
+              ? theme.colorScheme.onPrimaryContainer
+              : theme.colorScheme.onSecondaryContainer
         : ownMessage
         ? theme.colorScheme.tertiaryContainer
         : theme.colorScheme.tertiary;
@@ -68,7 +72,7 @@ class ReplyContent extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: color,
+                        color: textColor ?? color,
                         fontSize: fontSize,
                       ),
                     );
@@ -87,11 +91,7 @@ class ReplyContent extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: TextStyle(
-                    color: theme.brightness == Brightness.dark
-                        ? theme.colorScheme.onSurface
-                        : ownMessage
-                        ? theme.colorScheme.onTertiary
-                        : theme.colorScheme.onSurface,
+                    color: textColor ?? color,
                     fontSize: fontSize,
                   ),
                 ),

@@ -34,6 +34,19 @@ class SettingsStyleView extends StatelessWidget {
 
     const colorPickerSize = 32.0;
     final client = Matrix.of(context).client;
+
+    final paletteNames = {
+      DynamicSchemeVariant.tonalSpot: L10n.of(context).palette_tonalSpot,
+      DynamicSchemeVariant.fidelity: L10n.of(context).palette_fidelity,
+      DynamicSchemeVariant.monochrome: L10n.of(context).palette_monochrome,
+      DynamicSchemeVariant.neutral: L10n.of(context).palette_neutral,
+      DynamicSchemeVariant.vibrant: L10n.of(context).palette_vibrant,
+      DynamicSchemeVariant.expressive: L10n.of(context).palette_expressive,
+      DynamicSchemeVariant.content: L10n.of(context).palette_content,
+      DynamicSchemeVariant.rainbow: L10n.of(context).palette_rainbow,
+      DynamicSchemeVariant.fruitSalad: L10n.of(context).palette_fruitSalad,
+    };
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: !FluffyThemes.isColumnMode(context),
@@ -167,6 +180,15 @@ class SettingsStyleView extends StatelessWidget {
                           },
                         );
                       },
+                    ),
+                    const ListDivider(),
+                    ListTile(
+                      subtitle: Text(
+                        paletteNames[ThemeController.of(context).variant]!,
+                      ),
+                      title: Text(L10n.of(context).colorPalette),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: controller.setSchemeVariant,
                     ),
                   ],
                 ),

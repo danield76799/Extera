@@ -121,7 +121,7 @@ class ChatInputRow extends StatelessWidget {
                     child: PopupMenuButton<String>(
                       useRootNavigator: true,
                       icon: const Icon(Icons.add_circle_outline),
-                      iconColor: theme.colorScheme.onPrimaryContainer,
+                      iconColor: theme.colorScheme.onSurface,
                       onSelected: controller.onAddPopupMenuButtonSelected,
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuEntry<String>>[
@@ -215,7 +215,7 @@ class ChatInputRow extends StatelessWidget {
                         useRootNavigator: true,
                         icon: const Icon(Icons.camera_alt_outlined),
                         onSelected: controller.onAddPopupMenuButtonSelected,
-                        iconColor: theme.colorScheme.onPrimaryContainer,
+                        iconColor: theme.colorScheme.onSurface,
                         itemBuilder: (context) => [
                           PopupMenuItem<String>(
                             value: 'camera-video',
@@ -254,7 +254,7 @@ class ChatInputRow extends StatelessWidget {
                     alignment: Alignment.center,
                     child: IconButton(
                       tooltip: L10n.of(context).emojis,
-                      color: theme.colorScheme.onPrimaryContainer,
+                      color: theme.colorScheme.onSurface,
                       icon: PageTransitionSwitcher(
                         transitionBuilder: (
                           Widget child,

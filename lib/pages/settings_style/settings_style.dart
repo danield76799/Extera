@@ -1,3 +1,5 @@
+import 'package:extera_next/generated/l10n/l10n.dart';
+import 'package:extera_next/utils/adaptive_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:extera_next/config/app_config.dart';
@@ -48,6 +50,66 @@ class SettingsStyleController extends State<SettingsStyle> {
       0.5;
 
   double? _wallpaperOpacity;
+
+  void setSchemeVariant() async {
+    final theme = Theme.of(context);
+    final paletteNames = {
+      DynamicSchemeVariant.tonalSpot: L10n.of(context).palette_tonalSpot,
+      DynamicSchemeVariant.fidelity: L10n.of(context).palette_fidelity,
+      DynamicSchemeVariant.monochrome: L10n.of(context).palette_monochrome,
+      DynamicSchemeVariant.neutral: L10n.of(context).palette_neutral,
+      DynamicSchemeVariant.vibrant: L10n.of(context).palette_vibrant,
+      DynamicSchemeVariant.expressive: L10n.of(context).palette_expressive,
+      DynamicSchemeVariant.content: L10n.of(context).palette_content,
+      DynamicSchemeVariant.rainbow: L10n.of(context).palette_rainbow,
+      DynamicSchemeVariant.fruitSalad: L10n.of(context).palette_fruitSalad,
+    };
+
+    await showAdaptiveBottomSheet(
+      context: context,
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(title: Text(L10n.of(context).colorPalette)),
+          body: Padding(
+            padding: const .all(8),
+            child: Material(
+              color: theme.colorScheme.surfaceContainerHigh,
+              clipBehavior: .hardEdge,
+              borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  for (final value in DynamicSchemeVariant.values)
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer,
+                        child: Icon(
+                          Icons.palette_outlined,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      title: Text(paletteNames[value]!),
+                      selected: ThemeController.of(context).variant == value,
+                      trailing: ThemeController.of(context).variant == value
+                          ? const Icon(Icons.check_circle)
+                          : null,
+                      onTap: () {
+                        ThemeController.of(context).setSchemeVariant(value);
+                      },
+                    ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   void saveWallpaperOpacity(double opacity) async {
     final client = Matrix.of(context).client;
