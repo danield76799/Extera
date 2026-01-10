@@ -3616,5 +3616,13 @@
   "palette_expressive": "Выразительная",
   "palette_content": "Содержательная",
   "palette_rainbow": "Радужная",
-  "palette_fruitSalad": "Фруктовый салат"
+  "palette_fruitSalad": "Фруктовый салат",
+  "listeningTo": "Слушает {mediaPlayer}",
+  "@listeningTo": {
+    "placeholders": {
+        "mediaPlayer": { "type": "String" }
+    }
+  },
+  "listeningToSomeTunes": "Слушает аудио",
+  "playing": "Играет в"
 }

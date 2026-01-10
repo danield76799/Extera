@@ -10,6 +10,7 @@ import 'package:extera_next/widgets/future_loading_dialog.dart';
 import 'package:extera_next/widgets/layouts/max_width_body.dart';
 import 'package:extera_next/widgets/list_divider.dart';
 import 'package:extera_next/widgets/matrix.dart';
+import 'package:extera_next/widgets/mxc_image.dart';
 import 'package:extera_next/widgets/mxc_image_viewer.dart';
 import 'package:extera_next/widgets/presence_builder.dart';
 import 'package:flutter/material.dart';
@@ -237,6 +238,177 @@ class ProfileView extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 8),
+              if (controller.isRpcMedia) ...[
+                Material(
+                  clipBehavior: .hardEdge,
+                  color: theme.colorScheme.surfaceContainerHighest,
+                  borderRadius: borderRadius,
+                  child: Padding(
+                    padding: const .all(16),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: .centerLeft,
+                          child: Text(
+                            controller.richPresenceData!.containsKey('player')
+                                ? L10n.of(context).listeningTo(
+                                    controller.richPresenceData!['player'],
+                                  )
+                                : L10n.of(context).listeningToSomeTunes,
+                            style: TextStyle(
+                              color: theme.colorScheme.secondary,
+                              fontWeight: .bold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisSize: .max,
+                          children: [
+                            if (controller.richPresenceData!.containsKey(
+                              'cover_url',
+                            )) ...[
+                              Material(
+                                clipBehavior: .antiAlias,
+                                borderRadius: BorderRadius.circular(
+                                  AppConfig.borderRadius / 2,
+                                ),
+                                color:
+                                    theme.colorScheme.surfaceContainerHighest,
+                                child: MxcImage(
+                                  uri: Uri.parse(
+                                    controller.richPresenceData!['cover_url'],
+                                  ),
+                                  width: 128,
+                                  height: 128,
+                                ),
+                              ),
+                              const SizedBox(width: 9),
+                            ],
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: .start,
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Align(
+                                    alignment: .centerLeft,
+                                    child: Text(
+                                      controller.richPresenceData!['track'],
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: .centerLeft,
+                                    child: Text(
+                                      controller.richPresenceData!['album'],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: .centerLeft,
+                                    child: Text(
+                                      controller.richPresenceData!['artist'],
+                                    ),
+                                  ),
+                                  if (controller.richPresenceData!.containsKey(
+                                    'streaming_link',
+                                  )) ...[
+                                    const SizedBox(height: 8),
+                                    FilledButton.tonalIcon(
+                                      onPressed: () {
+                                        UrlLauncher(context, controller.richPresenceData!['streaming_link'], controller.richPresenceData!['player']).launchUrl();
+                                      },
+                                      label: Text(
+                                        controller.richPresenceData?.tryGet(
+                                              'player',
+                                            ) ??
+                                            L10n.of(context).openLinkInBrowser,
+                                      ),
+                                      icon: const Icon(Icons.open_in_new),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+              if (controller.isRpcActivity) ...[
+                Material(
+                  clipBehavior: .hardEdge,
+                  color: theme.colorScheme.surfaceContainerHighest,
+                  borderRadius: borderRadius,
+                  child: Padding(
+                    padding: const .all(16),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: .centerLeft,
+                          child: Text(
+                            L10n.of(context).playing,
+                            style: TextStyle(
+                              color: theme.colorScheme.secondary,
+                              fontWeight: .bold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisSize: .max,
+                          children: [
+                            if (controller.richPresenceData!.containsKey(
+                              'image',
+                            )) ...[
+                              Material(
+                                clipBehavior: .antiAlias,
+                                borderRadius: BorderRadius.circular(
+                                  AppConfig.borderRadius / 2,
+                                ),
+                                color:
+                                    theme.colorScheme.surfaceContainerHighest,
+                                child: MxcImage(
+                                  uri: Uri.parse(
+                                    controller.richPresenceData!['image'],
+                                  ),
+                                  width: 128,
+                                  height: 128,
+                                ),
+                              ),
+                              const SizedBox(width: 9),
+                            ],
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: .start,
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Align(
+                                    alignment: .centerLeft,
+                                    child: Text(
+                                      controller.richPresenceData!['name'],
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: .centerLeft,
+                                    child: Text(
+                                      controller.richPresenceData!['details'],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
               Material(
                 clipBehavior: .hardEdge,
                 color: theme.colorScheme.surfaceContainerHigh,

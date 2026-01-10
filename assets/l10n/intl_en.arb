@@ -3512,5 +3512,13 @@
   "palette_expressive": "Expressive",
   "palette_content": "Content",
   "palette_rainbow": "Rainbow",
-  "palette_fruitSalad": "Fruit salad"
+  "palette_fruitSalad": "Fruit salad",
+  "listeningTo": "Listening to {mediaPlayer}",
+  "@listeningTo": {
+    "placeholders": {
+        "mediaPlayer": { "type": "String" }
+    }
+  },
+  "listeningToSomeTunes": "Listening to some tunes",
+  "playing": "Playing"
 }

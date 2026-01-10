@@ -26,14 +26,19 @@ class ProfileController extends State<ProfilePage> {
   String? about;
   bool isQueryingAbout = false;
 
+  Map<String, dynamic>? richPresenceData;
+  bool isQueryingRichPresenceData = false;
+
   Future<void> queryAbout() async {
     final client = Matrix.of(context).client;
     if (isQueryingAbout) return;
     setState(() {
       isQueryingAbout = true;
     });
-    final aboutResponse =
-        await client.getProfileField(widget.profile.userId, AppConfig.aboutProfileField);
+    final aboutResponse = await client.getProfileField(
+      widget.profile.userId,
+      AppConfig.aboutProfileField,
+    );
     if (aboutResponse.containsKey(AppConfig.aboutProfileField) &&
         aboutResponse[AppConfig.aboutProfileField] is String &&
         aboutResponse[AppConfig.aboutProfileField].toString().length <= 256) {
@@ -48,6 +53,70 @@ class ProfileController extends State<ProfilePage> {
     }
   }
 
+  Future<void> queryRichPresence() async {
+    final client = Matrix.of(context).client;
+    if (isQueryingRichPresenceData) return;
+    setState(() {
+      isQueryingRichPresenceData = true;
+    });
+    final rpcResponse = await client.getProfileField(
+      widget.profile.userId,
+      // Who thought that this prefix would look good for an MSC T-T
+      "com.ip-logger.msc4320.rpc",
+    );
+    if (rpcResponse.containsKey("com.ip-logger.msc4320.rpc") &&
+        rpcResponse["com.ip-logger.msc4320.rpc"] is Object) {
+      setState(() {
+        richPresenceData =
+            rpcResponse["com.ip-logger.msc4320.rpc"] as Map<String, dynamic>;
+        isQueryingRichPresenceData = false;
+      });
+    } else {
+      setState(() {
+        isQueryingRichPresenceData = false;
+      });
+    }
+  }
+
+  bool get isRpcMedia {
+    if (richPresenceData == null) return false;
+    if (richPresenceData!['type'] != 'com.ip-logger.msc4320.rpc.media') return false;
+    if (richPresenceData!['artist'] is! String ||
+        richPresenceData!['album'] is! String ||
+        richPresenceData!['track'] is! String) {
+      return false;
+    }
+    if (richPresenceData!.containsKey("cover_art") &&
+        richPresenceData!['cover_art'] is! String) {
+      return false;
+    }
+    if (richPresenceData!.containsKey("player") &&
+        richPresenceData!['player'] is! String) {
+      return false;
+    }
+    if (richPresenceData!.containsKey("streaming_link") &&
+        richPresenceData!['streaming_link'] is! String) {
+      return false;
+    }
+    // if (richPresenceData!.containsKey("progress") && (richPresenceData!['progress']))
+    return true;
+  }
+
+  bool get isRpcActivity {
+    if (richPresenceData == null) return false;
+    if (richPresenceData!['type'] != 'com.ip-logger.msc4320.rpc.activity') return false;
+    if (!richPresenceData!.containsKey('name')) return false;
+    if (richPresenceData!.containsKey("image") &&
+        richPresenceData!['image'] is! String) {
+      return false;
+    }
+    if (richPresenceData!.containsKey("details") &&
+        richPresenceData!['details'] is! String) {
+      return false;
+    }
+    return true;
+  }
+
   List<Room> mutualRooms = [];
   bool canQueryMutualRooms = true;
   bool isQueryingMutualRooms = false;
@@ -60,12 +129,8 @@ class ProfileController extends State<ProfilePage> {
       isQueryingMutualRooms = true;
     });
     final rooms = (await client.queryMutualRoomsIds(widget.profile.userId))
-        .map(
-          (roomId) => client.getRoomById(roomId),
-        )
-        .where(
-          (room) => room != null && !room.isSpace && !room.isDirectChat,
-        );
+        .map((roomId) => client.getRoomById(roomId))
+        .where((room) => room != null && !room.isSpace && !room.isDirectChat);
     setState(() {
       mutualRooms = rooms.map((room) => room!).toList();
       isQueryingMutualRooms = false;
@@ -76,6 +141,7 @@ class ProfileController extends State<ProfilePage> {
   void initState() {
     super.initState();
     queryAbout();
+    queryRichPresence();
 
     if (Matrix.of(context).client.userID != widget.profile.userId) {
       queryMutualRooms();
@@ -136,16 +202,16 @@ class ProfileController extends State<ProfilePage> {
     final client = Matrix.of(context).client;
     final roomId = client.getDirectChatFromUserId(widget.profile.userId);
     final room = client.getRoomById(roomId!);
-    if (room == null) return;    
+    if (room == null) return;
     final voipPlugin = Matrix.of(context).voipPlugin;
     try {
       final session = await voipPlugin!.voip.inviteToCall(room, callType);
       voipPlugin.addCallingOverlay(session.callId, session);
       context.go('/rooms/$roomId');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toLocalizedString(context))),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toLocalizedString(context))));
       Logs().e("onCallTap", e);
     }
   }
