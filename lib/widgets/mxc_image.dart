@@ -60,10 +60,22 @@ class _MxcImageState extends State<MxcImage> {
   void initState() {
     super.initState();
     // OPTIMIZATION: Check cache synchronously.
-    // If data is there, render it on Frame 1. No "pop-in" effect.
+    // This is safe because _getFromCache does NOT use context/MediaQuery.
+    // If data is there, render it on Frame 1.
     _currentData = _getFromCache();
+    
+    // REMOVED: _load() call from here. 
+    // It requires MediaQuery, so we move it to didChangeDependencies.
+  }
 
-    if (_currentData == null) {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // This method is called immediately after initState and whenever
+    // dependencies (like MediaQuery or Matrix.of) change.
+    
+    // Only load if we don't have data and aren't already loading.
+    if (_currentData == null && !_isLoading) {
       _load();
     }
   }
@@ -72,11 +84,12 @@ class _MxcImageState extends State<MxcImage> {
   void didUpdateWidget(MxcImage oldWidget) {
     super.didUpdateWidget(oldWidget);
     // OPTIMIZATION: Only reload if the source actually changed.
-    // This protects against the 2.5k updates/min from the parent.
     if (oldWidget.uri != widget.uri ||
         oldWidget.event != widget.event ||
         oldWidget.cacheKey != widget.cacheKey) {
+      
       final cached = _getFromCache();
+      
       if (cached != null) {
         setState(() {
           _currentData = cached;
@@ -85,8 +98,12 @@ class _MxcImageState extends State<MxcImage> {
       } else {
         setState(() {
           _currentData = null;
+          // We can set _isLoading to false here to ensure _load triggers
+          _isLoading = false; 
         });
-        _load();
+        // We can call _load here safely because context is available 
+        // in didUpdateWidget
+        _load(); 
       }
     }
   }
@@ -105,21 +122,29 @@ class _MxcImageState extends State<MxcImage> {
   }
 
   Future<void> _load() async {
-    if (_isLoading) return;
-    _isLoading = true;
+    // Safety check: Ensure we don't load if already loading 
+    // (unless forced by update) or if unmounted
+    if (_isLoading || !mounted) return;
+    
+    setState(() {
+      _isLoading = true;
+    });
 
     try {
+      // Matrix.of(context) requires context, safe now in didChangeDependencies
       final client =
           widget.client ??
           widget.event?.room.client ??
           Matrix.of(context).client;
+          
       final uri = widget.uri;
       final event = widget.event;
       Uint8List? loadedBytes;
 
       if (uri != null) {
-        // Calculate pixel ratio once
+        // MediaQuery.devicePixelRatioOf requires context, safe now
         final devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
+        
         final realWidth = widget.width != null
             ? widget.width! * devicePixelRatio
             : null;
@@ -153,7 +178,6 @@ class _MxcImageState extends State<MxcImage> {
           _isLoading = false;
         });
       } else {
-        // Failed to load valid bytes
         _scheduleRetry();
       }
     } on IOException catch (_) {
@@ -168,11 +192,13 @@ class _MxcImageState extends State<MxcImage> {
 
   void _scheduleRetry() {
     if (!mounted) return;
-    // Don't busy-loop retries.
+    
+    // Mark as not loading so retry can fire
+    setState(() => _isLoading = false);
+    
     Future.delayed(widget.retryDuration, () {
-      if (mounted) {
-        _isLoading = false;
-        _load();
+      if (mounted && _currentData == null) {
+         _load();
       }
     });
   }
@@ -211,15 +237,12 @@ class _MxcImageState extends State<MxcImage> {
       );
     }
 
-    // Create the image widget
     final imageWidget = Image.memory(
       data,
       width: widget.width,
       height: widget.height,
       fit: widget.fit,
-      // OPTIMIZATION: gaplessPlayback prevents white flicker during updates
       gaplessPlayback: true,
-      // OPTIMIZATION: Low quality for thumbnails saves GPU
       filterQuality: widget.isThumbnail
           ? FilterQuality.low
           : FilterQuality.medium,
@@ -229,7 +252,6 @@ class _MxcImageState extends State<MxcImage> {
       },
     );
 
-    // OPTIMIZATION: Avoid ClipRRect if not necessary. Clipping is expensive.
     if (widget.borderRadius == BorderRadius.zero) {
       return imageWidget;
     }
