@@ -56,9 +56,7 @@ void main() async {
     // Do not send online presences when app is in background fetch mode.
     for (final client in clients) {
       client.backgroundSync = false;
-      if (store.getBool(SettingKeys.autoMarkUnavailable) == true) {
-        client.syncPresence = PresenceType.offline;
-      }
+      client.syncPresence = PresenceType.offline;
     }
 
     // In the background fetch mode we do not want to waste ressources with
@@ -70,6 +68,12 @@ void main() async {
       '${AppConfig.applicationName} started in background-fetch mode. No GUI will be created unless the app is no longer detached.',
     );
     return;
+  } else {
+    for (final client in clients) {
+      client.syncPresence = PresenceType.values.firstWhere(
+        (x) => x.name == AppSettings.presenceStatus.getItem(store),
+      );
+    }
   }
 
   // Started in foreground mode.
@@ -123,9 +127,9 @@ class AppStarter with WidgetsBindingObserver {
     // Switching to foreground mode needs to reenable send online sync presence.
     for (final client in clients) {
       client.backgroundSync = true;
-      if (store.getBool(SettingKeys.autoMarkUnavailable) == true) {
-        client.syncPresence = PresenceType.online;
-      }
+      client.syncPresence = PresenceType.values.firstWhere(
+        (x) => x.name == AppSettings.presenceStatus.getItem(store),
+      );
     }
     startGui(clients, store);
     // We must make sure that the GUI is only started once.

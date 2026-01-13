@@ -382,9 +382,9 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         state != AppLifecycleState.inactive &&
         state != AppLifecycleState.paused;
     for (final client in widget.clients) {
-      if (AppConfig.autoMarkUnavailable) {
+      if (AppConfig.autoMarkUnavailable && client.syncPresence == PresenceType.online) {
         client.syncPresence = state == AppLifecycleState.resumed
-            ? null
+            ? PresenceType.values.firstWhere((x) => x.name == AppSettings.presenceStatus.getItem(store))
             : PresenceType.unavailable;
       }
       if (PlatformInfos.isMobile) {

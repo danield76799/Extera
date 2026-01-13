@@ -51,6 +51,7 @@ abstract class SettingKeys {
 }
 
 enum AppSettings<T> {
+  presenceStatus<String>('xyz.extera.presence_status', 'online'),
   avatarBorderRadius<double>('xyz.extera.next.avatarBorderRadius', 1),
   autoMarkUnavailable<bool>('xyz.extera.next.autoMarkUnavailable', true),
   incomingCallsOnLockScreen<bool>('xyz.extera.next.incomingCallsOnLockScreen', true),

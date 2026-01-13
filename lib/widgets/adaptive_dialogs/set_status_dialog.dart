@@ -1,4 +1,4 @@
-import 'package:extera_next/config/app_config.dart';
+// import 'package:extera_next/config/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -62,34 +62,34 @@ Future<(PresenceType, String?)?> showStatusInputDialog({
                 ),
                 const SizedBox(height: 16),
                 // 3. Wrap SegmentedButton in ValueListenableBuilder
-                if (!AppConfig.autoMarkUnavailable)
-                  ValueListenableBuilder<PresenceType>(
-                    valueListenable: presenceNotifier,
-                    builder: (context, currentPresence, _) {
-                      return SegmentedButton<PresenceType>(
-                        segments: [
-                          ButtonSegment(
-                            value: PresenceType.online,
-                            label: Text(L10n.of(context).online),
-                          ),
-                          ButtonSegment(
-                            value: PresenceType.unavailable,
-                            label: Text(L10n.of(context).unavailable),
-                          ),
-                          ButtonSegment(
-                            value: PresenceType.offline,
-                            label: Text(L10n.of(context).offline),
-                          ),
-                        ],
-                        // Use the value from the builder
-                        selected: {currentPresence},
-                        onSelectionChanged: (value) {
-                          // Update the notifier to trigger a rebuild
-                          presenceNotifier.value = value.first;
-                        },
-                      );
-                    },
-                  ),
+                // if (!AppConfig.autoMarkUnavailable)
+                ValueListenableBuilder<PresenceType>(
+                  valueListenable: presenceNotifier,
+                  builder: (context, currentPresence, _) {
+                    return SegmentedButton<PresenceType>(
+                      segments: [
+                        ButtonSegment(
+                          value: PresenceType.online,
+                          label: Text(L10n.of(context).online),
+                        ),
+                        ButtonSegment(
+                          value: PresenceType.unavailable,
+                          label: Text(L10n.of(context).unavailable),
+                        ),
+                        ButtonSegment(
+                          value: PresenceType.offline,
+                          label: Text(L10n.of(context).offline),
+                        ),
+                      ],
+                      // Use the value from the builder
+                      selected: {currentPresence},
+                      onSelectionChanged: (value) {
+                        // Update the notifier to trigger a rebuild
+                        presenceNotifier.value = value.first;
+                      },
+                    );
+                  },
+                ),
               ],
             ),
           ),

@@ -738,6 +738,7 @@ class ChatListController extends State<ChatList>
       useRootNavigator: false,
       context: context,
       initialText: currentPresence.statusMsg,
+      initialPresence: currentPresence.presence,
     );
     if (input == null) return;
     if (!mounted) return;
@@ -745,6 +746,10 @@ class ChatListController extends State<ChatList>
       context: context,
       future: () async {
         client.syncPresence = input.$1;
+        AppSettings.presenceStatus.setItem(
+          Matrix.of(context).store,
+          input.$1.name,
+        );
         await client.setPresence(client.userID!, input.$1, statusMsg: input.$2);
       },
     );
