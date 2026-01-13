@@ -29,9 +29,15 @@ class EventRedactedContent extends StatelessWidget {
             ? L10n.of(context).redactedBy(redactedBy)
             : L10n.of(context).redactedByBecause(redactedBy, reason);
 
-        return Text(
-          '🗑️  $label',
-          style: TextStyle(color: textColor, fontSize: fontSize),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            '🗑️  $label',
+            style: TextStyle(
+              color: textColor.withAlpha(128),
+              fontSize: fontSize,
+            ),
+          ),
         );
       },
     );
