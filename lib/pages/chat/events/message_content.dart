@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:extera_next/pages/chat/events/poll_content.dart';
+import 'package:extera_next/pages/chat/events/redacted_content.dart';
 import 'package:extera_next/utils/poll_events.dart';
 import 'package:flutter/material.dart';
 
@@ -201,10 +202,7 @@ class MessageContent extends StatelessWidget {
                 html = '* $html';
               }
               return Padding(
-                padding: const .symmetric(
-                  horizontal: 16,
-                  vertical: 2,
-                ),
+                padding: const .symmetric(horizontal: 16, vertical: 2),
                 child: HtmlMessage(
                   html: html,
                   textColor: textColor,
@@ -275,28 +273,10 @@ class MessageContent extends StatelessWidget {
           textmessage:
           default:
             if (event.redacted) {
-              return FutureBuilder<User?>(
-                future: event.redactedBecause?.fetchSenderUser(),
-                builder: (context, snapshot) {
-                  final reason = event.redactedBecause?.content.tryGet<String>(
-                    'reason',
-                  );
-                  final redactedBy =
-                      snapshot.data?.calcDisplayname() ??
-                      event.redactedBecause?.senderId.localpart ??
-                      L10n.of(context).user;
-                  return _ButtonContent(
-                    label: reason == null
-                        ? L10n.of(context).redactedBy(redactedBy)
-                        : L10n.of(
-                            context,
-                          ).redactedByBecause(redactedBy, reason),
-                    icon: '🗑️',
-                    textColor: buttonTextColor.withAlpha(128),
-                    onPressed: () => onInfoTab!(event),
-                    fontSize: fontSize,
-                  );
-                },
+              return EventRedactedContent(
+                event: event,
+                textColor: buttonTextColor,
+                fontSize: fontSize,
               );
             }
             final bigEmotes =
