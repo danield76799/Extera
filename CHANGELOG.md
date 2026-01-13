@@ -3,6 +3,7 @@
 - Support viewing MSC4320 Rich Presences.
 - Fix presence status related things.
 - Fix reply mentions.
+- Fix custom presences.
 
 ## Extera 26.0.4
 - Added support for choosing Material 3 color palette.
