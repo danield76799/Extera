@@ -358,7 +358,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
             );
           }
           if (result == OkCancelResult.cancel) {
-            await store.setBool(SettingKeys.showNoGoogle, true);
+            AppSettings.showNoGoogle.setItem(true);
           }
         },
       );
@@ -368,7 +368,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
   }
 
   void createVoipPlugin() async {
-    if (store.getBool(SettingKeys.experimentalVoip) == false) {
+    if (AppSettings.experimentalVoip.value == false) {
       voipPlugin = null;
       return;
     }

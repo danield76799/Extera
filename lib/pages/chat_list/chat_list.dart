@@ -145,11 +145,11 @@ class ChatListController extends State<ChatList>
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
     switch (activeFilter) {
       case ActiveFilter.allChats:
-        return (room) => !room.isSpace;
+        return (room) => !room.isSpace && (AppSettings.showSpaceRoomsInGlobalList.value || room.spaceParents.isEmpty);
       case ActiveFilter.messages:
-        return (room) => !room.isSpace && room.isDirectChat;
+        return (room) => !room.isSpace && room.isDirectChat && (AppSettings.showSpaceRoomsInGlobalList.value || room.spaceParents.isEmpty);
       case ActiveFilter.groups:
-        return (room) => !room.isSpace && !room.isDirectChat;
+        return (room) => !room.isSpace && !room.isDirectChat && (AppSettings.showSpaceRoomsInGlobalList.value || room.spaceParents.isEmpty);
       case ActiveFilter.unread:
         return (room) => room.isUnreadOrInvited;
       case ActiveFilter.spaces:
@@ -726,7 +726,6 @@ class ChatListController extends State<ChatList>
       context: context,
     );
     if (result == OkCancelResult.ok) {
-      await Matrix.of(context).store.setBool(SettingKeys.showPresences, false);
       AppSettings.showPresences.setItem(false);
       if (!mounted) return;
       setState(() {});

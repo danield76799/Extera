@@ -3539,5 +3539,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "showSpaceRoomsInGlobalList": "Show rooms from spaces alongside other rooms"
 }

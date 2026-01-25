@@ -34,7 +34,6 @@ class SettingsRingtoneController extends State<SettingsRingtone> {
   void setRingtone(String ringtone) {
     setState(() {
       AppSettings.ringtone.setItem(ringtone);
-      store.setString(SettingKeys.ringtone, ringtone);
       previewRingtone();
     });
   }

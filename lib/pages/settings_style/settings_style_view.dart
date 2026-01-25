@@ -568,6 +568,11 @@ class SettingsStyleView extends StatelessWidget {
                     ),
                     const ListDivider(),
                     SettingsSwitchListTile.adaptive(
+                      title: L10n.of(context).showSpaceRoomsInGlobalList,
+                      setting: AppSettings.showSpaceRoomsInGlobalList,
+                    ),
+                    const ListDivider(),
+                    SettingsSwitchListTile.adaptive(
                       title: L10n.of(context).displayNavigationRail,
                       setting: AppSettings.displayNavigationRail,
                     ),
