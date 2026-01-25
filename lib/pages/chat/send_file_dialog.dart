@@ -70,6 +70,7 @@ class SendFileDialogState extends State<SendFileDialog> {
         MatrixImageFile? thumbnail;
         final length = await xfile.length();
         final mimeType = xfile.mimeType ?? lookupMimeType(xfile.path);
+        final name = xfile.name.isNotEmpty ? xfile.name : "file.${mimeType!.split('/').last}";
 
         // If file is a video, shrink it!
         if (PlatformInfos.isMobile &&
@@ -91,7 +92,7 @@ class SendFileDialogState extends State<SendFileDialog> {
             bytes: Uint8List.fromList(
               ExifCleaner.removeExifData(await xfile.readAsBytes()),
             ),
-            name: xfile.name,
+            name: name,
             mimeType: mimeType,
           ).detectFileType;
         } else {
@@ -102,7 +103,7 @@ class SendFileDialogState extends State<SendFileDialog> {
           // Else we just create a MatrixFile
           file = MatrixFile(
             bytes: await xfile.readAsBytes(),
-            name: xfile.name,
+            name: name,
             mimeType: mimeType,
           ).detectFileType;
         }

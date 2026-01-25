@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:matrix/matrix.dart';
-
 abstract class AppConfig {
   static const String pushIsolatePortName = 'push_isolate';
   static const String mainIsolatePortName = 'main_isolate';

@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/utils/platform_infos.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:async/async.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:matrix/matrix_api_lite/utils/logs.dart';
 import 'package:shared_preferences/shared_preferences.dart';

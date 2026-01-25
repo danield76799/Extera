@@ -145,7 +145,7 @@ class ChatListController extends State<ChatList>
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
     switch (activeFilter) {
       case ActiveFilter.allChats:
-        return (room) => true;
+        return (room) => !room.isSpace;
       case ActiveFilter.messages:
         return (room) => !room.isSpace && room.isDirectChat;
       case ActiveFilter.groups:
@@ -159,7 +159,9 @@ class ChatListController extends State<ChatList>
 
   List<Room> get filteredRooms => Matrix.of(
     context,
-  ).client.rooms.where(getRoomFilterByActiveFilter(activeFilter)).toList();
+  ).client.rooms
+    .where(getRoomFilterByActiveFilter(activeFilter))
+    .toList();
 
   bool isSearchMode = false;
   Future<QueryPublicRoomsResponse>? publicRoomsResponse;

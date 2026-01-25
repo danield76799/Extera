@@ -169,7 +169,7 @@ class Message extends StatelessWidget {
     }
 
     final textColor = ownMessage
-        ? (event.onlyEmotes ? theme.colorScheme.onSurface : theme.onBubbleColor)
+        ? (noBubble ? theme.colorScheme.onSurface : theme.onBubbleColor)
         : theme.colorScheme.onSurface;
 
     final statusColor = theme.brightness == Brightness.dark

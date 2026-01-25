@@ -681,7 +681,7 @@ class ChatController extends State<ChatPageWithRoom>
             XFile.fromData(
               pastedImage,
               mimeType: 'image/png',
-              name: 'clipboard_image.png',
+              // name: 'clipboard_image.png',
             ),
           ],
           room: room,
@@ -1489,12 +1489,13 @@ class ChatController extends State<ChatPageWithRoom>
   void showEdits({Event? event}) {
     event ??= selectedEvents.first;
     final events = event.aggregatedEvents(timeline!, RelationshipTypes.edit);
+    events.add(event);
     showAdaptiveBottomSheet(
       context: context,
       builder: (context) {
         return MessageEditsDialog(
           event: event!,
-          events: events,
+          events: events.sortedBy((element) => element.originServerTs).toSet(),
           controller: this,
         );
       },

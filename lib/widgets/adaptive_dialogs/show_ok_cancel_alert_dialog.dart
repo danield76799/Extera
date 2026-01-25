@@ -4,7 +4,6 @@ import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 
 import 'package:extera_next/utils/url_launcher.dart';
-import 'package:extera_next/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
 
 enum OkCancelResult { ok, cancel }
 
@@ -41,12 +40,17 @@ Future<OkCancelResult?> showOkCancelAlertDialog({
                 ),
         ),
         actions: [
-          AdaptiveDialogAction(
+          OutlinedButton(
+            style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+              ),
             onPressed: () => Navigator.of(context)
                 .pop<OkCancelResult>(OkCancelResult.cancel),
             child: Text(cancelLabel ?? L10n.of(context).cancel),
           ),
-          AdaptiveDialogAction(
+          FilledButton(
             onPressed: () =>
                 Navigator.of(context).pop<OkCancelResult>(OkCancelResult.ok),
             autofocus: true,
@@ -92,7 +96,7 @@ Future<OkCancelResult?> showOkAlertDialog({
                 ),
         ),
         actions: [
-          AdaptiveDialogAction(
+          FilledButton(
             onPressed: () =>
                 Navigator.of(context).pop<OkCancelResult>(OkCancelResult.ok),
             autofocus: true,
