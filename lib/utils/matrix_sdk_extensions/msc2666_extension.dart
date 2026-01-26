@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:matrix/matrix.dart' as matrix;
 
-extension SynapseAdmin on matrix.Client {
+extension Msc2666Extension on matrix.Client {
   Future<bool> isMsc2666Supported() async {
     return (await versionsResponse)
                 .unstableFeatures?['uk.half-shot.msc2666.query_mutual_rooms'] ==
