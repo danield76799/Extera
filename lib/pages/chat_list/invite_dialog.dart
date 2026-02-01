@@ -119,7 +119,7 @@ class InviteDialog extends StatelessWidget {
                     title: Text(
                       L10n.of(context).decline,
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.error,
+                        color: Theme.of(context).colorScheme.onErrorContainer,
                       ),
                     ),
                     onTap: () => decline(context),
@@ -127,10 +127,10 @@ class InviteDialog extends StatelessWidget {
                   const ListDivider(),
                   ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: theme.colorScheme.errorContainer,
+                      backgroundColor: theme.colorScheme.error,
                       child: Icon(
                         Icons.block,
-                        color: theme.colorScheme.onErrorContainer,
+                        color: theme.colorScheme.onError,
                       ),
                     ),
                     title: Text(
