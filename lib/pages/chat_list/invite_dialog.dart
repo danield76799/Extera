@@ -23,10 +23,12 @@ class InviteDialog extends StatelessWidget {
       },
       exceptionContext: ExceptionContext.joinRoom,
     );
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   void decline(BuildContext context) async {
     await showFutureLoadingDialog(context: context, future: room.leave);
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   void block(BuildContext context) async {
@@ -34,6 +36,7 @@ class InviteDialog extends StatelessWidget {
         .getState(EventTypes.RoomMember, room.client.userID!)
         ?.senderId;
     context.go('/rooms/settings/security/ignorelist', extra: userId);
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   @override
