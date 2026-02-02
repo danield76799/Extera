@@ -19,6 +19,7 @@ Extera Next is another generation of Extera, made on top of FluffyChat.
 - End to end encryption
 - Encrypted chat backup
 - Emoji verification & cross signing
+- **Things exclusive to Extera (compared to FluffyChat)**
 - Built-in message translation
 - "About" field in profiles
 - Updated profile design with a list of mutual rooms
