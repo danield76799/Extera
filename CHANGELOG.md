@@ -2,6 +2,8 @@
 - Fixed pasted images not having a name, so they weren't handled by Telegram bridge.
 - Hide spaces and their rooms from global chat list.
 - Fix < and > escaping in code blocks.
+- Fix some styling issues.
+- New invite dialog.
 
 ## Extera 26.0.5
 - Fixed pasting images on Linux.
