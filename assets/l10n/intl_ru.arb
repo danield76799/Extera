@@ -3646,5 +3646,7 @@
   },
   "showSpaceRoomsInGlobalList": "Показывать комнаты из пространств среди всего списка",
   "newInvitation": "Новое приглашение",
-  "useLegacyAppBar": "Использовать старое поле поиска"
+  "legacySwitches": "Откат изменений",
+  "useLegacyAppBar": "Старое поле поиска",
+  "useLegacyNavBar": "Старая панель навигации"
 }

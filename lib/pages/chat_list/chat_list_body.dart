@@ -1,5 +1,5 @@
 import 'package:extera_next/config/setting_keys.dart';
-import 'package:extera_next/pages/chat_list/chat_list_old_header.dart';
+import 'package:extera_next/pages/chat_list/chat_list_legacy_header.dart';
 import 'package:extera_next/shortcuts/chat_list/chat_list_shortcuts.dart';
 import 'package:extera_next/utils/show_profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,7 +94,7 @@ class ChatListViewBody extends StatelessWidget {
               controller: controller.scrollController,
               slivers: [
                 if (AppSettings.useLegacyChatListAppBar.value)
-                  ChatListOldHeader(controller: controller)
+                  ChatListLegacyHeader(controller: controller)
                 else
                   ChatListHeader(controller: controller),
                 SliverList(

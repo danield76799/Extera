@@ -9,11 +9,11 @@ import 'package:extera_next/pages/chat_list/client_chooser_button.dart';
 import 'package:extera_next/utils/sync_status_localization.dart';
 import '../../widgets/matrix.dart';
 
-class ChatListOldHeader extends StatelessWidget implements PreferredSizeWidget {
+class ChatListLegacyHeader extends StatelessWidget implements PreferredSizeWidget {
   final ChatListController controller;
   final bool globalSearch;
 
-  const ChatListOldHeader({
+  const ChatListLegacyHeader({
     super.key,
     required this.controller,
     this.globalSearch = true,

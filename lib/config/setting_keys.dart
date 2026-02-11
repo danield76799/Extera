@@ -60,6 +60,7 @@ abstract class SettingKeys {
 
 enum AppSettings<T> {
   useLegacyChatListAppBar<bool>('xyz.extera.legacyAppBar', false),
+  useLegacyNavBar<bool>('xyz.extera.legacyNavBar', false),
   showSpaceRoomsInGlobalList<bool>('xyz.extera.showSpaceRoomsInGlobalList', true),
   unifiedPushRegistered<bool>(
       'chat.fluffy.unifiedpush.registered', false),

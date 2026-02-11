@@ -3542,5 +3542,7 @@
   },
   "showSpaceRoomsInGlobalList": "Show rooms from spaces alongside other rooms",
   "newInvitation": "New invitation",
-  "useLegacyAppBar": "Use legacy search bar"
+  "legacySwitches": "Legacy switches",
+  "useLegacyAppBar": "Use legacy search bar",
+  "useLegacyNavBar": "Use legacy navigation bar"
 }
