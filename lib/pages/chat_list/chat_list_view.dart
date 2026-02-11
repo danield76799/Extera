@@ -1,5 +1,6 @@
 import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/pages/chat_list/chat_list_bottom_navbar.dart';
+import 'package:extera_next/pages/chat_list/chat_list_legacy_bottom_navbar.dart';
 import 'package:extera_next/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +55,7 @@ class ChatListView extends StatelessWidget {
                 body: Stack(
                   children: [
                     ChatListViewBody(controller),
-                    if (client.rooms.isNotEmpty && !controller.isSearchMode)
+                    if (client.rooms.isNotEmpty && !controller.isSearchMode && !AppSettings.useLegacyNavBar.value)
                       Positioned(
                         left: 0,
                         right: 0,
@@ -78,7 +79,8 @@ class ChatListView extends StatelessWidget {
                         ),
                       ),
                     if (!controller.isSearchMode &&
-                        controller.activeSpaceId == null)
+                        controller.activeSpaceId == null &&
+                        !AppSettings.useLegacyNavBar.value)
                       Positioned(
                         right: 16,
                         bottom: client.rooms.isNotEmpty
@@ -91,7 +93,9 @@ class ChatListView extends StatelessWidget {
                         ),
                       ),
 
-                    if (client.rooms.isNotEmpty && !controller.isSearchMode)
+                    if (client.rooms.isNotEmpty &&
+                        !controller.isSearchMode &&
+                        !AppSettings.useLegacyNavBar.value)
                       Positioned(
                         left: 16,
                         right: 16,
@@ -100,20 +104,24 @@ class ChatListView extends StatelessWidget {
                       ),
                   ],
                 ),
-                // floatingActionButton: !controller.isSearchMode &&
-                //         controller.activeSpaceId == null
-                //     ? FloatingActionButton.extended(
-                //         onPressed: () => context.go('/rooms/newprivatechat'),
-                //         icon: const Icon(Icons.chat_outlined),
-                //         label: Text(L10n.of(context).newChat),
-                //       )
-                //     : const SizedBox.shrink(),
-                // floatingActionButtonLocation:
-                //     FloatingActionButtonLocation.endFloat,
-                // bottomNavigationBar: client.rooms.isNotEmpty &&
-                //         !controller.isSearchMode
-                //     ? ChatListBottomNavbar(controller)
-                //     : null,
+                floatingActionButton:
+                    !controller.isSearchMode &&
+                        controller.activeSpaceId == null &&
+                        AppSettings.useLegacyNavBar.value
+                    ? FloatingActionButton.extended(
+                        onPressed: () => context.go('/rooms/newprivatechat'),
+                        icon: const Icon(Icons.chat_outlined),
+                        label: Text(L10n.of(context).newChat),
+                      )
+                    : const SizedBox.shrink(),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.endFloat,
+                bottomNavigationBar:
+                    client.rooms.isNotEmpty &&
+                        !controller.isSearchMode &&
+                        AppSettings.useLegacyNavBar.value
+                    ? ChatListLegacyBottomNavbar(controller)
+                    : null,
               ),
             ),
           ),
