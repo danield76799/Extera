@@ -59,8 +59,8 @@ class MessageContextMenu extends StatelessWidget {
     final recentEmojis = client.recentEmojis.entries
         .sortedByCompare((element) => element.value, (a, b) => b - a)
         .map((entry) => entry.key)
-        .toList()
-        .sublist(0, 5);
+        .take(5)
+        .toList();
 
     final receipts = room
         .getReceipts(timeline!, eventId: event.eventId)
