@@ -4,6 +4,7 @@
 - Fix < and > escaping in code blocks.
 - Fix some styling issues.
 - New invite dialog.
+- New appbar and navbar design.
 
 ## Extera 26.0.5
 - Fixed pasting images on Linux.

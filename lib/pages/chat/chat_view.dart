@@ -382,8 +382,9 @@ class ChatView extends StatelessWidget {
                               children: [
                                 FilledButton(
                                   onPressed: () {
+                                    controller.scrollToEventId(scrollUpBannerEventId);
                                     controller.discardScrollUpBannerEventId();
-                                    controller.setReadMarker();
+                                    // controller.setReadMarker();
                                   },
                                   style: FilledButton.styleFrom(
                                     shadowColor: Colors.black,
