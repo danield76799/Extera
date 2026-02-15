@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -6,9 +5,9 @@ import 'package:matrix/matrix.dart' as matrix;
 
 extension Msc2666Extension on matrix.Client {
   Future<bool> isMsc2666Supported() async {
-    return (await versionsResponse)
-                .unstableFeatures?['uk.half-shot.msc2666.query_mutual_rooms'] ==
-            true;
+    return (await getVersions())
+            .unstableFeatures?['uk.half-shot.msc2666.query_mutual_rooms'] ==
+        true;
   }
 
   Future<List<String>> queryMutualRoomsIds(String userId) async {

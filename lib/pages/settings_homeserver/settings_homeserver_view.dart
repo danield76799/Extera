@@ -201,7 +201,6 @@ class SettingsHomeserverView extends StatelessWidget {
               const SizedBox(height: 8),
               FutureBuilder(
                 future: client.getWellknown(),
-                initialData: client.wellKnown,
                 builder: (context, snapshot) {
                   final error = snapshot.error;
                   if (error != null) {

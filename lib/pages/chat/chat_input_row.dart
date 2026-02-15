@@ -18,13 +18,13 @@ import 'input_bar.dart';
 class ChatInputRow extends StatelessWidget {
   final ChatController controller;
 
+  static const double height = 48.0;
+
   const ChatInputRow(this.controller, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    const height = 48.0;
 
     final selectedTextButtonStyle = TextButton.styleFrom(
       foregroundColor: theme.colorScheme.onSurface,
@@ -346,6 +346,13 @@ class ChatInputRow extends StatelessWidget {
                             onPressed: () =>
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
+                                    margin: const EdgeInsets.only(
+                                      bottom: height + 16,
+                                      left: 16,
+                                      right: 16,
+                                      top: 16,
+                                    ),
+                                    showCloseIcon: true,
                                     content: Text(
                                       L10n.of(
                                         context,

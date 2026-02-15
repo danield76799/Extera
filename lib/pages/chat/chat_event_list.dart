@@ -51,8 +51,6 @@ class ChatEventList extends StatelessWidget {
     final animateInEventIndex = controller.animateInEventIndex;
     final threads = controller.room.threads;
 
-    // create a map of eventId --> index to greatly improve performance of
-    // ListView's findChildIndexCallback
     final thisEventsKeyMap = <String, int>{};
     for (var i = 0; i < events.length; i++) {
       thisEventsKeyMap[events[i].eventId] = i;
@@ -61,137 +59,130 @@ class ChatEventList extends StatelessWidget {
     final hasWallpaper =
         controller.room.client.applicationAccountConfig.wallpaperUrl != null;
 
-    return SelectionArea(
-      child: CustomScrollView(
-        controller: controller.scrollController,
-        reverse: true,
-        keyboardDismissBehavior: PlatformInfos.isIOS
-            ? ScrollViewKeyboardDismissBehavior.onDrag
-            : ScrollViewKeyboardDismissBehavior.manual,
-        slivers: [
-          SliverPadding(
-            padding: EdgeInsets.only(
-              top: 16,
-              bottom: 8,
-              left: horizontalPadding,
-              right: horizontalPadding,
-            ),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int i) {
-                  // Footer to display typing indicator and read receipts:
-                  if (i == 0) {
-                    if (timeline.canRequestFuture) {
-                      return Center(
-                        child: ElevatedButton(
-                          onPressed: controller.requestFuture,
-                          child: timeline.isRequestingFuture
-                              ? const LinearProgressIndicator()
-                              : Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(Icons.arrow_downward),
-                                    const SizedBox(width: 5),
-                                    Text(L10n.of(context).loadMore),
-                                  ],
-                                ),
-                        ),
-                      );
-                    }
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // SeenByRow(controller),
-                        TypingIndicators(controller),
-                      ],
+    return CustomScrollView(
+      controller: controller.scrollController,
+      reverse: true,
+      keyboardDismissBehavior: PlatformInfos.isIOS
+          ? ScrollViewKeyboardDismissBehavior.onDrag
+          : ScrollViewKeyboardDismissBehavior.manual,
+      slivers: [
+        SliverPadding(
+          padding: EdgeInsets.only(
+            top: 16,
+            bottom: 8,
+            left: horizontalPadding,
+            right: horizontalPadding,
+          ),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int i) {
+                if (i == 0) {
+                  if (timeline.canRequestFuture) {
+                    return Center(
+                      child: ElevatedButton(
+                        onPressed: controller.requestFuture,
+                        child: timeline.isRequestingFuture
+                            ? const LinearProgressIndicator()
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.arrow_downward),
+                                  const SizedBox(width: 5),
+                                  Text(L10n.of(context).loadMore),
+                                ],
+                              ),
+                      ),
                     );
                   }
-
-                  // Request history button or progress indicator:
-                  if (i == events.length + 1) {
-                    if (timeline.canRequestHistory) {
-                      return Builder(
-                        builder: (context) {
-                          WidgetsBinding.instance
-                              .addPostFrameCallback(controller.requestHistory);
-                          return Center(
-                            child: ElevatedButton(
-                              onPressed: controller.requestHistory,
-                              child: timeline.isRequestingHistory
-                                  ? const LinearProgressIndicator()
-                                  : Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Icon(Icons.arrow_upward),
-                                        const SizedBox(width: 5),
-                                        Text(L10n.of(context).loadMore),
-                                      ],
-                                    ),
-                            ),
-                          );
-                        },
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  }
-                  i--;
-
-                  // The message at this index:
-                  final event = events[i];
-                  final animateIn = animateInEventIndex != null &&
-                      timeline.events.length > animateInEventIndex &&
-                      event == timeline.events[animateInEventIndex];
-
-                  final thread = threads.containsKey(event.eventId)
-                      ? threads[event.eventId]
-                      : null;
-
-                  return AutoScrollTag(
-                    key: ValueKey(event.eventId),
-                    index: i,
-                    controller: controller.scrollController,
-                    child: Message(
-                      event,
-                      animateIn: animateIn,
-                      thread: thread,
-                      resetAnimateIn: () {
-                        controller.animateInEventIndex = null;
-                      },
-                      singleSelected: controller.selectedEvents.length == 1 &&
-                          controller.selectedEvents.first.eventId ==
-                              event.eventId,
-                      onSwipe: () => controller.replyAction(replyTo: event),
-                      onInfoTab: controller.showEventInfo,
-                      onMention: () => controller.sendController.text +=
-                          '${event.senderFromMemoryOrFallback.mention} ',
-                      highlightMarker:
-                          controller.scrollToEventIdMarker == event.eventId,
-                      onSelect: controller.onSelectMessage,
-                      scrollToEventId: (String eventId) =>
-                          controller.scrollToEventId(eventId),
-                      longPressSelect: controller.selectedEvents.isNotEmpty,
-                      selected: controller.selectedEvents
-                          .any((e) => e.eventId == event.eventId),
-                      timeline: timeline,
-                      displayReadMarker: i > 0 &&
-                          controller.readMarkerEventId == event.eventId,
-                      nextEvent: i + 1 < events.length ? events[i + 1] : null,
-                      previousEvent: i > 0 ? events[i - 1] : null,
-                      wallpaperMode: hasWallpaper,
-                      scrollController: controller.scrollController,
-                      colors: colors,
-                      gradient: AppSettings.enableGradient.value,
-                    ),
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TypingIndicators(controller),
+                    ],
                   );
-                },
-                childCount: events.length + 2,
-                findChildIndexCallback: (key) =>
-                    controller.findChildIndexCallback(key, thisEventsKeyMap),
-              ),
+                }
+
+                if (i == events.length + 1) {
+                  if (timeline.canRequestHistory) {
+                    return Builder(
+                      builder: (context) {
+                        WidgetsBinding.instance
+                            .addPostFrameCallback(controller.requestHistory);
+                        return Center(
+                          child: ElevatedButton(
+                            onPressed: controller.requestHistory,
+                            child: timeline.isRequestingHistory
+                                ? const LinearProgressIndicator()
+                                : Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.arrow_upward),
+                                      const SizedBox(width: 5),
+                                      Text(L10n.of(context).loadMore),
+                                    ],
+                                  ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }
+                i--;
+
+                final event = events[i];
+                final animateIn = animateInEventIndex != null &&
+                    timeline.events.length > animateInEventIndex &&
+                    event == timeline.events[animateInEventIndex];
+
+                final thread = threads.containsKey(event.eventId)
+                    ? threads[event.eventId]
+                    : null;
+
+                return AutoScrollTag(
+                  key: ValueKey(event.eventId),
+                  index: i,
+                  controller: controller.scrollController,
+                  child: Message(
+                    event,
+                    animateIn: animateIn,
+                    thread: thread,
+                    resetAnimateIn: () {
+                      controller.animateInEventIndex = null;
+                    },
+                    singleSelected: controller.selectedEvents.length == 1 &&
+                        controller.selectedEvents.first.eventId ==
+                            event.eventId,
+                    onSwipe: () => controller.replyAction(replyTo: event),
+                    onInfoTab: controller.showEventInfo,
+                    onMention: () => controller.sendController.text +=
+                        '${event.senderFromMemoryOrFallback.mention} ',
+                    highlightMarker:
+                        controller.scrollToEventIdMarker == event.eventId,
+                    onSelect: controller.onSelectMessage,
+                    scrollToEventId: (String eventId) =>
+                        controller.scrollToEventId(eventId),
+                    longPressSelect: controller.selectedEvents.isNotEmpty,
+                    selected: controller.selectedEvents
+                        .any((e) => e.eventId == event.eventId),
+                    timeline: timeline,
+                    displayReadMarker:
+                        i > 0 && controller.readMarkerEventId == event.eventId,
+                    nextEvent: i + 1 < events.length ? events[i + 1] : null,
+                    previousEvent: i > 0 ? events[i - 1] : null,
+                    wallpaperMode: hasWallpaper,
+                    colors: colors,
+                    gradient: AppSettings.enableGradient.value,
+                  ),
+                );
+              },
+              childCount: events.length + 2,
+              findChildIndexCallback: (key) =>
+                  controller.findChildIndexCallback(key, thisEventsKeyMap),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
