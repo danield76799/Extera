@@ -1,3 +1,8 @@
+## Extera 26.0.7
+- Fixed message context menu.
+- Added download button in message menu.
+- Made navbar more responsive.
+
 ## Extera 26.0.6
 - Fixed pasted images not having a name, so they weren't handled by Telegram bridge.
 - Hide spaces and their rooms from global chat list.
