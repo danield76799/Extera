@@ -314,7 +314,7 @@ class ChatView extends StatelessWidget {
                               child: Material(
                                 clipBehavior: Clip.hardEdge,
                                 color: theme.colorScheme.surfaceContainerHigh,
-                                borderRadius: BorderRadius.circular(32),
+                                borderRadius: BorderRadius.circular(24),
                                 child: controller.room.isAbandonedDMRoom == true
                                     ? Row(
                                         mainAxisAlignment:
