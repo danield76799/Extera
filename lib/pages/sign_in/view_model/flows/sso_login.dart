@@ -18,7 +18,7 @@ Future<void> ssoLoginFlow(
           html.window.location.href,
         ).resolveUri(Uri(pathSegments: ['auth.html'])).toString()
       : (PlatformInfos.isMobile || PlatformInfos.isWeb || PlatformInfos.isMacOS)
-      ? '${AppConfig.appOpenUrlScheme.toLowerCase()}://login'
+      ? '${AppConfig.appOpenUrlScheme.toLowerCase()}://login/'
       : 'http://localhost:3001//login';
 
   final url = client.homeserver!.replace(
@@ -36,10 +36,10 @@ Future<void> ssoLoginFlow(
   final result = await FlutterWebAuth2.authenticate(
     url: url.toString(),
     callbackUrlScheme: urlScheme,
-    options: FlutterWebAuth2Options(useWebview: PlatformInfos.isMobile),
+    options: const FlutterWebAuth2Options(),
   );
   final token = Uri.parse(result).queryParameters['loginToken'];
-  if (token?.isEmpty ?? false) return;
+  if (token == null || token.isEmpty) return;
 
   await client.login(
     LoginType.mLoginToken,

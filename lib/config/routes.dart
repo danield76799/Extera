@@ -68,26 +68,20 @@ abstract class AppRoutes {
     ),
     GoRoute(
       path: '/home',
-      redirect: loggedInRedirect,
       pageBuilder: (context, state) =>
           defaultPageBuilder(context, state, const IntroPage()),
+      redirect: loggedInRedirect,
       routes: [
         GoRoute(
           path: 'sign_in',
-          pageBuilder: (context, state) => defaultPageBuilder(
-            context,
-            state,
-            const SignInPage(signUp: false),
-          ),
+          pageBuilder: (context, state) =>
+              defaultPageBuilder(context, state, SignInPage(signUp: false)),
           redirect: loggedInRedirect,
         ),
         GoRoute(
           path: 'sign_up',
-          pageBuilder: (context, state) => defaultPageBuilder(
-            context,
-            state,
-            const SignInPage(signUp: true),
-          ),
+          pageBuilder: (context, state) =>
+              defaultPageBuilder(context, state, SignInPage(signUp: true)),
           redirect: loggedInRedirect,
         ),
         GoRoute(
@@ -329,22 +323,15 @@ abstract class AppRoutes {
                     GoRoute(
                       path: 'addaccount',
                       redirect: loggedOutRedirect,
+                      pageBuilder: (context, state) =>
+                          defaultPageBuilder(context, state, const IntroPage()),
                       routes: [
-                        GoRoute(
-                          path: 'login',
-                          pageBuilder: (context, state) => defaultPageBuilder(
-                            context,
-                            state,
-                            Login(client: state.extra as Client),
-                          ),
-                          redirect: loggedInRedirect,
-                        ),
                         GoRoute(
                           path: 'sign_in',
                           pageBuilder: (context, state) => defaultPageBuilder(
                             context,
                             state,
-                            const SignInPage(signUp: false),
+                            SignInPage(signUp: false),
                           ),
                           redirect: loggedOutRedirect,
                         ),
@@ -353,7 +340,16 @@ abstract class AppRoutes {
                           pageBuilder: (context, state) => defaultPageBuilder(
                             context,
                             state,
-                            const SignInPage(signUp: true),
+                            SignInPage(signUp: true),
+                          ),
+                          redirect: loggedOutRedirect,
+                        ),
+                        GoRoute(
+                          path: 'login',
+                          pageBuilder: (context, state) => defaultPageBuilder(
+                            context,
+                            state,
+                            Login(client: state.extra as Client),
                           ),
                           redirect: loggedOutRedirect,
                         ),
