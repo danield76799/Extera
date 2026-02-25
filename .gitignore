@@ -12,6 +12,8 @@
 .svn/
 prime
 
+/node_modules
+
 # libolm package
 /assets/js/package
 /lib/generated

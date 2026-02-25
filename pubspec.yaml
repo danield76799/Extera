@@ -99,6 +99,8 @@ dependencies:
   vodozemac: ^0.5.0
   wakelock_plus: ^1.4.0
   webrtc_interface: ^1.4.0
+  webview_flutter: ^4.10.0
+  desktop_webview_window: ^0.2.3
   dio: ^5.9.0
   uuid: ^4.5.2
   flutter_ringtone_player: ^4.0.0+4
