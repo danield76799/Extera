@@ -1459,37 +1459,10 @@ class ChatController extends State<ChatPageWithRoom>
       _contextMenuController!.show(
         context: context,
         contextMenuBuilder: (context) {
-          final screenSize = MediaQuery.of(context).size;
-          final padding = MediaQuery.of(context).padding;
-
-          const menuWidth = 280.0;
-          const menuHeight = 580.0;
-
-          var left = tapPosition!.dx;
-          if (left + menuWidth > screenSize.width) {
-            left = screenSize.width - menuWidth - 10;
-          }
-          if (left < 10) left = 10;
-
-          var top = tapPosition.dy;
-          if (top + menuHeight > screenSize.height - padding.bottom) {
-            top = tapPosition.dy - menuHeight;
-          }
-          if (top < padding.top) top = padding.top + 10;
-
-          return Stack(
-            children: [
-              GestureDetector(
-                onTap: () => _contextMenuController?.remove(),
-                behavior: HitTestBehavior.translucent,
-                child: Container(color: Colors.transparent),
-              ),
-              Positioned(
-                left: left,
-                top: top,
-                child: MessageContextMenu(controller: this, event: event),
-              ),
-            ],
+          return _ContextMenuOverlay(
+            tapPosition: tapPosition ?? Offset.zero,
+            onDismiss: () => _contextMenuController?.remove(),
+            child: MessageContextMenu(controller: this, event: event),
           );
         },
       );
@@ -1783,3 +1756,72 @@ class ChatController extends State<ChatPageWithRoom>
 }
 
 enum EmojiPickerType { reaction, keyboard }
+
+class _ContextMenuOverlay extends StatelessWidget {
+  final Offset tapPosition;
+  final VoidCallback onDismiss;
+  final Widget child;
+
+  const _ContextMenuOverlay({
+    required this.tapPosition,
+    required this.onDismiss,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: onDismiss,
+          behavior: HitTestBehavior.translucent,
+          child: Container(color: Colors.transparent),
+        ),
+        CustomSingleChildLayout(
+          delegate: _ContextMenuLayoutDelegate(tapPosition: tapPosition),
+          child: child,
+        ),
+      ],
+    );
+  }
+}
+
+class _ContextMenuLayoutDelegate extends SingleChildLayoutDelegate {
+  final Offset tapPosition;
+
+  _ContextMenuLayoutDelegate({required this.tapPosition});
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
+    return BoxConstraints.loose(constraints.biggest);
+  }
+
+  @override
+  Offset getPositionForChild(Size size, Size childSize) {
+    const margin = 10.0;
+
+    var left = tapPosition.dx;
+    var top = tapPosition.dy;
+
+    // If menu would overflow right edge, shift left
+    if (left + childSize.width > size.width - margin) {
+      left = size.width - childSize.width - margin;
+    }
+    // If menu would overflow left edge, clamp
+    if (left < margin) left = margin;
+
+    // If menu would overflow bottom edge, show above tap position
+    if (top + childSize.height > size.height - margin) {
+      top = tapPosition.dy - childSize.height;
+    }
+    // If menu would overflow top edge, clamp
+    if (top < margin) top = margin;
+
+    return Offset(left, top);
+  }
+
+  @override
+  bool shouldRelayout(_ContextMenuLayoutDelegate oldDelegate) {
+    return tapPosition != oldDelegate.tapPosition;
+  }
+}
