@@ -3556,5 +3556,17 @@
   "downloadSuccess": "File successfully saved",
   "audioMessage": "Audio message",
   "noCustomPrivacySettings": "No custom privacy settings",
-  "noCustomPrivacySettingsDetails": "Rooms with custom privacy configurations will appear here. You can set per-room privacy options from a room's details page."
+  "noCustomPrivacySettingsDetails": "Rooms with custom privacy configurations will appear here. You can set per-room privacy options from a room's details page.",
+  "selectPushDistributor": "Select push distributor",
+  "@selectPushDistributor": {
+    "type": "String",
+    "placeholders": {}
+  },
+  "joinRoomByLinkConfirmation": "Join room {room}?",
+  "@joinRoomByLinkConfirmation": {
+    "type": "String",
+    "placeholders": {
+        "room": { "type": "String" }
+    }
+  }
 }
