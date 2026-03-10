@@ -344,6 +344,22 @@ class SettingsView extends StatelessWidget {
                           const ListDivider(),
                           ListTile(
                             leading: CircleAvatar(
+                              backgroundColor: theme.colorScheme.primary,
+                              child: Icon(
+                                Icons.toggle_on_outlined,
+                                color: theme.colorScheme.onPrimary,
+                              ),
+                            ),
+                            title: Text(L10n.of(context).featureSwitches),
+                            onTap: () => context.go('/rooms/settings/features'),
+                            tileColor:
+                                activeRoute.startsWith('/rooms/settings/features')
+                                ? theme.colorScheme.surfaceContainerHigh
+                                : null,
+                          ),
+                          const ListDivider(),
+                          ListTile(
+                            leading: CircleAvatar(
                               backgroundColor: theme.colorScheme.tertiary,
                               child: Icon(
                                 Icons.shield_outlined,

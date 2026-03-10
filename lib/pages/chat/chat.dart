@@ -927,7 +927,13 @@ class ChatController extends State<ChatPageWithRoom>
   }
 
   void translateEventAction({Event? event}) async {
+    if (!AppSettings.messageTranslation.value) {
+      return;
+    }
     event ??= selectedEvents.single;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(L10n.of(context).translating)));
     var text = event.isRichMessage ? event.formattedText : event.text;
     final content = {...event.content};
     try {
@@ -1323,10 +1329,18 @@ class ChatController extends State<ChatPageWithRoom>
     final packPrefix = (!isUnique && insertPack != null) ? '$insertPack~' : '';
     final insertText = ':$packPrefix$customId: ';
 
-    final start = (selection.isValid ? selection.start : text.length).clamp(0, text.length);
-    final end = (selection.isValid ? selection.end : text.length).clamp(0, text.length);
+    final start = (selection.isValid ? selection.start : text.length).clamp(
+      0,
+      text.length,
+    );
+    final end = (selection.isValid ? selection.end : text.length).clamp(
+      0,
+      text.length,
+    );
 
-    final newText = text.isEmpty ? insertText : text.replaceRange(start, end, insertText);
+    final newText = text.isEmpty
+        ? insertText
+        : text.replaceRange(start, end, insertText);
     final cursorOffset = (start + insertText.length).clamp(0, newText.length);
 
     sendController.value = TextEditingValue(

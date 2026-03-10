@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/utils/clean_exif.dart';
+import 'package:extera_next/utils/loading_snackbar_extension.dart';
 import 'package:extera_next/widgets/adaptive_dialogs/image_editor_dialog.dart';
 import 'package:extera_next/widgets/matrix.dart';
 import 'package:flutter/cupertino.dart' hide Image;
@@ -544,31 +545,6 @@ class SendFileDialogState extends State<SendFileDialog> {
           ],
         );
       },
-    );
-  }
-}
-
-extension on ScaffoldMessengerState {
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showLoadingSnackBar(
-    String title,
-  ) {
-    clearSnackBars();
-    return showSnackBar(
-      SnackBar(
-        duration: const Duration(minutes: 5),
-        dismissDirection: DismissDirection.none,
-        content: Row(
-          children: [
-            const SizedBox(
-              width: 16,
-              height: 16,
-              child: CircularProgressIndicator.adaptive(strokeWidth: 2),
-            ),
-            const SizedBox(width: 16),
-            Text(title),
-          ],
-        ),
-      ),
     );
   }
 }

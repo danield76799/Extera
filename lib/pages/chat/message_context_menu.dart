@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:extera_next/config/app_config.dart';
+import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/chat/chat.dart';
 import 'package:extera_next/pages/download_manager/download_manager.dart';
@@ -545,7 +546,7 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                             },
                           ),
                           const ListDivider(),
-                          if (!room.encrypted) ...[
+                          if (!room.encrypted && AppSettings.messageTranslation.value) ...[
                             _buildMenuItem(
                               event: event,
                               icon: Icons.translate,

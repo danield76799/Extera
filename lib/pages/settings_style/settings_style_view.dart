@@ -580,33 +580,6 @@ class SettingsStyleView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Material(
-                color: theme.colorScheme.surfaceContainerHigh,
-                clipBehavior: .hardEdge,
-                borderRadius: borderRadius,
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        L10n.of(context).legacySwitches,
-                        style: TextStyle(
-                          color: theme.colorScheme.secondary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SettingsSwitchListTile.adaptive(
-                      title: L10n.of(context).useLegacyAppBar,
-                      setting: AppSettings.useLegacyChatListAppBar,
-                    ),
-                    const ListDivider(),
-                    SettingsSwitchListTile.adaptive(
-                      title: L10n.of(context).useLegacyNavBar,
-                      setting: AppSettings.useLegacyNavBar,
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

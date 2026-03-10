@@ -32,6 +32,7 @@ import 'package:extera_next/pages/settings/settings.dart';
 import 'package:extera_next/pages/settings_3pid/settings_3pid.dart';
 import 'package:extera_next/pages/settings_chat/settings_chat.dart';
 import 'package:extera_next/pages/settings_emotes/settings_emotes.dart';
+import 'package:extera_next/pages/settings_features/settings_features.dart';
 import 'package:extera_next/pages/settings_homeserver/settings_homeserver.dart';
 import 'package:extera_next/pages/settings_ignore_list/settings_ignore_list.dart';
 import 'package:extera_next/pages/settings_multiple_emotes/settings_multiple_emotes.dart';
@@ -317,6 +318,15 @@ abstract class AppRoutes {
                         context,
                         state,
                         const SettingsRingtone(),
+                      ),
+                      redirect: loggedOutRedirect,
+                    ),
+                    GoRoute(
+                      path: 'features',
+                      pageBuilder: (context, state) => defaultPageBuilder(
+                        context,
+                        state,
+                        const SettingsFeatures(),
                       ),
                       redirect: loggedOutRedirect,
                     ),

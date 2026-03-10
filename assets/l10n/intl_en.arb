@@ -3542,9 +3542,9 @@
   },
   "showSpaceRoomsInGlobalList": "Show rooms from spaces alongside other rooms",
   "newInvitation": "New invitation",
-  "legacySwitches": "Legacy switches",
-  "useLegacyAppBar": "Use legacy search bar",
-  "useLegacyNavBar": "Use legacy navigation bar",
+  "featureSwitches": "Feature switches",
+  "useLegacyAppBar": "Legacy search bar",
+  "useLegacyNavBar": "Legacy navigation bar",
   "appIntro": "Welcome to Extera. This is a decentralised chat app for [matrix]. Learn more at https://matrix.org/",
   "signIn": "Sign in",
   "createNewAccount": "Sign up",
@@ -3568,5 +3568,7 @@
     "placeholders": {
         "room": { "type": "String" }
     }
-  }
+  },
+  "translating": "Translating...",
+  "messageTranslations": "Message translations"
 }
