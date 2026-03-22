@@ -101,119 +101,102 @@ class ImageBubble extends StatelessWidget {
       );
     }
 
-    return LayoutBuilder(
-      builder: (builder, constraints) {
-        final availableWidth = constraints.maxWidth;
-        final scale = availableWidth < width ? availableWidth / width : 1.0;
-        final effectiveWidth = width * scale;
-        final effectiveHeight = height * scale;
-
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 8,
-          children: [
-            Material(
-              color: Colors.transparent,
-              clipBehavior: Clip.hardEdge,
-              shape: RoundedRectangleBorder(
-                borderRadius: borderRadius,
-                side: BorderSide(
-                  color: event.messageType == MessageTypes.Sticker
-                      ? Colors.transparent
-                      : theme.dividerColor,
-                ),
-              ),
-              child: InkWell(
-                onTap: () => _onTap(context),
-                borderRadius: borderRadius,
-                child: Hero(
-                  tag: event.eventId,
-                  child: MxcImage(
-                    event: event,
-                    width: effectiveWidth,
-                    height: effectiveHeight,
-                    fit: fit,
-                    animated: animated,
-                    isThumbnail: thumbnailOnly,
-                    placeholder: event.messageType == MessageTypes.Sticker
-                        ? null
-                        : _buildPlaceholder,
-                  ),
-                ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 8,
+      children: [
+        Material(
+          color: Colors.transparent,
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(
+            borderRadius: borderRadius,
+            side: BorderSide(
+              color: event.messageType == MessageTypes.Sticker
+                  ? Colors.transparent
+                  : theme.dividerColor,
+            ),
+          ),
+          child: InkWell(
+            onTap: () => _onTap(context),
+            borderRadius: borderRadius,
+            child: Hero(
+              tag: event.eventId,
+              child: MxcImage(
+                event: event,
+                width: width,
+                height: height,
+                fit: fit,
+                animated: animated,
+                isThumbnail: thumbnailOnly,
+                placeholder: event.messageType == MessageTypes.Sticker
+                    ? null
+                    : _buildPlaceholder,
               ),
             ),
-            if (fileDescription != null &&
-                textColor != null &&
-                !event.isRichFileDescription)
-              SizedBox(
-                width: width,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Linkify(
-                    text: fileDescription,
-                    textScaleFactor: MediaQuery.textScalerOf(context).scale(1),
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize:
-                          AppSettings.fontSizeFactor.value *
-                          AppSettings.messageFontSize.value,
-                    ),
-                    options: const LinkifyOptions(humanize: false),
-                    linkStyle: TextStyle(
-                      color: linkColor,
-                      fontSize:
-                          AppSettings.fontSizeFactor.value *
-                          AppSettings.messageFontSize.value,
-                      decoration: TextDecoration.underline,
-                      decorationColor: linkColor,
-                    ),
-                    onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
-                  ),
+          ),
+        ),
+        if (fileDescription != null &&
+            textColor != null &&
+            !event.isRichFileDescription)
+          SizedBox(
+            width: width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Linkify(
+                text: fileDescription,
+                textScaleFactor: MediaQuery.textScalerOf(context).scale(1),
+                style: TextStyle(
+                  color: textColor,
+                  fontSize:
+                      AppSettings.fontSizeFactor.value *
+                      AppSettings.messageFontSize.value,
                 ),
-              ),
-            if (fileDescription != null &&
-                textColor != null &&
-                event.isRichFileDescription)
-              SizedBox(
-                width: width,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: HtmlMessage(
-                    html: fileDescription,
-                    textColor: textColor,
-                    room: event.room,
-                    fontSize:
-                        AppSettings.fontSizeFactor.value *
-                        AppSettings.messageFontSize.value,
-                    linkStyle: TextStyle(
-                      color: linkColor,
-                      fontSize:
-                          AppSettings.fontSizeFactor.value *
-                          AppSettings.messageFontSize.value,
-                      decoration: TextDecoration.underline,
-                      decorationColor: linkColor,
-                    ),
-                    onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
-                    onCopy: () {
-                      Clipboard.setData(ClipboardData(text: event.body));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(L10n.of(context).copiedToClipboard),
-                        ),
-                      );
-                    },
-                  ),
+                options: const LinkifyOptions(humanize: false),
+                linkStyle: TextStyle(
+                  color: linkColor,
+                  fontSize:
+                      AppSettings.fontSizeFactor.value *
+                      AppSettings.messageFontSize.value,
+                  decoration: TextDecoration.underline,
+                  decorationColor: linkColor,
                 ),
+                onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
               ),
-          ],
-        );
-      },
+            ),
+          ),
+        if (fileDescription != null &&
+            textColor != null &&
+            event.isRichFileDescription)
+          SizedBox(
+            width: width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: HtmlMessage(
+                html: fileDescription,
+                textColor: textColor,
+                room: event.room,
+                fontSize:
+                    AppSettings.fontSizeFactor.value *
+                    AppSettings.messageFontSize.value,
+                linkStyle: TextStyle(
+                  color: linkColor,
+                  fontSize:
+                      AppSettings.fontSizeFactor.value *
+                      AppSettings.messageFontSize.value,
+                  decoration: TextDecoration.underline,
+                  decorationColor: linkColor,
+                ),
+                onOpen: (url) => UrlLauncher(context, url.url).launchUrl(),
+                onCopy: () {
+                  Clipboard.setData(ClipboardData(text: event.body));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(L10n.of(context).copiedToClipboard)),
+                  );
+                },
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

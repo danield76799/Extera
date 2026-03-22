@@ -269,9 +269,6 @@ class _MxcImageState extends State<MxcImage> {
       },
     );
 
-    if (widget.borderRadius == BorderRadius.zero) {
-      return imageWidget;
-    }
     return ClipRRect(
       key: ValueKey(widget.cacheKey ?? widget.uri),
       borderRadius: widget.borderRadius,
