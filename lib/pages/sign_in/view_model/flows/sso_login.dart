@@ -18,8 +18,8 @@ Future<void> ssoLoginFlow(
           html.window.location.href,
         ).resolveUri(Uri(pathSegments: ['auth.html'])).toString()
       : (PlatformInfos.isMobile || PlatformInfos.isWeb || PlatformInfos.isMacOS)
-      ? '${AppConfig.appOpenUrlScheme.toLowerCase()}://login/'
-      : 'http://localhost:3001//login';
+      ? '${AppConfig.appOpenUrlScheme.toLowerCase()}:/login'
+      : 'http://localhost:3001/login';
 
   final url = client.homeserver!.replace(
     path: '/_matrix/client/v3/login/sso/redirect',

@@ -126,7 +126,7 @@ class ChatEventList extends StatelessWidget {
                 i--;
 
                 final event = events[i];
-                final animateIn = i == 0 && controller.firstUpdateReceived;
+                final animateIn = i == 0 && (DateTime.now().millisecondsSinceEpoch - event.originServerTs.millisecondsSinceEpoch) < 1000 && controller.firstUpdateReceived;
 
                 final thread = threads.containsKey(event.eventId)
                     ? threads[event.eventId]
