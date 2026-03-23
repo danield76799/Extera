@@ -829,47 +829,27 @@ class _AnimateIn extends StatefulWidget {
   State<_AnimateIn> createState() => __AnimateInState();
 }
 
-class __AnimateInState extends State<_AnimateIn>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<Offset> _slideAnimation;
-  late final Animation<double> _fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: FluffyThemes.animationDuration,
-      vsync: this,
-    );
-    _slideAnimation =
-        Tween<Offset>(begin: const Offset(0, 1.0), end: Offset.zero).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: FluffyThemes.animationCurve,
-          ),
-        );
-    _fadeAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: FluffyThemes.animationCurve,
-    );
-    if (widget.animateIn) {
-      _controller.forward();
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class __AnimateInState extends State<_AnimateIn> {
+  bool _animationFinished = false;
   @override
   Widget build(BuildContext context) {
     if (!widget.animateIn) return widget.child;
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: SlideTransition(position: _slideAnimation, child: widget.child),
+    if (!_animationFinished) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          _animationFinished = true;
+        });
+      });
+    }
+    return AnimatedOpacity(
+      duration: FluffyThemes.animationDuration,
+      curve: FluffyThemes.animationCurve,
+      opacity: _animationFinished ? 1 : 0,
+      child: AnimatedSize(
+        duration: FluffyThemes.animationDuration,
+        curve: FluffyThemes.animationCurve,
+        child: _animationFinished ? widget.child : const SizedBox.shrink(),
+      ),
     );
   }
 }

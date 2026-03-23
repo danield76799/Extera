@@ -125,8 +125,6 @@ class MessageContent extends StatelessWidget {
             if (event.redacted) continue textmessage;
             final maxSize = event.messageType == MessageTypes.Sticker
                 ? 128.0
-                : event.messageType == MessageTypes.Image
-                ? 512.0
                 : 256.0;
             final w = event.content
                 .tryGetMap<String, Object?>('info')
