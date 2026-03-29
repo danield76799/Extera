@@ -15,6 +15,7 @@ import 'package:extera_next/widgets/matrix.dart';
 import 'package:extera_next/widgets/mxc_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:emojis/emoji.dart';
 import 'package:matrix/matrix.dart';
 
 class MessageContextMenu extends StatefulWidget {
@@ -250,73 +251,127 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                                   if (!PlatformInfos.isMobile) {
                                     controller.closeMessageMenu();
                                   }
-                                  final emoji =
-                                      await showAdaptiveBottomSheet<String>(
-                                        context: context,
-                                        builder: (context) => Scaffold(
-                                          appBar: AppBar(
-                                            title: Text(
-                                              L10n.of(context).customReaction,
-                                            ),
-                                            leading: CloseButton(
-                                              onPressed: () => Navigator.of(
-                                                context,
-                                              ).pop(null),
-                                            ),
-                                          ),
-                                          body: SizedBox(
-                                            height: double.infinity,
-                                            child: MatrixEmojiPicker(
-                                              onEmojiSelected: (_, emoji) =>
-                                                  Navigator.of(context).pop(
-                                                    emoji.customData ??
-                                                        emoji
-                                                            .standardEmoji!
-                                                            .char,
-                                                  ),
-                                              onBackspacePressed: () {},
-                                              customCategories: imagePacks
-                                                  .entries
-                                                  .map(
-                                                    (entry) => CustomCategory(
-                                                      id: entry.key,
-                                                      name: entry
-                                                          .value
-                                                          .pack
-                                                          .displayName!,
-                                                      icon: MxcImage(
-                                                        uri: entry
-                                                            .value
-                                                            .images
-                                                            .values
-                                                            .first
-                                                            .url,
-                                                        width: 32,
-                                                        height: 32,
-                                                      ),
-                                                      emojis: entry.value.images
-                                                          .map((name, content) {
-                                                            return MapEntry(
-                                                              name,
-                                                              content.url
-                                                                  .toString(),
-                                                            );
-                                                          }),
-                                                    ),
-                                                  )
-                                                  .toList(),
-                                              customEmojiBuilder:
-                                                  (context, name, size) {
-                                                    return MxcImage(
-                                                      uri: Uri.parse(name),
-                                                      width: 32,
-                                                      height: 32,
-                                                    );
-                                                  },
-                                            ),
-                                          ),
+                                  final emoji = await showAdaptiveBottomSheet<String>(
+                                    context: context,
+                                    builder: (context) => Scaffold(
+                                      appBar: AppBar(
+                                        title: Text(
+                                          L10n.of(context).customReaction,
                                         ),
-                                      );
+                                        leading: CloseButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(null),
+                                        ),
+                                      ),
+                                      body: SizedBox(
+                                        height: double.infinity,
+                                        child: MatrixEmojiPicker(
+                                          onEmojiSelected: (_, emoji) =>
+                                              Navigator.of(context).pop(
+                                                emoji.customData ??
+                                                    emoji.standardEmoji!.char,
+                                              ),
+                                          onBackspacePressed: () {},
+                                          recentEmojis: recentEmojis.map((
+                                            recent,
+                                          ) {
+                                            // MXC custom emoji
+                                            if (recent.startsWith('mxc://')) {
+                                              for (final entry
+                                                  in imagePacks.entries) {
+                                                for (final imgEntry
+                                                    in entry
+                                                        .value
+                                                        .images
+                                                        .entries) {
+                                                  final url = imgEntry.value.url
+                                                      .toString();
+                                                  if (url == recent) {
+                                                    return PickerEmoji.custom(
+                                                      name: imgEntry.key,
+                                                      customData: url,
+                                                      categoryId: entry.key,
+                                                    );
+                                                  }
+                                                }
+                                              }
+
+                                              // fallback: keep the MXC url as custom data
+                                              return PickerEmoji.custom(
+                                                name: recent,
+                                                customData: recent,
+                                                categoryId: null,
+                                              );
+                                            }
+
+                                            // Try to find a matching standard Emoji by char, name or shortName
+                                            Emoji? found;
+                                            final all = Emoji.all();
+                                            try {
+                                              found = all.firstWhere(
+                                                (e) =>
+                                                    e.char == recent ||
+                                                    e.name == recent ||
+                                                    e.shortName == recent,
+                                              );
+                                            } catch (_) {
+                                              found = null;
+                                            }
+
+                                            if (found != null) {
+                                              return PickerEmoji.standard(
+                                                found,
+                                              );
+                                            }
+
+                                            // fallback: treat as custom string
+                                            return PickerEmoji.custom(
+                                              name: recent,
+                                              customData: recent,
+                                              categoryId: null,
+                                            );
+                                          }).toList(),
+                                          customCategories: imagePacks.entries
+                                              .map(
+                                                (entry) => CustomCategory(
+                                                  id: entry.key,
+                                                  name: entry
+                                                      .value
+                                                      .pack
+                                                      .displayName!,
+                                                  icon: MxcImage(
+                                                    uri: entry
+                                                        .value
+                                                        .images
+                                                        .values
+                                                        .first
+                                                        .url,
+                                                    width: 32,
+                                                    height: 32,
+                                                  ),
+                                                  emojis: entry.value.images
+                                                      .map((name, content) {
+                                                        return MapEntry(
+                                                          name,
+                                                          content.url
+                                                              .toString(),
+                                                        );
+                                                      }),
+                                                ),
+                                              )
+                                              .toList(),
+                                          customEmojiBuilder:
+                                              (context, name, size) {
+                                                return MxcImage(
+                                                  uri: Uri.parse(name),
+                                                  width: 32,
+                                                  height: 32,
+                                                );
+                                              },
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                   if (emoji == null) {
                                     return;
                                   }
@@ -546,7 +601,8 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                             },
                           ),
                           const ListDivider(),
-                          if (!room.encrypted && AppSettings.messageTranslation.value) ...[
+                          if (!room.encrypted &&
+                              AppSettings.messageTranslation.value) ...[
                             _buildMenuItem(
                               event: event,
                               icon: Icons.translate,
