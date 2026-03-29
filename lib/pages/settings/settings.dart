@@ -133,8 +133,8 @@ class SettingsController extends State<Settings> {
           isDestructive: noBackup,
           okLabel: L10n.of(context).logout,
           cancelLabel: L10n.of(context).cancel,
-        ) ==
-        OkCancelResult.cancel) {
+        ) !=
+        OkCancelResult.ok) {
       return;
     }
     final matrix = Matrix.of(context);
