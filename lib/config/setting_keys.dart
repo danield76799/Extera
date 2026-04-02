@@ -14,7 +14,7 @@ abstract class SettingKeys {
 
 enum AppSettings<T> {
   experimentalJitsi<bool>('xyz.extera.jitsi', false),
-  jitsiDomain<String>('xyz.extera.jitsi_domain', 'meet.element.io'),
+  jitsiDomain<String>('xyz.extera.jitsi_domain', 'meet.jit.si'),
   applicationName<String>('xyz.extera.app_name', 'Extera'),
   logoUrl<String>('xyz.extera.logo_url', 'https://extera.xyz/logo.svg'),
   privacyPolicy<String>('xyz.extera.tos', 'https://github.com/ExteraApp/Extera/blob/main/PRIVACY.md'),
