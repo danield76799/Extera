@@ -1,6 +1,6 @@
 import 'package:extera_next/utils/url_launcher.dart';
 import 'package:extera_next/widgets/future_loading_snackbar.dart';
-import 'package:extera_next/widgets/matrix.dart';
+// import 'package:extera_next/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 
 import 'package:matrix/matrix.dart';
@@ -25,19 +25,8 @@ class JitsiPopupButton extends StatelessWidget {
         final domain = AppSettings.jitsiDomain.value;
         final uri = Uri(
           scheme: 'https',
-          host: 'extera.xyz',
-          path: '/jitsi.html',
-          queryParameters: {
-            'confId': conferenceId,
-            'conferenceId': conferenceId,
-            'conferenceDomain': '\$domain',
-            'isAudioOnly': isAudioOnly.toString(),
-            'displayName': '\$matrix_display_name',
-            'userId': '\$matrix_user_id',
-            'roomId': '\$matrix_room_id',
-            'theme': '\$theme',
-          },
-          // path: conferenceId,
+          host: domain,
+          path: conferenceId,
           fragment: isAudioOnly ? 'config.startWithVideoMuted=true' : null,
         );
         await room.addWidget(
@@ -48,7 +37,7 @@ class JitsiPopupButton extends StatelessWidget {
             url: uri.toString(),
             data: {
               'domain': domain,
-              'isAudioOnly': isAudioOnly.toString(),
+              'isAudioOnly': isAudioOnly,
               'conferenceId': conferenceId,
               'roomName': room.getLocalizedDisplayname(
                 MatrixLocals(L10n.of(context)),
@@ -112,24 +101,13 @@ class JitsiPopupButton extends StatelessWidget {
       return;
     }
 
-    final client = Matrix.of(context).client;
-    final profile = await client.getUserProfile(client.userID!);
+    // final client = Matrix.of(context).client;
+    // final profile = await client.getUserProfile(client.userID!);
 
     final uri = Uri(
       scheme: 'https',
-      host: 'extera.xyz',
-      path: '/jitsi.html',
-      queryParameters: {
-        'confId': conferenceId,
-        'conferenceId': conferenceId,
-        'conferenceDomain': domain,
-        'isAudioOnly': isAudioOnly.toString(),
-        'displayName': profile.displayname ?? client.userID!,
-        'userId': client.userID!,
-        'roomId': room.id,
-        'theme': Theme.of(context).brightness == .dark ? 'dark' : 'light',
-      },
-      // path: conferenceId,
+      host: domain,
+      path: '/$conferenceId',
       fragment: isAudioOnly ? 'config.startWithVideoMuted=true' : null,
     );
 
