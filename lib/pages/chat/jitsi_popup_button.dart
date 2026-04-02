@@ -4,7 +4,6 @@ import 'package:extera_next/widgets/future_loading_snackbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:matrix/matrix.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
@@ -50,7 +49,7 @@ class JitsiPopupButton extends StatelessWidget {
     );
     final url = urlResult.result;
     if (url == null) return;
-    await launchUrl(url);
+    UrlLauncher(context, url.toString()).launchUrl();
   }
 
   Future<void> _endAllCalls(BuildContext context) async {
