@@ -1,3 +1,11 @@
+## Extera 26.1.0
+- **UnifiedPush notifications for multiple accounts!**
+- Fixed scrolling for recovered and translated message dialogs.
+- Include attachment captions when using "Copy" action.
+- Use dialogs when opening profiles on desktop.
+- Video notes behind a feature flag (**unstable, do not use**)
+- Fixed "Hide member changes in public chats" not having effect.
+
 ## Extera 26.0.91
 - Translate hard-coded strings ("Poll details")
 - Fix poll results window scrolling
