@@ -4,7 +4,7 @@ import 'package:matrix/matrix.dart';
 
 import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
-import 'package:extera_next/utils/url_launcher.dart';
+// import 'package:extera_next/utils/url_launcher.dart';
 import 'package:extera_next/widgets/mxc_image.dart';
 import '../../widgets/avatar.dart';
 
@@ -143,15 +143,15 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(L10n.of(context).noEmotesFound),
-                      const SizedBox(height: 12),
-                      OutlinedButton.icon(
-                        onPressed: () => UrlLauncher(
-                          context,
-                          'https://matrix.to/#/#fluffychat-stickers:janian.de',
-                        ).launchUrl(),
-                        icon: const Icon(Icons.explore_outlined),
-                        label: Text(L10n.of(context).discover),
-                      ),
+                      // const SizedBox(height: 12),
+                      // OutlinedButton.icon(
+                      //   onPressed: () => UrlLauncher(
+                      //     context,
+                      //     'https://matrix.to/#/#fluffychat-stickers:janian.de',
+                      //   ).launchUrl(),
+                      //   icon: const Icon(Icons.explore_outlined),
+                      //   label: Text(L10n.of(context).discover),
+                      // ),
                     ],
                   ),
                 ),
