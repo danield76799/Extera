@@ -4,11 +4,12 @@ import 'package:matrix/matrix.dart';
 
 import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
-// import 'package:extera_next/utils/url_launcher.dart';
-import 'package:extera_next/utils/matrix_sdk_extensions/recent_stickers_extension.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/favourite_stickers_extension.dart';
+import 'package:extera_next/utils/matrix_sdk_extensions/recent_stickers_extension.dart';
 import 'package:extera_next/widgets/mxc_image.dart';
 import '../../widgets/avatar.dart';
+
+// import 'package:extera_next/utils/url_launcher.dart';
 
 class StickerPickerDialog extends StatefulWidget {
   final Room room;
@@ -50,17 +51,12 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
-                    width: 128,
-                    height: 128,
-                    child: MxcImage(
-                      uri: sticker.url,
-                      fit: BoxFit.contain,
-                      width: 128,
-                      height: 128,
-                      animated: true,
-                      isThumbnail: false,
-                    ),
+                  MxcImage(
+                    uri: sticker.url,
+                    isThumbnail: false,
+                    width: 384,
+                    fit: BoxFit.contain,
+                    animated: true,
                   ),
                   const SizedBox(height: 16),
                   if (sticker.body != null && sticker.body!.isNotEmpty)
@@ -94,12 +90,8 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Icon(
-                            Icons.send_outlined,
-                          ),
-                          title: Text(
-                            L10n.of(context).sendSticker,
-                          ),
+                          leading: Icon(Icons.send_outlined),
+                          title: Text(L10n.of(context).sendSticker),
                           onTap: () async {
                             _onStickerSelected(sticker);
                             setDialogState(() {});

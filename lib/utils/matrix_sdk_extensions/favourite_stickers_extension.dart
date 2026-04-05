@@ -19,8 +19,9 @@ extension FavouriteStickersExtension on Client {
   }
 
   bool isFavouriteSticker(ImagePackImageContent sticker) {
-    return favouriteStickers
-        .any((s) => s.url.toString() == sticker.url.toString());
+    return favouriteStickers.any(
+      (s) => s.url.toString() == sticker.url.toString(),
+    );
   }
 
   Future<void> addFavouriteSticker(ImagePackImageContent sticker) async {
