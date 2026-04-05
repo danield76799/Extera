@@ -1,10 +1,9 @@
 import 'package:matrix/matrix.dart';
 
-extension RecentStickersExtension on Client {
-  static const String _accountDataKey = 'xyz.extera.recent_stickers';
-  static const int _maxRecentStickers = 24;
+extension FavouriteStickersExtension on Client {
+  static const String _accountDataKey = 'xyz.extera.favourite_stickers';
 
-  List<ImagePackImageContent> get recentStickers {
+  List<ImagePackImageContent> get favouriteStickers {
     final data = accountData[_accountDataKey]?.content;
     if (data == null) return [];
 
@@ -19,24 +18,25 @@ extension RecentStickersExtension on Client {
         .toList();
   }
 
-  Future<void> addRecentSticker(ImagePackImageContent sticker) async {
-    final current = recentStickers;
+  bool isFavouriteSticker(ImagePackImageContent sticker) {
+    return favouriteStickers
+        .any((s) => s.url.toString() == sticker.url.toString());
+  }
+
+  Future<void> addFavouriteSticker(ImagePackImageContent sticker) async {
+    final current = favouriteStickers;
 
     current.removeWhere((s) => s.url.toString() == sticker.url.toString());
 
     current.insert(0, sticker);
-
-    if (current.length > _maxRecentStickers) {
-      current.removeRange(_maxRecentStickers, current.length);
-    }
 
     await setAccountData(userID!, _accountDataKey, {
       'stickers': current.map((s) => s.toJson()).toList(),
     });
   }
 
-  Future<void> removeRecentSticker(ImagePackImageContent sticker) async {
-    final current = recentStickers;
+  Future<void> removeFavouriteSticker(ImagePackImageContent sticker) async {
+    final current = favouriteStickers;
 
     current.removeWhere((s) => s.url.toString() == sticker.url.toString());
 
