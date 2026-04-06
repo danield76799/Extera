@@ -866,6 +866,9 @@ class ChatListController extends State<ChatList>
   void setActiveFilter(ActiveFilter filter) {
     setState(() {
       activeFilter = filter;
+      if (filter != .spaces && activeSpaceId != null) {
+        _activeSpaceId = null;
+      }
     });
   }
 
