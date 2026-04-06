@@ -46,7 +46,7 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
       builder: (dialogContext) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            final isFavourite = client.isFavouriteSticker(sticker);
+            var isFavourite = client.isFavouriteSticker(sticker);
             return AlertDialog(
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -117,7 +117,9 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
                               await client.addFavouriteSticker(sticker);
                             }
                             setDialogState(() {});
-                            setState(() {});
+                            setState(() {
+                              isFavourite = !isFavourite;
+                            });
                           },
                         ),
                         if (isFromRecents)
@@ -208,6 +210,10 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
     final recentStickers = client.recentStickers;
     final hasRecentStickers =
         recentStickers.isNotEmpty && !(searchFilter?.isNotEmpty ?? false);
+
+    final favouriteStickers = client.favouriteStickers;
+    final hasFavouriteStickers =
+        favouriteStickers.isNotEmpty && !(searchFilter?.isNotEmpty ?? false);
 
     // ignore: prefer_function_declarations_over_variables
     final packBuilder = (BuildContext context, int packIndex) {
@@ -324,6 +330,19 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
                 ),
               ),
             ),
+            if (hasFavouriteStickers)
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons. /*WE ARE*/ star /* T RAIN*/),
+                      title: Text(L10n.of(context).favouriteStickers),
+                    ),
+                    const SizedBox(height: 6),
+                    _buildStickerGrid(favouriteStickers, isFromRecents: false),
+                  ],
+                ),
+              ),
             if (hasRecentStickers)
               SliverToBoxAdapter(
                 child: Column(

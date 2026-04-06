@@ -3716,5 +3716,6 @@
   "recentStickers": "Недавние",
   "removeFromFavourites": "Убрать из избранных",
   "addToFavourites": "Добавить в избранные",
-  "removeFromRecents": "Убрать из недавних"
+  "removeFromRecents": "Убрать из недавних",
+  "favouriteStickers": "Избранные"
 }
