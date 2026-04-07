@@ -7,6 +7,7 @@ import 'package:extera_next/config/themes.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/chat/chat.dart';
 import 'package:extera_next/pages/chat/chat_input_row.dart';
+import 'package:extera_next/pages/chat/reply_display.dart';
 import 'package:extera_next/pages/chat/events/message.dart';
 import 'package:extera_next/pages/chat/typing_indicators.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/filtered_timeline_extension.dart';
@@ -74,7 +75,12 @@ class ChatEventList extends StatelessWidget {
                 ? MediaQuery.of(context).padding.top + 16
                 : 16,
             // ChatInputRow.height (48) + bottomSheetPadding (~8-16) + extra gap
-            bottom: ChatInputRow.height + 32,
+            bottom:
+                ChatInputRow.height +
+                32 +
+                (controller.replyEvent != null || controller.editEvent != null
+                    ? ReplyDisplay.height
+                    : 0),
             left: horizontalPadding,
             right: horizontalPadding,
           ),

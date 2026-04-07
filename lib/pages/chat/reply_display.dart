@@ -9,6 +9,8 @@ import 'chat.dart';
 import 'events/reply_content.dart';
 
 class ReplyDisplay extends StatelessWidget {
+  static const double height = 56.0;
+
   final ChatController controller;
   const ReplyDisplay(this.controller, {super.key});
 
@@ -18,7 +20,7 @@ class ReplyDisplay extends StatelessWidget {
       duration: FluffyThemes.animationDuration,
       curve: FluffyThemes.animationCurve,
       height: controller.editEvent != null || controller.replyEvent != null
-          ? 56
+          ? ReplyDisplay.height
           : 0,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(),
