@@ -25,140 +25,142 @@ class ChatEmojiPicker extends StatelessWidget {
         .map((entry) => entry.key)
         .toList();
 
-    return AnimatedContainer(
-      duration: FluffyThemes.animationDuration,
-      curve: FluffyThemes.animationCurve,
-      clipBehavior: Clip.hardEdge,
-      decoration: const BoxDecoration(),
-      height: controller.showEmojiPicker
-          ? MediaQuery.sizeOf(context).height / 2
-          : 0,
-      child: controller.showEmojiPicker
-          ? DefaultTabController(
-              length: 2,
-              initialIndex: controller.initiallyShowStickerPicker ? 1 : 0,
-              child: Column(
-                children: [
-                  TabBar(
-                    tabs: [
-                      Tab(text: L10n.of(context).emojis),
-                      Tab(text: L10n.of(context).stickers),
+    return ClipRect(
+      child: AnimatedSize(
+        duration: FluffyThemes.animationDuration,
+        curve: FluffyThemes.animationCurve,
+        child: controller.showEmojiPicker
+            ? SizedBox(
+                height: MediaQuery.sizeOf(context).height / 2,
+                child: DefaultTabController(
+                  length: 2,
+                  initialIndex: controller.initiallyShowStickerPicker ? 1 : 0,
+                  child: Column(
+                    children: [
+                      TabBar(
+                        tabs: [
+                          Tab(text: L10n.of(context).emojis),
+                          Tab(text: L10n.of(context).stickers),
+                        ],
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          children: [
+                            MatrixEmojiPicker(
+                              onEmojiSelected: controller.onEmojiSelected,
+                              onBackspacePressed:
+                                  controller.emojiPickerBackspace,
+                              recentEmojis: recentEmojis.map((recent) {
+                                // MXC custom emoji
+                                if (recent.startsWith('mxc://')) {
+                                  for (final entry in imagePacks.entries) {
+                                    for (final imgEntry
+                                        in entry.value.images.entries) {
+                                      final url = imgEntry.value.url.toString();
+                                      if (url == recent) {
+                                        return PickerEmoji.custom(
+                                          name: imgEntry.key,
+                                          customData: url,
+                                          categoryId: entry.key,
+                                        );
+                                      }
+                                    }
+                                  }
+
+                                  // fallback: keep the MXC url as custom data
+                                  return PickerEmoji.custom(
+                                    name: recent,
+                                    customData: recent,
+                                    categoryId: null,
+                                  );
+                                }
+
+                                // Try to find a matching standard Emoji by char, name or shortName
+                                Emoji? found;
+                                final all = Emoji.all();
+                                try {
+                                  found = all.firstWhere(
+                                    (e) =>
+                                        e.char == recent ||
+                                        e.name == recent ||
+                                        e.shortName == recent,
+                                  );
+                                } catch (_) {
+                                  found = null;
+                                }
+
+                                if (found != null) {
+                                  return PickerEmoji.standard(found);
+                                }
+
+                                // fallback: treat as custom string
+                                return PickerEmoji.custom(
+                                  name: recent,
+                                  customData: recent,
+                                  categoryId: null,
+                                );
+                              }).toList(),
+                              customCategories: imagePacks.entries
+                                  .map(
+                                    (entry) => CustomCategory(
+                                      id: entry.key,
+                                      name: entry.value.pack.displayName!,
+                                      icon: MxcImage(
+                                        uri:
+                                            entry.value.images.values.first.url,
+                                        width: 32,
+                                        height: 32,
+                                      ),
+                                      emojis: entry.value.images.map((
+                                        name,
+                                        content,
+                                      ) {
+                                        return MapEntry(
+                                          name,
+                                          content.url.toString(),
+                                        );
+                                      }),
+                                    ),
+                                  )
+                                  .toList(),
+                              customEmojiBuilder: (context, name, size) {
+                                return MxcImage(
+                                  uri: Uri.parse(name),
+                                  width: 32,
+                                  height: 32,
+                                  animated: true,
+                                );
+                              },
+                            ),
+                            StickerPickerDialog(
+                              room: controller.room,
+                              onSelected: (sticker) {
+                                controller.room.sendEvent({
+                                  'body': sticker.body,
+                                  'info': sticker.info ?? {},
+                                  'url': sticker.url.toString(),
+                                  'm.relates_to': controller.replyEvent != null
+                                      ? {
+                                          'm.in_reply_to': {
+                                            'event_id':
+                                                controller.replyEvent!.eventId,
+                                          },
+                                        }
+                                      : null,
+                                }, type: EventTypes.Sticker);
+                                controller.cancelReplyEventAction();
+                                controller.hideEmojiPicker();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        MatrixEmojiPicker(
-                          onEmojiSelected: controller.onEmojiSelected,
-                          onBackspacePressed: controller.emojiPickerBackspace,
-                          recentEmojis: recentEmojis.map((recent) {
-                            // MXC custom emoji
-                            if (recent.startsWith('mxc://')) {
-                              for (final entry in imagePacks.entries) {
-                                for (final imgEntry
-                                    in entry.value.images.entries) {
-                                  final url = imgEntry.value.url.toString();
-                                  if (url == recent) {
-                                    return PickerEmoji.custom(
-                                      name: imgEntry.key,
-                                      customData: url,
-                                      categoryId: entry.key,
-                                    );
-                                  }
-                                }
-                              }
-
-                              // fallback: keep the MXC url as custom data
-                              return PickerEmoji.custom(
-                                name: recent,
-                                customData: recent,
-                                categoryId: null,
-                              );
-                            }
-
-                            // Try to find a matching standard Emoji by char, name or shortName
-                            Emoji? found;
-                            final all = Emoji.all();
-                            try {
-                              found = all.firstWhere(
-                                (e) =>
-                                    e.char == recent ||
-                                    e.name == recent ||
-                                    e.shortName == recent,
-                              );
-                            } catch (_) {
-                              found = null;
-                            }
-
-                            if (found != null) {
-                              return PickerEmoji.standard(found);
-                            }
-
-                            // fallback: treat as custom string
-                            return PickerEmoji.custom(
-                              name: recent,
-                              customData: recent,
-                              categoryId: null,
-                            );
-                          }).toList(),
-                          customCategories: imagePacks.entries
-                              .map(
-                                (entry) => CustomCategory(
-                                  id: entry.key,
-                                  name: entry.value.pack.displayName!,
-                                  icon: MxcImage(
-                                    uri: entry.value.images.values.first.url,
-                                    width: 32,
-                                    height: 32,
-                                  ),
-                                  emojis: entry.value.images.map((
-                                    name,
-                                    content,
-                                  ) {
-                                    return MapEntry(
-                                      name,
-                                      content.url.toString(),
-                                    );
-                                  }),
-                                ),
-                              )
-                              .toList(),
-                          customEmojiBuilder: (context, name, size) {
-                            return MxcImage(
-                              uri: Uri.parse(name),
-                              width: 32,
-                              height: 32,
-                              animated: true,
-                            );
-                          },
-                        ),
-                        StickerPickerDialog(
-                          room: controller.room,
-                          onSelected: (sticker) {
-                            controller.room.sendEvent({
-                              'body': sticker.body,
-                              'info': sticker.info ?? {},
-                              'url': sticker.url.toString(),
-                              'm.relates_to': controller.replyEvent != null
-                                  ? {
-                                      'm.in_reply_to': {
-                                        'event_id':
-                                            controller.replyEvent!.eventId,
-                                      },
-                                    }
-                                  : null,
-                            }, type: EventTypes.Sticker);
-                            controller.cancelReplyEventAction();
-                            controller.hideEmojiPicker();
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : null,
+                ),
+              )
+            : const SizedBox.shrink(),
+      ),
     );
   }
 }

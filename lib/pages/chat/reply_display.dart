@@ -14,8 +14,6 @@ class ReplyDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return AnimatedContainer(
       duration: FluffyThemes.animationDuration,
       curve: FluffyThemes.animationCurve,
@@ -23,7 +21,7 @@ class ReplyDisplay extends StatelessWidget {
           ? 56
           : 0,
       clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(color: theme.colorScheme.surfaceContainerHigh),
+      decoration: BoxDecoration(),
       child: Row(
         children: <Widget>[
           Padding(

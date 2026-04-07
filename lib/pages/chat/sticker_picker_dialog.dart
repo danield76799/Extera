@@ -9,8 +9,6 @@ import 'package:extera_next/utils/matrix_sdk_extensions/recent_stickers_extensio
 import 'package:extera_next/widgets/mxc_image.dart';
 import '../../widgets/avatar.dart';
 
-// import 'package:extera_next/utils/url_launcher.dart';
-
 class StickerPickerDialog extends StatefulWidget {
   final Room room;
   final void Function(ImagePackImageContent) onSelected;
@@ -28,14 +26,21 @@ class StickerPickerDialog extends StatefulWidget {
 class StickerPickerDialogState extends State<StickerPickerDialog> {
   String? searchFilter;
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey _favouriteKey = GlobalKey();
-  final GlobalKey _recentKey = GlobalKey();
-  final Map<String, GlobalKey> _packKeys = {};
   String? _activePackId;
 
   Map<String, ImagePackContent> stickerPacks = {};
   List<ImagePackImageContent> recentStickers = [];
   List<ImagePackImageContent> favouriteStickers = [];
+
+  // Grid layout constants — must match the SliverGridDelegate used below.
+  static const double _maxCrossAxisExtent = 84;
+  static const double _gridMainAxisSpacing = 8.0;
+  static const double _gridCrossAxisSpacing = 8.0;
+
+  // Heights for non-grid elements
+  static const double _listTileHeight = 56.0; // Material ListTile default
+  static const double _sectionGapHeight = 20.0;
+  static const double _postHeaderGap = 6.0;
 
   @override
   void initState() {
@@ -56,33 +61,138 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
     super.dispose();
   }
 
-  void _onScroll() {
-    String? newActiveId;
-    double closestDistance = double.infinity;
+  // ---------------------------------------------------------------------------
+  // Offset calculation helpers
+  // ---------------------------------------------------------------------------
 
-    // Helper to check a key and id
-    void checkKey(GlobalKey key, String id) {
-      final ctx = key.currentContext;
-      if (ctx == null) return;
-      final box = ctx.findRenderObject() as RenderBox?;
-      if (box == null || !box.hasSize) return;
-      final position = box.localToGlobal(Offset.zero);
-      // Consider the section "active" if its top is at or above ~120px from top
-      // (accounting for app bar + tab bar height)
-      final topOffset = position.dy;
-      if (topOffset <= 180 && topOffset > -box.size.height) {
-        final distance = (topOffset - 120).abs();
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          newActiveId = id;
-        }
-      }
+  /// Number of columns that fit in the given [width].
+  int _crossAxisCount(double width) {
+    // Mirrors SliverGridDelegateWithMaxCrossAxisExtent logic.
+    return (width / (_maxCrossAxisExtent + _gridCrossAxisSpacing)).ceil().clamp(
+      1,
+      100,
+    );
+  }
+
+  /// Total height of a grid with [itemCount] items at the given [width].
+  double _gridHeight(int itemCount, double width) {
+    if (itemCount == 0) return 0;
+    final cols = _crossAxisCount(width);
+    final rows = (itemCount / cols).ceil();
+    // Each cell is square with side = crossAxisExtent (derived from delegate).
+    // The actual cell extent depends on available width:
+    final usableCrossAxis = width - (cols - 1) * _gridCrossAxisSpacing;
+    final cellExtent = usableCrossAxis / cols;
+    return rows * cellExtent + (rows - 1) * _gridMainAxisSpacing;
+  }
+
+  /// Builds a list of (_SectionInfo) describing each logical section
+  /// (favourites, recents, each pack) and its scroll offset.
+  List<_SectionInfo> _buildSections(double width) {
+    final sections = <_SectionInfo>[];
+    double offset = 0;
+
+    final hasRecentStickers =
+        recentStickers.isNotEmpty && !(searchFilter?.isNotEmpty ?? false);
+    final hasFavouriteStickers =
+        favouriteStickers.isNotEmpty && !(searchFilter?.isNotEmpty ?? false);
+
+    if (hasFavouriteStickers) {
+      final sectionStart = offset;
+      // header
+      offset += _listTileHeight + _postHeaderGap;
+      // grid
+      offset += _gridHeight(favouriteStickers.length, width);
+      sections.add(
+        _SectionInfo(
+          id: '_favourite',
+          offset: sectionStart,
+          height: offset - sectionStart,
+        ),
+      );
     }
 
-    checkKey(_favouriteKey, '_favourite');
-    checkKey(_recentKey, '_recent');
-    for (final entry in _packKeys.entries) {
-      checkKey(entry.value, entry.key);
+    if (hasRecentStickers) {
+      final sectionStart = offset;
+      offset += _listTileHeight + _postHeaderGap;
+      offset += _gridHeight(recentStickers.length, width);
+      sections.add(
+        _SectionInfo(
+          id: '_recent',
+          offset: sectionStart,
+          height: offset - sectionStart,
+        ),
+      );
+    }
+
+    final packSlugs = stickerPacks.keys.toList();
+    for (var i = 0; i < packSlugs.length; i++) {
+      final slug = packSlugs[i];
+      final pack = stickerPacks[slug]!;
+
+      final filtered = _filteredImageKeys(pack);
+      if (filtered.isEmpty) continue;
+
+      final sectionStart = offset;
+      // gap before pack (if not the very first visible section)
+      if (sections.isNotEmpty) {
+        offset += _sectionGapHeight;
+      }
+      // header
+      final packName = pack.pack.displayName ?? slug;
+      if (packName != 'user') {
+        offset += _listTileHeight;
+      }
+      offset += _postHeaderGap;
+      // grid
+      offset += _gridHeight(filtered.length, width);
+      sections.add(
+        _SectionInfo(
+          id: slug,
+          offset: sectionStart,
+          height: offset - sectionStart,
+        ),
+      );
+    }
+
+    return sections;
+  }
+
+  List<String> _filteredImageKeys(ImagePackContent pack) {
+    final entries = pack.images.entries.toList();
+    if (searchFilter?.isNotEmpty ?? false) {
+      entries.removeWhere(
+        (e) =>
+            !(e.key.toLowerCase().contains(searchFilter!.toLowerCase()) ||
+                (e.value.body?.toLowerCase().contains(
+                      searchFilter!.toLowerCase(),
+                    ) ??
+                    false)),
+      );
+    }
+    return entries.map((e) => e.key).toList();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Scroll handling
+  // ---------------------------------------------------------------------------
+
+  void _onScroll() {
+    final width = context.size?.width;
+    if (width == null || width == 0) return;
+
+    final sections = _buildSections(width);
+    if (sections.isEmpty) return;
+
+    final scrollOffset = _scrollController.offset;
+    String? newActiveId;
+
+    // The active section is the last one whose offset we've scrolled past
+    // (with a small threshold so it flips early).
+    for (final section in sections) {
+      if (scrollOffset >= section.offset - 40) {
+        newActiveId = section.id;
+      }
     }
 
     if (newActiveId != _activePackId) {
@@ -92,21 +202,33 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
     }
   }
 
+  void _scrollToSection(String sectionId) {
+    final width = context.size?.width;
+    if (width == null || width == 0) return;
+
+    final sections = _buildSections(width);
+    final section = sections.where((s) => s.id == sectionId).firstOrNull;
+    if (section == null) return;
+
+    final target = section.offset.clamp(
+      0.0,
+      _scrollController.position.maxScrollExtent,
+    );
+
+    _scrollController.animateTo(
+      target,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // Sticker interactions
+  // ---------------------------------------------------------------------------
+
   void _onStickerSelected(ImagePackImageContent sticker) {
     widget.room.client.addRecentSticker(sticker);
     widget.onSelected(sticker);
-  }
-
-  void _scrollToKey(GlobalKey key) {
-    final ctx = key.currentContext;
-    if (ctx != null) {
-      Scrollable.ensureVisible(
-        ctx,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        alignment: 0.0,
-      );
-    }
   }
 
   void _showStickerInfoDialog({
@@ -158,7 +280,6 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
                       textAlign: TextAlign.center,
                     ),
                   ],
-
                   Material(
                     color: Theme.of(context).colorScheme.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(AppConfig.borderRadius),
@@ -226,150 +347,125 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
     );
   }
 
-  Widget _buildStickerGrid(
+  // ---------------------------------------------------------------------------
+  // Sliver builders
+  // ---------------------------------------------------------------------------
+
+  /// Builds a SliverGrid for a list of stickers (favourites / recents).
+  Widget _buildStickerSliverGrid(
     List<ImagePackImageContent> stickers, {
     bool isFromRecents = false,
   }) {
-    return GridView.builder(
-      itemCount: stickers.length,
+    return SliverGrid(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 84,
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
+        maxCrossAxisExtent: _maxCrossAxisExtent,
+        mainAxisSpacing: _gridMainAxisSpacing,
+        crossAxisSpacing: _gridCrossAxisSpacing,
       ),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
+      delegate: SliverChildBuilderDelegate((context, index) {
         final image = stickers[index];
-        return Tooltip(
-          message: image.body ?? '',
-          child: InkWell(
-            radius: AppConfig.borderRadius,
-            key: ValueKey(image.url.toString()),
+        return _StickerTile(
+          image: image,
+          tooltip: image.body ?? '',
+          onTap: () {
+            final imageCopy = ImagePackImageContent.fromJson(
+              image.toJson().copy(),
+            );
+            _onStickerSelected(imageCopy);
+          },
+          onLongPress: () {
+            _showStickerInfoDialog(
+              sticker: image,
+              isFromRecents: isFromRecents,
+            );
+          },
+        );
+      }, childCount: stickers.length),
+    );
+  }
+
+  /// Builds slivers for a single sticker pack (header + grid).
+  List<Widget> _buildPackSlivers({
+    required ImagePackContent pack,
+    required String slug,
+    required bool showGap,
+  }) {
+    final imageKeys = _filteredImageKeys(pack);
+    if (imageKeys.isEmpty) return const [];
+
+    final packName = pack.pack.displayName ?? slug;
+    final slivers = <Widget>[];
+
+    if (showGap) {
+      slivers.add(
+        const SliverToBoxAdapter(child: SizedBox(height: _sectionGapHeight)),
+      );
+    }
+
+    if (packName != 'user') {
+      slivers.add(
+        SliverToBoxAdapter(
+          child: ListTile(
+            leading: Avatar(
+              mxContent: pack.pack.avatarUrl,
+              name: packName,
+              client: widget.room.client,
+            ),
+            title: Text(packName),
+          ),
+        ),
+      );
+    }
+
+    slivers.add(
+      const SliverToBoxAdapter(child: SizedBox(height: _postHeaderGap)),
+    );
+
+    slivers.add(
+      SliverGrid(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: _maxCrossAxisExtent,
+          mainAxisSpacing: _gridMainAxisSpacing,
+          crossAxisSpacing: _gridCrossAxisSpacing,
+        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final key = imageKeys[index];
+          final image = pack.images[key]!;
+          return _StickerTile(
+            image: image,
+            tooltip: image.body ?? key,
             onTap: () {
               final imageCopy = ImagePackImageContent.fromJson(
                 image.toJson().copy(),
               );
+              imageCopy.body ??= key;
               _onStickerSelected(imageCopy);
             },
             onLongPress: () {
+              final stickerCopy = ImagePackImageContent.fromJson(
+                image.toJson().copy(),
+              );
+              stickerCopy.body ??= key;
               _showStickerInfoDialog(
-                sticker: image,
-                isFromRecents: isFromRecents,
+                sticker: stickerCopy,
+                packName: pack.pack.displayName ?? slug,
+                packAttribution: pack.pack.attribution,
               );
             },
-            child: AbsorbPointer(
-              absorbing: true,
-              child: MxcImage(
-                uri: image.url,
-                fit: BoxFit.contain,
-                width: 128,
-                height: 128,
-                animated: true,
-                isThumbnail: false,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildPackWidget({
-    required ImagePackContent pack,
-    required String slug,
-    required bool hasRecentStickers,
-    required bool isFirst,
-  }) {
-    final filteredImagePackImageEntried = pack.images.entries.toList();
-    if (searchFilter?.isNotEmpty ?? false) {
-      filteredImagePackImageEntried.removeWhere(
-        (e) =>
-            !(e.key.toLowerCase().contains(searchFilter!.toLowerCase()) ||
-                (e.value.body?.toLowerCase().contains(
-                      searchFilter!.toLowerCase(),
-                    ) ??
-                    false)),
-      );
-    }
-    final imageKeys = filteredImagePackImageEntried.map((e) => e.key).toList();
-    if (imageKeys.isEmpty) {
-      return const SizedBox.shrink();
-    }
-    final packName = pack.pack.displayName ?? slug;
-    return Container(
-      key: _packKeys[slug],
-      child: Column(
-        children: <Widget>[
-          if (!isFirst || hasRecentStickers) const SizedBox(height: 20),
-          if (packName != 'user')
-            ListTile(
-              leading: Avatar(
-                mxContent: pack.pack.avatarUrl,
-                name: packName,
-                client: widget.room.client,
-              ),
-              title: Text(packName),
-            ),
-          const SizedBox(height: 6),
-          GridView.builder(
-            itemCount: imageKeys.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 84,
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
-            ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int imageIndex) {
-              final image = pack.images[imageKeys[imageIndex]]!;
-              return Tooltip(
-                message: image.body ?? imageKeys[imageIndex],
-                child: InkWell(
-                  radius: AppConfig.borderRadius,
-                  key: ValueKey(image.url.toString()),
-                  onTap: () {
-                    final imageCopy = ImagePackImageContent.fromJson(
-                      image.toJson().copy(),
-                    );
-                    imageCopy.body ??= imageKeys[imageIndex];
-                    _onStickerSelected(imageCopy);
-                  },
-                  onLongPress: () {
-                    final stickerCopy = ImagePackImageContent.fromJson(
-                      image.toJson().copy(),
-                    );
-                    stickerCopy.body ??= imageKeys[imageIndex];
-                    _showStickerInfoDialog(
-                      sticker: stickerCopy,
-                      packName: pack.pack.displayName ?? slug,
-                      packAttribution: pack.pack.attribution,
-                    );
-                  },
-                  child: AbsorbPointer(
-                    absorbing: true,
-                    child: MxcImage(
-                      uri: image.url,
-                      fit: BoxFit.contain,
-                      width: 128,
-                      height: 128,
-                      animated: true,
-                      isThumbnail: false,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+          );
+        }, childCount: imageKeys.length),
       ),
     );
+
+    return slivers;
   }
+
+  // ---------------------------------------------------------------------------
+  // Build
+  // ---------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     final packSlugs = stickerPacks.keys.toList();
 
     final hasRecentStickers =
@@ -378,25 +474,16 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
     final hasFavouriteStickers =
         favouriteStickers.isNotEmpty && !(searchFilter?.isNotEmpty ?? false);
 
-    // Ensure pack keys exist for all slugs
-    for (final slug in packSlugs) {
-      _packKeys.putIfAbsent(slug, () => GlobalKey());
-    }
-
     return Scaffold(
-      backgroundColor: theme.colorScheme.surfaceContainerHigh,
+      backgroundColor: Colors.transparent,
       body: SizedBox(
         width: double.maxFinite,
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: <Widget>[
-            SliverAppBar(
-              floating: true,
-              pinned: true,
-              scrolledUnderElevation: 0,
-              automaticallyImplyLeading: false,
-              backgroundColor: theme.colorScheme.surfaceContainerHigh,
-              title: SizedBox(
+        child: Column(
+          children: [
+            // Search bar
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: SizedBox(
                 height: 40,
                 child: TextField(
                   autofocus: false,
@@ -415,129 +502,181 @@ class StickerPickerDialogState extends State<StickerPickerDialog> {
               ),
             ),
             // Sticky horizontal pack selector
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _PackTabBarDelegate(
-                child: Container(
-                  color: theme.colorScheme.surfaceContainerHigh,
-                  height: 57,
-                  child: Column(
-                    crossAxisAlignment: .start,
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 4),
-                              if (hasFavouriteStickers)
-                                _PackTabItem(
-                                  onTap: () => _scrollToKey(_favouriteKey),
-                                  isActive: _activePackId == '_favourite',
-                                  child: const Icon(Icons.star, size: 28),
-                                ),
-                              if (hasRecentStickers)
-                                _PackTabItem(
-                                  onTap: () => _scrollToKey(_recentKey),
-                                  isActive: _activePackId == '_recent',
-                                  child: const Icon(Icons.history, size: 28),
-                                ),
-                              for (final slug in packSlugs)
-                                Builder(
-                                  builder: (context) {
-                                    final pack = stickerPacks[slug]!;
-                                    final firstImage =
-                                        pack.images.values.isNotEmpty
-                                        ? pack.images.values.first
-                                        : null;
-                                    return _PackTabItem(
-                                      onTap: () =>
-                                          _scrollToKey(_packKeys[slug]!),
-                                      isActive: _activePackId == slug,
-                                      child: firstImage != null
-                                          ? MxcImage(
-                                              uri: firstImage.url,
-                                              width: 36,
-                                              height: 36,
-                                              fit: BoxFit.contain,
-                                              isThumbnail: true,
-                                            )
-                                          : const Icon(Icons.image, size: 28),
-                                    );
-                                  },
-                                ),
-                              const SizedBox(width: 4),
-                            ],
-                          ),
-                        ),
+            Container(
+              color: Colors.transparent,
+              height: 57,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 4),
+                          if (hasFavouriteStickers)
+                            _PackTabItem(
+                              onTap: () => _scrollToSection('_favourite'),
+                              isActive: _activePackId == '_favourite',
+                              child: const Icon(Icons.star, size: 28),
+                            ),
+                          if (hasRecentStickers)
+                            _PackTabItem(
+                              onTap: () => _scrollToSection('_recent'),
+                              isActive: _activePackId == '_recent',
+                              child: const Icon(Icons.history, size: 28),
+                            ),
+                          for (final slug in packSlugs)
+                            Builder(
+                              builder: (context) {
+                                final pack = stickerPacks[slug]!;
+                                final firstImage = pack.images.values.isNotEmpty
+                                    ? pack.images.values.first
+                                    : null;
+                                return _PackTabItem(
+                                  onTap: () => _scrollToSection(slug),
+                                  isActive: _activePackId == slug,
+                                  child: firstImage != null
+                                      ? MxcImage(
+                                          uri: firstImage.url,
+                                          width: 36,
+                                          height: 36,
+                                          fit: BoxFit.contain,
+                                          isThumbnail: true,
+                                        )
+                                      : const Icon(Icons.image, size: 28),
+                                );
+                              },
+                            ),
+                          const SizedBox(width: 4),
+                        ],
                       ),
-                      const Divider(height: 1, thickness: 1),
-                    ],
+                    ),
                   ),
-                ),
+                  const Divider(height: 1, thickness: 1),
+                ],
               ),
             ),
-            if (hasFavouriteStickers)
-              SliverToBoxAdapter(
-                child: Container(
-                  key: _favouriteKey,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: const Icon(Icons. /*WE ARE*/ star /* T RAIN*/),
+            // Main sticker grid area — fully virtualized
+            Expanded(
+              child: CustomScrollView(
+                controller: _scrollController,
+                slivers: <Widget>[
+                  // Favourites section
+                  if (hasFavouriteStickers) ...[
+                    SliverToBoxAdapter(
+                      child: ListTile(
+                        leading: const Icon(Icons.star),
                         title: Text(L10n.of(context).favouriteStickers),
                       ),
-                      const SizedBox(height: 6),
-                      _buildStickerGrid(
-                        favouriteStickers,
-                        isFromRecents: false,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            if (hasRecentStickers)
-              SliverToBoxAdapter(
-                child: Container(
-                  key: _recentKey,
-                  child: Column(
-                    children: [
-                      ListTile(
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: _postHeaderGap),
+                    ),
+                    _buildStickerSliverGrid(
+                      favouriteStickers,
+                      isFromRecents: false,
+                    ),
+                  ],
+
+                  // Recents section
+                  if (hasRecentStickers) ...[
+                    SliverToBoxAdapter(
+                      child: ListTile(
                         leading: const Icon(Icons.history),
                         title: Text(L10n.of(context).recentStickers),
                       ),
-                      const SizedBox(height: 6),
-                      _buildStickerGrid(recentStickers, isFromRecents: true),
-                    ],
-                  ),
-                ),
-              ),
-            if (packSlugs.isEmpty && !hasRecentStickers)
-              SliverFillRemaining(
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [Text(L10n.of(context).noEmotesFound)],
-                  ),
-                ),
-              )
-            else
-              // Use a single SliverToBoxAdapter with a Column so all
-              // pack widgets and their GlobalKeys are always laid out
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: _postHeaderGap),
+                    ),
+                    _buildStickerSliverGrid(
+                      recentStickers,
+                      isFromRecents: true,
+                    ),
+                  ],
+
+                  // Empty state
+                  if (packSlugs.isEmpty &&
+                      !hasRecentStickers &&
+                      !hasFavouriteStickers)
+                    SliverFillRemaining(
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [Text(L10n.of(context).noEmotesFound)],
+                        ),
+                      ),
+                    )
+                  else
+                    // Pack sections
                     for (int i = 0; i < packSlugs.length; i++)
-                      _buildPackWidget(
+                      ..._buildPackSlivers(
                         pack: stickerPacks[packSlugs[i]]!,
                         slug: packSlugs[i],
-                        hasRecentStickers: hasRecentStickers,
-                        isFirst: i == 0,
+                        showGap:
+                            i > 0 || hasRecentStickers || hasFavouriteStickers,
                       ),
-                  ],
-                ),
+                ],
               ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Helper classes
+// ---------------------------------------------------------------------------
+
+/// Describes a logical section's position in the scroll view.
+class _SectionInfo {
+  final String id;
+  final double offset;
+  final double height;
+
+  const _SectionInfo({
+    required this.id,
+    required this.offset,
+    required this.height,
+  });
+}
+
+/// A single sticker tile used inside grids.
+class _StickerTile extends StatelessWidget {
+  final ImagePackImageContent image;
+  final String tooltip;
+  final VoidCallback onTap;
+  final VoidCallback onLongPress;
+
+  const _StickerTile({
+    required this.image,
+    required this.tooltip,
+    required this.onTap,
+    required this.onLongPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: InkWell(
+        radius: AppConfig.borderRadius,
+        key: ValueKey(image.url.toString()),
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: AbsorbPointer(
+          absorbing: true,
+          child: MxcImage(
+            uri: image.url,
+            fit: BoxFit.contain,
+            width: 128,
+            height: 128,
+            animated: true,
+            isThumbnail: false,
+          ),
         ),
       ),
     );
@@ -576,29 +715,4 @@ class _PackTabItem extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Delegate for the sticky pack tab bar header.
-class _PackTabBarDelegate extends SliverPersistentHeaderDelegate {
-  final Widget child;
-
-  _PackTabBarDelegate({required this.child});
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return child;
-  }
-
-  @override
-  double get maxExtent => 57;
-
-  @override
-  double get minExtent => 57;
-
-  @override
-  bool shouldRebuild(covariant _PackTabBarDelegate oldDelegate) => true;
 }
