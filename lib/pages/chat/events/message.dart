@@ -452,7 +452,8 @@ class _MessageState extends State<Message> {
                           child: Material(
                             color: noBubble
                                 ? Colors.transparent
-                                : AppSettings.enableChatFrostedGlass.value
+                                : AppSettings.enableChatFrostedGlass.value &&
+                                      AppSettings.wallpaperPath.value.isNotEmpty
                                 ? color.withValues(alpha: 0.7)
                                 : color,
                             borderRadius: borderRadius,
