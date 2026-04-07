@@ -6,6 +6,7 @@ import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/config/themes.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/chat/chat.dart';
+import 'package:extera_next/pages/chat/chat_input_row.dart';
 import 'package:extera_next/pages/chat/events/message.dart';
 import 'package:extera_next/pages/chat/typing_indicators.dart';
 import 'package:extera_next/utils/account_config.dart';
@@ -71,8 +72,11 @@ class ChatEventList extends StatelessWidget {
       slivers: [
         SliverPadding(
           padding: EdgeInsets.only(
-            top: 16,
-            bottom: 8,
+            top: AppSettings.enableChatFrostedGlass.value
+                ? MediaQuery.of(context).padding.top + 16
+                : 16,
+            // ChatInputRow.height (48) + bottomSheetPadding (~8-16) + extra gap
+            bottom: ChatInputRow.height + 32,
             left: horizontalPadding,
             right: horizontalPadding,
           ),
@@ -113,7 +117,6 @@ class ChatEventList extends StatelessWidget {
                         controller.requestHistory,
                       );
                     }
-                    // Add top padding when scroll banner is visible to prevent overlap
                     final hasScrollBanner =
                         controller.scrollUpBannerEventId != null;
                     return Padding(
