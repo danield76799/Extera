@@ -1,3 +1,9 @@
+## Extera 26.1.3
+- Option to hide "take photo/video" button in message composer.
+- Update MSC4320 Rich Presence design view.
+- Do not autoplay "cute events".
+- Fix multiple bugs.
+
 ## Extera 26.1.2
 - Translucency effect in chats behind a feature flag! (by @d2rkmean)
 - Store wallpaper settings locally.
