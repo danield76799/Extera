@@ -3719,5 +3719,7 @@
   "removeFromRecents": "Убрать из недавних",
   "enableAppBarCenterTitle": "Отображать заголовок комнаты в центре",
   "enableChatFrostedGlass": "Эффект полупрозрачности",
-  "favouriteStickers": "Избранные"
+  "favouriteStickers": "Избранные",
+  "showCameraButton": "Сделать фото/видео",
+  "showCameraButtonDesc": "Показывать кнопку для фото/видео в поле сообщения"
 }

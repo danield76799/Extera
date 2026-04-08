@@ -425,28 +425,34 @@ class ProfileView extends StatelessWidget {
                             Row(
                               mainAxisSize: .max,
                               children: [
-                                if (controller.richPresenceData!.containsKey(
-                                  'cover_url',
-                                )) ...[
-                                  Material(
-                                    clipBehavior: .antiAlias,
-                                    borderRadius: BorderRadius.circular(
-                                      AppConfig.borderRadius / 2,
-                                    ),
-                                    color: theme
-                                        .colorScheme
-                                        .surfaceContainerHighest,
-                                    child: MxcImage(
-                                      uri: Uri.parse(
-                                        controller
-                                            .richPresenceData!['cover_url'],
-                                      ),
-                                      width: 128,
-                                      height: 128,
-                                    ),
+                                Material(
+                                  clipBehavior: .antiAlias,
+                                  borderRadius: BorderRadius.circular(
+                                    AppConfig.borderRadius / 2,
                                   ),
-                                  const SizedBox(width: 9),
-                                ],
+                                  color: theme.colorScheme.surfaceContainerHigh,
+                                  child:
+                                      controller.richPresenceData!.containsKey(
+                                        'cover_url',
+                                      )
+                                      ? MxcImage(
+                                          uri: Uri.parse(
+                                            controller
+                                                .richPresenceData!['cover_url'],
+                                          ),
+                                          width: 128,
+                                          height: 128,
+                                        )
+                                      : SizedBox(
+                                          width: 128,
+                                          height: 128,
+                                          child: Icon(
+                                            Icons.music_note,
+                                            size: 48,
+                                          ),
+                                        ),
+                                ),
+                                const SizedBox(width: 16),
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: .start,
@@ -530,27 +536,34 @@ class ProfileView extends StatelessWidget {
                             Row(
                               mainAxisSize: .max,
                               children: [
-                                if (controller.richPresenceData!.containsKey(
-                                  'image',
-                                )) ...[
-                                  Material(
-                                    clipBehavior: .antiAlias,
-                                    borderRadius: BorderRadius.circular(
-                                      AppConfig.borderRadius / 2,
-                                    ),
-                                    color: theme
-                                        .colorScheme
-                                        .surfaceContainerHighest,
-                                    child: MxcImage(
-                                      uri: Uri.parse(
-                                        controller.richPresenceData!['image'],
-                                      ),
-                                      width: 128,
-                                      height: 128,
-                                    ),
+                                Material(
+                                  clipBehavior: .antiAlias,
+                                  borderRadius: BorderRadius.circular(
+                                    AppConfig.borderRadius / 2,
                                   ),
-                                  const SizedBox(width: 9),
-                                ],
+                                  color: theme.colorScheme.surfaceContainerHigh,
+                                  child:
+                                      controller.richPresenceData!.containsKey(
+                                        'image',
+                                      )
+                                      ? MxcImage(
+                                          uri: Uri.parse(
+                                            controller
+                                                .richPresenceData!['image'],
+                                          ),
+                                          width: 128,
+                                          height: 128,
+                                        )
+                                      : SizedBox(
+                                          width: 128,
+                                          height: 128,
+                                          child: Icon(
+                                            Icons.games_rounded,
+                                            size: 48,
+                                          ),
+                                        ),
+                                ),
+                                  const SizedBox(width: 16),
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: .start,
