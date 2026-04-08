@@ -136,6 +136,10 @@ class ChatController extends State<ChatPageWithRoom>
 
   final AutoScrollController scrollController = AutoScrollController();
 
+  /// Tracks the actual rendered height of the floating input bar so the
+  /// message list can reserve the correct amount of bottom padding.
+  final ValueNotifier<double> inputBarHeight = ValueNotifier<double>(80);
+
   late final FocusNode inputFocus;
 
   Timer? typingCoolDown;
@@ -185,10 +189,12 @@ class ChatController extends State<ChatPageWithRoom>
 
   Event? editEvent;
 
-  bool _scrolledUp = false;
+  final ValueNotifier<bool> _scrolledUp = ValueNotifier<bool>(false);
 
   bool get showScrollDownButton =>
-      _scrolledUp || timeline?.allowNewEvent == false;
+      _scrolledUp.value || timeline?.allowNewEvent == false;
+
+  ValueNotifier<bool> get scrolledUpNotifier => _scrolledUp;
 
   bool get selectMode => selectedEvents.isNotEmpty;
 
@@ -309,10 +315,10 @@ class ChatController extends State<ChatPageWithRoom>
     }
     if (!scrollController.hasClients) return;
     if (timeline?.allowNewEvent == false ||
-        scrollController.position.pixels > 0 && _scrolledUp == false) {
-      setState(() => _scrolledUp = true);
-    } else if (scrollController.position.pixels <= 0 && _scrolledUp == true) {
-      setState(() => _scrolledUp = false);
+        scrollController.position.pixels > 0 && !_scrolledUp.value) {
+      _scrolledUp.value = true;
+    } else if (scrollController.position.pixels <= 0 && _scrolledUp.value) {
+      _scrolledUp.value = false;
       setReadMarker();
     }
   }
@@ -409,7 +415,7 @@ class ChatController extends State<ChatPageWithRoom>
       await loadTimelineFuture;
       if (initialEventId != null) scrollToEventId(initialEventId);
 
-      var readMarkerEventIndex = readMarkerEventId.isEmpty
+      var readMarkerEventIndex = readMarkerEventId.isEmpty && timeline != null
           ? -1
           : timeline!.events
                 .filterByVisibleInGui(exceptionEventId: readMarkerEventId)
@@ -578,7 +584,7 @@ class ChatController extends State<ChatPageWithRoom>
 
   void setReadMarker({String? eventId}) {
     if (_setReadMarkerFuture != null) return;
-    if (_scrolledUp) return;
+    if (_scrolledUp.value) return;
     if (scrollUpBannerEventId != null) return;
 
     if (eventId == null &&
@@ -620,9 +626,11 @@ class ChatController extends State<ChatPageWithRoom>
 
   @override
   void dispose() {
+    _scrolledUp.dispose();
     timeline?.cancelSubscriptions();
     timeline = null;
     inputFocus.removeListener(_inputFocusListener);
+    inputBarHeight.dispose();
     if (currentlyTyping) room.setTyping(false);
     super.dispose();
   }
@@ -1326,7 +1334,7 @@ class ChatController extends State<ChatPageWithRoom>
     if (eventIndex == -1) {
       setState(() {
         timeline = null;
-        _scrolledUp = false;
+        _scrolledUp.value = false;
         loadTimelineFuture = _getTimeline(eventContextId: eventId).onError(
           ErrorReporter(
             context,
@@ -1357,7 +1365,7 @@ class ChatController extends State<ChatPageWithRoom>
     if (!timeline!.allowNewEvent) {
       setState(() {
         timeline = null;
-        _scrolledUp = false;
+        _scrolledUp.value = false;
         loadTimelineFuture = _getTimeline().onError(
           ErrorReporter(
             context,

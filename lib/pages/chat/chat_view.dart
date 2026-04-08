@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:badges/badges.dart';
 import 'package:desktop_drop/desktop_drop.dart';
@@ -364,6 +365,10 @@ class ChatView extends StatelessWidget {
 
     final wallpaperPath = AppSettings.wallpaperPath.value;
 
+    final view = View.of(context);
+    final screenWidth = view.physicalSize.width / view.devicePixelRatio;
+    final screenHeight = view.physicalSize.height / view.devicePixelRatio;
+
     return PopScope(
       canPop: controller.selectedEvents.isEmpty && !controller.showEmojiPicker,
       onPopInvokedWithResult: (pop, _) async {
@@ -454,21 +459,27 @@ class ChatView extends StatelessWidget {
                   ),
                 ),
               ),
-              floatingActionButton:
-                  controller.showScrollDownButton &&
-                      controller.selectedEvents.isEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.only(bottom: 56.0),
-                      child: FloatingActionButton(
-                        onPressed: controller.scrollDown,
-                        heroTag: null,
-                        mini: true,
-                        backgroundColor: theme.colorScheme.surface,
-                        foregroundColor: theme.colorScheme.onSurface,
-                        child: const Icon(Icons.arrow_downward_outlined),
-                      ),
-                    )
-                  : null,
+              floatingActionButton: ValueListenableBuilder<bool>(
+                valueListenable: controller.scrolledUpNotifier,
+                builder: (context, scrolledUp, _) {
+                  final show =
+                      (scrolledUp ||
+                          controller.timeline?.allowNewEvent == false) &&
+                      controller.selectedEvents.isEmpty;
+                  if (!show) return const SizedBox.shrink();
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 56.0),
+                    child: FloatingActionButton(
+                      onPressed: controller.scrollDown,
+                      heroTag: null,
+                      mini: true,
+                      backgroundColor: theme.colorScheme.surface,
+                      foregroundColor: theme.colorScheme.onSurface,
+                      child: const Icon(Icons.arrow_downward_outlined),
+                    ),
+                  );
+                },
+              ),
               body: DropTarget(
                 onDragDone: controller.onDragDone,
                 onDragEntered: controller.onDragEntered,
@@ -476,18 +487,27 @@ class ChatView extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     if (wallpaperPath.isNotEmpty)
-                      Opacity(
-                        opacity: AppSettings.wallpaperOpacity.value,
-                        child: ImageFiltered(
-                          imageFilter: ui.ImageFilter.blur(
-                            sigmaX: AppSettings.wallpaperBlur.value,
-                            sigmaY: AppSettings.wallpaperBlur.value,
-                          ),
-                          child: Image.file(
-                            File(wallpaperPath),
-                            fit: BoxFit.cover,
-                            height: MediaQuery.sizeOf(context).height,
-                            width: MediaQuery.sizeOf(context).width,
+                      Positioned.fill(
+                        child: ClipRect(
+                          child: OverflowBox(
+                            alignment: Alignment.topCenter,
+                            maxHeight: screenHeight,
+                            maxWidth: screenWidth,
+                            child: Opacity(
+                              opacity: AppSettings.wallpaperOpacity.value,
+                              child: ImageFiltered(
+                                imageFilter: ui.ImageFilter.blur(
+                                  sigmaX: AppSettings.wallpaperBlur.value,
+                                  sigmaY: AppSettings.wallpaperBlur.value,
+                                ),
+                                child: Image.file(
+                                  File(wallpaperPath),
+                                  fit: BoxFit.cover,
+                                  height: screenHeight,
+                                  width: screenWidth,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -503,51 +523,82 @@ class ChatView extends StatelessWidget {
                     ),
 
                     // Gradient
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: IgnorePointer(
-                        child: Container(
-                          height: 100,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                theme.colorScheme.surface.withValues(alpha: 0),
-                                theme.colorScheme.surface.withValues(
-                                  alpha: 0.6,
-                                ),
-                              ],
+                    if (controller.room.canSendDefaultMessages &&
+                        controller.room.membership == .join)
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: IgnorePointer(
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  theme.colorScheme.surface.withValues(
+                                    alpha: 0,
+                                  ),
+                                  theme.colorScheme.surface.withValues(
+                                    alpha: 0.6,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
 
                     // Floating input bar
                     Positioned(
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      child: SafeArea(
-                        top: false,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: bottomSheetPadding,
-                            vertical: bottomSheetPadding / 2,
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: FluffyThemes.columnWidth * 2.5,
-                              ),
-                              child: controller.room.isExtinct
-                                  ? (AppSettings.enableChatFrostedGlass.value
-                                        ? _FloatingInputShell(
-                                            child: ElevatedButton.icon(
+                      child: _MeasureSize(
+                        onChange: (size) {
+                          final oldHeight = controller.inputBarHeight.value;
+                          final newHeight = size.height;
+                          if (oldHeight == newHeight) return;
+                          controller.inputBarHeight.value = newHeight;
+                          // If the user is scrolled to the bottom (offset 0 in
+                          // a reversed list), keep them there so the input bar
+                          // doesn't obscure messages.
+                          final sc = controller.scrollController;
+                          if (sc.hasClients && sc.offset <= 0.0) {
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              if (sc.hasClients) sc.jumpTo(0.0);
+                            });
+                          }
+                        },
+                        child: SafeArea(
+                          top: false,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: bottomSheetPadding,
+                              vertical: bottomSheetPadding / 2,
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxWidth: FluffyThemes.columnWidth * 2.5,
+                                ),
+                                child: controller.room.isExtinct
+                                    ? (AppSettings.enableChatFrostedGlass.value
+                                          ? _FloatingInputShell(
+                                              child: ElevatedButton.icon(
+                                                icon: const Icon(
+                                                  Icons.chevron_right,
+                                                ),
+                                                label: Text(
+                                                  L10n.of(context).enterNewChat,
+                                                ),
+                                                onPressed: controller
+                                                    .goToNewRoomAction,
+                                              ),
+                                            )
+                                          : ElevatedButton.icon(
                                               icon: const Icon(
                                                 Icons.chevron_right,
                                               ),
@@ -556,91 +607,85 @@ class ChatView extends StatelessWidget {
                                               ),
                                               onPressed:
                                                   controller.goToNewRoomAction,
-                                            ),
-                                          )
-                                        : ElevatedButton.icon(
-                                            icon: const Icon(
-                                              Icons.chevron_right,
-                                            ),
-                                            label: Text(
-                                              L10n.of(context).enterNewChat,
-                                            ),
-                                            onPressed:
-                                                controller.goToNewRoomAction,
-                                          ))
-                                  : controller.room.canSendDefaultMessages &&
-                                        controller.room.membership ==
-                                            Membership.join &&
-                                        !controller.showThreadRoots
-                                  ? (() {
-                                      final inputChild =
-                                          controller.room.isAbandonedDMRoom ==
-                                              true
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                TextButton.icon(
-                                                  style: TextButton.styleFrom(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                          16,
-                                                        ),
-                                                    foregroundColor:
-                                                        theme.colorScheme.error,
+                                            ))
+                                    : controller.room.canSendDefaultMessages &&
+                                          controller.room.membership ==
+                                              Membership.join &&
+                                          !controller.showThreadRoots
+                                    ? (() {
+                                        final inputChild =
+                                            controller.room.isAbandonedDMRoom ==
+                                                true
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  TextButton.icon(
+                                                    style: TextButton.styleFrom(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                            16,
+                                                          ),
+                                                      foregroundColor: theme
+                                                          .colorScheme
+                                                          .error,
+                                                    ),
+                                                    icon: const Icon(
+                                                      Icons.archive_outlined,
+                                                    ),
+                                                    onPressed:
+                                                        controller.leaveChat,
+                                                    label: Text(
+                                                      L10n.of(context).leave,
+                                                    ),
                                                   ),
-                                                  icon: const Icon(
-                                                    Icons.archive_outlined,
+                                                  TextButton.icon(
+                                                    style: TextButton.styleFrom(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                            16,
+                                                          ),
+                                                    ),
+                                                    icon: const Icon(
+                                                      Icons.forum_outlined,
+                                                    ),
+                                                    onPressed:
+                                                        controller.recreateChat,
+                                                    label: Text(
+                                                      L10n.of(
+                                                        context,
+                                                      ).reopenChat,
+                                                    ),
                                                   ),
-                                                  onPressed:
-                                                      controller.leaveChat,
-                                                  label: Text(
-                                                    L10n.of(context).leave,
-                                                  ),
-                                                ),
-                                                TextButton.icon(
-                                                  style: TextButton.styleFrom(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                          16,
-                                                        ),
-                                                  ),
-                                                  icon: const Icon(
-                                                    Icons.forum_outlined,
-                                                  ),
-                                                  onPressed:
-                                                      controller.recreateChat,
-                                                  label: Text(
-                                                    L10n.of(context).reopenChat,
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                ReplyDisplay(controller),
-                                                ChatInputRow(controller),
-                                                ChatEmojiPicker(controller),
-                                              ],
-                                            );
-                                      return AppSettings
-                                              .enableChatFrostedGlass
-                                              .value
-                                          ? _FloatingInputShell(
-                                              child: inputChild,
-                                            )
-                                          : Material(
-                                              clipBehavior: Clip.hardEdge,
-                                              color: theme
-                                                  .colorScheme
-                                                  .surfaceContainerHigh,
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                              child: inputChild,
-                                            );
-                                    })()
-                                  : const SizedBox.shrink(),
+                                                ],
+                                              )
+                                            : Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  ReplyDisplay(controller),
+                                                  ChatInputRow(controller),
+                                                  ChatEmojiPicker(controller),
+                                                ],
+                                              );
+                                        return AppSettings
+                                                .enableChatFrostedGlass
+                                                .value
+                                            ? _FloatingInputShell(
+                                                child: inputChild,
+                                              )
+                                            : Material(
+                                                clipBehavior: Clip.hardEdge,
+                                                color: theme
+                                                    .colorScheme
+                                                    .surfaceContainerHigh,
+                                                borderRadius:
+                                                    BorderRadius.circular(24),
+                                                child: inputChild,
+                                              );
+                                      })()
+                                    : const SizedBox.shrink(),
+                              ),
                             ),
                           ),
                         ),
@@ -754,5 +799,45 @@ class _FloatingInputShell extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+/// A widget that measures its child's size after every layout and reports
+/// changes — including sizes produced mid-animation.
+class _MeasureSize extends SingleChildRenderObjectWidget {
+  final ValueChanged<Size> onChange;
+
+  const _MeasureSize({required this.onChange, required super.child});
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _MeasureSizeRenderObject(onChange);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    _MeasureSizeRenderObject renderObject,
+  ) {
+    renderObject.onChange = onChange;
+  }
+}
+
+class _MeasureSizeRenderObject extends RenderProxyBox {
+  ValueChanged<Size> onChange;
+  Size? _oldSize;
+
+  _MeasureSizeRenderObject(this.onChange);
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    final newSize = size;
+    if (newSize != _oldSize) {
+      _oldSize = newSize;
+      // Defer the callback to avoid mutating state during layout.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        onChange(newSize);
+      });
+    }
   }
 }

@@ -853,7 +853,9 @@ class BubblePainter extends CustomPainter {
       ..shader = ui.Gradient.linear(
         scrollableRect.topCenter,
         scrollableRect.bottomCenter,
-        colors,
+        AppSettings.enableChatFrostedGlass.value
+            ? colors.map((x) => x.withValues(alpha: 0.7)).toList()
+            : colors,
         [0.0, 1.0],
         TileMode.clamp,
         Matrix4.translationValues(-origin.dx, -origin.dy, 0.0).storage,

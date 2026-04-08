@@ -17,7 +17,13 @@ extension LoadingSnackbarExtension on ScaffoldMessengerState {
               child: CircularProgressIndicator.adaptive(strokeWidth: 2),
             ),
             const SizedBox(width: 16),
-            Text(title),
+            Expanded(child: Text(title)),
+            IconButton(
+              onPressed: () {
+                clearSnackBars();
+              },
+              icon: const Icon(Icons.close),
+            ),
           ],
         ),
       ),
