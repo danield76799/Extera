@@ -349,8 +349,15 @@ class _MessageState extends State<Message> {
               right: 0,
               child: InkWell(
                 onTapDown: (details) => _tapPosition = details.globalPosition,
+                onSecondaryTapDown: (details) =>
+                    _tapPosition = details.globalPosition,
                 onTap: () => widget.onSelect(event, _tapPosition),
-                onLongPress: () => widget.onSelect(event, _tapPosition),
+                onLongPress: () {
+                  if (PlatformInfos.isMobile) {
+                    widget.onSelect(event, _tapPosition);
+                  }
+                },
+                onSecondaryTap: () => widget.onSelect(event, _tapPosition),
                 borderRadius: BorderRadius.circular(AppConfig.borderRadius / 2),
                 child: Material(
                   borderRadius: BorderRadius.circular(
@@ -443,11 +450,13 @@ class _MessageState extends State<Message> {
                         alignment: alignment,
                         padding: const EdgeInsets.only(left: 8),
                         child: GestureDetector(
+                          onTapDown: (details) =>
+                              _tapPosition = details.globalPosition,
                           onLongPress: widget.longPressSelect
                               ? null
                               : () {
                                   HapticFeedback.heavyImpact();
-                                  widget.onSelect(event, null);
+                                  widget.onSelect(event, _tapPosition);
                                 },
                           child: Material(
                             color: noBubble
