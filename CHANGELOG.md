@@ -1,3 +1,6 @@
+## Extera 26.1.31
+- Fix little typo in MSC4320 Rich Presence rendering.
+
 ## Extera 26.1.3
 - Option to hide "take photo/video" button in message composer.
 - Update MSC4320 Rich Presence design view.
