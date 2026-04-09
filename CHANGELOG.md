@@ -1,4 +1,5 @@
 ## Extera 26.1.32
+- `EXTERA_HIDE_TITLEBAR=1` for borderless window.
 - bugfixes and improvements
 
 ## Extera 26.1.31
