@@ -74,7 +74,8 @@ abstract class AppConfig {
 
   // See CREDITS.md
   static const Map<String, String> ringtoneFiles = {
-    
+    'The Groove One': 'sounds/ringtones/the_groove_one.mp3',
+    'Future Synth': 'sounds/ringtones/future_synth.mp3',
   };
 
   static void loadFromJson(Map<String, dynamic> json) {
