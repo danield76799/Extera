@@ -50,18 +50,19 @@ static void my_application_activate(GApplication* application) {
     }
   }
 #endif
-  if (use_header_bar) {
-    GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
-    gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "Extera Next");
-    gtk_header_bar_set_show_close_button(header_bar, TRUE);
-    gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
-    
+  const gchar* hide_titlebar = g_getenv("EXTERA_HIDE_TITLEBAR");
+  if (hide_titlebar != nullptr && g_strcmp0(hide_titlebar, "1") == 0) {
+    gtk_window_set_decorated(window, FALSE);
+    g_setenv("GTK_CSD", "0", TRUE);
   } else {
-    const gchar* hide_titlebar = g_getenv("EXTERA_HIDE_TITLEBAR");
-    gtk_window_set_title(window, "Extera Next");
-    if (hide_titlebar != nullptr && g_strcmp0(hide_titlebar, "1") == 0) {
-        gtk_window_set_decorated(window, FALSE);
+    if (use_header_bar) {
+      GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
+      gtk_widget_show(GTK_WIDGET(header_bar));
+      gtk_header_bar_set_title(header_bar, "Extera Next");
+      gtk_header_bar_set_show_close_button(header_bar, TRUE);
+      gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
+    } else {
+      gtk_window_set_title(window, "Extera Next");
     }
   }
 
