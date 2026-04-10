@@ -9,6 +9,7 @@ extension LoadingSnackbarExtension on ScaffoldMessengerState {
       SnackBar(
         duration: const Duration(minutes: 5),
         dismissDirection: DismissDirection.none,
+        showCloseIcon: true,
         content: Row(
           children: [
             const SizedBox(
@@ -18,12 +19,12 @@ extension LoadingSnackbarExtension on ScaffoldMessengerState {
             ),
             const SizedBox(width: 16),
             Expanded(child: Text(title)),
-            IconButton(
-              onPressed: () {
-                clearSnackBars();
-              },
-              icon: const Icon(Icons.close),
-            ),
+            // IconButton(
+            //   onPressed: () {
+            //     clearSnackBars();
+            //   },
+            //   icon: const Icon(Icons.close),
+            // ),
           ],
         ),
       ),
