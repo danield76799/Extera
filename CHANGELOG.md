@@ -1,3 +1,6 @@
+## Extera 26.1.33
+- Remove duplicate close button in "loading" snackbars.
+
 ## Extera 26.1.32
 - `EXTERA_HIDE_TITLEBAR=1` for borderless window.
 - bugfixes and improvements
