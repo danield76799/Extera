@@ -11,6 +11,7 @@ import 'package:extera_next/pages/chat/events/html_message.dart';
 import 'package:extera_next/pages/image_viewer/image_viewer.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/event_extension.dart';
 import 'package:extera_next/utils/platform_infos.dart';
+import 'package:extera_next/utils/size_string.dart';
 import 'package:extera_next/utils/url_launcher.dart';
 import 'package:extera_next/widgets/blur_hash.dart';
 import 'package:extera_next/widgets/mxc_image.dart';
@@ -21,6 +22,7 @@ class EventVideoPlayer extends StatelessWidget {
   final Color textColor;
   final Color linkColor;
   final BorderRadius? borderRadius;
+  final bool loadThumbnail;
 
   const EventVideoPlayer(
     this.event,
@@ -28,6 +30,7 @@ class EventVideoPlayer extends StatelessWidget {
     this.linkColor, {
     this.timeline,
     this.borderRadius,
+    this.loadThumbnail = false,
     super.key,
   });
 
@@ -52,6 +55,8 @@ class EventVideoPlayer extends StatelessWidget {
     final videoHeight = infoMap?.tryGet<int>('h') ?? 300;
     const height = 300.0;
     final width = videoWidth * (height / videoHeight);
+
+    final sizeInt = infoMap?.tryGet<num>('size');
 
     final durationInt = infoMap?.tryGet<int>('duration');
     final duration = durationInt == null
@@ -84,67 +89,88 @@ class EventVideoPlayer extends StatelessWidget {
             borderRadius: borderRadius,
             side: BorderSide(color: theme.dividerColor),
           ),
-          child: InkWell(
-            onTap: () => supportsVideoPlayer
-                ? showDialog(
-                    context: context,
-                    useRootNavigator: false,
-                    builder: (_) => ImageViewer(
-                      event,
-                      timeline: timeline,
-                      outerContext: context,
-                    ),
-                  )
-                : event.saveFile(context),
-            borderRadius: borderRadius,
-            child: SizedBox(
-              width: width,
-              height: height,
-              child: Stack(
-                children: [
-                  if (event.hasThumbnail)
-                    MxcImage(
-                      event: event,
-                      uri: event.thumbnailMxcUrl,
-                      isThumbnail: true,
-                      width: width,
-                      height: height,
-                      fit: BoxFit.cover,
-                      placeholder: (context) => BlurHash(
-                        blurhash: blurHash,
-                        width: width,
-                        height: height,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  else
-                    BlurHash(
+          child: SizedBox(
+            width: width,
+            height: height,
+            child: Stack(
+              children: [
+                if (event.hasThumbnail && loadThumbnail)
+                  MxcImage(
+                    event: event,
+                    uri: event.thumbnailMxcUrl,
+                    isThumbnail: true,
+                    width: width,
+                    height: height,
+                    fit: BoxFit.cover,
+                    placeholder: (context) => BlurHash(
                       blurhash: blurHash,
                       width: width,
                       height: height,
                       fit: BoxFit.cover,
                     ),
-                  Center(
-                    child: CircleAvatar(
-                      child: supportsVideoPlayer
-                          ? const Icon(Icons.play_arrow_outlined)
-                          : const Icon(Icons.file_download_outlined),
+                  )
+                else
+                  BlurHash(
+                    blurhash: blurHash,
+                    width: width,
+                    height: height,
+                    fit: BoxFit.cover,
+                  ),
+                Center(
+                  // child: CircleAvatar(
+                  //   child: supportsVideoPlayer
+                  //       ? const Icon(Icons.play_arrow_outlined)
+                  //       : const Icon(Icons.file_download_outlined),
+                  // ),
+                  child: ElevatedButton(
+                    onPressed: () => supportsVideoPlayer
+                        ? showDialog(
+                            context: context,
+                            useRootNavigator: false,
+                            builder: (_) => ImageViewer(
+                              event,
+                              timeline: timeline,
+                              outerContext: context,
+                            ),
+                          )
+                        : event.saveFile(context),
+                    child: Row(
+                      mainAxisSize: .min,
+                      children: [
+                        supportsVideoPlayer
+                            ? const Icon(Icons.play_arrow_outlined)
+                            : const Icon(Icons.file_download_outlined),
+                        const SizedBox(width: 12),
+                        Text(
+                          supportsVideoPlayer
+                              ? sizeInt == null
+                                    ? L10n.of(context).playVideoNoSize
+                                    : L10n.of(
+                                        context,
+                                      ).playVideo(sizeInt.sizeString)
+                              : sizeInt == null
+                              ? L10n.of(context).downloadVideoNoSize
+                              : L10n.of(
+                                  context,
+                                ).downloadVideo(sizeInt.sizeString),
+                        ),
+                      ],
                     ),
                   ),
-                  if (duration != null)
-                    Positioned(
-                      bottom: 8,
-                      left: 16,
-                      child: Text(
-                        '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          backgroundColor: Colors.black.withAlpha(32),
-                        ),
+                ),
+                if (duration != null)
+                  Positioned(
+                    bottom: 8,
+                    left: 16,
+                    child: Text(
+                      '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        backgroundColor: Colors.black.withAlpha(32),
                       ),
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
           ),
         ),

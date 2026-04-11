@@ -32,8 +32,9 @@ class ChatPrivacyController extends State<ChatPrivacy> {
 
   bool get sendReadReceipts {
     final client = Matrix.of(context).client;
-    if (!privacySettingsEnabled)
+    if (!privacySettingsEnabled) {
       return AppSettings.sendPublicReadReceipts.value;
+    }
     final content = client.accountData[_eventKey]!.content;
     return content.tryGet<bool>('read_receipts') ??
         AppSettings.sendPublicReadReceipts.value;
@@ -41,11 +42,22 @@ class ChatPrivacyController extends State<ChatPrivacy> {
 
   bool get sendTypingNotifications {
     final client = Matrix.of(context).client;
-    if (!privacySettingsEnabled)
+    if (!privacySettingsEnabled) {
       return AppSettings.sendPublicReadReceipts.value;
+    }
     final content = client.accountData[_eventKey]!.content;
     return content.tryGet<bool>('typing_notifications') ??
         AppSettings.sendTypingNotifications.value;
+  }
+
+  bool get autoLoadMedia {
+    final client = Matrix.of(context).client;
+    if (!privacySettingsEnabled) {
+      return AppSettings.autoLoadMedia.value;
+    }
+    final content = client.accountData[_eventKey]!.content;
+    return content.tryGet<bool>('auto_load_media') ??
+        AppSettings.autoLoadMedia.value;
   }
 
   void setReadReceipts(bool readReceipts) async {
@@ -54,6 +66,7 @@ class ChatPrivacyController extends State<ChatPrivacy> {
       client.setAccountData(client.userID!, _eventKey, {
         'read_receipts': readReceipts,
         'typing_notifications': sendTypingNotifications,
+        'auto_load_media': autoLoadMedia,
       });
     });
   }
@@ -64,6 +77,18 @@ class ChatPrivacyController extends State<ChatPrivacy> {
       client.setAccountData(client.userID!, _eventKey, {
         'read_receipts': sendReadReceipts,
         'typing_notifications': typingNotifications,
+        'auto_load_media': autoLoadMedia,
+      });
+    });
+  }
+
+  void setAutoLoadMedia(bool newAutoLoadMedia) {
+    final client = Matrix.of(context).client;
+    setState(() {
+      client.setAccountData(client.userID!, _eventKey, {
+        'read_receipts': sendReadReceipts,
+        'typing_notifications': sendTypingNotifications,
+        'auto_load_media': newAutoLoadMedia,
       });
     });
   }

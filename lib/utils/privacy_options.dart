@@ -9,8 +9,9 @@ bool hasIndividualPrivacyOptionsEnabled(Client client, String roomId) {
 }
 
 bool shouldSendPublicReadReceipts(Client client, String roomId) {
-  if (!hasIndividualPrivacyOptionsEnabled(client, roomId))
+  if (!hasIndividualPrivacyOptionsEnabled(client, roomId)) {
     return AppSettings.sendPublicReadReceipts.value;
+  }
   final content =
       client.accountData['xyz.extera.room_privacy_settings.$roomId']!.content;
   return content.tryGet('read_receipts') ??
@@ -18,10 +19,20 @@ bool shouldSendPublicReadReceipts(Client client, String roomId) {
 }
 
 bool shouldSendTypingNotifications(Client client, String roomId) {
-  if (!hasIndividualPrivacyOptionsEnabled(client, roomId))
+  if (!hasIndividualPrivacyOptionsEnabled(client, roomId)) {
     return AppSettings.sendTypingNotifications.value;
+  }
   final content =
       client.accountData['xyz.extera.room_privacy_settings.$roomId']!.content;
   return content.tryGet('typing_notifications') ??
       AppSettings.sendTypingNotifications.value;
+}
+
+bool shouldAutoLoadMedia(Client client, String roomId) {
+  if (!hasIndividualPrivacyOptionsEnabled(client, roomId)) {
+    return AppSettings.autoLoadMedia.value;
+  }
+  final content =
+      client.accountData['xyz.extera.room_privacy_settings.$roomId']!.content;
+  return content.tryGet('auto_load_media') ?? AppSettings.autoLoadMedia.value;
 }

@@ -15,6 +15,7 @@ import 'package:extera_next/pages/chat/events/room_creation_state_event.dart';
 import 'package:extera_next/utils/date_time_extension.dart';
 import 'package:extera_next/utils/platform_infos.dart';
 import 'package:extera_next/utils/poll_events.dart';
+import 'package:extera_next/utils/privacy_options.dart';
 import 'package:extera_next/utils/string_color.dart';
 import 'package:extera_next/widgets/avatar.dart';
 import 'package:extera_next/widgets/matrix.dart';
@@ -85,9 +86,15 @@ class _MessageState extends State<Message> {
   Future<Event?>? _replyEventFuture;
   Future<User?>? _threadSenderFuture;
 
+  bool loadMedia = false;
+
   @override
   void initState() {
     super.initState();
+    loadMedia = shouldAutoLoadMedia(
+      widget.event.room.client,
+      widget.event.room.id,
+    );
     _initFutures();
   }
 
@@ -580,6 +587,12 @@ class _MessageState extends State<Message> {
                                                 onInfoTab: widget.onInfoTab,
                                                 borderRadius: borderRadius,
                                                 timeline: timeline,
+                                                loadMedia: loadMedia,
+                                                onLoadMedia: () {
+                                                  setState(() {
+                                                    loadMedia = true;
+                                                  });
+                                                },
                                                 selectable:
                                                     PlatformInfos.isMobile
                                                     ? widget.longPressSelect

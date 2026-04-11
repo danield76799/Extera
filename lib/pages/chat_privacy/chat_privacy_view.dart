@@ -69,6 +69,17 @@ class ChatPrivacyView extends StatelessWidget {
                         },
                       ),
                     ),
+                    const ListDivider(),
+                    ListTile(
+                      title: Text(L10n.of(context).autoLoadMedia),
+                      subtitle: Text(L10n.of(context).autoLoadMediaLong),
+                      trailing: Switch(
+                        value: controller.autoLoadMedia,
+                        onChanged: (value) {
+                          controller.setAutoLoadMedia(value);
+                        },
+                      ),
+                    ),
                     if (controller.privacySettingsEnabled) ...[
                       const ListDivider(),
                       Padding(

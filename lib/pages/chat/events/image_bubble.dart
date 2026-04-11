@@ -9,6 +9,7 @@ import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/chat/events/html_message.dart';
 import 'package:extera_next/pages/image_viewer/image_viewer.dart';
+import 'package:extera_next/utils/size_string.dart';
 import 'package:extera_next/utils/url_launcher.dart';
 import 'package:extera_next/widgets/mxc_image.dart';
 import '../../../widgets/blur_hash.dart';
@@ -29,6 +30,9 @@ class ImageBubble extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Timeline? timeline;
 
+  final bool loadMedia;
+  final void Function()? onLoadMedia;
+
   const ImageBubble(
     this.event, {
     this.tapToView = true,
@@ -44,6 +48,8 @@ class ImageBubble extends StatelessWidget {
     this.timeline,
     this.textColor,
     this.linkColor,
+    this.loadMedia = false,
+    this.onLoadMedia,
     super.key,
   });
 
@@ -83,7 +89,48 @@ class ImageBubble extends StatelessWidget {
     );
   }
 
+  Widget _buildUnloaded(BuildContext context) {
+    final blurHashString = event.infoMap['xyz.amorgan.blurhash'] is String
+        ? event.infoMap['xyz.amorgan.blurhash'] as String
+        : 'LEHV6nWB2yk8pyo0adR*.7kCMdnj';
+    final size = event.infoMap['size'] is num
+        ? event.infoMap['size'] as num
+        : null;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            BlurHash(
+              blurhash: blurHashString,
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+              fit: fit,
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: onLoadMedia,
+                child: Row(
+                  mainAxisSize: .min,
+                  children: [
+                    const Icon(Icons.image),
+                    const SizedBox(width: 12),
+                    Text(
+                      size != null
+                          ? L10n.of(context).loadImage(size.sizeString)
+                          : L10n.of(context).loadImageNoSize,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _onTap(BuildContext context) {
+    if (!loadMedia) return;
     if (onTap != null) {
       onTap!();
       return;
@@ -144,16 +191,19 @@ class ImageBubble extends StatelessWidget {
                   onTap: () => _onTap(context),
                   child: Hero(
                     tag: event.eventId,
-                    child: MxcImage(
-                      event: event,
-                      width: _effectiveImageWidth,
-                      fit: fit,
-                      animated: animated,
-                      isThumbnail: thumbnailOnly,
-                      placeholder: event.messageType == MessageTypes.Sticker
-                          ? null
-                          : _buildPlaceholder,
-                    ),
+                    child: loadMedia
+                        ? MxcImage(
+                            event: event,
+                            width: _effectiveImageWidth,
+                            fit: fit,
+                            animated: animated,
+                            isThumbnail: thumbnailOnly,
+                            placeholder:
+                                event.messageType == MessageTypes.Sticker
+                                ? null
+                                : _buildPlaceholder,
+                          )
+                        : _buildUnloaded(context),
                   ),
                 ),
               ),

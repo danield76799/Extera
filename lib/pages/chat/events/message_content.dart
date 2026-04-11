@@ -36,6 +36,9 @@ class MessageContent extends StatelessWidget {
   final Timeline timeline;
   final bool selectable;
 
+  final bool loadMedia;
+  final void Function()? onLoadMedia;
+
   const MessageContent(
     this.event, {
     this.onInfoTab,
@@ -45,6 +48,8 @@ class MessageContent extends StatelessWidget {
     required this.linkColor,
     required this.borderRadius,
     this.selectable = false,
+    this.loadMedia = false,
+    this.onLoadMedia,
   });
 
   void _verifyOrRequestKey(BuildContext context) async {
@@ -162,6 +167,8 @@ class MessageContent extends StatelessWidget {
               timeline: timeline,
               textColor: textColor,
               linkColor: linkColor,
+              loadMedia: loadMedia,
+              onLoadMedia: onLoadMedia,
             );
           case CuteEventContent.eventType:
             return CuteContent(event);
@@ -190,6 +197,7 @@ class MessageContent extends StatelessWidget {
               linkColor,
               timeline: timeline,
               borderRadius: borderRadius,
+              loadThumbnail: loadMedia,
             );
           case MessageTypes.File:
             return MessageDownloadContent(

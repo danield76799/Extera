@@ -3623,5 +3623,28 @@
   "removeFromRecents": "Remove from recents",
   "favouriteStickers": "Favourite",
   "showCameraButton": "Take photo/video",
-  "showCameraButtonDesc": "Show a button to take a photo/video in message composer"
+  "showCameraButtonDesc": "Show a button to take a photo/video in message composer",
+  "loadImageNoSize": "Load image",
+  "loadImage": "Load image ({size})",
+  "@loadImage": {
+    "placeholders": {
+        "size": { "type": "String" }
+    }
+  },
+  "downloadVideoNoSize": "Download video",
+  "downloadVideo": "Download video ({size})",
+  "@downloadVideo": {
+    "placeholders": {
+        "size": { "type": "String" }
+    }
+  },
+  "playVideoNoSize": "Play video",
+  "playVideo": "Play video ({size})",
+  "@playVideo": {
+    "placeholders": {
+        "size": { "type": "String" }
+    }
+  },
+  "autoLoadMedia": "Preview media",
+  "autoLoadMediaLong": "If disabled, media won't load automatically until you click it."
 }
