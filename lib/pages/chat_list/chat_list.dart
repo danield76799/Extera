@@ -44,7 +44,7 @@ enum PopupMenuAction {
   archive,
 }
 
-enum ActiveFilter { allChats, messages, groups, unread, spaces }
+enum ActiveFilter { allChats, messages, groups, unread, spaces, people }
 
 extension LocalizedActiveFilter on ActiveFilter {
   String toLocalizedString(BuildContext context) {
@@ -59,22 +59,26 @@ extension LocalizedActiveFilter on ActiveFilter {
         return L10n.of(context).groups;
       case ActiveFilter.spaces:
         return L10n.of(context).spaces;
+      case ActiveFilter.people:
+        return L10n.of(context).people;
     }
   }
 
   IconData toIconData(bool outline) {
     switch (this) {
-      case ActiveFilter.allChats:
-      case ActiveFilter.messages:
+      case .allChats:
+      case .messages:
         return outline ? Icons.chat_bubble_outline : Icons.chat_bubble;
-      case ActiveFilter.unread:
+      case .unread:
         return outline
             ? Icons.mark_unread_chat_alt_outlined
             : Icons.mark_unread_chat_alt;
-      case ActiveFilter.groups:
+      case .groups:
         return outline ? Icons.people_outline : Icons.people;
-      case ActiveFilter.spaces:
+      case .spaces:
         return outline ? Icons.grid_view_outlined : Icons.grid_view_rounded;
+      case .people:
+        return Icons.people_outline;
     }
   }
 }
@@ -157,27 +161,29 @@ class ChatListController extends State<ChatList>
 
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
     switch (activeFilter) {
-      case ActiveFilter.allChats:
+      case .allChats:
         return (room) =>
             !room.isSpace &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty);
-      case ActiveFilter.messages:
+      case .messages:
         return (room) =>
             !room.isSpace &&
             room.isDirectChat &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty);
-      case ActiveFilter.groups:
+      case .groups:
         return (room) =>
             !room.isSpace &&
             !room.isDirectChat &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty);
-      case ActiveFilter.unread:
+      case .unread:
         return (room) => room.isUnreadOrInvited;
-      case ActiveFilter.spaces:
+      case .spaces:
         return (room) => room.isSpace;
+      case .people:
+        return (room) => false;
     }
   }
 

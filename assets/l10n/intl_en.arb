@@ -3594,6 +3594,15 @@
       }
     }
   },
+  "peopleOnline": "{count, plural, one{{count} person} other{{count} people}} online",
+  "@peopleOnline": {
+    "placeholders": {
+        "count": {
+            "type": "int",
+            "example": "1"
+        }
+    }
+  },
   "pollResults": "Poll results",
   "systemFont": "Use system font",
   "jitsiFeatureFlag": "Jitsi group calls",
