@@ -26,101 +26,61 @@ class ProfilePage extends StatefulWidget {
 
 class ProfileController extends State<ProfilePage> {
   String? about;
-  bool isQueryingAbout = false;
-
   Map<String, dynamic>? richPresenceData;
-  bool isQueryingRichPresenceData = false;
-
   Uri? bannerUrl;
-  bool isQueryingBanner = false;
 
-  Future<void> queryAbout() async {
+  bool isQuerying = false;
+
+  Future<void> queryData() async {
     final client = Matrix.of(context).client;
-    if (isQueryingAbout) return;
-    setState(() {
-      isQueryingAbout = true;
-    });
-    final aboutResponse = await client.getProfileField(
+    if (isQuerying) return;
+
+    final profile = await client.getUserProfile(
       widget.profile.userId,
-      AppConfig.aboutProfileField,
+      maxCacheAge: const Duration(seconds: 1),
     );
-    if (aboutResponse.containsKey(AppConfig.aboutProfileField) &&
-        aboutResponse[AppConfig.aboutProfileField] is String &&
-        aboutResponse[AppConfig.aboutProfileField].toString().length <= 256) {
+    if (profile.additionalProperties[AppConfig.aboutProfileField] is String &&
+        profile.additionalProperties[AppConfig.aboutProfileField]
+                .toString()
+                .length <=
+            256) {
       setState(() {
-        about = aboutResponse[AppConfig.aboutProfileField].toString();
-        isQueryingAbout = false;
-      });
-    } else {
-      setState(() {
-        isQueryingAbout = false;
+        about =
+            profile.additionalProperties[AppConfig.aboutProfileField] as String;
       });
     }
-  }
 
-  Future<void> queryBanner() async {
-    final client = Matrix.of(context).client;
-    if (isQueryingBanner) return;
-    setState(() {
-      isQueryingBanner = true;
-    });
-    final bannerResponse = await client.getProfileField(
-      widget.profile.userId,
-      AppConfig.bannerProfileField,
-    );
-    if (bannerResponse.containsKey(AppConfig.bannerProfileField) &&
-        bannerResponse[AppConfig.bannerProfileField] is String) {
+    if (profile.additionalProperties.containsKey(
+          AppConfig.bannerProfileField,
+        ) &&
+        profile.additionalProperties[AppConfig.bannerProfileField] is String) {
       try {
-        final urlString = bannerResponse.tryGet<String>(
+        final urlString = profile.additionalProperties.tryGet<String>(
           AppConfig.bannerProfileField,
         );
         if (urlString != null) {
           final url = Uri.parse(urlString);
           setState(() {
             bannerUrl = url;
-            isQueryingBanner = false;
-          });
-        } else {
-          setState(() {
-            isQueryingBanner = false;
           });
         }
       } catch (e) {
         Logs().e("Failed to parse banner URL", e);
-        setState(() {
-          isQueryingBanner = false;
-        });
       }
-    } else {
-      setState(() {
-        isQueryingBanner = false;
-      });
     }
-  }
 
-  Future<void> queryRichPresence() async {
-    final client = Matrix.of(context).client;
-    if (isQueryingRichPresenceData) return;
-    setState(() {
-      isQueryingRichPresenceData = true;
-    });
-    final rpcResponse = await client.getProfileField(
-      widget.profile.userId,
-      // Who thought that this prefix would look good for an MSC T-T
-      "com.ip-logger.msc4320.rpc",
-    );
-    if (rpcResponse.containsKey("com.ip-logger.msc4320.rpc") &&
-        rpcResponse["com.ip-logger.msc4320.rpc"] is Object) {
+    if (profile.additionalProperties.containsKey("com.ip-logger.msc4320.rpc") &&
+        profile.additionalProperties["com.ip-logger.msc4320.rpc"] is Object) {
       setState(() {
         richPresenceData =
-            rpcResponse["com.ip-logger.msc4320.rpc"] as Map<String, dynamic>;
-        isQueryingRichPresenceData = false;
-      });
-    } else {
-      setState(() {
-        isQueryingRichPresenceData = false;
+            profile.additionalProperties["com.ip-logger.msc4320.rpc"]
+                as Map<String, dynamic>;
       });
     }
+
+    setState(() {
+      isQuerying = false;
+    });
   }
 
   bool get isRpcMedia {
@@ -189,9 +149,7 @@ class ProfileController extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    queryAbout();
-    queryRichPresence();
-    queryBanner();
+    queryData();
 
     if (Matrix.of(context).client.userID != widget.profile.userId) {
       queryMutualRooms();
