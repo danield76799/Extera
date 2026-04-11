@@ -30,6 +30,12 @@ class ParticipantListItem extends StatelessWidget {
         ? L10n.of(context).moderator
         : '';
 
+    var statusMsg = user.presence?.presence.statusMsg;
+
+    if (statusMsg != null && statusMsg.trimLeft().startsWith('@')) {
+      statusMsg = null; // prevent impersonation
+    }
+
     return ListTile(
       onTap: () => showMemberActionsPopupMenu(context: context, user: user),
       title: Row(
@@ -81,7 +87,12 @@ class ParticipantListItem extends StatelessWidget {
                 ),
         ],
       ),
-      subtitle: Text(user.id, maxLines: 1, overflow: TextOverflow.ellipsis),
+      subtitle: Text(
+        statusMsg ?? user.id,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontStyle: statusMsg != null ? .italic : .normal),
+      ),
       leading: Opacity(
         opacity: user.membership == Membership.join ? 1 : 0.5,
         child: Avatar(
