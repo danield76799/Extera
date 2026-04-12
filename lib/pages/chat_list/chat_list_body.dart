@@ -1,5 +1,4 @@
 import 'package:extera_next/pages/chat_list/people_view.dart';
-import 'package:extera_next/pages/chat_list/bridges_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +7,7 @@ import 'package:matrix/matrix.dart';
 import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/chat_list/chat_list.dart';
+import 'package:extera_next/pages/chat_list/bridge_filter_bar.dart';
 import 'package:extera_next/pages/chat_list/chat_list_item.dart';
 import 'package:extera_next/pages/chat_list/chat_list_legacy_header.dart';
 import 'package:extera_next/pages/chat_list/dummy_chat_list_item.dart';
@@ -38,14 +38,6 @@ class ChatListViewBody extends StatelessWidget {
     final activeSpace = controller.activeSpaceId;
     if (controller.activeFilter == .people) {
       return PeopleView(
-        onBack: () => controller.activeFilter =
-            AppSettings.separateChatTypes.value ? .messages : .allChats,
-        onChatTap: (room) => controller.onChatTap(room),
-        chatListController: controller,
-      );
-    }
-    if (controller.activeFilter == .bridges) {
-      return BridgesView(
         onBack: () => controller.activeFilter =
             AppSettings.separateChatTypes.value ? .messages : .allChats,
         onChatTap: (room) => controller.onChatTap(room),
@@ -182,6 +174,16 @@ class ChatListViewBody extends StatelessWidget {
                         child: StatusMessageList(
                           onStatusEdit: controller.setStatus,
                         ),
+                      ),
+                    if (!controller.isSearchMode)
+                      BridgeFilterBar(
+                        allBridgeTypes: controller.allBridgeTypes,
+                        visibleBridgeTypes: controller.visibleBridgeTypes,
+                        onChanged: (newTypes) {
+                          controller.setState(() {
+                            controller.visibleBridgeTypes = newTypes;
+                          });
+                        },
                       ),
                     if (!FluffyThemes.isColumnMode(context)) ...[
                       const BackToCallButton(),

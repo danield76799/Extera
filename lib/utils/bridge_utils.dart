@@ -1,4 +1,65 @@
+import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
+
+/// Gets a display name for a bridge type
+String getBridgeTypeLabel(String? type) {
+  switch (type) {
+    case 'whatsapp':
+      return 'WhatsApp';
+    case 'telegram':
+      return 'Telegram';
+    case 'signal':
+      return 'Signal';
+    case 'discord':
+      return 'Discord';
+    case 'slack':
+      return 'Slack';
+    case 'irc':
+      return 'IRC';
+    default:
+      return 'Other';
+  }
+}
+
+/// Gets an icon for a bridge type
+IconData getBridgeTypeIcon(String? type) {
+  switch (type) {
+    case 'whatsapp':
+      return Icons.chat;
+    case 'telegram':
+      return Icons.send;
+    case 'signal':
+      return Icons.security;
+    case 'discord':
+      return Icons.headset;
+    case 'slack':
+      return Icons.tag;
+    case 'irc':
+      return Icons.favorite;
+    default:
+      return Icons.link;
+  }
+}
+
+/// Gets a color for a bridge type
+Color getBridgeTypeColor(String? type) {
+  switch (type) {
+    case 'whatsapp':
+      return const Color(0xFF25D366);
+    case 'telegram':
+      return const Color(0xFF0088CC);
+    case 'signal':
+      return const Color(0xFF3A76F0);
+    case 'discord':
+      return const Color(0xFF5865F2);
+    case 'slack':
+      return const Color(0xFF4A154B);
+    case 'irc':
+      return const Color(0xFF00FF00);
+    default:
+      return Colors.grey;
+  }
+}
 
 /// Known bridge bot suffixes/patterns for common Matrix bridges
 const _excludedBotPatterns = [

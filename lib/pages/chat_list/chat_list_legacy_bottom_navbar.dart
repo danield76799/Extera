@@ -40,7 +40,6 @@ class ChatListLegacyBottomNavbar extends StatelessWidget {
       if (spaceDelegateCandidates.isNotEmpty &&
           !controller.widget.displayNavigationRail)
         ActiveFilter.spaces,
-      ActiveFilter.bridges,
     ];
 
     final filterLambdas = {
@@ -50,7 +49,6 @@ class ChatListLegacyBottomNavbar extends StatelessWidget {
       ActiveFilter.unread: (Room room) => room.isUnread,
       ActiveFilter.spaces: (Room room) => false,
       ActiveFilter.people: (Room room) => false,
-      ActiveFilter.bridges: (Room room) => false,
     };
 
     return BottomNavigationBar(

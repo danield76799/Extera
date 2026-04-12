@@ -81,11 +81,6 @@ class SettingsFeaturesView extends StatelessWidget {
                         title: L10n.of(context).enablePeopleTab,
                         setting: AppSettings.enablePeopleTab,
                       ),
-                      const ListDivider(),
-                      SettingsSwitchListTile.adaptive(
-                        title: 'Hide bridge bots', // TODO: localize
-                        setting: AppSettings.hideBridgeBots,
-                      ),
                       if (PlatformInfos.isMobile) ...[
                         const ListDivider(),
                         SettingsSwitchListTile.adaptive(

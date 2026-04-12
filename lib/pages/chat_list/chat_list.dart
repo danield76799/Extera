@@ -45,7 +45,7 @@ enum PopupMenuAction {
   archive,
 }
 
-enum ActiveFilter { allChats, messages, groups, unread, spaces, people, bridges }
+enum ActiveFilter { allChats, messages, groups, unread, spaces, people }
 
 extension LocalizedActiveFilter on ActiveFilter {
   String toLocalizedString(BuildContext context) {
@@ -62,8 +62,6 @@ extension LocalizedActiveFilter on ActiveFilter {
         return L10n.of(context).spaces;
       case ActiveFilter.people:
         return L10n.of(context).people;
-      case ActiveFilter.bridges:
-        return 'Bridges';
     }
   }
 
@@ -82,8 +80,6 @@ extension LocalizedActiveFilter on ActiveFilter {
         return outline ? Icons.grid_view_outlined : Icons.grid_view_rounded;
       case .people:
         return Icons.people_outline;
-      case .bridges:
-        return outline ? Icons.link_outlined : Icons.link;
     }
   }
 }
@@ -164,6 +160,19 @@ class ChatListController extends State<ChatList>
     context.go('/rooms/${room.id}');
   }
 
+  Set<String> allBridgeTypes = {};
+  Set<String> visibleBridgeTypes = {};
+
+  void _initVisibleBridgeTypes() {
+    final client = Matrix.of(context).client;
+    final types = client.rooms
+        .where((room) => isBridgeRoom(room))
+        .map((room) => getBridgeType(room) ?? 'other')
+        .toSet();
+    allBridgeTypes = types;
+    visibleBridgeTypes = types;
+  }
+
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
     switch (activeFilter) {
       case .allChats:
@@ -171,14 +180,14 @@ class ChatListController extends State<ChatList>
             !room.isSpace &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty) &&
-            (AppSettings.hideBridgeBots.value ? !isBridgeRoom(room) : true);
+            _isBridgeTypeVisible(room);
       case .messages:
         return (room) =>
             !room.isSpace &&
             room.isDirectChat &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty) &&
-            (AppSettings.hideBridgeBots.value ? !isBridgeRoom(room) : true);
+            _isBridgeTypeVisible(room);
       case .groups:
         return (room) =>
             !room.isSpace &&
@@ -187,15 +196,18 @@ class ChatListController extends State<ChatList>
                 room.spaceParents.isEmpty);
       case .unread:
         return (room) =>
-            room.isUnreadOrInvited &&
-            (AppSettings.hideBridgeBots.value ? !isBridgeRoom(room) : true);
+            room.isUnreadOrInvited && _isBridgeTypeVisible(room);
       case .spaces:
         return (room) => room.isSpace;
       case .people:
         return (room) => false;
-      case .bridges:
-        return (room) => isBridgeRoom(room);
     }
+  }
+
+  bool _isBridgeTypeVisible(Room room) {
+    if (!isBridgeRoom(room)) return true;
+    final bridgeType = getBridgeType(room) ?? 'other';
+    return visibleBridgeTypes.contains(bridgeType);
   }
 
   List<Room> get filteredRooms => Matrix.of(
@@ -431,6 +443,9 @@ class ChatListController extends State<ChatList>
     _initReceiveSharingIntent();
 
     scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initVisibleBridgeTypes();
+    });
     _waitForFirstSync();
     _hackyWebRTCFixForWeb();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -852,6 +867,7 @@ class ChatListController extends State<ChatList>
     if (!mounted) return;
     setState(() {
       waitForFirstSync = true;
+      _initVisibleBridgeTypes();
     });
 
     if (client.userDeviceKeys[client.userID!]?.deviceKeys.values.any(
