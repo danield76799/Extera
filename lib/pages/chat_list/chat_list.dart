@@ -173,8 +173,12 @@ class ChatListController extends State<ChatList>
         .where((room) => isBridgeRoom(room))
         .map((room) => getBridgeType(room) ?? 'other')
         .toSet();
-    // Auto-add newly discovered types without removing user toggles
-    visibleBridgeTypes = {...visibleBridgeTypes, ...detectedTypes};
+    // Only auto-add types that were not previously known.
+    // If a user manually removed a type, do not re-add it.
+    visibleBridgeTypes = {
+      ...visibleBridgeTypes,
+      ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
+    };
     allBridgeTypes = detectedTypes;
   }
 
