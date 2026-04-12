@@ -136,6 +136,16 @@ bool isBridgeRoom(Room room) {
     return true;
   }
 
+  // Check all room members via state events for bridge bot participation
+  final memberStates = room.states[EventTypes.RoomMember];
+  if (memberStates != null) {
+    for (final userId in memberStates.keys) {
+      if (isBridgeBotByUserId(userId)) {
+        return true;
+      }
+    }
+  }
+
   return false;
 }
 
@@ -193,6 +203,20 @@ String? getBridgeType(Room room) {
     if (creator.contains('discord')) return 'discord';
     if (creator.contains('slack')) return 'slack';
     if (creator.contains('irc')) return 'irc';
+  }
+
+  // Check room members for bridge bot type
+  final memberStates = room.states[EventTypes.RoomMember];
+  if (memberStates != null) {
+    for (final memberId in memberStates.keys) {
+      final lowerId = memberId.toLowerCase();
+      if (lowerId.contains('whatsapp')) return 'whatsapp';
+      if (lowerId.contains('telegram')) return 'telegram';
+      if (lowerId.contains('signal')) return 'signal';
+      if (lowerId.contains('discord')) return 'discord';
+      if (lowerId.contains('slack')) return 'slack';
+      if (lowerId.contains('irc')) return 'irc';
+    }
   }
 
   // Check state events
