@@ -164,10 +164,10 @@ class ChatListController extends State<ChatList>
   Set<String> visibleBridgeTypes = {};
 
   void _initVisibleBridgeTypes() {
-    _syncBridgeTypes();
+    syncBridgeTypes();
   }
 
-  void _syncBridgeTypes() {
+  void syncBridgeTypes() {
     final client = Matrix.of(context).client;
     final detectedTypes = client.rooms
         .where((room) => isBridgeRoom(room))
