@@ -5,7 +5,7 @@ publish_to: none
 version: 26.1.4
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
   action_slider: ^0.7.0
@@ -15,7 +15,7 @@ dependencies:
       ref: master
   app_links: ^7.0.0
   archive: ^4.0.9
-  async: ^2.12.0
+  async: ^2.13.0
   audioplayers: ^6.5.1
   badges: ^3.1.2
   blurhash_dart: ^1.2.1
