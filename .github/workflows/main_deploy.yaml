@@ -23,7 +23,7 @@ jobs:
       - name: Prepare web
         run: ./scripts/prepare-web.sh
       - name: Build Release Web
-        run: flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/nightly/"
+        run: flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/extrachat/"
       - run: mv build/web/ public
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -31,9 +31,9 @@ jobs:
           personal_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          destination_dir: nightly
+          destination_dir: extrachat
 
-  deploy_playstore_internal:
+  build_android_apk:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,29 +46,12 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-      - name: Install Fastlane
-        run: gem install fastlane -NV
-      - name: Apply Google Services Patch
-        run: git apply ./scripts/enable-android-google-services.patch
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-action@stable
       - run: flutter pub get
-      - name: Prepare Android Release Build
-        env:
-          FDROID_KEY: ${{ secrets.FDROID_KEY }}
-          FDROID_KEY_PASS: ${{ secrets.FDROID_KEY_PASS }}
-          PLAYSTORE_DEPLOY_KEY: ${{ secrets.PLAYSTORE_DEPLOY_KEY }}
-        run: ./scripts/prepare-android-release.sh
-      - name: Build Android Release
-        run: flutter build appbundle --target-platform android-arm,android-arm64,android-x64
-      - name: Deploy Android Release
-        run: |
-          mkdir -p build/android
-          cp build/app/outputs/bundle/release/app-release.aab build/android/
-          cd android
-          bundle install
-          bundle update fastlane
-          bundle exec fastlane deploy_internal_test
-          cd ..
+      - run: flutter build apk --release
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/apk/release/app-release.apk

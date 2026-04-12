@@ -12,7 +12,7 @@ abstract class AppConfig {
 
   static const String appSsoUrlScheme = 'xyz.extera.auth';
 
-  static String _applicationName = 'Extera';
+  static String _applicationName = 'ExtraChat';
 
   static String get applicationName => _applicationName;
   static String? _applicationWelcomeMessage;
@@ -40,8 +40,8 @@ abstract class AppConfig {
       'https://github.com/krille-chan/fluffychat/wiki/How-to-use-end-to-end-encryption-in-FluffyChat';
   static const String startChatTutorial =
       'https://github.com/krille-chan/fluffychat/wiki/How-to-Find-Users-in-FluffyChat';
-  static const String appId = 'xyz.extera.next';
-  static const String appOpenUrlScheme = 'xyz.extera.next';
+  static const String appId = 'nl.daan.extrachat';
+  static const String appOpenUrlScheme = 'nl.daan.extrachat';
   static String _webBaseUrl = 'https://fluffychat.im/web';
 
   static String get webBaseUrl => _webBaseUrl;
@@ -58,10 +58,10 @@ abstract class AppConfig {
   static const bool hideTypingUsernames = false;
   static const bool hideAllStateEvents = false;
   static const String inviteLinkPrefix = 'https://matrix.to/#/';
-  static const String deepLinkPrefix = 'xyz.extera.next://chat/';
+  static const String deepLinkPrefix = 'nl.daan.extrachat://chat/';
   static const String schemePrefix = 'matrix:';
-  static const String pushNotificationsChannelId = 'exteranext_push';
-  static const String pushNotificationsAppId = 'xyz.extera.next';
+  static const String pushNotificationsChannelId = 'extrachat_push';
+  static const String pushNotificationsAppId = 'nl.daan.extrachat';
   static const String recentEmojisAccountDataKey = 'io.element.recent_emoji';
   static const double borderRadius = 18.0;
   static const double columnWidth = 360.0;

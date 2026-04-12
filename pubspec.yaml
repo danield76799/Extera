@@ -148,15 +148,15 @@ flutter:
         - asset: assets/font/Twemoji.v0.7.0.ttf
 
 msix_config:
-  display_name: Extera Next
-  publisher_display_name: Extera Next
-  publisher: CN=Extera, O=HQ of bad forks of good things, L=Matrix, S=Internet, C=RU
-  identity_name: xyz.extera.next
+  display_name: ExtraChat
+  publisher_display_name: ExtraChat
+  publisher: CN=Daan, O=ExtraChat, L=Laren, S=NH, C=NL
+  identity_name: nl.daan.extrachat
   logo_path: assets\logo.png
   capabilities: internetClient, location, microphone, webcam
   protocol_activation: https
-  app_uri_handler_hosts: extera.xyz, fluffychat.im, matrix.to
-  execution_alias: exteranext
+  app_uri_handler_hosts: extrachat.app, fluffychat.im, matrix.to
+  execution_alias: extrachat
   sign_msix: false
   install_certificate: false
 

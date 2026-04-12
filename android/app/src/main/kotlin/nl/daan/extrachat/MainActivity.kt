@@ -1,4 +1,4 @@
-package xyz.extera.next
+package nl.daan.extrachat
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine

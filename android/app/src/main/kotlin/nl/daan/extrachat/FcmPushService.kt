@@ -1,4 +1,4 @@
-/*package xyz.extera.next
+/*package nl.daan.extrachat
 
 import com.famedly.fcm_shared_isolate.FcmSharedIsolateService
 

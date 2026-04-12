@@ -30,7 +30,7 @@ dependencies {
 }
 
 android {
-    namespace = "xyz.extera.next"
+    namespace = "nl.daan.extrachat"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "28.2.13676358"
 
@@ -47,9 +47,10 @@ android {
     signingConfigs {
        create("release") {
             keyAlias = "dummyAlias"
-            keyPassword = "dummyPassword"
+            keyPassword = "dummyStorePassword"
             storeFile = file("dummy.keystore")
             storePassword = "dummyStorePassword"
+            storeType = "PKCS12"
         }
     }
 
@@ -66,7 +67,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "xyz.extera.next"
+        applicationId = "nl.daan.extrachat"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

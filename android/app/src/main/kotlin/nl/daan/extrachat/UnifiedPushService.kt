@@ -1,5 +1,5 @@
 /*
-package xyz.extera.next
+package nl.daan.extrachat
 
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor

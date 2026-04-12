@@ -32,7 +32,7 @@
     <uses-sdk
         tools:overrideLibrary="io.wazo.callkeep, net.touchcapture.qr.flutterqr, com.cloudwebrtc.webrtc, org.webrtc, com.it_nomads.fluttersecurestorage, com.pichillilorenzo.flutter_inappwebview, com.example.video_compress, com.otaliastudios.transcoder, com.otaliastudios.opengl, com.kineapps.flutter_file_dialog, com.llfbandit.record, com.pravera.flutter_foreground_task" />
     <application
-        android:label="Extera Next"
+        android:label="ExtraChat"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="false"
@@ -80,12 +80,12 @@
                 <data android:scheme="matrix" />
             </intent-filter>
 
-            <!-- App can open xyz.extera.next:// uris -->
+            <!-- App can open nl.daan.extrachat:// uris -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="xyz.extera.next" android:host="chat" />
+                <data android:scheme="nl.daan.extrachat" android:host="chat" />
             </intent-filter>
 
             <!-- App can receive shared text -->
@@ -116,7 +116,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="xyz.extera.auth" />
+                <data android:scheme="nl.daan.extrachat.auth" />
             </intent-filter>
         </activity>
 
