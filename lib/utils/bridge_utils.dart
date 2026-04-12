@@ -25,7 +25,6 @@ const _bridgePatterns = [
   // Specific patterns
   'wa-bot:',
   'telegram-bot:',
-  'telegram:',
   'mautrix-telegram:',
   'tgbot:',
   'tg-bot:',
@@ -114,21 +113,11 @@ bool isBridgeRoom(Room room) {
     'discord',
     'irc',
     'slack',
-    'bridge',
     'beeper',
   ];
   if (bridgeNamePatterns.any((pattern) =>
       roomName.contains(pattern) || roomTopic.contains(pattern))) {
     return true;
-  }
-
-  // Check room creator — many portal rooms are created by bridge bots
-  final createEvent = room.getState(EventTypes.RoomCreate);
-  if (createEvent != null) {
-    final creator = createEvent.content['creator']?.toString();
-    if (creator != null && isBridgeBotByUserId(creator)) {
-      return true;
-    }
   }
 
   // Check canonical alias for common bridge portal patterns
