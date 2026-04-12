@@ -41,8 +41,15 @@ class FluffyChatApp extends StatefulWidget {
   // Router must be outside of build method so that hot reload does not reset
   // the current path.
   static final GoRouter router = GoRouter(
+    initialLocation: '/',
     routes: AppRoutes.routes,
     debugLogDiagnostics: true,
+    redirect: (context, state) {
+      // Ignore content:// URIs from shared media intents,
+      // let receive_sharing_intent handle them instead.
+      if (state.uri.scheme == 'content') return '/';
+      return null;
+    },
   );
 
   @override
