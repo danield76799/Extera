@@ -114,6 +114,31 @@ bool isBridgeRoom(Room room) {
     return true;
   }
 
+  // Check room creator — many portal rooms are created by bridge bots
+  final createEvent = room.getState(EventTypes.RoomCreate);
+  if (createEvent != null) {
+    final creator = createEvent.content['creator']?.toString();
+    if (creator != null && isBridgeBotByUserId(creator)) {
+      return true;
+    }
+  }
+
+  // Check canonical alias for common bridge portal patterns
+  final canonicalAlias = room.canonicalAlias?.toLowerCase() ?? '';
+  final aliasPatterns = [
+    'telegram_',
+    'discord_',
+    'whatsapp_',
+    'signal_',
+    'mautrix_',
+    'bridge_',
+    'puppet_',
+    'beeper_',
+  ];
+  if (aliasPatterns.any((pattern) => canonicalAlias.contains(pattern))) {
+    return true;
+  }
+
   return false;
 }
 
@@ -135,7 +160,7 @@ String? getBridgeType(Room room) {
   if (userId.contains('discord-bot') || userId.contains('bot.discord')) {
     return 'discord';
   }
-  if (userId.contains('irc-bot')) {
+  if (userId.contains('irc-bot') || userId.contains('bot.irc')) {
     return 'irc';
   }
   if (userId.contains('slack-bot') || userId.contains('bot.slack')) {
@@ -149,6 +174,27 @@ String? getBridgeType(Room room) {
   }
   if (userId.contains('mx-puppet')) {
     return 'puppet';
+  }
+
+  // Check canonical alias for portal patterns
+  final canonicalAlias = room.canonicalAlias?.toLowerCase() ?? '';
+  if (canonicalAlias.contains('whatsapp')) return 'whatsapp';
+  if (canonicalAlias.contains('telegram')) return 'telegram';
+  if (canonicalAlias.contains('signal')) return 'signal';
+  if (canonicalAlias.contains('discord')) return 'discord';
+  if (canonicalAlias.contains('slack')) return 'slack';
+  if (canonicalAlias.contains('irc')) return 'irc';
+
+  // Check room creator for bridge bot type
+  final createEvent = room.getState(EventTypes.RoomCreate);
+  if (createEvent != null) {
+    final creator = createEvent.content['creator']?.toString().toLowerCase() ?? '';
+    if (creator.contains('whatsapp')) return 'whatsapp';
+    if (creator.contains('telegram')) return 'telegram';
+    if (creator.contains('signal')) return 'signal';
+    if (creator.contains('discord')) return 'discord';
+    if (creator.contains('slack')) return 'slack';
+    if (creator.contains('irc')) return 'irc';
   }
 
   // Check state events
