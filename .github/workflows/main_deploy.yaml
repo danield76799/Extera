@@ -18,7 +18,7 @@ jobs:
       - run: cat .github/workflows/versions.env >> $GITHUB_ENV
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
       - run: flutter pub get
       - name: Prepare web
         run: ./scripts/prepare-web.sh
@@ -44,7 +44,7 @@ jobs:
           distribution: 'zulu'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
           cache: true
       - run: flutter pub get
       - run: flutter build apk --release
