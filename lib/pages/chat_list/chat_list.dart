@@ -83,7 +83,9 @@ extension LocalizedActiveFilter on ActiveFilter {
       case .people:
         return Icons.people_outline;
       case .bridges:
-        return outline ? Icons.link_off_outlined : Icons.link;
+        return outline ? Icons.link_outlined : Icons.link;
+    }
+  }
 }
 
 class ChatList extends StatefulWidget {
