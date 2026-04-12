@@ -36,6 +36,14 @@ class _BridgesViewState extends State<BridgesView> {
     final theme = Theme.of(context);
     final client = Matrix.of(context).client;
     final bridgeRooms = client.rooms.where((room) => isBridgeRoom(room)).toList();
+    bridgeRooms.sort((a, b) {
+      final aTs = a.lastEvent?.originServerTs;
+      final bTs = b.lastEvent?.originServerTs;
+      if (aTs == null && bTs == null) return 0;
+      if (aTs == null) return 1;
+      if (bTs == null) return -1;
+      return bTs.compareTo(aTs);
+    });
 
     if (_selectedBridgeType == null) {
       return _BridgeOverview(
@@ -53,6 +61,14 @@ class _BridgesViewState extends State<BridgesView> {
     final roomsForType = bridgeRooms
         .where((room) => getBridgeType(room) == _selectedBridgeType)
         .toList();
+    roomsForType.sort((a, b) {
+      final aTs = a.lastEvent?.originServerTs;
+      final bTs = b.lastEvent?.originServerTs;
+      if (aTs == null && bTs == null) return 0;
+      if (aTs == null) return 1;
+      if (bTs == null) return -1;
+      return bTs.compareTo(aTs);
+    });
     final filteredRooms = _searchQuery.isEmpty
         ? roomsForType
         : roomsForType.where((room) {
