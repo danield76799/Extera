@@ -2,9 +2,23 @@ import 'package:matrix/matrix.dart';
 
 /// Known bridge bot suffixes/patterns for common Matrix bridges
 const _bridgePatterns = [
+  // Generic bot patterns
+  'bot.signal',
+  'bot.telegram',
+  'bot.whatsapp',
+  'bot.discord',
+  'bot.slack',
+  'bot.irc',
+  'signalbot',
+  'telegrambot',
+  'whatsappbot',
+  'discordbot',
+  'slackbot',
+  'bridgebot',
+  'relaybot',
+  // Specific patterns
   'wa-bot:',
   'telegram-bot:',
-  'telegrambot:',
   'telegram:',
   'mautrix-telegram:',
   'tgbot:',
