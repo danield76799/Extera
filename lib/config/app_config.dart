@@ -26,9 +26,9 @@ abstract class AppConfig {
   static const Color chatColor = primaryColor;
   static const bool allowOtherHomeservers = true;
   static const bool enableRegistration = true;
-  static const Color primaryColor = Color(0xFF5625BA);
-  static const Color primaryColorLight = Color(0xFFCCBDEA);
-  static const Color secondaryColor = Color(0xFF41a2bc);
+  static const Color primaryColor = Color(0xFFE07A3D);
+  static const Color primaryColorLight = Color(0xFFFFC9A8);
+  static const Color secondaryColor = Color(0xFF3A8B8C);
   static String _privacyUrl =
       'https://github.com/ExteraApp/Extera/blob/main/PRIVACY.md';
 
