@@ -377,6 +377,7 @@ class _BridgeListItem extends StatelessWidget {
           leading: _BridgeAvatar(
             bridgeType: bridgeType,
             room: room,
+            useRoomAvatar: !showBridgeLabel,
           ),
           title: Text(
             displayname,
@@ -412,14 +413,26 @@ class _BridgeListItem extends StatelessWidget {
 class _BridgeAvatar extends StatelessWidget {
   final String? bridgeType;
   final Room room;
+  final bool useRoomAvatar;
 
   const _BridgeAvatar({
     this.bridgeType,
     required this.room,
+    this.useRoomAvatar = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (useRoomAvatar) {
+      return Avatar(
+        mxContent: room.avatar,
+        name: room.getLocalizedDisplayname(
+          MatrixLocals(L10n.of(context)),
+        ),
+        size: Avatar.defaultSize,
+      );
+    }
+
     final theme = Theme.of(context);
 
     IconData icon;
