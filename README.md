@@ -65,6 +65,10 @@ matrix:
     ref: main
 ```
 
+### GitHub Actions Builds
+
+Pre-built release APKs are generated via GitHub Actions. **Note:** The automated Android release build currently produces an **`arm64-v8a` APK only**. If your device uses a different architecture (e.g., `armeabi-v7a` or `x86_64`), you will need to build the app locally with the appropriate `--target-platform` flag.
+
 ### Build Commands
 
 Platform-specific build scripts are available in the `scripts/` directory:
