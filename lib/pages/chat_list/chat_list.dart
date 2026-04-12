@@ -164,13 +164,18 @@ class ChatListController extends State<ChatList>
   Set<String> visibleBridgeTypes = {};
 
   void _initVisibleBridgeTypes() {
+    _syncBridgeTypes();
+  }
+
+  void _syncBridgeTypes() {
     final client = Matrix.of(context).client;
-    final types = client.rooms
+    final detectedTypes = client.rooms
         .where((room) => isBridgeRoom(room))
         .map((room) => getBridgeType(room) ?? 'other')
         .toSet();
-    allBridgeTypes = types;
-    visibleBridgeTypes = types;
+    // Auto-add newly discovered types without removing user toggles
+    visibleBridgeTypes = {...visibleBridgeTypes, ...detectedTypes};
+    allBridgeTypes = detectedTypes;
   }
 
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
@@ -443,9 +448,6 @@ class ChatListController extends State<ChatList>
     _initReceiveSharingIntent();
 
     scrollController.addListener(_onScroll);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _initVisibleBridgeTypes();
-    });
     _waitForFirstSync();
     _hackyWebRTCFixForWeb();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -867,7 +869,6 @@ class ChatListController extends State<ChatList>
     if (!mounted) return;
     setState(() {
       waitForFirstSync = true;
-      _initVisibleBridgeTypes();
     });
 
     if (client.userDeviceKeys[client.userID!]?.deviceKeys.values.any(
