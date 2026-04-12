@@ -15,7 +15,7 @@ dependencies:
       ref: master
   app_links: ^7.0.0
   archive: ^4.0.9
-  async: ^2.13.0
+  async: ^2.12.0
   audioplayers: ^6.5.1
   badges: ^3.1.2
   blurhash_dart: ^1.2.1
