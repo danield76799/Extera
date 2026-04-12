@@ -207,15 +207,12 @@ bool isBridgeRoom(Room room) {
   }
 
   // Check all room members via state events for bridge bot participation
-  // Only for small rooms (bridge DMs/groups) to avoid false positives from public rooms
-  final memberCount = room.summary.mJoinedMemberCount;
-  if ((memberCount ?? 0) <= 5) {
-    final memberStates = room.states[EventTypes.RoomMember];
-    if (memberStates != null) {
-      for (final userId in memberStates.keys) {
-        if (isBridgeBotByUserId(userId)) {
-          return true;
-        }
+  // Limit scan to first 50 members to avoid performance issues in huge public rooms
+  final memberStates = room.states[EventTypes.RoomMember];
+  if (memberStates != null) {
+    for (final userId in memberStates.keys.take(50)) {
+      if (isBridgeBotByUserId(userId)) {
+        return true;
       }
     }
   }
@@ -279,10 +276,10 @@ String? getBridgeType(Room room) {
     if (creator.contains('irc')) return 'irc';
   }
 
-  // Check room members for bridge bot type
+  // Check room members for bridge bot type (limit scan for performance)
   final memberStates = room.states[EventTypes.RoomMember];
   if (memberStates != null) {
-    for (final memberId in memberStates.keys) {
+    for (final memberId in memberStates.keys.take(50)) {
       final lowerId = memberId.toLowerCase();
       if (lowerId.contains('whatsapp')) return 'whatsapp';
       if (lowerId.contains('telegram')) return 'telegram';
