@@ -35,11 +35,12 @@ class ChatListLegacyBottomNavbar extends StatelessWidget {
         ActiveFilter.messages
       else
         ActiveFilter.allChats,
-      ActiveFilter.groups,
+      if (AppSettings.separateChatTypes.value) ActiveFilter.groups,
       ActiveFilter.unread,
       if (spaceDelegateCandidates.isNotEmpty &&
           !controller.widget.displayNavigationRail)
         ActiveFilter.spaces,
+      ActiveFilter.bridges,
     ];
 
     final filterLambdas = {
@@ -48,6 +49,8 @@ class ChatListLegacyBottomNavbar extends StatelessWidget {
       ActiveFilter.groups: (Room room) => !room.isDirectChat,
       ActiveFilter.unread: (Room room) => room.isUnread,
       ActiveFilter.spaces: (Room room) => false,
+      ActiveFilter.people: (Room room) => false,
+      ActiveFilter.bridges: (Room room) => false,
     };
 
     return BottomNavigationBar(

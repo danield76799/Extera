@@ -1,4 +1,5 @@
 import 'package:extera_next/pages/chat_list/people_view.dart';
+import 'package:extera_next/pages/chat_list/bridges_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,14 @@ class ChatListViewBody extends StatelessWidget {
     final activeSpace = controller.activeSpaceId;
     if (controller.activeFilter == .people) {
       return PeopleView(
+        onBack: () => controller.activeFilter =
+            AppSettings.separateChatTypes.value ? .messages : .allChats,
+        onChatTap: (room) => controller.onChatTap(room),
+        chatListController: controller,
+      );
+    }
+    if (controller.activeFilter == .bridges) {
+      return BridgesView(
         onBack: () => controller.activeFilter =
             AppSettings.separateChatTypes.value ? .messages : .allChats,
         onChatTap: (room) => controller.onChatTap(room),

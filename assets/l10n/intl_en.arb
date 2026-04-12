@@ -3665,5 +3665,12 @@
   },
   "autoLoadMedia": "Preview media",
   "autoLoadMediaLong": "If disabled, media won't load automatically until you click it.",
-  "enablePeopleTab": "Enable \"People\" tab"
+  "enablePeopleTab": "Enable \"People\" tab",
+  "@enablePeopleTab": {
+    "description": "Title for the setting to enable the People tab"
+  },
+  "hideBridgeBots": "Hide bridge bots",
+  "@hideBridgeBots": {
+    "description": "Setting to hide bridge bot accounts from the main chat list"
+  }
 }

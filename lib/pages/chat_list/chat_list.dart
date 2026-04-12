@@ -32,6 +32,7 @@ import 'package:extera_next/widgets/future_loading_snackbar.dart';
 import 'package:extera_next/widgets/share_scaffold_dialog.dart';
 import '../../../utils/account_bundles.dart';
 import '../../config/setting_keys.dart';
+import '../../utils/bridge_utils.dart';
 import '../../utils/url_launcher.dart';
 import '../../widgets/matrix.dart';
 
@@ -44,7 +45,7 @@ enum PopupMenuAction {
   archive,
 }
 
-enum ActiveFilter { allChats, messages, groups, unread, spaces, people }
+enum ActiveFilter { allChats, messages, groups, unread, spaces, people, bridges }
 
 extension LocalizedActiveFilter on ActiveFilter {
   String toLocalizedString(BuildContext context) {
@@ -61,6 +62,8 @@ extension LocalizedActiveFilter on ActiveFilter {
         return L10n.of(context).spaces;
       case ActiveFilter.people:
         return L10n.of(context).people;
+      case ActiveFilter.bridges:
+        return 'Bridges';
     }
   }
 
@@ -79,8 +82,8 @@ extension LocalizedActiveFilter on ActiveFilter {
         return outline ? Icons.grid_view_outlined : Icons.grid_view_rounded;
       case .people:
         return Icons.people_outline;
-    }
-  }
+      case .bridges:
+        return outline ? Icons.link_off_outlined : Icons.link;
 }
 
 class ChatList extends StatefulWidget {
@@ -165,13 +168,15 @@ class ChatListController extends State<ChatList>
         return (room) =>
             !room.isSpace &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
-                room.spaceParents.isEmpty);
+                room.spaceParents.isEmpty) &&
+            (AppSettings.hideBridgeBots.value ? !isBridgeRoom(room) : true);
       case .messages:
         return (room) =>
             !room.isSpace &&
             room.isDirectChat &&
             (AppSettings.showSpaceRoomsInGlobalList.value ||
-                room.spaceParents.isEmpty);
+                room.spaceParents.isEmpty) &&
+            (AppSettings.hideBridgeBots.value ? !isBridgeRoom(room) : true);
       case .groups:
         return (room) =>
             !room.isSpace &&
@@ -179,11 +184,15 @@ class ChatListController extends State<ChatList>
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty);
       case .unread:
-        return (room) => room.isUnreadOrInvited;
+        return (room) =>
+            room.isUnreadOrInvited &&
+            (AppSettings.hideBridgeBots.value ? !isBridgeRoom(room) : true);
       case .spaces:
         return (room) => room.isSpace;
       case .people:
         return (room) => false;
+      case .bridges:
+        return (room) => isBridgeRoom(room);
     }
   }
 

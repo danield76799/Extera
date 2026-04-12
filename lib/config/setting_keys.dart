@@ -47,6 +47,7 @@ enum AppSettings<T> {
     'xyz.extera.showSpaceRoomsInGlobalList',
     true,
   ),
+  hideBridgeBots<bool>('xyz.extera.hideBridgeBots', true),
   unifiedPushRegistered<bool>('chat.fluffy.unifiedpush.registered', false),
   unifiedPushEndpoint<String>('chat.fluffy.unifiedpush.endpoint', ''),
   showNoGoogle<bool>('chat.fluffy.show_no_google', false),
