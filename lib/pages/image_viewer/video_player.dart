@@ -72,9 +72,10 @@ class EventVideoPlayerState extends State<EventVideoPlayer> {
           videoPlayerController = VideoPlayerController.networkUrl(networkUri);
         } else {
           final tempDir = await getTemporaryDirectory();
-          final fileName = Uri.encodeComponent(
-            widget.event.attachmentOrThumbnailMxcUrl()!.pathSegments.last,
-          );
+          final mxcUrl = widget.event.attachmentOrThumbnailMxcUrl();
+          final fileName = mxcUrl != null
+              ? Uri.encodeComponent(mxcUrl.pathSegments.last)
+              : 'video_${DateTime.now().millisecondsSinceEpoch}';
           final file = File('${tempDir.path}/${fileName}_${videoFile.name}');
           if (await file.exists() == false) {
             await file.writeAsBytes(videoFile.bytes);
