@@ -14,7 +14,21 @@ class SettingsFeatures extends StatefulWidget {
 
 class SettingsFeaturesController extends State<SettingsFeatures> {
   void exportSettings() async {
-    await SettingsBackup.shareExport(context);
+    try {
+      final path = await SettingsBackup.saveToAppFolder();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Saved to: $path'),
+          duration: const Duration(seconds: 5),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Export failed: $e')),
+      );
+    }
   }
 
   void restoreSettings() async {
@@ -29,7 +43,11 @@ class SettingsFeaturesController extends State<SettingsFeatures> {
     );
     if (confirmed == OkCancelResult.cancel) return;
 
-    final data = await SettingsBackup.pickAndRead();
+    // Try default app folder first, fall back to file picker
+    var data = await SettingsBackup.readFromAppFolder();
+    if (data == null) {
+      data = await SettingsBackup.pickAndRead();
+    }
     if (data == null) return;
     if (!mounted) return;
 

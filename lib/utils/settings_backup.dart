@@ -8,6 +8,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsBackup {
+  static const _backupFileName = 'extrachat_settings_backup.json';
+
   static Future<Map<String, dynamic>> export() async {
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys();
@@ -41,11 +43,21 @@ class SettingsBackup {
     }
   }
 
+  /// Saves backup to the app documents directory and returns the file path.
+  static Future<String> saveToAppFolder() async {
+    final data = await export();
+    final jsonString = const JsonEncoder.withIndent('  ').convert(data);
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/$_backupFileName');
+    await file.writeAsString(jsonString);
+    return file.path;
+  }
+
   static Future<void> shareExport(BuildContext context) async {
     final data = await export();
     final jsonString = const JsonEncoder.withIndent('  ').convert(data);
     final tempDir = await getTemporaryDirectory();
-    final file = File('${tempDir.path}/extrachat_settings_backup.json');
+    final file = File('${tempDir.path}/$_backupFileName');
     await file.writeAsString(jsonString);
     await Share.shareXFiles(
       [XFile(file.path)],
@@ -63,6 +75,15 @@ class SettingsBackup {
     final bytes = result.files.first.bytes;
     if (bytes == null) return null;
     final jsonString = utf8.decode(bytes);
+    return jsonDecode(jsonString) as Map<String, dynamic>;
+  }
+
+  /// Tries to read the default backup file from the app documents directory.
+  static Future<Map<String, dynamic>?> readFromAppFolder() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/$_backupFileName');
+    if (!await file.exists()) return null;
+    final jsonString = await file.readAsString();
     return jsonDecode(jsonString) as Map<String, dynamic>;
   }
 }

@@ -111,7 +111,7 @@ class SettingsFeaturesView extends StatelessWidget {
                         leading: const Icon(Icons.download_outlined),
                         title: const Text('Export settings'),
                         subtitle: const Text(
-                          'Save all preferences to a JSON file',
+                          'Save all preferences to app folder as JSON',
                         ),
                         onTap: controller.exportSettings,
                       ),
