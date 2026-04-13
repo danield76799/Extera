@@ -258,10 +258,6 @@ class ChatController extends State<ChatPageWithRoom>
   EmojiPickerType emojiPickerType = EmojiPickerType.keyboard;
 
   void requestHistory([_]) async {
-    if (scrollController.hasClients &&
-        scrollController.position.isScrollingNotifier.value) {
-      return;
-    }
     Logs().v('Requesting history...');
     await timeline?.requestHistory(historyCount: _loadHistoryCount);
   }

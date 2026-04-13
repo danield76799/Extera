@@ -80,30 +80,37 @@ class ChatListView extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (!controller.isSearchMode &&
-                        controller.activeSpaceId == null &&
-                        !AppSettings.useLegacyNavBar.value)
-                      Positioned(
-                        right: 16,
-                        bottom: client.rooms.isNotEmpty
-                            ? 88 // height of navbar + padding + gap
-                            : 16,
-                        child: FloatingActionButton.extended(
-                          onPressed: () => context.go('/rooms/newprivatechat'),
-                          icon: const Icon(Icons.chat_outlined),
-                          label: Text(L10n.of(context).newChat),
-                        ),
-                      ),
+                    SafeArea(
+                      child: Stack(
+                        children: [
+                          if (!controller.isSearchMode &&
+                              controller.activeSpaceId == null &&
+                              !AppSettings.useLegacyNavBar.value)
+                            Positioned(
+                              right: 16,
+                              bottom: client.rooms.isNotEmpty
+                                  ? 88 // height of navbar + padding + gap
+                                  : 16,
+                              child: FloatingActionButton.extended(
+                                onPressed: () =>
+                                    context.go('/rooms/newprivatechat'),
+                                icon: const Icon(Icons.chat_outlined),
+                                label: Text(L10n.of(context).newChat),
+                              ),
+                            ),
 
-                    if (client.rooms.isNotEmpty &&
-                        !controller.isSearchMode &&
-                        !AppSettings.useLegacyNavBar.value)
-                      Positioned(
-                        left: 16,
-                        right: 16,
-                        bottom: 16,
-                        child: ChatListBottomNavbar(controller),
+                          if (client.rooms.isNotEmpty &&
+                              !controller.isSearchMode &&
+                              !AppSettings.useLegacyNavBar.value)
+                            Positioned(
+                              left: 16,
+                              right: 16,
+                              bottom: 16,
+                              child: ChatListBottomNavbar(controller),
+                            ),
+                        ],
                       ),
+                    ),
                   ],
                 ),
                 floatingActionButton:

@@ -105,6 +105,8 @@ class RichPresenceContent extends StatelessWidget {
                                 uri: Uri.parse(richPresenceData['cover_art']),
                                 width: 128,
                                 height: 128,
+                                isThumbnail: true,
+                                thumbnailMethod: .scale,
                               )
                             : SizedBox(
                                 width: 128,
@@ -199,6 +201,8 @@ class RichPresenceContent extends StatelessWidget {
                                 uri: Uri.parse(richPresenceData['image']),
                                 width: 128,
                                 height: 128,
+                                isThumbnail: true,
+                                thumbnailMethod: .scale,
                               )
                             : SizedBox(
                                 width: 128,
