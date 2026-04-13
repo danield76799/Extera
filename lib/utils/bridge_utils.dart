@@ -32,15 +32,15 @@ IconData getBridgeTypeIcon(String? type) {
     case 'telegram':
       return MdiIcons.telegram;
     case 'signal':
-      return MdiIcons.signal;
+      return Icons.wifi_tethering;
     case 'discord':
       return MdiIcons.discord;
     case 'slack':
       return MdiIcons.slack;
     case 'irc':
-      return MdiIcons.messageBadgeOutline;
+      return Icons.chat_outlined;
     case 'matrix':
-      return MdiIcons.matrix;
+      return Icons.view_module;
     default:
       return Icons.link;
   }
