@@ -169,10 +169,14 @@ class ChatListController extends State<ChatList>
 
   void syncBridgeTypes() {
     final client = Matrix.of(context).client;
+    final hasMatrixRooms = client.rooms.any((room) => !isBridgeRoom(room));
     final detectedTypes = client.rooms
         .where((room) => isBridgeRoom(room))
         .map((room) => getBridgeType(room) ?? 'other')
         .toSet();
+    if (hasMatrixRooms) {
+      detectedTypes.add('matrix');
+    }
     // Only auto-add types that were not previously known.
     // If a user manually removed a type, do not re-add it.
     visibleBridgeTypes = {
@@ -214,7 +218,9 @@ class ChatListController extends State<ChatList>
   }
 
   bool _isBridgeTypeVisible(Room room) {
-    if (!isBridgeRoom(room)) return true;
+    if (!isBridgeRoom(room)) {
+      return visibleBridgeTypes.contains('matrix');
+    }
     final bridgeType = getBridgeType(room) ?? 'other';
     return visibleBridgeTypes.contains(bridgeType);
   }

@@ -16,6 +16,8 @@ String getBridgeTypeLabel(String? type) {
       return 'Slack';
     case 'irc':
       return 'IRC';
+    case 'matrix':
+      return 'Matrix';
     default:
       return 'Other';
   }
@@ -36,6 +38,8 @@ IconData getBridgeTypeIcon(String? type) {
       return Icons.tag;
     case 'irc':
       return Icons.favorite;
+    case 'matrix':
+      return Icons.chat_bubble;
     default:
       return Icons.link;
   }
@@ -56,6 +60,8 @@ Color getBridgeTypeColor(String? type) {
       return const Color(0xFF4A154B);
     case 'irc':
       return const Color(0xFF00FF00);
+    case 'matrix':
+      return const Color(0xFF0DBD8B);
     default:
       return Colors.grey;
   }

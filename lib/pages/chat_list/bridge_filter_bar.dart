@@ -22,7 +22,7 @@ class BridgeFilterBar extends StatelessWidget {
 
     final sortedTypes = allBridgeTypes.toList()
       ..sort((a, b) {
-        const order = ['whatsapp', 'telegram', 'signal', 'discord', 'slack', 'irc'];
+        const order = ['whatsapp', 'telegram', 'signal', 'discord', 'slack', 'irc', 'matrix'];
         final ia = order.indexOf(a);
         final ib = order.indexOf(b);
         if (ia != -1 && ib != -1) return ia.compareTo(ib);
@@ -31,14 +31,25 @@ class BridgeFilterBar extends StatelessWidget {
         return a.compareTo(b);
       });
 
+    final hasActiveFilters = visibleBridgeTypes.length < allBridgeTypes.length;
+
     return SizedBox(
       height: 48,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: sortedTypes.length,
+        itemCount: sortedTypes.length + (hasActiveFilters ? 1 : 0),
         separatorBuilder: (_, __) => const SizedBox(width: 8),
         itemBuilder: (context, i) {
+          if (hasActiveFilters && i == sortedTypes.length) {
+            return ActionChip(
+              label: const Text('Clear'),
+              avatar: const Icon(Icons.close, size: 18),
+              onPressed: () => onChanged(Set<String>.from(allBridgeTypes)),
+              backgroundColor: theme.colorScheme.errorContainer,
+              side: BorderSide.none,
+            );
+          }
           final type = sortedTypes[i];
           final isSelected = visibleBridgeTypes.contains(type);
           final color = getBridgeTypeColor(type);
