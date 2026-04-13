@@ -91,6 +91,42 @@ class SettingsFeaturesView extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 12),
+                Material(
+                  clipBehavior: Clip.hardEdge,
+                  color: theme.colorScheme.surfaceContainerHigh,
+                  borderRadius: borderRadius,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          'Backup & Restore',
+                          style: TextStyle(
+                            color: theme.colorScheme.secondary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.download_outlined),
+                        title: const Text('Export settings'),
+                        subtitle: const Text(
+                          'Save all preferences to a JSON file',
+                        ),
+                        onTap: controller.exportSettings,
+                      ),
+                      const ListDivider(),
+                      ListTile(
+                        leading: const Icon(Icons.restore_outlined),
+                        title: const Text('Restore settings'),
+                        subtitle: const Text(
+                          'Load preferences from a JSON file',
+                        ),
+                        onTap: controller.restoreSettings,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
