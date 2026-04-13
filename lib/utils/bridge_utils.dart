@@ -14,8 +14,6 @@ String getBridgeTypeLabel(String? type) {
       return 'Discord';
     case 'slack':
       return 'Slack';
-    case 'irc':
-      return 'IRC';
     case 'matrix':
       return 'Matrix';
     default:
@@ -36,8 +34,6 @@ IconData getBridgeTypeIcon(String? type) {
       return Icons.headset;
     case 'slack':
       return Icons.tag;
-    case 'irc':
-      return Icons.chat_outlined;
     case 'matrix':
       return Icons.view_module;
     default:
@@ -58,8 +54,6 @@ Color getBridgeTypeColor(String? type) {
       return const Color(0xFF5865F2);
     case 'slack':
       return const Color(0xFF4A154B);
-    case 'irc':
-      return const Color(0xFF00FF00);
     case 'matrix':
       return const Color(0xFF0DBD8B);
     default:
@@ -79,7 +73,6 @@ const _bridgePatterns = [
   'bot.whatsapp',
   'bot.discord',
   'bot.slack',
-  'bot.irc',
   'signalbot',
   'telegrambot',
   'whatsappbot',
@@ -108,7 +101,6 @@ const _bridgePatterns = [
   'whatsapp-bot:',
   'signal-bot:',
   'discord-bot:',
-  'irc-bot:',
   'slack-bot:',
   'hangouts-bot:',
   'gitter-bot:',
@@ -187,7 +179,6 @@ bool isBridgeRoom(Room room) {
     'telegram',
     'signal',
     'discord',
-    'irc',
     'slack',
     'beeper',
   ];
@@ -245,9 +236,6 @@ String? getBridgeType(Room room) {
   if (userId.contains('discord-bot') || userId.contains('bot.discord') || userId.contains('discord_') || roomName.contains('discord') || roomTopic.contains('discord')) {
     return 'discord';
   }
-  if (userId.contains('irc-bot') || userId.contains('bot.irc') || roomName.contains('irc') || roomTopic.contains('irc')) {
-    return 'irc';
-  }
   if (userId.contains('slack-bot') || userId.contains('bot.slack') || userId.contains('slack_') || roomName.contains('slack') || roomTopic.contains('slack')) {
     return 'slack';
   }
@@ -268,7 +256,6 @@ String? getBridgeType(Room room) {
   if (canonicalAlias.contains('signal')) return 'signal';
   if (canonicalAlias.contains('discord')) return 'discord';
   if (canonicalAlias.contains('slack')) return 'slack';
-  if (canonicalAlias.contains('irc')) return 'irc';
 
   // Check room creator for bridge bot type
   final createEvent = room.getState(EventTypes.RoomCreate);
@@ -279,7 +266,6 @@ String? getBridgeType(Room room) {
     if (creator.contains('signal')) return 'signal';
     if (creator.contains('discord')) return 'discord';
     if (creator.contains('slack')) return 'slack';
-    if (creator.contains('irc')) return 'irc';
   }
 
   // Check room members for bridge bot type (limit scan for performance)
@@ -292,7 +278,6 @@ String? getBridgeType(Room room) {
       if (lowerId.contains('signal')) return 'signal';
       if (lowerId.contains('discord')) return 'discord';
       if (lowerId.contains('slack')) return 'slack';
-      if (lowerId.contains('irc')) return 'irc';
     }
   }
 
