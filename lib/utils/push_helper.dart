@@ -172,7 +172,7 @@ class PushHelper {
     l10n ??= await lookupL10n(PlatformDispatcher.instance.locale);
     flutterLocalNotificationsPlugin.show(
       id: notification.roomId?.hashCode ?? 0,
-      title: l10n!.newMessageInFluffyChat,
+      title: '💬 New message in ${AppConfig.applicationName}',
       body: l10n!.openAppToReadMessages,
       notificationDetails: NotificationDetails(
         iOS: const DarwinNotificationDetails(),
@@ -222,7 +222,7 @@ class PushHelper {
 
       // Calculate the body
       final body = event.type == EventTypes.Encrypted
-          ? l10n!.newMessageInFluffyChat
+          ? '💬 New message in ${AppConfig.applicationName}'
           : await event.calcLocalizedBody(
               matrixLocals,
               plaintextBody: true,
