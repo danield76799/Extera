@@ -20,6 +20,7 @@ import 'package:extera_next/pages/chat/encryption_button.dart';
 import 'package:extera_next/pages/chat/jitsi_popup_button.dart';
 import 'package:extera_next/pages/chat/pinned_events.dart';
 import 'package:extera_next/pages/chat/reply_display.dart';
+import 'package:extera_next/pages/chat/seen_by_row.dart';
 import 'package:extera_next/pages/dialer/back_to_call_button.dart';
 import 'package:extera_next/utils/url_launcher.dart';
 import 'package:extera_next/widgets/avatar.dart';
@@ -665,6 +666,7 @@ class ChatView extends StatelessWidget {
                                                 children: [
                                                   ReplyDisplay(controller),
                                                   ChatInputRow(controller),
+                                                  SeenByRow(controller),
                                                   ChatEmojiPicker(controller),
                                                 ],
                                               );
