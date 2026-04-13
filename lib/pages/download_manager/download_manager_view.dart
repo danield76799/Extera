@@ -21,6 +21,7 @@ class DownloadManagerView extends StatelessWidget {
     return Scaffold(
       body: MaxWidthBody(
         child: ListView.builder(
+          shrinkWrap: true,
           itemCount: dlm.downloads.length,
           itemBuilder: (context, index) {
             final download = dlm.downloads[index];
