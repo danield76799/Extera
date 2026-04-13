@@ -59,7 +59,10 @@ class NewPrivateChatView extends StatelessWidget {
                 ),
                 child: TextField(
                   controller: controller.controller,
+                  focusNode: controller.textFieldFocus,
+                  autofillHints: const [],
                   onChanged: controller.searchUsers,
+                  onTap: () => controller.textFieldFocus.requestFocus(),
                   decoration: InputDecoration(
                     hintText: L10n.of(context).searchForUsers,
                     filled: true,
