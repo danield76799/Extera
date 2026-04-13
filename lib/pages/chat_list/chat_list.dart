@@ -109,6 +109,8 @@ class ChatListController extends State<ChatList>
 
   StreamSubscription? _intentUriStreamSubscription;
 
+  StreamSubscription? _bootstrapCheckSubscription;
+
   ActiveFilter activeFilter = AppSettings.separateChatTypes.value
       ? ActiveFilter.messages
       : ActiveFilter.allChats;
@@ -492,7 +494,8 @@ class ChatListController extends State<ChatList>
     _initReceiveSharingIntent();
 
     scrollController.addListener(_onScroll);
-    _waitForFirstSync().then((_) => _checkBootstrapOnStart());
+    _waitForFirstSync();
+    _startBootstrapCheck();
     _hackyWebRTCFixForWeb();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
@@ -521,6 +524,7 @@ class ChatListController extends State<ChatList>
     _intentDataStreamSubscription?.cancel();
     _intentFileStreamSubscription?.cancel();
     _intentUriStreamSubscription?.cancel();
+    _bootstrapCheckSubscription?.cancel();
     scrollController.removeListener(_onScroll);
     super.dispose();
   }
@@ -944,26 +948,29 @@ class ChatListController extends State<ChatList>
     }
   }
 
-  Future<void> _checkBootstrapOnStart() async {
+  void _startBootstrapCheck() {
     final client = Matrix.of(context).client;
     if (!client.encryptionEnabled) return;
-    await client.accountDataLoading;
-    await client.userDeviceKeysLoading;
-    if (client.prevBatch == null) {
-      await client.onSync.stream.first;
-    }
-    final crossSigning =
-        await client.encryption?.crossSigning.isCached() ?? false;
-    final needsBootstrap =
-        await client.encryption?.keyManager.isCached() == false ||
-        client.encryption?.crossSigning.enabled == false ||
-        crossSigning == false;
-    final isUnknownSession = client.isUnknownSession;
-    if ((needsBootstrap || isUnknownSession) && mounted) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.go('/backup');
-      });
-    }
+
+    _bootstrapCheckSubscription?.cancel();
+    _bootstrapCheckSubscription = client.onSync.stream.listen((_) async {
+      if (!mounted) return;
+      await client.accountDataLoading;
+      await client.userDeviceKeysLoading;
+      final crossSigning =
+          await client.encryption?.crossSigning.isCached() ?? false;
+      final needsBootstrap =
+          await client.encryption?.keyManager.isCached() == false ||
+          client.encryption?.crossSigning.enabled == false ||
+          crossSigning == false;
+      final isUnknownSession = client.isUnknownSession;
+      if (needsBootstrap || isUnknownSession) {
+        _bootstrapCheckSubscription?.cancel();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) context.go('/backup');
+        });
+      }
+    });
   }
 
   void setActiveFilter(ActiveFilter filter) {
