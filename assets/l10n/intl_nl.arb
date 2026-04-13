@@ -377,7 +377,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "chatBackup": "Chatback-up",
+  "chatBackup": "Herstelsleutel",
   "@chatBackup": {
     "type": "String",
     "placeholders": {}
@@ -387,6 +387,9 @@
     "type": "String",
     "placeholders": {}
   },
+  "skipChatBackup": "Herstelsleutel overslaan",
+  "skipChatBackupWarning": "Wil je doorgaan zonder herstelsleutel? Je kunt je versleutelde berichten kwijtraken als je van apparaat wisselt.",
+  "setupChatBackup": "Herstelsleutel instellen",
   "chatDetails": "Chatdetails",
   "@chatDetails": {
     "type": "String",
@@ -1289,7 +1292,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "onlineKeyBackupEnabled": "Online sleutelback-up is ingeschakeld",
+  "onlineKeyBackupEnabled": "Herstelsleutel is ingeschakeld",
   "@onlineKeyBackupEnabled": {
     "type": "String",
     "placeholders": {}
@@ -2050,7 +2053,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "wipeChatBackup": "Wil je de chatback-up wissen om een nieuwe herstelsleutel te kunnen maken?",
+  "wipeChatBackup": "Wil je je herstelsleutel wissen om een nieuwe te kunnen maken?",
   "@wipeChatBackup": {
     "type": "String",
     "placeholders": {}
@@ -2114,7 +2117,7 @@
   "@addAccount": {},
   "link": "Link",
   "@link": {},
-  "yourChatBackupHasBeenSetUp": "Jouw chatback-up is ingesteld.",
+  "yourChatBackupHasBeenSetUp": "Jouw herstelsleutel is ingesteld.",
   "@yourChatBackupHasBeenSetUp": {},
   "unverified": "Niet geverifieerd",
   "@unverified": {},
@@ -3027,7 +3030,7 @@
   "@whatIsAHomeserver": {},
   "sendRoomNotifications": "@room-meldingen versturen",
   "@sendRoomNotifications": {},
-  "noticeChatBackupDeviceVerification": "Opmerking: Als al je apparaten zijn verbonden met de chat back-up worden ze automatisch geverifieerd.",
+  "noticeChatBackupDeviceVerification": "Opmerking: Als al je apparaten zijn verbonden met de herstelsleutel worden ze automatisch geverifieerd.",
   "@noticeChatBackupDeviceVerification": {},
   "notificationRuleMemberEvent": "Kamer-gebeurtenis",
   "@notificationRuleMemberEvent": {},

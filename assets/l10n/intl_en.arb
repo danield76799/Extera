@@ -538,9 +538,9 @@
     "type": "String",
     "placeholders": {}
   },
-  "yourChatBackupHasBeenSetUp": "Your key backup has been set up.",
+  "yourChatBackupHasBeenSetUp": "Your recovery key has been set up.",
   "@yourChatBackupHasBeenSetUp": {},
-  "chatBackup": "Key backup",
+  "chatBackup": "Recovery Key",
   "@chatBackup": {
     "type": "String",
     "placeholders": {}
@@ -1544,7 +1544,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "onlineKeyBackupEnabled": "Online Key Backup is enabled",
+  "onlineKeyBackupEnabled": "Recovery Key is enabled",
   "@onlineKeyBackupEnabled": {
     "type": "String",
     "placeholders": {}
@@ -2466,7 +2466,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "wipeChatBackup": "Wipe your key backup to create a new recovery key?",
+  "wipeChatBackup": "Wipe your recovery key to create a new one?",
   "@wipeChatBackup": {
     "type": "String",
     "placeholders": {}
@@ -3280,7 +3280,7 @@
     }
   },
   "oneOfYourDevicesIsNotVerified": "One of your devices is not verified",
-  "noticeChatBackupDeviceVerification": "Note: When you connect all your devices to the key backup, they are automatically verified.",
+  "noticeChatBackupDeviceVerification": "Note: When you connect all your devices to the recovery key, they are automatically verified.",
   "continueText": "Continue",
   "welcomeText": "Hey Hey 👋 This is Extera. You can sign in to any homeserver, which is compatible with https://matrix.org. And then chat with anyone. It's a huge decentralized messaging network!",
   "blur": "Blur:",
@@ -3477,10 +3477,10 @@
   "chatPrivacy": "Privacy settings",
   "chatPrivacyDescription": "Individual privacy settings for this chat",
   "chatPrivacyTitle": "Chat privacy",
-  "skipChatBackup": "Skip key backup",
-  "skipChatBackupWarning": "Do you want to continue without key backup? You may lose access to your encrypted messages if you change your device.",
+  "skipChatBackup": "Skip Recovery Key",
+  "skipChatBackupWarning": "Do you want to continue without a recovery key? You may lose access to your encrypted messages if you change your device.",
   "loadingMessages": "Loading messages",
-  "setupChatBackup": "Set up key backup",
+  "setupChatBackup": "Set up Recovery Key",
   "individualChatPrivacySettings": "Chat settings",
   "individualChatPrivacySettingsDescription": "Set different privacy settings for every chat.",
   "updateAvailableTitle": "An update is available",
