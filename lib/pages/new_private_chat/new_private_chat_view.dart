@@ -104,6 +104,48 @@ class NewPrivateChatView extends StatelessWidget {
                   ),
                 ),
               ),
+              // Show matching rooms from your existing chats
+              if (controller.controller.text.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      L10n.of(context).chats,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                ...Matrix.of(context)
+                    .client
+                    .rooms
+                    .where(
+                      (room) =>
+                          room.name?.toLowerCase().contains(
+                                controller.controller.text.toLowerCase(),
+                              ) ??
+                          false,
+                    )
+                    .map(
+                      (room) => ListTile(
+                        leading: Avatar(
+                          name: room.getLocalizedDisplayname(),
+                          mxContent: room.avatar,
+                        ),
+                        title: Text(room.getLocalizedDisplayname()),
+                        subtitle: room.canonicalAlias != null
+                            ? Text(room.canonicalAlias!)
+                            : null,
+                        onTap: () => context.go('/rooms/${room.id}'),
+                      ),
+                    ),
+              ],
               Expanded(
                 child: AnimatedSwitcher(
                   duration: FluffyThemes.animationDuration,
