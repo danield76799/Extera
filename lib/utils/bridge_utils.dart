@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:matrix/matrix.dart';
 
 /// Gets a display name for a bridge type
@@ -28,15 +27,15 @@ String getBridgeTypeLabel(String? type) {
 IconData getBridgeTypeIcon(String? type) {
   switch (type) {
     case 'whatsapp':
-      return MdiIcons.whatsapp;
+      return Icons.chat;
     case 'telegram':
-      return MdiIcons.telegram;
+      return Icons.send;
     case 'signal':
       return Icons.wifi_tethering;
     case 'discord':
-      return MdiIcons.discord;
+      return Icons.headset;
     case 'slack':
-      return MdiIcons.slack;
+      return Icons.tag;
     case 'irc':
       return Icons.chat_outlined;
     case 'matrix':
