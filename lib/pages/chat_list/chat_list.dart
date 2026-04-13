@@ -950,11 +950,11 @@ class ChatListController extends State<ChatList>
 
   void _startBootstrapCheck() {
     final client = Matrix.of(context).client;
-    if (!client.encryptionEnabled) return;
 
     _bootstrapCheckSubscription?.cancel();
     _bootstrapCheckSubscription = client.onSync.stream.listen((_) async {
       if (!mounted) return;
+      if (!client.encryptionEnabled) return;
       await client.accountDataLoading;
       await client.userDeviceKeysLoading;
       final crossSigning =
