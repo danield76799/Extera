@@ -160,7 +160,7 @@
         <receiver android:exported="false"
             android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
 
-        <!-- Chat Widget Provider -->
+        <!-- Chat Widget Provider (Legacy) -->
         <receiver
             android:name=".ChatWidgetProvider"
             android:exported="true">
@@ -170,6 +170,18 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/chat_widget_info" />
+        </receiver>
+
+        <!-- Chat Widget Provider (Glance) -->
+        <receiver
+            android:name=".ChatGlanceWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/chat_glance_widget_info" />
         </receiver>
 
         <!-- Don't delete the meta-data below.
