@@ -75,10 +75,13 @@ jobs:
         run: dart run flutter_native_splash:create
       - name: Build Android APK
         run: |
+          set -e
           echo "=== Starting Android APK Build ==="
           flutter build apk --release --target-platform android-arm64 2>&1 | tee build.log
           echo "=== Build completed with exit code: $? ==="
-          if [ -f build/app/outputs/apk/release/app-release.apk ]; then echo "SUCCESS: APK found"; ls -la build/app/outputs/apk/release/; else echo "ERROR: APK NOT found"; cat build.log | tail -50; fi
+          ls -la build/app/outputs/apk/release/ 2>/dev/null || ls -la build/app/outputs/ 2>/dev/null || ls -la build/app/ 2>/dev/null || echo "No build/app directory found"
+          find . -name "*.apk" 2>/dev/null || echo "No APK files found"
+          if [ -f build/app/outputs/apk/release/app-release.apk ]; then echo "SUCCESS: APK found"; ls -la build/app/outputs/apk/release/; else echo "ERROR: APK NOT found - checking build logs"; cat build.log; exit 1; fi
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
