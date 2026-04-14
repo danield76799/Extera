@@ -9,12 +9,6 @@ class ChatWidgetService {
   static const int _maxChats = 6;
   static const int _maxMessageChars = 40;
 
-  /// Get the file where chat data is stored (accessible by widget)
-  static Future<File> _getChatDataFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File('${directory.path}/$_chatDataFileName');
-  }
-
   /// Update the widget with the latest chat data from all rooms
   static Future<void> updateWidgetData(List<Room> rooms) async {
     if (rooms.isEmpty) return;
@@ -60,15 +54,17 @@ class ChatWidgetService {
       };
     }).toList();
 
-    // Write to a file in the app's documents directory
-    final file = await _getChatDataFile();
+    // Write to cache directory - this is shared between Flutter and Android
+    final directory = await getTemporaryDirectory();
+    final file = File('${directory.path}/$_chatDataFileName');
     await file.writeAsString(jsonEncode(chatData));
   }
 
   /// Clear the widget data
   static Future<void> clearWidgetData() async {
     try {
-      final file = await _getChatDataFile();
+      final directory = await getTemporaryDirectory();
+      final file = File('${directory.path}/$_chatDataFileName');
       if (await file.exists()) {
         await file.delete();
       }

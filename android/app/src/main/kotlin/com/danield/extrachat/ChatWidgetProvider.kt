@@ -45,7 +45,7 @@ class ChatWidgetProvider : AppWidgetProvider() {
 
             // Read chat data from file written by Flutter
             val chatDataJson = try {
-                val file = File(context.filesDir, CHAT_DATA_FILE)
+                val file = File(context.cacheDir, CHAT_DATA_FILE)
                 if (file.exists()) file.readText() else "[]"
             } catch (e: Exception) {
                 "[]"
