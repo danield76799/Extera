@@ -14,5 +14,4 @@
     android:initialLayout="@layout/chat_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:description="@string/widget_description"
-    android:previewTitle="@string/widget_preview_title" />
+    android:description="@string/widget_description" />
