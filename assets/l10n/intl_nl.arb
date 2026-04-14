@@ -1783,7 +1783,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "synchronizingPleaseWait": "Synchroniseren... Even geduld.",
+  "synchronizingPleaseWait": "Sleutels synchroniseren kan enkele minuten duren. Even geduld.",
   "@synchronizingPleaseWait": {
     "type": "String",
     "placeholders": {}

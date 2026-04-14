@@ -2185,7 +2185,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "synchronizingPleaseWait": "Synchronizing… Please wait.",
+  "synchronizingPleaseWait": "Synchronizing keys can take several minutes. Please wait.",
   "@synchronizingPleaseWait": {
     "type": "String",
     "placeholders": {}
