@@ -338,22 +338,9 @@ class SettingsController extends State<Settings> {
   }
 
   void checkBootstrap() async {
-    final client = Matrix.of(context).client;
-    if (!client.encryptionEnabled) return;
-    await client.accountDataLoading;
-    await client.userDeviceKeysLoading;
-    if (client.prevBatch == null) {
-      await client.onSync.stream.first;
-    }
-    final crossSigning =
-        await client.encryption?.crossSigning.isCached() ?? false;
-    final needsBootstrap =
-        await client.encryption?.keyManager.isCached() == false ||
-        client.encryption?.crossSigning.enabled == false ||
-        crossSigning == false;
-    final isUnknownSession = client.isUnknownSession;
+    // Bootstrap disabled for MVP - never show the backup banner
     setState(() {
-      showChatBackupBanner = needsBootstrap || isUnknownSession;
+      showChatBackupBanner = false;
     });
   }
 
