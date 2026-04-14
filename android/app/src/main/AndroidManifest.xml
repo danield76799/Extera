@@ -162,7 +162,7 @@
 
         <!-- Chat Widget Provider (Legacy) -->
         <receiver
-            android:name=".ChatWidgetProvider"
+            android:name="com.danield.extrachat.ChatWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
