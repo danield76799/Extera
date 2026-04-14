@@ -1364,6 +1364,7 @@ class ChatController extends State<ChatPageWithRoom>
       });
       await loadTimelineFuture;
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        if (!mounted) return;
         scrollToEventId(eventId);
       });
       return;
