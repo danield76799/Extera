@@ -17,6 +17,7 @@ import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:extera_next/generated/l10n/l10n.dart';
+import 'package:extera_next/utils/chat_widget_service.dart';
 import 'package:extera_next/utils/client_manager.dart';
 import 'package:extera_next/utils/init_with_restore.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/matrix_file_extension.dart';
@@ -328,6 +329,17 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
       _registerSubs(c.clientName);
     }
 
+    // Update Android home screen widget on init
+    if (PlatformInfos.isAndroid) {
+      for (final c in widget.clients) {
+        try {
+          ChatWidgetService.updateWidgetData(c.rooms);
+        } catch (e) {
+          Logs().e('Failed to update widget data on init', e);
+        }
+      }
+    }
+
     if (PlatformInfos.isMobile) {
       backgroundPush = BackgroundPush(
         this,
@@ -391,6 +403,14 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         client.backgroundSync = foreground;
         client.requestHistoryOnLimitedTimeline = !foreground;
         Logs().v('Set background sync to', foreground);
+      }
+      // Update Android home screen widget when app resumes
+      if (foreground && PlatformInfos.isAndroid) {
+        try {
+          ChatWidgetService.updateWidgetData(client.rooms);
+        } catch (e) {
+          Logs().e('Failed to update widget data', e);
+        }
       }
     }
   }
