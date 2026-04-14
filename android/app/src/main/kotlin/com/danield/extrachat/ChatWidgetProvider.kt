@@ -42,21 +42,24 @@ class ChatWidgetProvider : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-            // Simple test: just show the widget with static text
-            val views = RemoteViews(context.packageName, R.layout.chat_widget)
-            
-            // Show all chat rows as visible with test data
-            for (i in 1..MAX_CHATS) {
-                views.setViewVisibility(getChatRowId(i), View.VISIBLE)
-                views.setTextViewText(getNameId(i), "Chat $i")
-                views.setTextViewText(getMessageId(i), "Last message here")
-                views.setInt(getStatusId(i), "setColorFilter", Color.parseColor("#4CAF50"))
+            try {
+                // Simple test: just show the widget with static text
+                val views = RemoteViews(context.packageName, R.layout.chat_widget)
+                
+                // Show all chat rows as visible with test data
+                for (i in 1..MAX_CHATS) {
+                    views.setViewVisibility(getChatRowId(i), View.VISIBLE)
+                    views.setTextViewText(getNameId(i), "Chat $i")
+                    views.setTextViewText(getMessageId(i), "Last message here")
+                }
+                views.setViewVisibility(R.id.widget_empty, View.GONE)
+                views.setTextViewText(R.id.widget_header, "ExteraChat Widget")
+                
+                // Update the widget
+                appWidgetManager.updateAppWidget(appWidgetId, views)
+            } catch (e: Exception) {
+                Log.e("ChatWidget", "Error in updateAppWidget: ${e.message}", e)
             }
-            views.setViewVisibility(R.id.widget_empty, View.GONE)
-            views.setTextViewText(R.id.widget_header, "📱 ExteraChat Widget")
-            
-            // Update the widget
-            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
 
         private fun getChatRowId(index: Int): Int {
