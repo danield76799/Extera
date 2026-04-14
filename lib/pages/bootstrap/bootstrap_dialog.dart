@@ -146,7 +146,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
             stream: client.onSyncStatus.stream,
             builder: (context, snapshot) {
               final status = snapshot.data;
-              final isComplete = status?.progress != null && status!.progress >= 1.0;
+              final isComplete = status?.progress != null && (status!.progress ?? 0) >= 1.0;
               return Column(
                 mainAxisAlignment: .center,
                 children: [
