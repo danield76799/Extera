@@ -8,7 +8,7 @@
     android:maxResizeHeight="400dp"
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/extrachat_widget"
-    android:previewLayout="@layout/chat_widget"
+    android:previewLayout="@layout/extrachat_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     android:description="@string/widget_description" />
