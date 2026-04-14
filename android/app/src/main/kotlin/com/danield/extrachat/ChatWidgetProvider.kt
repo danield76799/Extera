@@ -35,9 +35,10 @@ class ChatWidgetProvider : AppWidgetProvider() {
         ) {
             val views = RemoteViews(context.packageName, R.layout.extrachat_widget)
             views.setTextViewText(R.id.widget_header, "Chats")
-            views.setTextViewText(R.id.widget_content, "Tap to open app")
+            views.setTextViewText(R.id.chat_name_1, "Chat 1")
+            views.setTextViewText(R.id.chat_message_1, "Last message here")
             
-            // Make widget clickable to open app
+            // Make entire widget clickable to open app
             val intent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
