@@ -6,7 +6,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.*
-import androidx.glance.action.actionStartActivity
 import androidx.glance.appwidget.*
 import androidx.glance.layout.*
 import androidx.glance.text.FontWeight
@@ -22,7 +21,7 @@ class ChatGlanceWidget : GlanceAppWidget() {
                 Column(
                     modifier = GlanceModifier
                         .fillMaxSize()
-                        .background(ColorProvider(Color(0xFF3F51B5.toInt())))
+                        .background(ColorProvider(Color(0xFF3F51B5)))
                         .padding(12.dp)
                 ) {
                     Text(
