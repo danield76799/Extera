@@ -52,7 +52,7 @@ class ChatGlanceWidget : GlanceAppWidget() {
                     )
                 }
                 
-                HorizontalDivider()
+                // Divider - using spacer instead
                 
                 Spacer(modifier = GlanceModifier.height(8.dp))
                 
