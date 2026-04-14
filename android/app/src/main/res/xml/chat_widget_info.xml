@@ -9,8 +9,6 @@
     android:targetCellWidth="3"
     android:targetCellHeight="2"
     android:updatePeriodMillis="1800000"
-    android:previewLayout="@layout/chat_widget"
-    android:previewImage="@drawable/widget_background"
     android:initialLayout="@layout/chat_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
