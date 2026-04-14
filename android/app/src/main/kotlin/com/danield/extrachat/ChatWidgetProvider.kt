@@ -31,7 +31,7 @@ class ChatWidgetProvider : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-            val views = RemoteViews(context.packageName, R.layout.chat_widget)
+            val views = RemoteViews(context.packageName, R.layout.extrachat_widget)
             views.setTextViewText(R.id.widget_header, "Chats")
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
