@@ -30,7 +30,6 @@ dependencies {
     // Glance widget dependencies
     implementation("androidx.glance:glance-appwidget:1.1.0")
     implementation("androidx.glance:glance-material3:1.1.0")
-    implementation("androidx.compose.compose-runtime:1.6.0")
 }
 
 android {
