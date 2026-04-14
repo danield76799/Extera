@@ -35,8 +35,23 @@ class ChatWidgetProvider : AppWidgetProvider() {
         ) {
             val views = RemoteViews(context.packageName, R.layout.extrachat_widget)
             views.setTextViewText(R.id.widget_header, "Chats")
-            views.setTextViewText(R.id.chat_name_1, "Chat 1")
-            views.setTextViewText(R.id.chat_message_1, "Last message here")
+            
+            // Test data
+            val testChats = listOf(
+                Pair("Alice", "Hey, how are you?"),
+                Pair("Bob", "See you tomorrow!"),
+                Pair("Charlie", "Thanks for the help"),
+                Pair("Diana", "Meeting at 3pm")
+            )
+            
+            views.setTextViewText(R.id.chat_name_1, testChats[0].first)
+            views.setTextViewText(R.id.chat_message_1, testChats[0].second)
+            views.setTextViewText(R.id.chat_name_2, testChats[1].first)
+            views.setTextViewText(R.id.chat_message_2, testChats[1].second)
+            views.setTextViewText(R.id.chat_name_3, testChats[2].first)
+            views.setTextViewText(R.id.chat_message_3, testChats[2].second)
+            views.setTextViewText(R.id.chat_name_4, testChats[3].first)
+            views.setTextViewText(R.id.chat_message_4, testChats[3].second)
             
             // Make entire widget clickable to open app
             val intent = Intent(context, MainActivity::class.java).apply {
