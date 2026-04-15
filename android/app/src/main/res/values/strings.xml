@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ExtraChat</string>
-    <string name="widget_description">Show recent chats from ExtraChat</string>
+    <string name="app_name">Plusly</string>
+    <string name="widget_description">Show recent chats from Plusly</string>
     <string name="widget_preview_title">Recent Chats</string>
-    <string name="chat_widget_description">Show recent chats from ExtraChat</string>
+    <string name="chat_widget_description">Show recent chats from Plusly</string>
 </resources>

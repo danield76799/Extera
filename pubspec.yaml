@@ -167,7 +167,7 @@ flutter:
         - asset: assets/font/Twemoji.v0.7.0.ttf
 
 msix_config:
-  display_name: ExtraChat
+  display_name: Plusly
   publisher_display_name: ExtraChat
   publisher: CN=Daan, O=ExtraChat, L=Laren, S=NH, C=NL
   identity_name: com.danield.extrachat
