@@ -167,11 +167,19 @@ class ScheduledMessagesService {
         return false;
       }
 
-      // Send the message
-      await room.sendMessageEvent(
-        EventContent.fromJson(message.content),
-        txid: message.id,
-      );
+      // Send the message based on content type
+      final body = message.content['body'] as String? ?? '';
+      if (body.isNotEmpty) {
+        await room.sendTextEvent(
+          body,
+          inReplyTo: message.replyEventId != null 
+              ? await room.getEventById(message.replyEventId!) 
+              : null,
+        );
+      } else {
+        // Fallback to generic event send
+        await room.sendEvent(message.content);
+      }
 
       // Mark as sent
       message.isSent = true;
