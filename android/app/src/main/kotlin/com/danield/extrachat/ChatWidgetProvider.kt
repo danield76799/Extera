@@ -81,26 +81,16 @@ class ChatWidgetProvider : AppWidgetProvider() {
                     }
                 }
             } else {
-                // Fallback to test data if no real data
-                views.setTextViewText(R.id.chat_name_1, "Alice")
-                views.setTextViewText(R.id.chat_message_1, "Hey, how are you?")
+                // Show welcome message if no real data
+                views.setTextViewText(R.id.chat_name_1, "ExtraChat")
+                views.setTextViewText(R.id.chat_message_1, "Your chats appear here in 5 min")
                 views.setTextViewText(R.id.chat_status_1, "●")
                 views.setTextColor(R.id.chat_status_1, Color.parseColor(COLOR_ONLINE))
                 
-                views.setTextViewText(R.id.chat_name_2, "Bob")
-                views.setTextViewText(R.id.chat_message_2, "See you tomorrow!")
-                views.setTextViewText(R.id.chat_status_2, "●")
-                views.setTextColor(R.id.chat_status_2, Color.parseColor(COLOR_OFFLINE))
-                
-                views.setTextViewText(R.id.chat_name_3, "Charlie")
-                views.setTextViewText(R.id.chat_message_3, "Thanks for the help")
-                views.setTextViewText(R.id.chat_status_3, "●")
-                views.setTextColor(R.id.chat_status_3, Color.parseColor(COLOR_ONLINE))
-                
-                views.setTextViewText(R.id.chat_name_4, "Diana")
-                views.setTextViewText(R.id.chat_message_4, "Meeting at 3pm")
-                views.setTextViewText(R.id.chat_status_4, "●")
-                views.setTextColor(R.id.chat_status_4, Color.parseColor(COLOR_OFFLINE))
+                // Hide the other rows when showing welcome
+                views.setViewVisibility(R.id.chat_row_2, android.view.View.GONE)
+                views.setViewVisibility(R.id.chat_row_3, android.view.View.GONE)
+                views.setViewVisibility(R.id.chat_row_4, android.view.View.GONE)
             }
             
             // Make entire widget clickable to open app
