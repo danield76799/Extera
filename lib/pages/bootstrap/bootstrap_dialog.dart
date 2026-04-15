@@ -469,6 +469,16 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                   () => _recoveryKeyInputError = 
                                     'Timeout: ${e.message}\n\nThe server is taking too long. Try again later or use "Transfer from another device".',
                                 );
+                              } on Exception catch (e) {
+                                // Handle specific cross-signing errors
+                                final errorMsg = e.toString();
+                                if (errorMsg.contains('Master or user keys not found')) {
+                                  // Keys don't exist yet, this is OK - just log and continue
+                                  Logs().w('Cross-signing keys not found, skipping self-sign');
+                                  // Don't show error, just continue
+                                } else {
+                                  rethrow;
+                                }
                               } on InvalidPassphraseException catch (e) {
                                 setState(
                                   () => _recoveryKeyInputError = e
