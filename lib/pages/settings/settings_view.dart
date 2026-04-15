@@ -492,32 +492,7 @@ class SettingsView extends StatelessWidget {
                             onTap: () => launchUrlString(AppConfig.privacyUrl),
                           ),
                           const ListDivider(),
-                          SwitchListTile.adaptive(
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            value: false,
-                            secondary: CircleAvatar(
-                              backgroundColor: theme.colorScheme.secondary,
-                              child: Icon(
-                                Icons.key_outlined,
-                                color: theme.colorScheme.onSecondary,
-                              ),
-                            ),
-                            title: Text(L10n.of(context).chatBackup),
-                            subtitle: Text(L10n.of(context).chatBackupDescription),
-                            onChanged: (_) => controller.setRecoveryPhraseAction(),
-                          ),
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: theme.colorScheme.secondary,
-                              child: Icon(
-                                Icons.key_outlined,
-                                color: theme.colorScheme.onSecondary,
-                              ),
-                            ),
-                            title: const Text('Recovery Phrase'),
-                            subtitle: const Text('Voer je recovery phrase in'),
-                            onTap: () => controller.setRecoveryPhraseAction(),
-                          ),
+
 
                           const ListDivider(),
                           ListTile(
