@@ -41,6 +41,8 @@ import 'package:extera_next/pages/settings_notifications/settings_notifications.
 import 'package:extera_next/pages/settings_password/settings_password.dart';
 import 'package:extera_next/pages/settings_ringtone/settings_ringtone.dart';
 import 'package:extera_next/pages/settings_security/settings_security.dart';
+import 'package:extera_next/pages/settings/scheduled_messages_view.dart';
+import 'package:extera_next/pages/settings_scheduled_messages/settings_scheduled_messages.dart';
 import 'package:extera_next/pages/settings_style/settings_style.dart';
 import 'package:extera_next/pages/sign_in/sign_in_page.dart';
 import 'package:extera_next/widgets/config_viewer.dart';
@@ -380,6 +382,15 @@ abstract class AppRoutes {
                         context,
                         state,
                         const SettingsFeatures(),
+                      ),
+                      redirect: loggedOutRedirect,
+                    ),
+                    GoRoute(
+                      path: 'scheduled',
+                      pageBuilder: (context, state) => defaultPageBuilder(
+                        context,
+                        state,
+                        const ScheduledMessagesView(),
                       ),
                       redirect: loggedOutRedirect,
                     ),

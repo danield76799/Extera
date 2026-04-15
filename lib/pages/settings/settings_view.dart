@@ -537,6 +537,20 @@ class SettingsView extends StatelessWidget {
 
                           ListTile(
                             leading: CircleAvatar(
+                              backgroundColor: theme.colorScheme.primaryContainer,
+                              child: Icon(
+                                Icons.schedule,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              ),
+                            ),
+                            title: const Text('Scheduled Messages'),
+                            subtitle: const Text('View and cancel scheduled messages'),
+                            trailing: const Icon(Icons.chevron_right),
+                            onTap: () => context.push('/rooms/settings/scheduled'),
+                          ),
+
+                          ListTile(
+                            leading: CircleAvatar(
                               backgroundColor: theme.colorScheme.tertiary,
                               child: Icon(
                                 Icons.info_outline,
