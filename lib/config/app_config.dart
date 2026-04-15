@@ -14,7 +14,7 @@ abstract class AppConfig {
 
   static const String appSsoUrlScheme = 'xyz.extera.auth';
 
-  static String _applicationName = 'ExtraChat';
+  static String _applicationName = 'Plusly';
 
   static String get applicationName => _applicationName;
   static String? _applicationWelcomeMessage;

@@ -23,7 +23,7 @@ enum AppSettings<T> {
   wallpaperBlur<double>('xyz.extera.wallpaper_blur', 0.0),
   experimentalJitsi<bool>('xyz.extera.jitsi', false),
   jitsiDomain<String>('xyz.extera.jitsi_domain', 'meet.jit.si'),
-  applicationName<String>('xyz.extera.app_name', 'ExtraChat'),
+  applicationName<String>('xyz.extera.app_name', 'Plusly'),
   logoUrl<String>('xyz.extera.logo_url', 'https://extera.xyz/logo.svg'),
   privacyPolicy<String>(
     'xyz.extera.tos',

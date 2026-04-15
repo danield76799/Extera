@@ -8,7 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsBackup {
-  static const _backupFileName = 'extrachat_settings_backup.json';
+  static const _backupFileName = 'plusly_settings_backup.json';
 
   static Future<Map<String, dynamic>> export() async {
     final prefs = await SharedPreferences.getInstance();
@@ -61,7 +61,7 @@ class SettingsBackup {
     await file.writeAsString(jsonString);
     await Share.shareXFiles(
       [XFile(file.path)],
-      subject: 'ExtraChat Settings Backup',
+      subject: 'Plusly Settings Backup',
     );
   }
 
