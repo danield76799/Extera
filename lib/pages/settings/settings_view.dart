@@ -504,7 +504,21 @@ class SettingsView extends StatelessWidget {
                             ),
                             title: Text(L10n.of(context).chatBackup),
                             subtitle: Text(L10n.of(context).chatBackupDescription),
-                            onChanged: (_) => controller.setRecoveryPhraseAction(),
+                            onChanged: (v) {
+                              if (v != null) controller.setRecoveryPhraseAction();
+                            },
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: theme.colorScheme.secondary,
+                              child: Icon(
+                                Icons.vpn_key_outlined,
+                                color: theme.colorScheme.onSecondary,
+                              ),
+                            ),
+                            title: const Text('Recovery Key invoeren'),
+                            subtitle: const Text('Voer je recovery key in om chats te herstellen'),
+                            onTap: () => controller.setRecoveryPhraseAction(),
                           ),
 
                           const ListDivider(),
