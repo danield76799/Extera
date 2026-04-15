@@ -30,6 +30,19 @@ class SendLaterDialog extends StatefulWidget {
 
 class SendLaterDialogState extends State<SendLaterDialog> {
   DateTime? _selected;
+  late final TextEditingController _textController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController(text: widget.text ?? '');
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   Future<void> _pickDateTime() async {
     final now = DateTime.now();
@@ -73,6 +86,17 @@ class SendLaterDialogState extends State<SendLaterDialog> {
           children: [
             const Text('Pick date and time to send the message'),
             const SizedBox(height: 16),
+            TextField(
+              controller: _textController,
+              decoration: const InputDecoration(
+                labelText: 'Message',
+                hintText: 'Type your message here',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
+              minLines: 1,
+            ),
+            const SizedBox(height: 16),
             OutlinedButton(
               onPressed: _pickDateTime,
               child: Padding(
@@ -110,14 +134,20 @@ class SendLaterDialogState extends State<SendLaterDialog> {
                         );
                         return;
                       }
-                      // Build content if text was provided directly
-                      final messageContent = widget.content ??
-                          (widget.text != null
-                              ? {
-                                  'msgtype': 'm.text',
-                                  'body': widget.text!,
-                                }
-                              : throw Exception('No content or text provided'));
+                      // Build content from text field
+                      final text = _textController.text.trim();
+                      if (text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter a message'),
+                          ),
+                        );
+                        return;
+                      }
+                      final messageContent = widget.content ?? {
+                        'msgtype': 'm.text',
+                        'body': text,
+                      };
 
                       final delayMs = _selected!.difference(now).inMilliseconds;
                       final result = await showFutureLoadingDialog<String>(

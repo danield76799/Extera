@@ -730,7 +730,6 @@ class ChatController extends State<ChatPageWithRoom>
   }
 
   void sendScheduleAction() async {
-    if (sendController.text.trim().isEmpty) return;
     await showAdaptiveDialog(
       context: context,
       useRootNavigator: false,
