@@ -52,6 +52,8 @@ class BootstrapDialogState extends State<BootstrapDialog> {
 
   bool? _wipe;
 
+  String _bootstrapStep = 'Initializing...';
+
   String get _secureStorageKey =>
       'ssss_recovery_key_${bootstrap!.client.userID}';
 
@@ -117,20 +119,36 @@ class BootstrapDialogState extends State<BootstrapDialog> {
   }
 
   void _createBootstrap(bool wipe) async {
+    _bootstrapStep = 'Loading rooms...';
+    setState(() {});
     await client.roomsLoading;
+    _bootstrapStep = 'Loading account data...';
+    setState(() {});
     await client.accountDataLoading;
+    _bootstrapStep = 'Loading device keys...';
+    setState(() {});
     await client.userDeviceKeysLoading;
+    _bootstrapStep = 'Waiting for server sync...';
+    setState(() {});
     while (client.prevBatch == null) {
       await client.onSync.stream.first;
     }
+    _bootstrapStep = 'Updating device keys...';
+    setState(() {});
     await client.updateUserDeviceKeys();
     _wipe = wipe;
     titleText = null;
     _recoveryKeyStored = false;
+    _bootstrapStep = 'Setting up encryption...';
+    setState(() {});
     bootstrap = client.encryption!.bootstrap(onUpdate: (_) => setState(() {}));
     final key = await const FlutterSecureStorage().read(key: _secureStorageKey);
-    if (key == null) return;
+    if (key == null) {
+      _bootstrapStep = '';
+      return;
+    }
     _recoveryKeyTextEditingController.text = key;
+    _bootstrapStep = '';
   }
 
   @override
@@ -155,6 +173,16 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                 children: [
                   CircularProgressIndicator.adaptive(value: status?.progress),
                   if (status != null) Text(status.calcLocalizedString(context)),
+                  if (_bootstrapStep.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Text(
+                      _bootstrapStep,
+                      style: TextStyle(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                   if (isComplete) ...[
                     const SizedBox(height: 24),
                     TextButton(
