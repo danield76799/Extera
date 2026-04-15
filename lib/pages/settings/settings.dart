@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:matrix/encryption.dart';
 import 'package:matrix/matrix.dart';
 
 import 'package:extera_next/config/app_config.dart';
@@ -346,6 +347,36 @@ class SettingsController extends State<Settings> {
 
   bool? crossSigningCached;
   bool? showChatBackupBanner;
+
+  void setRecoveryPhraseAction() async {
+    final matrix = Matrix.of(context);
+    if (matrix.client.encryption == null) return;
+    
+    final recoveryKey = await showTextInputDialog(
+      useRootNavigator: false,
+      context: context,
+      title: 'Recovery Phrase',
+      message: 'Voer je recovery phrase in om je chats te decrypteren',
+      okLabel: L10n.of(context).ok,
+      cancelLabel: L10n.of(context).cancel,
+      obscureText: true,
+      maxLines: 3,
+    );
+    if (recoveryKey == null || recoveryKey.isEmpty) return;
+
+    await showFutureLoadingDialog(
+      context: context,
+      future: () async {
+        try {
+          final bootstrap = matrix.client.encryption!.bootstrap();
+          await bootstrap.storeOrRecoverMasterKeyFromSSSS(recoveryKey: recoveryKey);
+        } catch (e) {
+          Logs().e('Recovery failed', e);
+          rethrow;
+        }
+      },
+    );
+  }
 
   void firstRunBootstrapAction([dynamic _]) async {
     if (showChatBackupBanner != true) {
