@@ -333,7 +333,8 @@ class SettingsController extends State<Settings> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => checkBootstrap());
+    // checkBootstrap disabled - skip recovery key flow (per Daan 15 apr 2026)
+    // WidgetsBinding.instance.addPostFrameCallback((_) => checkBootstrap());
 
     super.initState();
   }
@@ -402,7 +403,7 @@ class SettingsController extends State<Settings> {
       return;
     }
     await context.push('/backup');
-    checkBootstrap();
+    // checkBootstrap();
   }
 
   @override
