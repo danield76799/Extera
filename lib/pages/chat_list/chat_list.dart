@@ -957,11 +957,15 @@ class ChatListController extends State<ChatList>
       if (!client.encryptionEnabled) return;
       await client.accountDataLoading;
       await client.userDeviceKeysLoading;
-      final crossSigning =
-          await client.encryption?.crossSigning.isCached() ?? false;
+      // Timeout after 10s to prevent app from hanging on slow homeserver
+      final crossSigning = await Future.any([
+        client.encryption?.crossSigning.isCached() ?? Future.value(false),
+        Future.delayed(const Duration(seconds: 10), () => null),
+      ]);
       final needsBootstrap =
           await client.encryption?.keyManager.isCached() == false ||
           client.encryption?.crossSigning.enabled == false ||
+          crossSigning == null ||
           crossSigning == false;
       final isUnknownSession = client.isUnknownSession;
       if (needsBootstrap || isUnknownSession) {

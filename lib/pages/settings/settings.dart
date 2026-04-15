@@ -347,13 +347,20 @@ class SettingsController extends State<Settings> {
         return;
       }
       final crossSigning = matrix.client.encryption!.crossSigning;
-      final cached = await crossSigning.isCached();
+      
+      // Timeout after 10s to prevent app from hanging on slow homeserver
+      final cached = await Future.any([
+        crossSigning.isCached(),
+        Future.delayed(const Duration(seconds: 10), () => null),
+      ]);
+      
+      if (!mounted) return;
       setState(() {
-        showChatBackupBanner = !cached;
+        showChatBackupBanner = cached == false;
         crossSigningCached = cached;
       });
     } catch (e) {
-      setState(() => showChatBackupBanner = false);
+      if (mounted) setState(() => showChatBackupBanner = false);
     }
   }
 
