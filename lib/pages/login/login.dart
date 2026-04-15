@@ -83,7 +83,7 @@ class LoginController extends State<Login> {
         initialDeviceDisplayName: PlatformInfos.clientName,
       );
       if (mounted) {
-        // Skip bootstrap/backup flow for MVP - go directly to rooms
+        // Let the normal bootstrap flow happen
         context.go('/rooms');
       }
     } on MatrixException catch (exception) {

@@ -339,10 +339,22 @@ class SettingsController extends State<Settings> {
   }
 
   void checkBootstrap() async {
-    // Bootstrap disabled for MVP - never show the backup banner
-    setState(() {
-      showChatBackupBanner = false;
-    });
+    // Re-enable bootstrap check - check if cross-signing is enabled
+    try {
+      final matrix = Matrix.of(context);
+      if (matrix.client.encryption == null) {
+        setState(() => showChatBackupBanner = false);
+        return;
+      }
+      final crossSigning = matrix.client.encryption!.crossSigning;
+      final cached = await crossSigning.isCached();
+      setState(() {
+        showChatBackupBanner = !cached;
+        crossSigningCached = cached;
+      });
+    } catch (e) {
+      setState(() => showChatBackupBanner = false);
+    }
   }
 
   bool? crossSigningCached;
