@@ -337,13 +337,21 @@ class SettingsController extends State<Settings> {
 
   void setRecoveryPhraseAction() async {
     final matrix = Matrix.of(context);
-    if (matrix.client.encryption == null) return;
-    
+    if (matrix.client.encryption == null) {
+      await showOkAlertDialog(
+        context: context,
+        title: 'Encryption not active',
+        message: 'E2EE is not enabled on this account. Recovery key cannot be used.',
+        okLabel: L10n.of(context).ok,
+      );
+      return;
+    }
+
     final recoveryKey = await showTextInputDialog(
       useRootNavigator: false,
       context: context,
-      title: 'Recovery Phrase',
-      message: 'Voer je recovery phrase in om je chats te decrypteren',
+      title: 'Recovery Key',
+      message: 'Voer je recovery key in om je chats te decrypteren',
       okLabel: L10n.of(context).ok,
       cancelLabel: L10n.of(context).cancel,
       obscureText: true,
@@ -356,8 +364,17 @@ class SettingsController extends State<Settings> {
       future: () async {
         try {
           final bootstrap = matrix.client.encryption!.bootstrap();
-          await bootstrap.newSsssKey!.unlock(keyOrPassphrase: recoveryKey);
-          await bootstrap.openExistingSsss();
+          if (bootstrap.newSsssKey == null) {
+            throw Exception('Geen recovery key gevonden in je account');
+          }
+          await Future.any([
+            bootstrap.newSsssKey!.unlock(keyOrPassphrase: recoveryKey),
+            Future.delayed(const Duration(seconds: 15), () => throw Exception('TIMEOUT')),
+          ]);
+          await Future.any([
+            bootstrap.openExistingSsss(),
+            Future.delayed(const Duration(seconds: 15), () => throw Exception('TIMEOUT')),
+          ]);
         } catch (e) {
           Logs().e('Recovery failed', e);
           rethrow;
