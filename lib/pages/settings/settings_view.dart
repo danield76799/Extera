@@ -497,17 +497,29 @@ class SettingsView extends StatelessWidget {
                           const ListDivider(),
                           SwitchListTile.adaptive(
                             controlAffinity: ListTileControlAffinity.trailing,
-                            value: false,
+                            value: controller.isRecoveryActive,
                             secondary: CircleAvatar(
-                              backgroundColor: theme.colorScheme.secondary,
+                              backgroundColor: controller.isRecoveryActive 
+                                  ? theme.colorScheme.primary 
+                                  : theme.colorScheme.secondary,
                               child: Icon(
-                                Icons.cloud_upload_outlined,
-                                color: theme.colorScheme.onSecondary,
+                                controller.isRecoveryActive 
+                                    ? Icons.check_circle_outlined 
+                                    : Icons.cloud_upload_outlined,
+                                color: controller.isRecoveryActive
+                                    ? theme.colorScheme.onPrimary
+                                    : theme.colorScheme.onSecondary,
                               ),
                             ),
-                            title: Text(L10n.of(context).chatBackup),
-                            subtitle: Text(L10n.of(context).chatBackupDescription),
-                            onChanged: (_) => controller.firstRunBootstrapAction(),
+                            title: Text(controller.isRecoveryActive 
+                                ? 'Recovery Active' 
+                                : L10n.of(context).chatBackup),
+                            subtitle: Text(controller.isRecoveryActive
+                                ? 'Your messages are secured and can be recovered'
+                                : L10n.of(context).chatBackupDescription),
+                            onChanged: controller.isRecoveryActive 
+                                ? null 
+                                : (_) => controller.firstRunBootstrapAction(),
                           ),
 
                           ListTile(

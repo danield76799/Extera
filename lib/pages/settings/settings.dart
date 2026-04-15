@@ -40,6 +40,8 @@ class SettingsController extends State<Settings> {
   bool? crossSigningCached;
   bool? showChatBackupBanner;
 
+  bool get isRecoveryActive => showChatBackupBanner == false;
+
   Future<String?> _getAbout() async {
     final client = Matrix.of(context).client;
     try {
