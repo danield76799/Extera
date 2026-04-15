@@ -2,6 +2,7 @@ package com.danield.extrachat
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
 
 import android.content.Context
 import android.content.Intent
@@ -38,7 +39,18 @@ class MainActivity : FlutterActivity() {
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-        // do nothing, because the engine was been configured in provideEngine
+        super.configureFlutterEngine(flutterEngine)
+        
+        // Register method channel for widget data path
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "com.danield.extrachat/widget_data").setMethodCallHandler { call, result ->
+            when (call.method) {
+                "getWidgetDataPath" -> {
+                    val path = filesDir.resolve("chat_widget_data.json").absolutePath
+                    result.success(path)
+                }
+                else -> result.notImplemented()
+            }
+        }
     }
 
     companion object {

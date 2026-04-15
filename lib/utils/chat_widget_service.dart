@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:matrix/matrix.dart';
 
@@ -13,12 +13,22 @@ class ChatWidgetService {
   /// Get the directory where widget data is stored
   /// Uses filesDir which is shared between Flutter and Android in the same app
   static Future<Directory> _getWidgetDataDirectory() async {
-    // On Android, context.filesDir is /data/data/com.danield.extrachat/files/
-    // getApplicationSupportDirectory() returns the same path
-    // getApplicationDocumentsDirectory() returns app_flutter/ which is DIFFERENT
     if (kIsWeb) {
       return await getApplicationDocumentsDirectory();
     }
+    
+    // Use MethodChannel to get the exact path from Android
+    try {
+      final channel = MethodChannel('com.danield.extrachat/widget_data');
+      final path = await channel.invokeMethod<String>('getWidgetDataPath');
+      if (path != null) {
+        return Directory(path.substring(0, path.lastIndexOf('/')));
+      }
+    } catch (e) {
+      Logs().e('Failed to get widget data path from Android', e);
+    }
+    
+    // Fallback
     return await getApplicationSupportDirectory();
   }
 
