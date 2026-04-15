@@ -362,18 +362,16 @@ class SettingsController extends State<Settings> {
     await showFutureLoadingDialog(
       context: context,
       future: () async {
-        try {
-          final bootstrap = matrix.client.encryption!.bootstrap();
-          await bootstrap.newSsssKey!.unlock(keyOrPassphrase: recoveryKey);
-          await bootstrap.openExistingSsss();
-          Logs().d('SSSS unlocked via settings');
-          if (bootstrap.encryption.crossSigning.enabled) {
-            await bootstrap.client.encryption!.crossSigning.selfSign(recoveryKey: recoveryKey);
-            Logs().d('Successful selfsigned via settings');
-          }
-        } catch (e) {
-          Logs().e('Recovery failed', e);
-          rethrow;
+        final bootstrap = matrix.client.encryption!.bootstrap();
+        if (bootstrap.newSsssKey == null) {
+          throw Exception('Geen recovery key gevonden in je account');
+        }
+        await bootstrap.newSsssKey!.unlock(keyOrPassphrase: recoveryKey);
+        await bootstrap.openExistingSsss();
+        Logs().d('SSSS unlocked via settings');
+        if (bootstrap.encryption.crossSigning.enabled) {
+          await bootstrap.client.encryption!.crossSigning.selfSign(recoveryKey: recoveryKey);
+          Logs().d('Successful selfsigned via settings');
         }
       },
     );
