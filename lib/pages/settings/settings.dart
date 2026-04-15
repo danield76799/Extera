@@ -359,10 +359,10 @@ class SettingsController extends State<Settings> {
     );
     if (recoveryKey == null || recoveryKey.isEmpty) return;
 
-    await showFutureLoadingDialog(
-      context: context,
-      future: () async {
-        try {
+    try {
+      await showFutureLoadingDialog(
+        context: context,
+        future: () async {
           final bootstrap = matrix.client.encryption!.bootstrap();
           if (bootstrap.newSsssKey == null) {
             throw Exception('Geen recovery key gevonden in je account');
@@ -379,12 +379,18 @@ class SettingsController extends State<Settings> {
           } on TimeoutException {
             throw Exception('Server niet bereikbaar (timeout na 15s)');
           }
-        } catch (e) {
-          Logs().e('Recovery failed', e);
-          rethrow;
-        }
-      },
-    );
+        },
+      );
+    } catch (e) {
+      Logs().e('Recovery action failed', e);
+      if (!mounted) return;
+      await showOkAlertDialog(
+        context: context,
+        title: 'Fout',
+        message: e.toString(),
+        okLabel: L10n.of(context).ok,
+      );
+    }
   }
 
   @override
