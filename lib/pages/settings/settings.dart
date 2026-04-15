@@ -364,7 +364,18 @@ class SettingsController extends State<Settings> {
       future: () async {
         try {
           final bootstrap = matrix.client.encryption!.bootstrap();
-          await bootstrap.storeOrRecoverMasterKeyFromSSSS(recoveryKey: recoveryKey);
+          try {
+            await bootstrap.newSsssKey!.unlock(keyOrPassphrase: recoveryKey)
+                .timeout(const Duration(seconds: 15));
+          } on TimeoutException {
+            throw Exception('Server niet bereikbaar (timeout)');
+          }
+          try {
+            await bootstrap.openExistingSsss()
+                .timeout(const Duration(seconds: 15));
+          } on TimeoutException {
+            throw Exception('Server niet bereikbaar (timeout)');
+          }
         } catch (e) {
           Logs().e('Recovery failed', e);
           rethrow;
