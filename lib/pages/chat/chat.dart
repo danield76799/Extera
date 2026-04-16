@@ -413,11 +413,12 @@ class ChatController extends State<ChatPageWithRoom>
       await loadTimelineFuture;
       if (initialEventId != null) scrollToEventId(initialEventId);
 
-      var readMarkerEventIndex = readMarkerEventId.isEmpty && timeline != null
-          ? -1
-          : timeline!.events
-                .filterByVisibleInGui(exceptionEventId: readMarkerEventId)
-                .indexWhere((e) => e.eventId == readMarkerEventId);
+      var readMarkerEventIndex = -1;
+      if (readMarkerEventId.isNotEmpty && timeline != null) {
+        readMarkerEventIndex = timeline.events
+            .filterByVisibleInGui(exceptionEventId: readMarkerEventId)
+            .indexWhere((e) => e.eventId == readMarkerEventId);
+      }
 
       if (readMarkerEventId.isNotEmpty && readMarkerEventIndex == -1) {
         await timeline?.requestHistory(historyCount: _loadHistoryCount);
