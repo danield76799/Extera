@@ -1560,6 +1560,17 @@ class ChatController extends State<ChatPageWithRoom>
     setState(() => selectedEvents.clear());
     for (final event in events) {
       await room.sendReaction(event.eventId, emoji!);
+      // Add to recent emojis when sending reaction
+      if (emoji != null) {
+        _localRecentEmojis.remove(emoji);
+        _localRecentEmojis.insert(0, emoji);
+        if (_localRecentEmojis.length > 50) {
+          _localRecentEmojis = _localRecentEmojis.sublist(0, 50);
+        }
+        await _saveLocalRecentEmojis();
+        // Also try to add to SDK
+        await room.client.addRecentEmoji(emoji);
+      }
     }
   }
 

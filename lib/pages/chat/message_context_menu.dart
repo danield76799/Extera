@@ -241,6 +241,15 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                                       ? null
                                       : () {
                                           controller.closeMessageMenu();
+                                          // Add to recent emojis when sending reaction
+                                          controller.localRecentEmojis.remove(emoji);
+                                          controller.localRecentEmojis.insert(0, emoji);
+                                          if (controller.localRecentEmojis.length > 50) {
+                                            controller.localRecentEmojis = controller.localRecentEmojis.sublist(0, 50);
+                                          }
+                                          controller._saveLocalRecentEmojis();
+                                          // Also try to add to SDK
+                                          room.client.addRecentEmoji(emoji);
                                           event.room.sendReaction(
                                             event.eventId,
                                             emoji,
@@ -383,6 +392,15 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                                     return;
                                   }
                                   controller.closeMessageMenu();
+                                  // Add to recent emojis when sending reaction
+                                  controller.localRecentEmojis.remove(emoji);
+                                  controller.localRecentEmojis.insert(0, emoji);
+                                  if (controller.localRecentEmojis.length > 50) {
+                                    controller.localRecentEmojis = controller.localRecentEmojis.sublist(0, 50);
+                                  }
+                                  await controller._saveLocalRecentEmojis();
+                                  // Also try to add to SDK
+                                  await room.client.addRecentEmoji(emoji);
                                   await event.room.sendReaction(
                                     event.eventId,
                                     emoji,

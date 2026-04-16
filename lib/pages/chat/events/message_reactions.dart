@@ -71,6 +71,8 @@ class MessageReactions extends StatelessWidget {
                   );
                 }
               } else {
+                // Add to recent emojis when sending reaction via reaction bar
+                event.room.client.addRecentEmoji(r.key);
                 event.room.sendReaction(event.eventId, r.key);
               }
             },

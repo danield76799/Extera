@@ -245,9 +245,11 @@ class SettingsController extends State<Settings> {
       context: context,
       future: () => matrix.client.setAvatar(file),
     );
-    if (success.error == null) {
-      updateProfile();
+    if (success.error != null) {
+      Logs().e('Avatar upload failed', success.error);
+      return;
     }
+    updateProfile();
   }
 
   void setBannerAction() async {
