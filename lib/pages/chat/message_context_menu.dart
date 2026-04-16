@@ -122,11 +122,13 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
     final borderRadius = BorderRadius.circular(AppConfig.borderRadius);
     final imagePacks = controller.room.getImagePacks(ImagePackUsage.emoticon);
 
-    final recentEmojis = client.recentEmojis.entries
-        .sortedByCompare((element) => element.value, (a, b) => b - a)
-        .map((entry) => entry.key)
-        .take(5)
-        .toList();
+    final recentEmojis = controller.localRecentEmojis.isNotEmpty
+        ? controller.localRecentEmojis.take(5).toList()
+        : client.recentEmojis.entries
+            .sortedByCompare((element) => element.value, (a, b) => b - a)
+            .map((entry) => entry.key)
+            .take(5)
+            .toList();
 
     final receipts = room
         .getReceipts(timeline!, eventId: event.eventId)

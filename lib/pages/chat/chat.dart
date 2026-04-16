@@ -206,6 +206,22 @@ class ChatController extends State<ChatPageWithRoom>
   bool showEmojiPicker = false;
   bool initiallyShowStickerPicker = false;
 
+  // Local recent emojis storage
+  static const String _recentEmojisKey = 'recent_emojis_local';
+  List<String> _localRecentEmojis = [];
+
+  List<String> get localRecentEmojis => _localRecentEmojis;
+
+  Future<void> _loadLocalRecentEmojis() async {
+    final prefs = await SharedPreferences.getInstance();
+    _localRecentEmojis = prefs.getStringList(_recentEmojisKey) ?? [];
+  }
+
+  Future<void> _saveLocalRecentEmojis() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_recentEmojisKey, _localRecentEmojis);
+  }
+
   void acceptInvite() async {
     final result = await showFutureLoadingDialog(
       context: context,
@@ -392,6 +408,7 @@ class ChatController extends State<ChatPageWithRoom>
     inputFocus.addListener(_inputFocusListener);
 
     _loadDraft();
+    _loadLocalRecentEmojis(); // Load local recent emojis
     WidgetsBinding.instance.addPostFrameCallback(_shareItems);
     super.initState();
     _displayChatDetailsColumn = ValueNotifier(
@@ -1408,7 +1425,19 @@ class ChatController extends State<ChatPageWithRoom>
   }
 
   void onEmojiSelected(Category? _, PickerEmoji emoji) async {
-    await room.client.addRecentEmoji(emoji.customData ?? emoji.standardEmoji!.char);
+    final emojiChar = emoji.customData ?? emoji.standardEmoji!.char;
+    
+    // Add to local recent emojis list
+    _localRecentEmojis.remove(emojiChar); // Remove if already exists (to move to front)
+    _localRecentEmojis.insert(0, emojiChar); // Add to front
+    if (_localRecentEmojis.length > 50) {
+      _localRecentEmojis = _localRecentEmojis.sublist(0, 50); // Keep only last 50
+    }
+    await _saveLocalRecentEmojis();
+    
+    // Also try to add to SDK (for server sync if supported)
+    await room.client.addRecentEmoji(emojiChar);
+    
     // Force rebuild to update recent emojis list
     setState(() {});
     // print('selected emoji ${emoji.customData ?? emoji.standardEmoji!.char}');

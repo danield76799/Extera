@@ -20,10 +20,13 @@ class ChatEmojiPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final client = Matrix.of(context).client;
     final imagePacks = controller.room.getImagePacks(ImagePackUsage.emoticon);
-    final recentEmojis = client.recentEmojis.entries
-        .sortedByCompare((element) => element.value, (a, b) => b - a)
-        .map((entry) => entry.key)
-        .toList();
+    // Use local recent emojis if available, fallback to client.recentEmojis
+    final recentEmojis = controller.localRecentEmojis.isNotEmpty
+        ? controller.localRecentEmojis
+        : client.recentEmojis.entries
+            .sortedByCompare((element) => element.value, (a, b) => b - a)
+            .map((entry) => entry.key)
+            .toList();
 
     return ClipRect(
       child: AnimatedSize(
