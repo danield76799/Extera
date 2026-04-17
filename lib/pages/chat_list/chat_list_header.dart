@@ -78,20 +78,43 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
           height: _headerHeight,
           child: Column(
             children: [
-              // REGEL 1: Branding & Profiel (clean)
+              // REGEL 1: Branding & Profiel (logo + tekst + avatar)
               SizedBox(
                 height: 56,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     children: [
-                      // Logo/links
-                      Text(
-                        AppConfig.applicationName,
-                        style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -0.5,
-                        ),
+                      // Logo + tekst links
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Plusly logo (turquoise cirkel met plus)
+                          Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF49AFC2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          // Plusly tekst
+                          Text(
+                            AppConfig.applicationName,
+                            style: theme.textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -0.5,
+                            ),
+                          ),
+                        ],
                       ),
                       const Spacer(),
                       // Profiel rechts
