@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:emojis/emoji.dart';
 
@@ -226,7 +227,26 @@ class MatrixEmojiPickerState extends State<MatrixEmojiPicker>
     super.dispose();
   }
 
-  void _loadEmojis() {
+  Future<void> _loadEmojis() async {
+    setState(() => _isLoading = true);
+    
+    // Load emojis in background to keep UI responsive
+    final result = await compute(_loadEmojisInBackground, {
+      'customCategories': widget.customCategories,
+    });
+    
+    if (mounted) {
+      setState(() {
+        _allEmojis = result['emojis'] as List<PickerEmoji>;
+        _variationsMap.addAll(result['variations'] as Map<String, List<PickerEmoji>>);
+        _isLoading = false;
+        _calculateDisplayedEmojis();
+      });
+    }
+  }
+
+  // Background function to load emojis without blocking UI
+  static Map<String, dynamic> _loadEmojisInBackground(Map<String, dynamic> params) {
     final loadedList = <PickerEmoji>[];
     final tempVariations = <String, List<PickerEmoji>>{};
 
@@ -250,23 +270,10 @@ class MatrixEmojiPickerState extends State<MatrixEmojiPicker>
       loadedList.add(pEmoji);
     }
 
-    // 2. Load Custom
-    for (final cat in widget.customCategories) {
-      cat.emojis.forEach((name, data) {
-        loadedList.add(
-          PickerEmoji.custom(name: name, customData: data, categoryId: cat.id),
-        );
-      });
-    }
-
-    if (mounted) {
-      setState(() {
-        _allEmojis = loadedList;
-        _variationsMap.addAll(tempVariations);
-        _isLoading = false;
-        _calculateDisplayedEmojis();
-      });
-    }
+    return {
+      'emojis': loadedList,
+      'variations': tempVariations,
+    };
   }
 
   // Pure logic function to filter emojis based on current state
