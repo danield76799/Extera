@@ -369,15 +369,15 @@ class _DynamicBridgeFilters extends StatelessWidget {
   IconData _getBridgeIcon(String type) {
     switch (type.toLowerCase()) {
       case 'whatsapp':
-        return MdiIcons.whatsapp;
+        return MdiIcons.whatsapp; // Echt WhatsApp logo
       case 'telegram':
-        return MdiIcons.telegram;
+        return MdiIcons.send; // Telegram vliegtuig
       case 'discord':
-        return MdiIcons.discord;
+        return MdiIcons.gamepadVariant; // Discord gamepad
       case 'signal':
-        return MdiIcons.signal;
+        return MdiIcons.shieldCheck; // Signal shield
       case 'matrix':
-        return MdiIcons.matrix;
+        return MdiIcons.matrix; // Matrix logo
       default:
         return Icons.chat;
     }
