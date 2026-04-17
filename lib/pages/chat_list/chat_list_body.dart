@@ -209,16 +209,7 @@ class ChatListViewBody extends StatelessWidget {
                           onStatusEdit: controller.setStatus,
                         ),
                       ),
-                    if (!controller.isSearchMode)
-                      BridgeFilterBar(
-                        allBridgeTypes: controller.allBridgeTypes,
-                        visibleBridgeTypes: controller.visibleBridgeTypes,
-                        onChanged: (newTypes) {
-                          controller.setState(() {
-                            controller.visibleBridgeTypes = newTypes;
-                          });
-                        },
-                      ),
+                    // BridgeFilterBar verwijderd - nu in header
                     if (!FluffyThemes.isColumnMode(context)) ...[
                       const BackToCallButton(),
                       const MiniAudioPlayer(),
