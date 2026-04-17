@@ -164,9 +164,14 @@ class BackgroundPush {
     MatrixState matrix, {
     final void Function(String errorMsg, {Uri? link})? onFcmError,
   }) {
+    // Prevent duplicate instances
+    if (_instance != null) {
+      _instance!.matrix = matrix;
+      _instance!.onFcmError = onFcmError;
+      return _instance!;
+    }
     final instance = BackgroundPush.clientOnly(matrix.client);
     instance.matrix = matrix;
-    // ignore: prefer_initializing_formals
     instance.onFcmError = onFcmError;
     return instance;
   }

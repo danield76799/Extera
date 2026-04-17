@@ -58,7 +58,10 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _headerHeight + topPadding;
 
   @override
-  bool shouldRebuild(covariant _ChatListHeaderDelegate oldDelegate) => true;
+  bool shouldRebuild(covariant _ChatListHeaderDelegate oldDelegate) =>
+      oldDelegate.controller != controller ||
+      oldDelegate.globalSearch != globalSearch ||
+      oldDelegate.topPadding != topPadding;
 
   @override
   Widget build(
