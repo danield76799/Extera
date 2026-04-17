@@ -282,62 +282,119 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
               
               const SizedBox(height: 12),
               
-              // REGEL 3: Platform Filters (met officiële logo's)
-              SizedBox(
-                height: 40,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    _FilterPillWithIcon(
-                      label: 'All',
-                      icon: Icons.apps,
-                      isActive: controller.activeFilter == ActiveFilter.allChats,
-                      onTap: () => controller.activeFilter = ActiveFilter.allChats,
-                    ),
-                    _FilterPillWithIcon(
-                      label: 'WhatsApp',
-                      icon: Icons.chat_bubble, // WhatsApp icon placeholder
-                      color: const Color(0xFF25D366),
-                      isActive: false,
-                      onTap: () {},
-                    ),
-                    _FilterPillWithIcon(
-                      label: 'Telegram',
-                      icon: Icons.send, // Telegram icon placeholder
-                      color: const Color(0xFF0088cc),
-                      isActive: false,
-                      onTap: () {},
-                    ),
-                    _FilterPillWithIcon(
-                      label: 'Discord',
-                      icon: Icons.videogame_asset, // Discord icon placeholder
-                      color: const Color(0xFF5865F2),
-                      isActive: false,
-                      onTap: () {},
-                    ),
-                    _FilterPillWithIcon(
-                      label: 'Signal',
-                      icon: Icons.security, // Signal icon placeholder
-                      color: const Color(0xFF3A76F0),
-                      isActive: false,
-                      onTap: () {},
-                    ),
-                    _FilterPillWithIcon(
-                      label: 'Matrix',
-                      icon: Icons.grid_view, // Matrix icon
-                      color: const Color(0xFF0DBD8B),
-                      isActive: false,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-              ),
+              // REGEL 3: Platform Filters (dynamisch op basis van gekoppelde bridges)
+              _DynamicBridgeFilters(controller: controller),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+// Dynamische bridge filters - alleen tonen als gekoppeld
+class _DynamicBridgeFilters extends StatelessWidget {
+  final ChatListController controller;
+
+  const _DynamicBridgeFilters({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<Set<String>>(
+      valueListenable: controller.visibleBridgeTypes,
+      builder: (context, visibleTypes, _) {
+        final bridgeTypes = controller.allBridgeTypes;
+        
+        // Als er geen bridges zijn, toon niets
+        if (bridgeTypes.isEmpty) {
+          return const SizedBox.shrink();
+        }
+
+        return SizedBox(
+          height: 40,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              // Altijd "All" tonen
+              _FilterPillWithIcon(
+                label: 'All',
+                icon: Icons.apps,
+                isActive: visibleTypes.isEmpty,
+                onTap: () => controller.visibleBridgeTypes.value = {},
+              ),
+              // Alleen gekoppelde bridges tonen
+              ...bridgeTypes.map((type) => _FilterPillWithIcon(
+                label: _getBridgeLabel(type),
+                icon: _getBridgeIcon(type),
+                color: _getBridgeColor(type),
+                isActive: visibleTypes.contains(type),
+                onTap: () {
+                  final newTypes = Set<String>.from(visibleTypes);
+                  if (newTypes.contains(type)) {
+                    newTypes.remove(type);
+                  } else {
+                    newTypes.add(type);
+                  }
+                  controller.visibleBridgeTypes.value = newTypes;
+                },
+              )),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  String _getBridgeLabel(String type) {
+    switch (type.toLowerCase()) {
+      case 'whatsapp':
+        return 'WhatsApp';
+      case 'telegram':
+        return 'Telegram';
+      case 'discord':
+        return 'Discord';
+      case 'signal':
+        return 'Signal';
+      case 'matrix':
+        return 'Matrix';
+      default:
+        return type;
+    }
+  }
+
+  IconData _getBridgeIcon(String type) {
+    switch (type.toLowerCase()) {
+      case 'whatsapp':
+        return Icons.chat_bubble;
+      case 'telegram':
+        return Icons.send;
+      case 'discord':
+        return Icons.videogame_asset;
+      case 'signal':
+        return Icons.security;
+      case 'matrix':
+        return Icons.grid_view;
+      default:
+        return Icons.chat;
+    }
+  }
+
+  Color _getBridgeColor(String type) {
+    switch (type.toLowerCase()) {
+      case 'whatsapp':
+        return const Color(0xFF25D366);
+      case 'telegram':
+        return const Color(0xFF0088cc);
+      case 'discord':
+        return const Color(0xFF5865F2);
+      case 'signal':
+        return const Color(0xFF3A76F0);
+      case 'matrix':
+        return const Color(0xFF0DBD8B);
+      default:
+        return Colors.grey;
+    }
   }
 }
 
