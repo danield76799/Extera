@@ -173,6 +173,7 @@ class MatrixEmojiPickerState extends State<MatrixEmojiPicker>
   List<PickerEmoji> _allEmojis = [];
   List<PickerEmoji> _displayedEmojis = [];
   final Map<String, List<PickerEmoji>> _variationsMap = {};
+  bool _emojisLoaded = false;
 
   late List<_PickerTab> _tabs;
   late TabController _tabController;

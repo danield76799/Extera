@@ -109,11 +109,11 @@ dependencies:
   dio: ^5.9.2
   uuid: ^4.5.3
   flutter_ringtone_player: ^4.0.0+4
-  audioplayers_linux: ^4.2.1
+  #audioplayers_linux: ^4.2.1  # Removed - only needed for Linux desktop
   pro_image_editor: ^12.1.0
   google_fonts: ^8.0.2
   marquee: ^2.3.0
-  particles_network: ^1.9.3
+  #particles_network: ^1.9.3  # Removed - heavy visual effect, not essential
   material_design_icons_flutter: ^7.0.7296
   open_file: ^3.5.11
 
