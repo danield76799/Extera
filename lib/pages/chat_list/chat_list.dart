@@ -222,6 +222,11 @@ class ChatListController extends State<ChatList>
   }
 
   bool _isBridgeTypeVisible(Room room) {
+    // Als er geen specifieke filters zijn geselecteerd, toon alles (All)
+    if (visibleBridgeTypes.isEmpty) {
+      return true;
+    }
+    // Anders toon alleen geselecteerde bridge types
     if (!isBridgeRoom(room)) {
       return visibleBridgeTypes.contains('matrix');
     }
