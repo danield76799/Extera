@@ -220,17 +220,24 @@ class PushHelper {
       l10n ??= await L10n.delegate.load(PlatformDispatcher.instance.locale);
       final matrixLocals = MatrixLocals(l10n!);
 
-      // Calculate the body
-      final body = event.type == EventTypes.Encrypted
-          ? '💬 New message in ${AppConfig.applicationName}'
-          : await event.calcLocalizedBody(
-              matrixLocals,
-              plaintextBody: true,
-              withSenderNamePrefix: false,
-              hideReply: true,
-              hideEdit: true,
-              removeMarkdown: true,
-            );
+      // Calculate the body - alleen echte berichttekst, geen generieke tekst
+      String? body;
+      if (event.type != EventTypes.Encrypted) {
+        body = await event.calcLocalizedBody(
+          matrixLocals,
+          plaintextBody: true,
+          withSenderNamePrefix: false,
+          hideReply: true,
+          hideEdit: true,
+          removeMarkdown: true,
+        );
+      }
+      
+      // Geen notificatie als we geen tekst hebben (encrypted of leeg)
+      if (body == null || body.isEmpty) {
+        Logs().v('No notification body available, skipping notification.');
+        return;
+      }
 
       final title = event.room.getLocalizedDisplayname(matrixLocals);
       final roomName = event.room.getLocalizedDisplayname(matrixLocals);
