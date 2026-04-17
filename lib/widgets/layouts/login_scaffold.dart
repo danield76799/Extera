@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:particles_network/particles_network.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:extera_next/config/app_config.dart';
@@ -51,12 +50,7 @@ class LoginScaffold extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              if (!MediaQuery.of(context).disableAnimations)
-                ParticleNetwork(
-                  maxSpeed: 0.25,
-                  particleColor: theme.colorScheme.primary,
-                  lineColor: theme.colorScheme.secondary,
-                ),
+              // Gradient background (replaces ParticleNetwork for performance)
               Column(
                 children: [
                   const SizedBox(height: 16),
