@@ -300,49 +300,51 @@ class _DynamicBridgeFilters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Set<String>>(
-      valueListenable: controller.visibleBridgeTypes,
-      builder: (context, visibleTypes, _) {
-        final bridgeTypes = controller.allBridgeTypes;
-        
-        // Als er geen bridges zijn, toon niets
-        if (bridgeTypes.isEmpty) {
-          return const SizedBox.shrink();
-        }
+    final bridgeTypes = controller.allBridgeTypes;
+    final visibleTypes = controller.visibleBridgeTypes;
+    
+    // Als er geen bridges zijn, toon niets
+    if (bridgeTypes.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
-        return SizedBox(
-          height: 40,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            children: [
-              // Altijd "All" tonen
-              _FilterPillWithIcon(
-                label: 'All',
-                icon: Icons.apps,
-                isActive: visibleTypes.isEmpty,
-                onTap: () => controller.visibleBridgeTypes.value = {},
-              ),
-              // Alleen gekoppelde bridges tonen
-              ...bridgeTypes.map((type) => _FilterPillWithIcon(
-                label: _getBridgeLabel(type),
-                icon: _getBridgeIcon(type),
-                color: _getBridgeColor(type),
-                isActive: visibleTypes.contains(type),
-                onTap: () {
-                  final newTypes = Set<String>.from(visibleTypes);
-                  if (newTypes.contains(type)) {
-                    newTypes.remove(type);
-                  } else {
-                    newTypes.add(type);
-                  }
-                  controller.visibleBridgeTypes.value = newTypes;
-                },
-              )),
-            ],
+    return SizedBox(
+      height: 40,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          // Altijd "All" tonen
+          _FilterPillWithIcon(
+            label: 'All',
+            icon: Icons.apps,
+            isActive: visibleTypes.isEmpty,
+            onTap: () {
+              controller.setState(() {
+                controller.visibleBridgeTypes = {};
+              });
+            },
           ),
-        );
-      },
+          // Alleen gekoppelde bridges tonen
+          ...bridgeTypes.map((type) => _FilterPillWithIcon(
+            label: _getBridgeLabel(type),
+            icon: _getBridgeIcon(type),
+            color: _getBridgeColor(type),
+            isActive: visibleTypes.contains(type),
+            onTap: () {
+              controller.setState(() {
+                final newTypes = Set<String>.from(visibleTypes);
+                if (newTypes.contains(type)) {
+                  newTypes.remove(type);
+                } else {
+                  newTypes.add(type);
+                }
+                controller.visibleBridgeTypes = newTypes;
+              });
+            },
+          )),
+        ],
+      ),
     );
   }
 
