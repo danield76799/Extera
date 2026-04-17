@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:matrix/matrix.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:extera_next/config/app_config.dart';
 import 'package:extera_next/config/themes.dart';
@@ -368,15 +369,15 @@ class _DynamicBridgeFilters extends StatelessWidget {
   IconData _getBridgeIcon(String type) {
     switch (type.toLowerCase()) {
       case 'whatsapp':
-        return Icons.chat_bubble;
+        return MdiIcons.whatsapp;
       case 'telegram':
-        return Icons.send;
+        return MdiIcons.telegram;
       case 'discord':
-        return Icons.videogame_asset;
+        return MdiIcons.discord;
       case 'signal':
-        return Icons.security;
+        return MdiIcons.signal;
       case 'matrix':
-        return Icons.grid_view;
+        return MdiIcons.matrix;
       default:
         return Icons.chat;
     }
