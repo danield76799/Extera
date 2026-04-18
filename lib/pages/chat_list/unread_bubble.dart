@@ -30,21 +30,17 @@ class UnreadBubble extends StatelessWidget {
                 9,
       decoration: BoxDecoration(
         color: room.highlightCount > 0
-            ? theme.colorScheme.error
+            ? const Color(0xFFFF4444)  // Red for highlights
             : hasNotifications || room.markedUnread
-            ? theme.colorScheme.primary
-            : theme.colorScheme.primaryContainer,
+            ? const Color(0xFFFF6B6B)  // Coral red for notifications
+            : const Color(0xFFFF6B6B).withOpacity(0.5),  // Light coral for unread
         borderRadius: BorderRadius.circular(7),
       ),
       child: hasNotifications
           ? Text(
               room.notificationCount.toString(),
               style: TextStyle(
-                color: room.highlightCount > 0
-                    ? theme.colorScheme.onError
-                    : hasNotifications
-                    ? theme.colorScheme.onPrimary
-                    : theme.colorScheme.onPrimaryContainer,
+                color: Colors.white,  // Always white text on red badges
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),

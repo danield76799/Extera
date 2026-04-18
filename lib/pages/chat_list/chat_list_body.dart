@@ -309,7 +309,7 @@ class ChatListViewBody extends StatelessWidget {
                       );
                     },
                   ),
-                SliverToBoxAdapter(child: const SizedBox(height: 172)),
+                SliverToBoxAdapter(child: const SizedBox(height: 80)),  // Padding for FAB
               ],
             ),
           ),

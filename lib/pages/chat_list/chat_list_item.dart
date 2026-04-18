@@ -303,7 +303,8 @@ class ChatListItem extends StatelessWidget {
                                     withSenderNamePrefix:
                                         (!isDirectChat ||
                                         directChatMatrixId !=
-                                            room.lastEvent?.senderId),
+                                            room.lastEvent?.senderId) &&
+                                        getBridgeType(room) == null, // Hide prefix if bridge icon shown
                                   )
                                 : null,
                             initialData: lastEvent?.calcLocalizedBodyFallback(

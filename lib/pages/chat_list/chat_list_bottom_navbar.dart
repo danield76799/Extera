@@ -108,31 +108,14 @@ class ChatListBottomNavbar extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if (isActive)
-                              Icon(
-                                filter.toIconData(false),
+                            UnreadRoomsBadge(
+                              filter: filterLambdas[filter]!,
+                              badgePosition: BadgePosition.topEnd(),
+                              child: Icon(
+                                filter.toIconData(!isActive),
                                 size: 16,
                                 color: foregroundColor,
-                              )
-                            else
-                              UnreadRoomsBadge(
-                                filter: filterLambdas[filter]!,
-                                badgePosition: BadgePosition.topEnd(),
-                                child: Icon(
-                                  filter.toIconData(true),
-                                  size: 16,
-                                  color: foregroundColor,
-                                ),
                               ),
-                            const SizedBox(height: 2),
-                            Text(
-                              filter.toLocalizedString(context),
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: foregroundColor,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                             ),
                           ],
                         ),
