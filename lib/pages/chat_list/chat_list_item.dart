@@ -75,7 +75,7 @@ class ChatListItem extends StatelessWidget {
     final borderRadius = BorderRadius.circular(AppConfig.borderRadius);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
       child: Material(
         borderRadius: borderRadius,
         clipBehavior: Clip.hardEdge,
@@ -162,6 +162,28 @@ class ChatListItem extends StatelessWidget {
                             ),
                           ),
                         ),
+                        if (getBridgeType(room) != null)
+                          Positioned(
+                            bottom: -2,
+                            right: -2,
+                            child: Container(
+                              width: 18,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                color: backgroundColor,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Icon(
+                                getBridgeTypeIcon(getBridgeType(room)),
+                                size: 12,
+                                color: getBridgeTypeColor(getBridgeType(room)),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -175,10 +197,9 @@ class ChatListItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
-                      style: TextStyle(
-                        fontWeight: unread || room.hasNewMessages
-                            ? FontWeight.w500
-                            : null,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                     ),
                   ),
