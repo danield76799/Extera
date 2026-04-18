@@ -74,7 +74,7 @@ class ChatListItem extends StatelessWidget {
         : room.getState(EventTypes.RoomMember, lastEvent.senderId) == null;
     final space = this.space;
 
-    final borderRadius = BorderRadius.circular(AppConfig.borderRadius);
+    final borderRadius = BorderRadius.circular(12);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
@@ -108,9 +108,7 @@ class ChatListItem extends StatelessWidget {
                                 width: 2,
                                 color: backgroundColor,
                               ),
-                              borderRadius: BorderRadius.circular(
-                                AppConfig.borderRadius / 4,
-                              ),
+                              borderRadius: BorderRadius.circular(12),
                               mxContent: space.avatar,
                               size: Avatar.defaultSize * 0.75,
                               name: space.getLocalizedDisplayname(),
@@ -129,11 +127,7 @@ class ChatListItem extends StatelessWidget {
                                         )
                                       : null
                                 : BorderSide(width: 2, color: backgroundColor),
-                            borderRadius: room.isSpace
-                                ? BorderRadius.circular(
-                                    AppConfig.borderRadius / 4,
-                                  )
-                                : null,
+                            borderRadius: BorderRadius.circular(12),
                             mxContent: room.avatar,
                             size: space != null
                                 ? Avatar.defaultSize * 0.75
@@ -365,7 +359,7 @@ class ChatListItem extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: unread || room.hasNewMessages
-                                          ? theme.colorScheme.onSurface
+                                          ? const Color(0xFF4A4A4A)  // Darker gray #4A4A4A
                                           : theme.colorScheme.outline,
                                       decoration:
                                           room.lastEvent?.redacted == true
