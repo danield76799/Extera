@@ -8,7 +8,7 @@ abstract class AppConfig {
 
   static const String aboutProfileField = 'xyz.extera.about';
   static const String updateCheckUrl =
-      'https://raw.githubusercontent.com/danield76799/Extera/main/version.txt';
+      'https://raw.githubusercontent.com/danield76799/Extera/main/plusly-version.txt';
   static const String downloadUpdateUrl =
       'https://github.com/danield76799/Extera/releases';
 
