@@ -59,7 +59,7 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-    BuildContext context,
+    context,
     double shrinkOffset,
     bool overlapsContent,
   ) {
@@ -110,6 +110,66 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
                   ],
                 ),
                 const Spacer(),
+                // Zoekbalk (subtiel)
+                SizedBox(
+                  width: 180,
+                  height: 36,
+                  child: StreamBuilder(
+                    stream: client.onSyncStatus.stream,
+                    builder: (context, snapshot) {
+                      final status = client.onSyncStatus.value ??
+                          const SyncStatusUpdate(SyncStatus.waitingForResponse);
+                      final hide = client.onSync.value != null &&
+                          status.status != SyncStatus.error &&
+                          client.prevBatch != null;
+                      return TextField(
+                        controller: controller.searchController,
+                        focusNode: controller.searchFocusNode,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (text) =>
+                            controller.onSearchEnter(text, globalSearch: false),
+                        onSubmitted: (text) =>
+                            controller.onSearchEnter(text, globalSearch: globalSearch),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: theme.colorScheme.surfaceContainerHighest.withOpacity(0.6),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                          hintText: hide ? 'Search...' : status.calcLocalizedString(context),
+                          hintStyle: TextStyle(
+                            fontSize: 13,
+                            color: status.error != null
+                                ? theme.colorScheme.error
+                                : theme.colorScheme.onSurfaceVariant,
+                          ),
+                          prefixIcon: hide
+                              ? (controller.isSearchMode
+                                  ? IconButton(
+                                      icon: const Icon(Icons.close_outlined, size: 18),
+                                      onPressed: controller.cancelSearch,
+                                      padding: EdgeInsets.zero,
+                                    )
+                                  : const Icon(Icons.search_outlined, size: 18))
+                              : null,
+                          suffixIcon: controller.isSearchMode && globalSearch && controller.isSearching
+                              ? const Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: SizedBox(
+                                    width: 14,
+                                    height: 14,
+                                    child: CircularProgressIndicator.adaptive(strokeWidth: 2),
+                                  ),
+                                )
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
                 // Profiel rechts
                 ClientChooserButton(controller),
               ],
