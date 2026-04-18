@@ -31,8 +31,8 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.newGroup,
         child: Row(
           children: [
-            const Icon(Icons.group_add_outlined),
-            const SizedBox(width: 18),
+            const Icon(Icons.group_add_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
             Text(L10n.of(context).createGroup),
           ],
         ),
@@ -41,8 +41,8 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.setStatus,
         child: Row(
           children: [
-            const Icon(Icons.edit_outlined),
-            const SizedBox(width: 18),
+            const Icon(Icons.edit_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
             Text(L10n.of(context).setStatus),
           ],
         ),
@@ -51,8 +51,8 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.invite,
         child: Row(
           children: [
-            Icon(Icons.adaptive.share_outlined),
-            const SizedBox(width: 18),
+            Icon(Icons.adaptive.share_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
             Text(L10n.of(context).inviteContact),
           ],
         ),
@@ -61,8 +61,8 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.downloads,
         child: Row(
           children: [
-            const Icon(Icons.download_outlined),
-            const SizedBox(width: 18),
+            const Icon(Icons.download_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
             Text(L10n.of(context).downloads),
           ],
         ),
@@ -71,8 +71,8 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.archive,
         child: Row(
           children: [
-            const Icon(Icons.archive_outlined),
-            const SizedBox(width: 18),
+            const Icon(Icons.archive_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
             Text(L10n.of(context).archive),
           ],
         ),
@@ -81,8 +81,8 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.notifications,
         child: Row(
           children: [
-            const Icon(Icons.notifications_outlined),
-            const SizedBox(width: 18),
+            const Icon(Icons.notifications_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
             Text(L10n.of(context).notifications),
           ],
         ),
@@ -91,13 +91,19 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.settings,
         child: Row(
           children: [
-            const Icon(Icons.settings_outlined),
+            const Icon(Icons.settings_outlined, color: Color(0xFF49AFC2)),
             const SizedBox(width: 18),
             Text(L10n.of(context).settings),
           ],
         ),
       ),
-      const PopupMenuDivider(),
+      // Section divider with subtle background
+      PopupMenuDivider(height: 8),
+      Container(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest?.withOpacity(0.5) ?? 
+               Colors.grey.withOpacity(0.1),
+        child: const SizedBox(height: 8, width: double.infinity),
+      ),
       for (final bundle in bundles) ...[
         if (matrix.accountBundles[bundle]!.length != 1 ||
             matrix.accountBundles[bundle]!.single!.userID != bundle)
@@ -126,33 +132,44 @@ class ClientChooserButton extends StatelessWidget {
                 value: client,
                 child: FutureBuilder<Profile?>(
                   future: client.fetchOwnProfile(),
-                  builder: (context, snapshot) => Row(
-                    children: [
-                      Avatar(
-                        mxContent: snapshot.data?.avatarUrl,
-                        name:
+                  builder: (context, snapshot) {
+                    final isActive = client == matrix.client;
+                    return Row(
+                      children: [
+                        Avatar(
+                          mxContent: snapshot.data?.avatarUrl,
+                          name:
+                              snapshot.data?.displayName ??
+                              client.userID!.localpart,
+                          size: 40,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
                             snapshot.data?.displayName ??
-                            client.userID!.localpart,
-                        size: 32,
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          snapshot.data?.displayName ??
-                              client.userID!.localpart!,
-                          overflow: TextOverflow.ellipsis,
+                                client.userID!.localpart!,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                              color: isActive ? const Color(0xFF49AFC2) : null,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        icon: const Icon(Icons.edit_outlined),
-                        onPressed: () => controller.editBundlesForAccount(
-                          client.userID,
-                          bundle,
+                        if (isActive)
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Icon(Icons.check_circle, color: Color(0xFF49AFC2), size: 20),
+                          ),
+                        IconButton(
+                          icon: const Icon(Icons.edit_outlined, size: 18),
+                          onPressed: () => controller.editBundlesForAccount(
+                            client.userID,
+                            bundle,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -161,9 +178,12 @@ class ClientChooserButton extends StatelessWidget {
         value: SettingsAction.addAccount,
         child: Row(
           children: [
-            const Icon(Icons.person_add_outlined),
-            const SizedBox(width: 18),
-            Text(L10n.of(context).addAccount),
+            const Icon(Icons.person_add_outlined, color: Color(0xFF49AFC2)),
+            const SizedBox(width: 22),
+            Text(
+              L10n.of(context).addAccount,
+              style: const TextStyle(color: Color(0xFF49AFC2)),
+            ),
           ],
         ),
       ),
@@ -187,6 +207,9 @@ class ClientChooserButton extends StatelessWidget {
           PopupMenuButton<Object>(
             onSelected: (o) => _clientSelected(o, context),
             itemBuilder: _bundleMenuItems,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
             child: Material(
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(99),
