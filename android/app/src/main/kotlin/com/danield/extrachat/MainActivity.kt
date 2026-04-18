@@ -6,6 +6,7 @@ import io.flutter.plugin.common.MethodChannel
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 
 class MainActivity : FlutterActivity() {
 
