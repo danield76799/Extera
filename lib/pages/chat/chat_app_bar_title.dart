@@ -26,19 +26,12 @@ class ChatAppBarTitle extends StatelessWidget {
     // DEBUG: Check for typing events in bridged rooms
     if (room.isDirectChat && isBridgeRoom(room)) {
       final bridgeType = getBridgeType(room);
-      Logs().i('[TYPING DEBUG] Room: ${room.name}, Bridge: $bridgeType');
-      Logs().i('[TYPING DEBUG] Typing users: ${room.typingUsers}');
-      room.client.onSync.stream.listen((sync) {
-        if (sync.rooms?.join?.containsKey(room.id) == true) {
-          final join = sync.rooms!.join![room.id];
-          if (join?.ephemeral?.isNotEmpty == true) {
-            for (final event in join!.ephemeral!) {
-              Logs().i('[TYPING DEBUG] Ephemeral event: ${event.type} - ${event.content}');
-            }
-          }
-        }
-      });
+      Logs().i('[TYPING DEBUG] Room: ${room.name}, Bridge: $bridgeType, Typing: ${room.typingUsers}');
     }
+    
+    // Show typing indicator for bridged chats
+    final isTyping = room.typingUsers.isNotEmpty;
+    final bridgeType = isBridgeRoom(room) ? getBridgeType(room) : null;
     
     if (controller.selectedEvents.isNotEmpty) {
       return Text(
@@ -130,6 +123,18 @@ class ChatAppBarTitle extends StatelessWidget {
                                 final style = Theme.of(
                                   context,
                                 ).textTheme.bodySmall?.copyWith(fontSize: 11);
+                                
+                                // Show typing indicator for bridged chats
+                                if (isTyping && bridgeType != null) {
+                                  return Text(
+                                    'Typing...',
+                                    style: style!.copyWith(
+                                      fontStyle: FontStyle.italic,
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  );
+                                }
+                                
                                 if (presence?.currentlyActive == true) {
                                   return OverflowMarquee(
                                     text:
