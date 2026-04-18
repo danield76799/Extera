@@ -3485,7 +3485,7 @@
   "individualChatPrivacySettings": "Chat settings",
   "individualChatPrivacySettingsDescription": "Set different privacy settings for every chat.",
   "updateAvailableTitle": "An update is available",
-  "updateAvailable": "Extera {version} is ready to be downloaded! New versions include additional features, fixes and more.",
+  "updateAvailable": "Plusly {version} is ready to be downloaded! New versions include additional features, fixes and more.",
   "@updateAvailable": {
     "placeholders": {
         "version": {

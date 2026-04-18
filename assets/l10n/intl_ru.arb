@@ -3587,7 +3587,7 @@
   "individualChatPrivacySettings": "Настройки чатов",
   "individualChatPrivacySettingsDescription": "Задайте собственные настройки конфиденциальности для разных чатов.",
   "updateAvailableTitle": "Доступно обновление",
-  "updateAvailable": "Вы можете скачать Extera {version}! Обновления обычно содержат исправления ошибок и новые возможности.",
+  "updateAvailable": "Вы можете скачать Plusly {version}! Обновления обычно содержат исправления ошибок и новые возможности.",
   "@updateAvailable": {
     "placeholders": {
         "version": {
