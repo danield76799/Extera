@@ -41,7 +41,7 @@ enum AppSettings<T> {
   exteraServiceUrl<String>('xyz.extera.serviceUrl', 'https://ecs.extera.xyz'),
   latexMath<bool>('xyz.extera.latexMath', false),
   messageTranslation<bool>('xyz.extera.messageTranslation', true),
-  useLegacyChatListAppBar<bool>('xyz.extera.legacyAppBar', false),
+  useLegacyChatListAppBar<bool>('xyz.extera.legacyAppBar', true),
   useLegacyNavBar<bool>('xyz.extera.legacyNavBar', false),
   showSpaceRoomsInGlobalList<bool>(
     'xyz.extera.showSpaceRoomsInGlobalList',
