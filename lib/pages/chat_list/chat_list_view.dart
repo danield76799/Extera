@@ -88,9 +88,7 @@ class ChatListView extends StatelessWidget {
                               !AppSettings.useLegacyNavBar.value)
                             Positioned(
                               right: 16,
-                              bottom: client.rooms.isNotEmpty
-                                  ? 88 // height of navbar + padding + gap
-                                  : 16,
+                              bottom: 16, // 16dp from bottom (was 88 when rooms not empty)
                               child: FloatingActionButton.extended(
                                 onPressed: () =>
                                     context.go('/rooms/newprivatechat'),

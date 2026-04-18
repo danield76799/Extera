@@ -172,7 +172,8 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 fontSize: 14,
                                 color: status.error != null
                                     ? theme.colorScheme.error
-                                    : theme.colorScheme.onSecondaryContainer,
+                                    : theme.colorScheme.onSecondaryContainer
+                                        .withOpacity(0.87),  // 10% darker
                                 fontWeight: FontWeight.normal,
                               ),
                               prefixIcon: hide
