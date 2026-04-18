@@ -7,6 +7,7 @@ import 'package:extera_next/config/setting_keys.dart';
 import 'package:extera_next/config/themes.dart';
 import 'package:extera_next/generated/l10n/l10n.dart';
 import 'package:extera_next/pages/chat/chat.dart';
+import 'package:extera_next/utils/bridge_utils.dart';
 import 'package:extera_next/utils/date_time_extension.dart';
 import 'package:extera_next/utils/matrix_sdk_extensions/matrix_locals.dart';
 import 'package:extera_next/utils/sync_status_localization.dart';
@@ -21,6 +22,24 @@ class ChatAppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final room = controller.room;
+    
+    // DEBUG: Check for typing events in bridged rooms
+    if (room.isDirectChat && isBridgeRoom(room)) {
+      final bridgeType = getBridgeType(room);
+      Logs().i('[TYPING DEBUG] Room: ${room.name}, Bridge: $bridgeType');
+      Logs().i('[TYPING DEBUG] Typing users: ${room.typingUsers}');
+      room.client.onSync.stream.listen((sync) {
+        if (sync.rooms?.join?.containsKey(room.id) == true) {
+          final join = sync.rooms!.join![room.id];
+          if (join?.ephemeral?.isNotEmpty == true) {
+            for (final event in join!.ephemeral!) {
+              Logs().i('[TYPING DEBUG] Ephemeral event: ${event.type} - ${event.content}');
+            }
+          }
+        }
+      });
+    }
+    
     if (controller.selectedEvents.isNotEmpty) {
       return Text(
         controller.selectedEvents.length.toString(),
