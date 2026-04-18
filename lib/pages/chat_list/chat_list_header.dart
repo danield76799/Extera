@@ -91,13 +91,13 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Plusly logo (turquoise square with plus)
+                        // Plusly logo (turquoise circle with plus)
                         Container(
                           width: 32,
                           height: 32,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF49AFC2),
-                            borderRadius: BorderRadius.circular(8),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF49AFC2),
+                            shape: BoxShape.circle,
                           ),
                           child: const Center(
                             child: Icon(
