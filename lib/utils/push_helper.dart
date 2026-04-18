@@ -30,6 +30,10 @@ class PushHelper {
   late bool isBackgroundMessage;
   L10n? l10n;
 
+  // Static deduplication set - prevents duplicate notifications within 5 seconds
+  static final Set<String> _recentNotifications = {};
+  static DateTime _lastCleanup = DateTime.now();
+
   PushHelper._(
     this.notification,
     this.flutterLocalNotificationsPlugin, {
@@ -94,6 +98,22 @@ class PushHelper {
         return null;
       }
       helper.client = client;
+
+      // Deduplicate by notification ID - prevent duplicates within 5 seconds
+      final notificationId = '${notification.roomId}_${notification.eventId}';
+      
+      // Cleanup old entries every minute
+      final now = DateTime.now();
+      if (now.difference(_lastCleanup).inSeconds > 60) {
+        _recentNotifications.clear();
+        _lastCleanup = now;
+      }
+      
+      if (_recentNotifications.contains(notificationId)) {
+        Logs().v('Duplicate notification detected, skipping: $notificationId');
+        return null;
+      }
+      _recentNotifications.add(notificationId);
 
       // Deduplicate: if multiple clients are in the same room, only the first
       // client in the list that has this room should show the notification.
