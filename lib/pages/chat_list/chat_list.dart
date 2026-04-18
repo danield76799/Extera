@@ -533,7 +533,7 @@ class ChatListController extends State<ChatList>
       );
     });
 
-    checkForUpdates(context);
+    // checkForUpdates disabled
 
     super.initState();
   }
