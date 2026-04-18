@@ -3,7 +3,7 @@
     <!-- Theme applied to the Android Window as soon as the process has started.
          This theme determines the color of the Android Window while your
          Flutter UI initializes, as well as behind your Flutter UI while its running. -->
-    <style name="NormalTheme" parent="@android:style/Theme.Black.NoActionBar">
+    <style name="NormalTheme" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
 </resources>
