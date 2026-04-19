@@ -1,6 +1,6 @@
 # Privacy
 
-Extera Next is available on Android and Linux.
+Plusly is available on Android and Linux.
 
 *   [Matrix](#matrix)
 *   [Database](#database)
@@ -9,11 +9,11 @@ Extera Next is available on Android and Linux.
 *   [Push Notifications](#push-notifications)
 
 ## Matrix<a id="matrix"/>
-Extera Next uses the Matrix protocol. This means that Extera Next is just a client that can be connected to any compatible matrix server. The respective data protection agreement of the server selected by the user then applies.
+Plusly uses the Matrix protocol. This means that Plusly is just a client that can be connected to any compatible matrix server. The respective data protection agreement of the server selected by the user then applies.
 
-For convenience, one or more servers are set as default that the Extera Next developers consider trustworthy. The developers of Extera Next do not guarantee their trustworthiness. Before the first communication, users are informed which server they are connecting to.
+For convenience, one or more servers are set as default that the Plusly developers consider trustworthy. The developers of Plusly do not guarantee their trustworthiness. Before the first communication, users are informed which server they are connecting to.
 
-Extera Next communicates with:
+Plusly communicates with:
 1. the selected server
 2. [OpenStreetMap](https://openstreetmap.org) to display maps
 3. ecs.extera.xyz for message translation. The content for translation may be passed to, but not limited to Groq, DeepInfra, OpenAI or Google (from most to least). For security reasons, translation function isn't available in encrypted rooms.
@@ -21,28 +21,28 @@ Extera Next communicates with:
 More information is available at: [https://matrix.org](https://matrix.org)
 
 ## Database<a id="database"/>
-Extera Next caches some data received from the server in a local sqflite database on the device of the user. On web indexedDB is used. Extera Next always tries to encrypt the database by using SQLCipher and stores the encryption key in the [Secure Storage](https://pub.dev/packages/flutter_secure_storage) of the device.
+Plusly caches some data received from the server in a local sqflite database on the device of the user. On web indexedDB is used. Plusly always tries to encrypt the database by using SQLCipher and stores the encryption key in the [Secure Storage](https://pub.dev/packages/flutter_secure_storage) of the device.
 
 More information is available at: [https://pub.dev/packages/sqflite](https://pub.dev/packages/sqflite) and [https://pub.dev/packages/sqlcipher_flutter_libs](https://pub.dev/packages/sqlcipher_flutter_libs)
 
 ## Encryption<a id="encryption"/>
-All communication of substantive content between Extera Next and any server is done in secure way, using transport encryption to protect it.
+All communication of substantive content between Plusly and any server is done in secure way, using transport encryption to protect it.
 
-Extera Next also uses End-To-End-Encryption by using [libvodozemac](https://github.com/matrix-org/vodozemac) and enables it by default for private chats.
+Plusly also uses End-To-End-Encryption by using [libvodozemac](https://github.com/matrix-org/vodozemac) and enables it by default for private chats.
 
 ## App Permissions<a id="app-permissions"/>
 
 The permissions are the same on Android and iOS but may differ in the name. This are the Android Permissions:
 
 #### Internet Access
-Extera Next needs to have internet access to communicate with services mentioned above.
+Plusly needs to have internet access to communicate with services mentioned above.
 
 #### Vibrate
-Extera Next uses vibration for local notifications. More informations about this are at the used package:
+Plusly uses vibration for local notifications. More informations about this are at the used package:
 [https://pub.dev/packages/flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications)
 
 #### Record Audio
-Extera Next can send voice messages in a chat and therefore needs to have the permission to record audio.
+Plusly can send voice messages in a chat and therefore needs to have the permission to record audio.
 
 #### Write External Storage
 The user is able to save received files and therefore app needs this permission.
@@ -51,12 +51,12 @@ The user is able to save received files and therefore app needs this permission.
 The user is able to send files from the device's file system.
 
 #### Location
-Extera Next makes it possible to share the current location via the chat. When the user shares their location, Extera Next uses the device location service and sends the geo-data via Matrix.
+Plusly makes it possible to share the current location via the chat. When the user shares their location, Plusly uses the device location service and sends the geo-data via Matrix.
 
 ## Push Notifications<a id="push-notifications"/>
-Extera Next uses the Firebase Cloud Messaging (FCM) service for push notifications on Android and iOS. This takes place in the following steps:
-1. The matrix server sends the push notification to the Extera Next Push Gateway
-2. The Extera Next Push Gateway forwards the message in a different format to Firebase Cloud Messaging
+Plusly uses the Firebase Cloud Messaging (FCM) service for push notifications on Android and iOS. This takes place in the following steps:
+1. The matrix server sends the push notification to the Plusly Push Gateway
+2. The Plusly Push Gateway forwards the message in a different format to Firebase Cloud Messaging
 3. Firebase Cloud Messaging waits until the user's device is online again
 4. The device receives the push notification from Firebase Cloud Messaging and displays it as a notification
 
@@ -83,7 +83,7 @@ A typical push notification could look like this:
     },
     "devices": [
       {
-        "app_id": "chat.fluffy.Extera Next",
+        "app_id": "chat.fluffy.Plusly",
         "pushkey": "V2h5IG9uIGVhcnRoIGRpZCB5b3UgZGVjb2RlIHRoaXM/",
         "pushkey_ts": 12345678,
         "data": {},
@@ -96,12 +96,12 @@ A typical push notification could look like this:
 }
 ```
 
-Extera Next sets the `event_id_only` flag at the Matrix Server. This server is then responsible to send the correct data.
+Plusly sets the `event_id_only` flag at the Matrix Server. This server is then responsible to send the correct data.
 
 
-# Explanation of Extera Next's Compliance with Google Play Store's Safety Standards
+# Explanation of Plusly's Compliance with Google Play Store's Safety Standards
 
-Extera Next is committed to promoting a safe and respectful environment for all users. As a Matrix client, Extera Next connects users to various Matrix servers.
+Plusly is committed to promoting a safe and respectful environment for all users. As a Matrix client, Plusly connects users to various Matrix servers.
 
 To enhance user safety and help protect against the sexual abuse and exploitation of children, Extera Next enables users to report inappropriate content directly to server administrators.
 

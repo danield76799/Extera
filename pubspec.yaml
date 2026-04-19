@@ -1,5 +1,5 @@
-name: extera_next
-description: Chat with your friends.
+name: plusly
+description: Plusly - Chat with your friends.
 publish_to: none
 # Version schema: <YEAR>.<MAJOR UPDATE>.<MINOR><PATCH>
 version: 0.8.2

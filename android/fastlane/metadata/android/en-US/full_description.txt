@@ -1,1 +1,1 @@
-Extera Next is an experimental fork of FluffyChat.
+Plusly is a feature-rich Matrix client for mobile and desktop.

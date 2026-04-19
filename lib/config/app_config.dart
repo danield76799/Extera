@@ -6,13 +6,13 @@ abstract class AppConfig {
 
   static const String bannerProfileField = 'chat.commet.profile_banner';
 
-  static const String aboutProfileField = 'xyz.extera.about';
+  static const String aboutProfileField = 'xyz.plusly.about';
   static const String updateCheckUrl =
       'https://raw.githubusercontent.com/danield76799/Extera/main/plusly-version.txt';
   static const String downloadUpdateUrl =
-      'https://github.com/danield76799/Extera/releases';
+      'https://github.com/danield76799/Plusly/releases';
 
-  static const String appSsoUrlScheme = 'xyz.extera.auth';
+  static const String appSsoUrlScheme = 'xyz.plusly.auth';
 
   static String _applicationName = 'Plusly';
 
@@ -20,7 +20,7 @@ abstract class AppConfig {
   static String? _applicationWelcomeMessage;
 
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
-  static String _defaultHomeserver = 'extera.xyz';
+  static String _defaultHomeserver = 'plusly.im';
 
   static bool alreadyCheckedUpdates = false;
 
@@ -32,10 +32,10 @@ abstract class AppConfig {
   static const Color primaryColorLight = Color(0xFFFFC9A8);
   static const Color secondaryColor = Color(0xFF3A8B8C);
   static String _privacyUrl =
-      'https://github.com/ExteraApp/Extera/blob/main/PRIVACY.md';
+      'https://plusly.im/privacy';
 
   static String get privacyUrl => _privacyUrl;
-  static const String website = 'https://extera.xyz';
+  static const String website = 'https://plusly.im';
   static const String enablePushTutorial =
       'https://github.com/krille-chan/fluffychat/wiki/Push-Notifications-without-Google-Services';
   static const String encryptionTutorial =
@@ -47,15 +47,15 @@ abstract class AppConfig {
   static String _webBaseUrl = 'https://fluffychat.im/web';
 
   static String get webBaseUrl => _webBaseUrl;
-  static const String sourceCodeUrl = 'https://github.com/danield76799/Extera';
+  static const String sourceCodeUrl = 'https://github.com/danield76799/Plusly';
   static const String supportUrl =
-      'https://github.com/danield76799/Extera/issues';
+      'https://plusly.im/help';
   static const String changelogUrl =
-      'https://github.com/danield76799/Extera/blob/main/CHANGELOG.md';
+      'https://plusly.im/changelog';
   static final Uri newIssueUrl = Uri(
     scheme: 'https',
     host: 'github.com',
-    path: '/danield76799/Extera/issues',
+    path: '/danield76799/Plusly/issues',
   );
 
   static const bool hideTypingUsernames = false;

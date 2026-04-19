@@ -1,6 +1,6 @@
-# Extera Next AppImage
+# Plusly AppImage
 
-Extera Next is provided as an AppImage too.
+Plusly is provided as an AppImage too.
 
 ## Building
 
@@ -10,15 +10,15 @@ Extera Next is provided as an AppImage too.
 flutter build linux
 
 # copy binaries to appimage dir
-cp -r build/linux/{x64,arm64}/release/bundle appimage/Extera.AppDir
+cp -r build/linux/{x64,arm64}/release/bundle appimage/Plusly.AppDir
 cd appimage
 
 # prepare AppImage files
-cp Extera.desktop Extera.AppDir/
-mkdir -p Extera.AppDir/usr/share/icons
-cp ../assets/logo.svg Extera.AppDir/extera.svg
-cp AppRun Extera.AppDir
+cp Extera.desktop Plusly.AppDir/
+mkdir -p Plusly.AppDir/usr/share/icons
+cp ../assets/logo.svg Plusly.AppDir/plusly.svg
+cp AppRun Plusly.AppDir/
 
 # build the AppImage
-appimagetool Extera.AppDir
+appimagetool Plusly.AppDir
 ```

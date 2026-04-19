@@ -1,9 +1,9 @@
 {
-	"application_name": "ExtraChat",
+	"application_name": "Plusly",
 	"application_welcome_message": null,
-	"default_homeserver": "extera.xyz",
+	"default_homeserver": "plusly.im",
 	"web_base_url": "https://fluffychat.im/web",
-	"privacy_url": "https://fluffychat.im/en/privacy.html",
+	"privacy_url": "https://plusly.im/privacy",
 	"render_html": true,
 	"hide_redacted_events": false,
 	"hide_unknown_events": false

@@ -6,18 +6,18 @@
     "configurations": [
     
         {
-            "name": "ExteraNext",
+            "name": "Plusly",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "ExteraNext (profile mode)",
+            "name": "Plusly (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "ExteraNext (release mode)",
+            "name": "Plusly (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

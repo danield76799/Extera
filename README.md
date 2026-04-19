@@ -1,4 +1,4 @@
-# ExtraChat
+# Plusly
 
 A feature-rich Matrix client for mobile and desktop platforms.
 
@@ -32,7 +32,7 @@ A feature-rich Matrix client for mobile and desktop platforms.
 - Discover and join public groups
 - Redacted message recovery (for Synapse admins)
 
-### Extera Next Exclusives
+### Plusly Exclusives
 - Built-in message translation
 - "About" field in user profiles
 - Enhanced profile design with mutual rooms list

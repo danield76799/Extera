@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Extera Next
+Name=Plusly
 Comment=Matrix Client. Chat with your friends
-Exec=extera-next %u
-Icon=extera
+Exec=plusly %u
+Icon=plusly
 Terminal=false
 Categories=Network;Chat;InstantMessaging;X-Matrix;
 MimeType=x-scheme-handler/matrix;
-StartupWMClass=extera_next
+StartupWMClass=plusly
