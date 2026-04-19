@@ -119,7 +119,9 @@ class ChatListController extends State<ChatList>
   String? get activeSpaceId => _activeSpaceId;
 
   void setActiveSpace(String spaceId) async {
-    await Matrix.of(context).client.getRoomById(spaceId)!.postLoad();
+    final room = Matrix.of(context).client.getRoomById(spaceId);
+    if (room == null) return;
+    await room.postLoad();
 
     setState(() {
       _activeSpaceId = spaceId;
@@ -432,7 +434,9 @@ class ChatListController extends State<ChatList>
   }
 
   void editSpace(BuildContext context, String spaceId) async {
-    await Matrix.of(context).client.getRoomById(spaceId)!.postLoad();
+    final room = Matrix.of(context).client.getRoomById(spaceId);
+    if (room == null) return;
+    await room.postLoad();
     if (mounted) {
       context.push('/rooms/$spaceId/details');
     }
@@ -544,6 +548,11 @@ class ChatListController extends State<ChatList>
     _intentFileStreamSubscription?.cancel();
     _intentUriStreamSubscription?.cancel();
     scrollController.removeListener(_onScroll);
+    _clientStream.close();
+    searchController.dispose();
+    searchFocusNode.dispose();
+    _coolDown?.cancel();
+    scrolledToTop.dispose();
     super.dispose();
   }
 
@@ -1059,6 +1068,7 @@ class ChatListController extends State<ChatList>
 
   void resetActiveBundle() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (!mounted) return;
       setState(() {
         Matrix.of(context).activeBundle = null;
       });
