@@ -181,6 +181,7 @@ class ChatListViewBody extends StatelessWidget {
                           child: userSearchResult == null
                               ? null
                               : ListView.builder(
+                                  key: ValueKey('user_search_list'),
                                   scrollDirection: Axis.horizontal,
                                   itemCount: userSearchResult.results.length,
                                   itemBuilder: (context, i) => _SearchItem(
@@ -336,6 +337,7 @@ class PublicRoomsHorizontalList extends StatelessWidget {
       child: publicRooms == null
           ? null
           : ListView.builder(
+              key: ValueKey('public_rooms_list'),
               scrollDirection: Axis.horizontal,
               itemCount: publicRooms.length,
               itemBuilder: (context, i) => _SearchItem(

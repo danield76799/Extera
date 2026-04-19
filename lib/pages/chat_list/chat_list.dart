@@ -172,7 +172,11 @@ class ChatListController extends State<ChatList>
 
   Set<String> allBridgeTypes = {};
   Set<String> visibleBridgeTypes = {};
-  
+
+  // Performance: cache bridge types for 5 seconds
+  DateTime? _lastBridgeSync;
+  Set<String>? _cachedBridgeTypes;
+
   // Real-time getter voor ongelezen counts - wordt altijd vers berekend
   Map<String, int> get unreadBridgeCounts {
     final client = Matrix.of(context).client;
@@ -191,6 +195,15 @@ class ChatListController extends State<ChatList>
   }
 
   void syncBridgeTypes() {
+    // Performance: 5-second cache to avoid recomputation on every sync
+    final now = DateTime.now();
+    if (_lastBridgeSync != null &&
+        now.difference(_lastBridgeSync!).inMilliseconds < 5000 &&
+        _cachedBridgeTypes != null) {
+      allBridgeTypes = _cachedBridgeTypes!;
+      return;
+    }
+
     final client = Matrix.of(context).client;
     final hasMatrixRooms = client.rooms.any((room) => !isBridgeRoom(room));
     final detectedTypes = client.rooms
@@ -207,9 +220,8 @@ class ChatListController extends State<ChatList>
       ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
     };
     allBridgeTypes = detectedTypes;
-
-    // Bereken ongelezen counts per bridge type - wordt nu real-time via getter
-    // unreadBridgeCounts is een getter die altijd vers berekent
+    _cachedBridgeTypes = detectedTypes;
+    _lastBridgeSync = now;
   }
 
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
@@ -251,9 +263,26 @@ class ChatListController extends State<ChatList>
     return visibleBridgeTypes.contains(bridgeType);
   }
 
-  List<Room> get filteredRooms => Matrix.of(
-    context,
-  ).client.rooms.where(getRoomFilterByActiveFilter(activeFilter)).toList();
+  // Performance: cache filteredRooms for 500ms
+  List<Room>? _cachedFilteredRooms;
+  DateTime? _lastFilterCalc;
+
+  List<Room> get filteredRooms {
+    final now = DateTime.now();
+    if (_lastFilterCalc != null &&
+        now.difference(_lastFilterCalc!).inMilliseconds < 500 &&
+        _cachedFilteredRooms != null) {
+      return _cachedFilteredRooms!;
+    }
+    final rooms = Matrix.of(context)
+        .client
+        .rooms
+        .where(getRoomFilterByActiveFilter(activeFilter))
+        .toList();
+    _cachedFilteredRooms = rooms;
+    _lastFilterCalc = now;
+    return rooms;
+  }
 
   List<Room> get searchRooms => Matrix.of(context).client.rooms.where((room) {
     switch (activeFilter) {
@@ -1043,7 +1072,7 @@ class ChatListController extends State<ChatList>
           title: l10n.bundleName,
           hintText: l10n.bundleName,
         );
-        if (bundle == null || bundle.isEmpty || bundle.isEmpty) return;
+        if (bundle == null || bundle.isEmpty) return;
         await showFutureLoadingSnackbar(
           context: context,
           future: () => client.setAccountBundle(bundle),

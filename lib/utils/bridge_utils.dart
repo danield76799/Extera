@@ -207,7 +207,7 @@ bool isBridgeRoom(Room room) {
   // Limit scan to first 50 members to avoid performance issues in huge public rooms
   final memberStates = room.states[EventTypes.RoomMember];
   if (memberStates != null) {
-    for (final userId in memberStates.keys.take(50)) {
+    for (final userId in memberStates.keys.take(20)) {
       if (isBridgeBotByUserId(userId)) {
         return true;
       }
@@ -271,7 +271,7 @@ String? getBridgeType(Room room) {
   // Check room members for bridge bot type (limit scan for performance)
   final memberStates = room.states[EventTypes.RoomMember];
   if (memberStates != null) {
-    for (final memberId in memberStates.keys.take(50)) {
+    for (final memberId in memberStates.keys.take(20)) {
       final lowerId = memberId.toLowerCase();
       if (lowerId.contains('whatsapp')) return 'whatsapp';
       if (lowerId.contains('telegram')) return 'telegram';
