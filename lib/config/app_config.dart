@@ -28,9 +28,9 @@ abstract class AppConfig {
   static const Color chatColor = primaryColor;
   static const bool allowOtherHomeservers = true;
   static const bool enableRegistration = true;
-  static const Color primaryColor = Color(0xFFE07A3D);
-  static const Color primaryColorLight = Color(0xFFFFC9A8);
-  static const Color secondaryColor = Color(0xFF3A8B8C);
+  static const Color primaryColor = Color(0xFF49AFC2);
+  static const Color primaryColorLight = Color(0xFF6FC5D8);
+  static const Color secondaryColor = Color(0xFF3A8FA0);
   static String _privacyUrl =
       'https://plusly.im/privacy';
 

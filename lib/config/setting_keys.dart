@@ -52,7 +52,7 @@ enum AppSettings<T> {
   showNoGoogle<bool>('chat.fluffy.show_no_google', false),
   twemojiFont<bool>('xyz.plusly.next.twemojiFont', false),
   checkForUpdates<bool>('xyz.plusly.next.checkForUpdates', false),
-  colorSchemeSeed<int>('xyz.plusly.next.colorSchemeSeed', 0xE07A3D),
+  colorSchemeSeed<int>('xyz.plusly.next.colorSchemeSeed', 0x49AFC2),
   hideAvatarsInInvites<bool>('xyz.plusly.next.hideAvatarsInInvites', true),
   displayNavigationRail<bool>('chat.fluffy.displayNavigationRail', true),
   httpProxy<String>('xyz.plusly.next.httpProxy', ''),
