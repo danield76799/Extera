@@ -238,7 +238,7 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                 return Column(
                   mainAxisAlignment: .center,
                   children: [
-                    CircularProgressIndicator.adaptive(
+                    CircularProgressIndicator(
                       value: status?.progress,
                       color: const Color(0xFF8B5E34),
                     ),
