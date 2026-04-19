@@ -1,3 +1,9 @@
+## Plusly 0.8.2
+- Add Plusly branding to intro page (Add account) and recovery key screens
+- Implement GitHub Releases API for auto-update with APK download & install
+- Add REQUEST_INSTALL_PACKAGES permission for APK installation
+- Fix CircularProgressIndicator color parameter
+
 ## Extera 26.1.4
 - "People" tab (toggleable by a feature flag, enabled by default)
 - Option to turn off media preview (also configurable per chat)
