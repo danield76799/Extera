@@ -22,7 +22,7 @@ abstract class AppConfig {
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
   static String _defaultHomeserver = 'plusly.im';
 
-  static bool alreadyCheckedUpdates = true;
+  static bool alreadyCheckedUpdates = false;
 
   static String get defaultHomeserver => _defaultHomeserver;
   static const Color chatColor = primaryColor;
