@@ -185,6 +185,7 @@ class ChatListViewBody extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: userSearchResult.results.length,
                                   itemBuilder: (context, i) => _SearchItem(
+                                    key: ValueKey(userSearchResult.results[i].userId),
                                     title:
                                         userSearchResult.results[i].displayName ??
                                         userSearchResult
@@ -333,7 +334,7 @@ class PublicRoomsHorizontalList extends StatelessWidget {
       duration: FluffyThemes.animationDuration,
       curve: FluffyThemes.animationCurve,
       child: publicRooms == null
-          ? null
+          ? const SizedBox.shrink()
           : ListView.builder(
               key: ValueKey('public_rooms_list'),
               scrollDirection: Axis.horizontal,
