@@ -932,29 +932,19 @@ class ChatListController extends State<ChatList>
   }
 
   Future<void> setStatus() async {
-    try {
-      final presence = await Matrix.of(context).client.fetchCurrentPresence(
-        Matrix.of(context).client.userID!,
-      );
-      if (!mounted) return;
-
-      final initialText = presence?.status;
-      final initialPresence = presence?.type;
-
-      showStatusInputDialog(
-        context: context,
-        initialText: initialText,
-        initialPresence: initialPresence,
-      ).then((result) {
-        if (result == null) return;
-        final status = result['status'] as String?;
-        final presenceType = result['presence'] as PresenceType?;
-        if (status == null && presenceType == null) return;
-        setUserStatus(context, status, presenceType);
-      });
-    } catch (e) {
-      Logs().w('Failed to fetch presence: $e');
-    }
+    final user = Matrix.of(context).client.getUserById(Matrix.of(context).client.userID!);
+    if (user == null) return;
+    showStatusInputDialog(
+      context: context,
+      initialText: user.statusMsg,
+      initialPresence: user.presence,
+    ).then((result) {
+      if (result == null) return;
+      final status = result.item2;
+      final presenceType = result.item1;
+      if (status == null && presenceType == null) return;
+      user.setPresence(status: status, presence: presenceType);
+    });
   }
 
   bool waitForFirstSync = false;
