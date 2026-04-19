@@ -219,99 +219,45 @@ bool isBridgeRoom(Room room) {
 
 /// Gets the bridge type from a room (e.g., 'whatsapp', 'telegram')
 /// Returns null if not a bridge room
-///
-/// Detection strategy: prioritize specific bridge patterns first to avoid
-/// false positives from generic terms like "signal" or "telegram" in usernames.
-/// Broad pattern matching (userId.contains only) is only used as a fallback
-/// when combined with corroborating room name or topic evidence.
 String? getBridgeType(Room room) {
   final userId = room.directChatMatrixID ?? '';
-  final lowerUserId = userId.toLowerCase();
   final roomName = room.name?.toLowerCase() ?? '';
   final roomTopic = room.topic?.toLowerCase() ?? '';
+
+  if (userId.contains('wa-bot') || userId.contains('whappbot') || userId.contains('whatsapp') || userId.contains('bot.whatsapp') || userId.contains('whatsapp_') || roomName.contains('whatsapp') || roomTopic.contains('whatsapp')) {
+    return 'whatsapp';
+  }
+  if (userId.contains('telegram-bot') || userId.contains('telegram') || userId.contains('mautrix-telegram') || userId.contains('tgbot') || userId.contains('bot.telegram') || userId.contains('telegram_') || roomName.contains('telegram') || roomTopic.contains('telegram')) {
+    return 'telegram';
+  }
+  if (userId.contains('signal-bot') || userId.contains('bot.signal') || userId.contains('signal_') || roomName.contains('signal') || roomTopic.contains('signal')) {
+    return 'signal';
+  }
+  if (userId.contains('discord-bot') || userId.contains('bot.discord') || userId.contains('discord_') || roomName.contains('discord') || roomTopic.contains('discord')) {
+    return 'discord';
+  }
+  if (userId.contains('slack-bot') || userId.contains('bot.slack') || userId.contains('slack_') || roomName.contains('slack') || roomTopic.contains('slack')) {
+    return 'slack';
+  }
+  if (userId.contains('hangouts-bot')) {
+    return 'hangouts';
+  }
+  if (userId.contains('gitter-bot')) {
+    return 'gitter';
+  }
+  if (userId.contains('mx-puppet')) {
+    return 'puppet';
+  }
+
+  // Check canonical alias for portal patterns
   final canonicalAlias = room.canonicalAlias?.toLowerCase() ?? '';
-
-  // Helper: check specific bridge patterns in userId (no false-positive risk)
-  bool userIdHasSpecific(Pattern pattern) => lowerUserId.contains(pattern);
-
-  // Helper: check broad platform term in userId only (used with room evidence)
-  bool userIdHasBroad(String term) => lowerUserId.contains(term);
-
-  // Helper: room name or topic contains platform term
-  bool roomHasEvidence(String term) =>
-      roomName.contains(term) || roomTopic.contains(term);
-
-  // ── WhatsApp ──────────────────────────────────────────────────────────────
-  // Specific patterns first (high confidence)
-  if (userIdHasSpecific('wa-bot') ||
-      userIdHasSpecific('whappbot') ||
-      userIdHasSpecific('bot.whatsapp') ||
-      userIdHasSpecific('whatsapp_') ||
-      userIdHasSpecific('whatsapp-bot')) {
-    return 'whatsapp';
-  }
-  // Broad fallback: userId contains 'whatsapp' AND room corroborates
-  if (userIdHasBroad('whatsapp') && roomHasEvidence('whatsapp')) {
-    return 'whatsapp';
-  }
-
-  // ── Telegram ───────────────────────────────────────────────────────────────
-  // Specific patterns first
-  if (userIdHasSpecific('telegram-bot') ||
-      userIdHasSpecific('mautrix-telegram') ||
-      userIdHasSpecific('tgbot') ||
-      userIdHasSpecific('bot.telegram') ||
-      userIdHasSpecific('telegram_')) {
-    return 'telegram';
-  }
-  // Broad fallback: userId contains 'telegram' AND room corroborates
-  if (userIdHasBroad('telegram') && roomHasEvidence('telegram')) {
-    return 'telegram';
-  }
-
-  // ── Signal ─────────────────────────────────────────────────────────────────
-  if (userIdHasSpecific('signal-bot') ||
-      userIdHasSpecific('bot.signal') ||
-      userIdHasSpecific('signal_')) {
-    return 'signal';
-  }
-  if (userIdHasBroad('signal') && roomHasEvidence('signal')) {
-    return 'signal';
-  }
-
-  // ── Discord ─────────────────────────────────────────────────────────────────
-  if (userIdHasSpecific('discord-bot') ||
-      userIdHasSpecific('bot.discord') ||
-      userIdHasSpecific('discord_')) {
-    return 'discord';
-  }
-  if (userIdHasBroad('discord') && roomHasEvidence('discord')) {
-    return 'discord';
-  }
-
-  // ── Slack ───────────────────────────────────────────────────────────────────
-  if (userIdHasSpecific('slack-bot') ||
-      userIdHasSpecific('bot.slack') ||
-      userIdHasSpecific('slack_')) {
-    return 'slack';
-  }
-  if (userIdHasBroad('slack') && roomHasEvidence('slack')) {
-    return 'slack';
-  }
-
-  // ── Other specific bridges ─────────────────────────────────────────────────
-  if (userIdHasSpecific('hangouts-bot')) return 'hangouts';
-  if (userIdHasSpecific('gitter-bot')) return 'gitter';
-  if (userIdHasSpecific('mx-puppet')) return 'puppet';
-
-  // ── Canonical alias portal patterns ─────────────────────────────────────────
   if (canonicalAlias.contains('whatsapp')) return 'whatsapp';
   if (canonicalAlias.contains('telegram')) return 'telegram';
   if (canonicalAlias.contains('signal')) return 'signal';
   if (canonicalAlias.contains('discord')) return 'discord';
   if (canonicalAlias.contains('slack')) return 'slack';
 
-  // ── Room creator ────────────────────────────────────────────────────────────
+  // Check room creator for bridge bot type
   final createEvent = room.getState(EventTypes.RoomCreate);
   if (createEvent != null) {
     final creator = createEvent.content['creator']?.toString().toLowerCase() ?? '';
@@ -322,52 +268,35 @@ String? getBridgeType(Room room) {
     if (creator.contains('slack')) return 'slack';
   }
 
-  // ── Room members scan (limit for performance) ──────────────────────────────
+  // Check room members for bridge bot type (limit scan for performance)
   final memberStates = room.states[EventTypes.RoomMember];
   if (memberStates != null) {
     for (final memberId in memberStates.keys.take(50)) {
       final lowerId = memberId.toLowerCase();
-      // Use same specific-then-broad-with-evidence strategy
-      if (lowerId.contains('whatsapp') && roomHasEvidence('whatsapp')) {
-        return 'whatsapp';
-      }
-      if (lowerId.contains('telegram') && roomHasEvidence('telegram')) {
-        return 'telegram';
-      }
-      if (lowerId.contains('signal') && roomHasEvidence('signal')) {
-        return 'signal';
-      }
-      if (lowerId.contains('discord') && roomHasEvidence('discord')) {
-        return 'discord';
-      }
-      if (lowerId.contains('slack') && roomHasEvidence('slack')) {
-        return 'slack';
-      }
+      if (lowerId.contains('whatsapp')) return 'whatsapp';
+      if (lowerId.contains('telegram')) return 'telegram';
+      if (lowerId.contains('signal')) return 'signal';
+      if (lowerId.contains('discord')) return 'discord';
+      if (lowerId.contains('slack')) return 'slack';
     }
   }
 
-  // ── Bridge state events ─────────────────────────────────────────────────────
+  // Check state events
   for (final eventType in _bridgeStateEventTypes) {
     final stateEvent = room.getState(eventType);
     if (stateEvent != null) {
+      // Try to extract bridge type from content
       final content = stateEvent.content;
       final bridgeName = content['bridge_name'] ?? content['name'] ?? content['service'];
       if (bridgeName != null) {
         return bridgeName.toString().toLowerCase();
       }
+      // Return generic bridge type based on event type
       if (eventType == 'io.element.bridge') {
         return 'element';
       }
       return 'bridge';
     }
-  }
-
-  // ── Fallback: if isBridgeRoom returned true but we couldn't detect the specific
-  // type, return 'bridge' as a generic type to avoid the 'other' fallback in
-  // chat_list.dart. This handles rooms where isBridgeRoom detected bridge signals
-  // (e.g., room name/topic patterns) but getBridgeType didn't find a specific type.
-  if (isBridgeRoom(room)) {
-    return 'bridge';
   }
 
   return null;
