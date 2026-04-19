@@ -931,30 +931,30 @@ class ChatListController extends State<ChatList>
     }
   }
 
-  void setStatus() async {
-    final client = Matrix.of(context).client;
-    User? currentPresence;
+  Future<void> setStatus() async {
     try {
-      currentPresence = await client.fetchCurrentPresence(client.userID!);
+      final presence = await Matrix.of(context).client.fetchCurrentPresence(
+        Matrix.of(context).client.userID!,
+      );
+      if (!mounted) return;
+
+      final initialText = presence?.status;
+      final initialPresence = presence?.type;
+
+      showStatusInputDialog(
+        context: context,
+        initialText: initialText,
+        initialPresence: initialPresence,
+      ).then((result) {
+        if (result == null) return;
+        final status = result['status'] as String?;
+        final presenceType = result['presence'] as PresenceType?;
+        if (status == null && presenceType == null) return;
+        setUserStatus(context, status, presenceType);
+      });
     } catch (e) {
-      Logs().w('Failed to fetch current presence', e);
+      Logs().w('Failed to fetch presence: $e');
     }
-    final input = await showStatusInputDialog(
-      useRootNavigator: false,
-      context: context,
-      initialText: currentPresence?.statusMsg,
-      initialPresence: currentPresence?.presence,
-    );
-    if (input == null) return;
-    if (!mounted) return;
-    await showFutureLoadingSnackbar(
-      context: context,
-      future: () async {
-        client.syncPresence = input.$1;
-        AppSettings.presenceStatus.setItem(input.$1.name);
-        await client.setPresence(client.userID!, input.$1, statusMsg: input.$2);
-      },
-    );
   }
 
   bool waitForFirstSync = false;
