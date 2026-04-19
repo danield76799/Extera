@@ -22,6 +22,71 @@ import 'package:extera_next/widgets/layouts/login_scaffold.dart';
 import 'package:extera_next/widgets/matrix.dart';
 import '../key_verification/key_verification_dialog.dart';
 
+/// Plusly theme for recovery key screens
+/// Colors: warm cream background, dark brown text, bronze accent
+ThemeData _buildPluslyTheme(BuildContext context) {
+  const bgColor = Color(0xFFFDF6F0);
+  const textColor = Color(0xFF2D1C16);
+  const accentColor = Color(0xFF8B5E34);
+
+  return ThemeData(
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: bgColor,
+    colorScheme: const ColorScheme.light(
+      surface: bgColor,
+      onSurface: textColor,
+      primary: accentColor,
+      onPrimary: bgColor,
+      secondary: accentColor,
+      onSecondary: bgColor,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: bgColor,
+      foregroundColor: textColor,
+      elevation: 0,
+      centerTitle: true,
+    ),
+    textTheme: const TextTheme(
+      headlineMedium: TextStyle(color: textColor),
+      bodyLarge: TextStyle(color: textColor),
+      bodyMedium: TextStyle(color: textColor),
+    ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: accentColor,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: accentColor,
+        foregroundColor: bgColor,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: accentColor,
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: bgColor,
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: accentColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: accentColor, width: 2),
+      ),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) return accentColor;
+        return null;
+      }),
+    ),
+    dividerColor: accentColor.withAlpha(77),
+  );
+}
+
 class BootstrapDialog extends StatefulWidget {
   final bool wipe;
 
@@ -156,43 +221,52 @@ class BootstrapDialogState extends State<BootstrapDialog> {
     final theme = Theme.of(context);
     final bootstrap = this.bootstrap;
     if (bootstrap == null) {
-      return LoginScaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: const SizedBox.shrink(),
-          title: Text(L10n.of(context).chatBackup),
-        ),
-        body: Center(
-          child: StreamBuilder(
-            stream: client.onSyncStatus.stream,
-            builder: (context, snapshot) {
-              final status = snapshot.data;
-              final isComplete = status?.progress != null && (status!.progress ?? 0) >= 1.0;
-              return Column(
-                mainAxisAlignment: .center,
-                children: [
-                  CircularProgressIndicator.adaptive(value: status?.progress),
-                  if (status != null) Text(status.calcLocalizedString(context)),
-                  if (_bootstrapStep.isNotEmpty) ...[
-                    const SizedBox(height: 16),
-                    Text(
-                      _bootstrapStep,
-                      style: TextStyle(
-                        color: theme.colorScheme.onSurfaceVariant,
-                        fontSize: 14,
+      return Theme(
+        data: _buildPluslyTheme(context),
+        child: LoginScaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            leading: const SizedBox.shrink(),
+            title: Text(L10n.of(context).chatBackup),
+          ),
+          body: Center(
+            child: StreamBuilder(
+              stream: client.onSyncStatus.stream,
+              builder: (context, snapshot) {
+                final status = snapshot.data;
+                final isComplete = status?.progress != null && (status!.progress ?? 0) >= 1.0;
+                return Column(
+                  mainAxisAlignment: .center,
+                  children: [
+                    CircularProgressIndicator.adaptive(
+                      value: status?.progress,
+                      color: const Color(0xFF8B5E34),
+                    ),
+                    if (status != null) Text(status.calcLocalizedString(context)),
+                    if (_bootstrapStep.isNotEmpty) ...[
+                      const SizedBox(height: 16),
+                      Text(
+                        _bootstrapStep,
+                        style: const TextStyle(
+                          color: Color(0xFF2D1C16),
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
+                    ],
+                    if (isComplete) ...[
+                      const SizedBox(height: 24),
+                      TextButton(
+                        onPressed: () => _goBackAction(true),
+                        child: const Text(
+                          'Continue anyway',
+                          style: TextStyle(color: Color(0xFF8B5E34)),
+                        ),
+                      ),
+                    ],
                   ],
-                  if (isComplete) ...[
-                    const SizedBox(height: 24),
-                    TextButton(
-                      onPressed: () => _goBackAction(true),
-                      child: Text(L10n.of(context).continueAnyway),
-                    ),
-                  ],
-                ],
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       );
@@ -220,89 +294,102 @@ class BootstrapDialogState extends State<BootstrapDialog> {
         _recoveryKeyStored == false) {
       final key = bootstrap.newSsssKey!.recoveryKey;
       titleText = L10n.of(context).recoveryKey;
-      return LoginScaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: const SizedBox.shrink(),
-          title: Text(L10n.of(context).recoveryKey),
-        ),
-        body: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: FluffyThemes.columnWidth * 1.5,
-            ),
-            child: ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: [
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  trailing: CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    child: Icon(
-                      Icons.info_outlined,
-                      color: theme.colorScheme.primary,
+      return Theme(
+        data: _buildPluslyTheme(context),
+        child: LoginScaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            leading: const SizedBox.shrink(),
+            title: Text(L10n.of(context).recoveryKey),
+          ),
+          body: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: FluffyThemes.columnWidth * 1.5,
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(16.0),
+                children: [
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    trailing: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Icon(
+                        Icons.info_outlined,
+                        color: const Color(0xFF8B5E34),
+                      ),
+                    ),
+                    subtitle: Text(L10n.of(context).chatBackupDescription),
+                  ),
+                  const Divider(height: 32, thickness: 1),
+                  TextField(
+                    minLines: 2,
+                    maxLines: 4,
+                    readOnly: true,
+                    style: const TextStyle(fontFamily: 'RobotoMono', color: Color(0xFF2D1C16)),
+                    controller: TextEditingController(text: key),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(16),
+                      suffixIcon: const Icon(Icons.key_outlined, color: Color(0xFF8B5E34)),
+                      fillColor: const Color(0xFFFDF6F0),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFF8B5E34)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFF8B5E34), width: 2),
+                      ),
                     ),
                   ),
-                  subtitle: Text(L10n.of(context).chatBackupDescription),
-                ),
-                const Divider(height: 32, thickness: 1),
-                TextField(
-                  minLines: 2,
-                  maxLines: 4,
-                  readOnly: true,
-                  style: const TextStyle(fontFamily: 'RobotoMono'),
-                  controller: TextEditingController(text: key),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.all(16),
-                    suffixIcon: Icon(Icons.key_outlined),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                if (_supportsSecureStorage)
+                  const SizedBox(height: 16),
+                  if (_supportsSecureStorage)
+                    CheckboxListTile.adaptive(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      value: _storeInSecureStorage,
+                      activeColor: const Color(0xFF8B5E34),
+                      onChanged: (b) {
+                        setState(() {
+                          _storeInSecureStorage = b;
+                        });
+                      },
+                      title: Text(_getSecureStorageLocalizedName()),
+                      subtitle: Text(
+                        L10n.of(context).storeInSecureStorageDescription,
+                      ),
+                    ),
+                  const SizedBox(height: 16),
                   CheckboxListTile.adaptive(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    value: _storeInSecureStorage,
-                    activeColor: theme.colorScheme.primary,
+                    value: _recoveryKeyCopied,
+                    activeColor: const Color(0xFF8B5E34),
                     onChanged: (b) {
-                      setState(() {
-                        _storeInSecureStorage = b;
-                      });
+                      FluffyShare.share(key!, context);
+                      setState(() => _recoveryKeyCopied = true);
                     },
-                    title: Text(_getSecureStorageLocalizedName()),
-                    subtitle: Text(
-                      L10n.of(context).storeInSecureStorageDescription,
-                    ),
+                    title: Text(L10n.of(context).copyToClipboard),
+                    subtitle: Text(L10n.of(context).saveKeyManuallyDescription),
                   ),
-                const SizedBox(height: 16),
-                CheckboxListTile.adaptive(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  value: _recoveryKeyCopied,
-                  activeColor: theme.colorScheme.primary,
-                  onChanged: (b) {
-                    FluffyShare.share(key!, context);
-                    setState(() => _recoveryKeyCopied = true);
-                  },
-                  title: Text(L10n.of(context).copyToClipboard),
-                  subtitle: Text(L10n.of(context).saveKeyManuallyDescription),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.check_outlined),
-                  label: Text(L10n.of(context).next),
-                  onPressed:
-                      (_recoveryKeyCopied || _storeInSecureStorage == true)
-                      ? () {
-                          if (_storeInSecureStorage == true) {
-                            const FlutterSecureStorage().write(
-                              key: _secureStorageKey,
-                              value: key,
-                            );
+                  const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.check_outlined),
+                    label: Text(L10n.of(context).next),
+                    onPressed:
+                        (_recoveryKeyCopied || _storeInSecureStorage == true)
+                        ? () {
+                            if (_storeInSecureStorage == true) {
+                              const FlutterSecureStorage().write(
+                                key: _secureStorageKey,
+                                value: key,
+                              );
+                            }
+                            setState(() => _recoveryKeyStored = true);
                           }
-                          setState(() => _recoveryKeyStored = true);
-                        }
-                      : null,
-                ),
-              ],
+                        : null,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
