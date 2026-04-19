@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -119,9 +119,7 @@ class ChatListController extends State<ChatList>
   String? get activeSpaceId => _activeSpaceId;
 
   void setActiveSpace(String spaceId) async {
-    final room = Matrix.of(context).client.getRoomById(spaceId);
-    if (room == null) return;
-    await room.postLoad();
+    await Matrix.of(context).client.getRoomById(spaceId)!.postLoad();
 
     setState(() {
       _activeSpaceId = spaceId;
@@ -172,11 +170,7 @@ class ChatListController extends State<ChatList>
 
   Set<String> allBridgeTypes = {};
   Set<String> visibleBridgeTypes = {};
-
-  // Performance: cache bridge types for 5 seconds
-  DateTime? _lastBridgeSync;
-  Set<String>? _cachedBridgeTypes;
-
+  
   // Real-time getter voor ongelezen counts - wordt altijd vers berekend
   Map<String, int> get unreadBridgeCounts {
     final client = Matrix.of(context).client;
@@ -195,15 +189,6 @@ class ChatListController extends State<ChatList>
   }
 
   void syncBridgeTypes() {
-    // Performance: 5-second cache to avoid recomputation on every sync
-    final now = DateTime.now();
-    if (_lastBridgeSync != null &&
-        now.difference(_lastBridgeSync!).inMilliseconds < 5000 &&
-        _cachedBridgeTypes != null) {
-      allBridgeTypes = _cachedBridgeTypes!;
-      return;
-    }
-
     final client = Matrix.of(context).client;
     final hasMatrixRooms = client.rooms.any((room) => !isBridgeRoom(room));
     final detectedTypes = client.rooms
@@ -220,8 +205,9 @@ class ChatListController extends State<ChatList>
       ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
     };
     allBridgeTypes = detectedTypes;
-    _cachedBridgeTypes = detectedTypes;
-    _lastBridgeSync = now;
+
+    // Bereken ongelezen counts per bridge type - wordt nu real-time via getter
+    // unreadBridgeCounts is een getter die altijd vers berekent
   }
 
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
@@ -263,26 +249,9 @@ class ChatListController extends State<ChatList>
     return visibleBridgeTypes.contains(bridgeType);
   }
 
-  // Performance: cache filteredRooms for 500ms
-  List<Room>? _cachedFilteredRooms;
-  DateTime? _lastFilterCalc;
-
-  List<Room> get filteredRooms {
-    final now = DateTime.now();
-    if (_lastFilterCalc != null &&
-        now.difference(_lastFilterCalc!).inMilliseconds < 500 &&
-        _cachedFilteredRooms != null) {
-      return _cachedFilteredRooms!;
-    }
-    final rooms = Matrix.of(context)
-        .client
-        .rooms
-        .where(getRoomFilterByActiveFilter(activeFilter))
-        .toList();
-    _cachedFilteredRooms = rooms;
-    _lastFilterCalc = now;
-    return rooms;
-  }
+  List<Room> get filteredRooms => Matrix.of(
+    context,
+  ).client.rooms.where(getRoomFilterByActiveFilter(activeFilter)).toList();
 
   List<Room> get searchRooms => Matrix.of(context).client.rooms.where((room) {
     switch (activeFilter) {
@@ -463,9 +432,7 @@ class ChatListController extends State<ChatList>
   }
 
   void editSpace(BuildContext context, String spaceId) async {
-    final room = Matrix.of(context).client.getRoomById(spaceId);
-    if (room == null) return;
-    await room.postLoad();
+    await Matrix.of(context).client.getRoomById(spaceId)!.postLoad();
     if (mounted) {
       context.push('/rooms/$spaceId/details');
     }
@@ -577,11 +544,6 @@ class ChatListController extends State<ChatList>
     _intentFileStreamSubscription?.cancel();
     _intentUriStreamSubscription?.cancel();
     scrollController.removeListener(_onScroll);
-    _clientStream?.close();
-    searchController.dispose();
-    searchFocusNode.dispose();
-    _coolDown?.cancel();
-    scrolledToTop.dispose();
     super.dispose();
   }
 
@@ -931,20 +893,25 @@ class ChatListController extends State<ChatList>
     }
   }
 
-  Future<void> setStatus() async {
-    final user = Matrix.of(context).client.getUserById(Matrix.of(context).client.userID!);
-    if (user == null) return;
-    showStatusInputDialog(
+  void setStatus() async {
+    final client = Matrix.of(context).client;
+    final currentPresence = await client.fetchCurrentPresence(client.userID!);
+    final input = await showStatusInputDialog(
+      useRootNavigator: false,
       context: context,
-      initialText: user.statusMsg,
-      initialPresence: user.presence,
-    ).then((result) {
-      if (result == null) return;
-      final status = result.item2;
-      final presenceType = result.item1;
-      if (status == null && presenceType == null) return;
-      user.setPresence(status: status, presence: presenceType);
-    });
+      initialText: currentPresence.statusMsg,
+      initialPresence: currentPresence.presence,
+    );
+    if (input == null) return;
+    if (!mounted) return;
+    await showFutureLoadingSnackbar(
+      context: context,
+      future: () async {
+        client.syncPresence = input.$1;
+        AppSettings.presenceStatus.setItem(input.$1.name);
+        await client.setPresence(client.userID!, input.$1, statusMsg: input.$2);
+      },
+    );
   }
 
   bool waitForFirstSync = false;
@@ -1062,7 +1029,7 @@ class ChatListController extends State<ChatList>
           title: l10n.bundleName,
           hintText: l10n.bundleName,
         );
-        if (bundle == null || bundle.isEmpty) return;
+        if (bundle == null || bundle.isEmpty || bundle.isEmpty) return;
         await showFutureLoadingSnackbar(
           context: context,
           future: () => client.setAccountBundle(bundle),
@@ -1092,11 +1059,9 @@ class ChatListController extends State<ChatList>
 
   void resetActiveBundle() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (mounted) {
-        setState(() {
-          Matrix.of(context).activeBundle = null;
-        });
-      }
+      setState(() {
+        Matrix.of(context).activeBundle = null;
+      });
     });
   }
 
