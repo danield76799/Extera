@@ -13,15 +13,18 @@ import 'package:Pulsly/widgets/hover_builder.dart';
 import 'package:Pulsly/widgets/matrix.dart';
 
 class StatusMessageList extends StatelessWidget {
-  final void Function() onStatusEdit;
+  final void Function()? onStatusEdit;
 
-  const StatusMessageList({required this.onStatusEdit, super.key});
+  const StatusMessageList({this.onStatusEdit, super.key});
 
   static const double height = 116;
 
   void _onStatusTab(BuildContext context, Profile profile) {
     final client = Matrix.of(context).client;
-    if (profile.userId == client.userID) return onStatusEdit();
+    if (profile.userId == client.userID) {
+      if (onStatusEdit != null) onStatusEdit!();
+      return;
+    }
 
     showProfile(context: context, profile: profile);
     return;
