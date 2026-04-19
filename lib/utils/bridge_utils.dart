@@ -220,25 +220,32 @@ bool isBridgeRoom(Room room) {
 /// Gets the bridge type from a room (e.g., 'whatsapp', 'telegram')
 /// Returns null if not a bridge room
 String? getBridgeType(Room room) {
-  final userId = room.directChatMatrixID ?? '';
+  // Only check directChatMatrixID for actual bridge bot patterns
+  final userId = room.directChatMatrixID?.toLowerCase() ?? '';
   final roomName = room.name?.toLowerCase() ?? '';
   final roomTopic = room.topic?.toLowerCase() ?? '';
 
-  if (userId.contains('wa-bot') || userId.contains('whappbot') || userId.contains('whatsapp') || userId.contains('bot.whatsapp') || userId.contains('whatsapp_') || roomName.contains('whatsapp') || roomTopic.contains('whatsapp')) {
+  // WhatsApp bridge patterns - be specific to avoid false positives
+  if (userId.contains('wa-bot') || userId.contains('whappbot') || userId.contains('whatsapp_') || userId.contains('bot.whatsapp')) {
     return 'whatsapp';
   }
-  if (userId.contains('telegram-bot') || userId.contains('telegram') || userId.contains('mautrix-telegram') || userId.contains('tgbot') || userId.contains('bot.telegram') || userId.contains('telegram_') || roomName.contains('telegram') || roomTopic.contains('telegram')) {
+  // Telegram bridge patterns
+  if (userId.contains('telegram-bot') || userId.contains('mautrix-telegram') || userId.contains('tgbot') || userId.contains('bot.telegram') || userId.contains('telegram_')) {
     return 'telegram';
   }
-  if (userId.contains('signal-bot') || userId.contains('bot.signal') || userId.contains('signal_') || roomName.contains('signal') || roomTopic.contains('signal')) {
+  // Signal bridge patterns
+  if (userId.contains('signal-bot') || userId.contains('bot.signal') || userId.contains('signal_')) {
     return 'signal';
   }
-  if (userId.contains('discord-bot') || userId.contains('bot.discord') || userId.contains('discord_') || roomName.contains('discord') || roomTopic.contains('discord')) {
+  // Discord bridge patterns
+  if (userId.contains('discord-bot') || userId.contains('bot.discord') || userId.contains('discord_')) {
     return 'discord';
   }
-  if (userId.contains('slack-bot') || userId.contains('bot.slack') || userId.contains('slack_') || roomName.contains('slack') || roomTopic.contains('slack')) {
+  // Slack bridge patterns
+  if (userId.contains('slack-bot') || userId.contains('bot.slack') || userId.contains('slack_')) {
     return 'slack';
   }
+  // Other bridges
   if (userId.contains('hangouts-bot')) {
     return 'hangouts';
   }
@@ -247,6 +254,14 @@ String? getBridgeType(Room room) {
   }
   if (userId.contains('mx-puppet')) {
     return 'puppet';
+  }
+
+  // Check room name/topic for bridge indicators (more specific)
+  if (roomName.contains('whatsapp_') || roomTopic.contains('whatsapp_')) {
+    return 'whatsapp';
+  }
+  if (roomName.contains('telegram_') || roomTopic.contains('telegram_')) {
+    return 'telegram';
   }
 
   // Check canonical alias for portal patterns
