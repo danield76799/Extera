@@ -20,22 +20,21 @@ jobs:
         run: |
           git clone https://github.com/flutter/flutter.git -b stable --depth 1
           echo "$PWD/flutter/bin" >> $GITHUB_PATH
-          flutter doctor -v
-      - name: Debug Flutter environment
+      - name: Verify Flutter
         run: |
+          export PATH="$PWD/flutter/bin:$PATH"
           flutter doctor -v
           flutter --version
-          echo "GITHUB_REF: $GITHUB_REF"
-          echo "GITHUB_SHA: $GITHUB_SHA"
-      - run: flutter pub get
+      - run: export PATH="$PWD/flutter/bin:$PATH" && flutter pub get
       - name: Generate launcher icons
-        run: dart run flutter_launcher_icons
+        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_launcher_icons
       - name: Generate native splash
-        run: dart run flutter_native_splash:create
+        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_native_splash:create
       - name: Prepare web
-        run: ./scripts/prepare-web.sh
+        run: export PATH="$PWD/flutter/bin:$PATH" && ./scripts/prepare-web.sh
       - name: Build Release Web
         run: |
+          export PATH="$PWD/flutter/bin:$PATH"
           echo "=== Starting Web Build ==="
           flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/extrachat/" --verbose 2>&1 | tee build.log
           echo "=== Build completed with exit code: $? ==="
@@ -62,9 +61,9 @@ jobs:
         run: |
           git clone https://github.com/flutter/flutter.git -b stable --depth 1
           echo "$PWD/flutter/bin" >> $GITHUB_PATH
-          flutter doctor -v
-      - name: Debug Flutter environment
+      - name: Verify Flutter
         run: |
+          export PATH="$PWD/flutter/bin:$PATH"
           flutter doctor -v
           flutter --version
           java -version
@@ -73,17 +72,19 @@ jobs:
           echo "JAVA_HOME: $JAVA_HOME"
       - name: Clean Flutter build
         run: |
+          export PATH="$PWD/flutter/bin:$PATH"
           flutter clean
           rm -rf build/
-      - run: flutter pub get
+      - run: export PATH="$PWD/flutter/bin:$PATH" && flutter pub get
       - name: Generate l10n
-        run: flutter gen-l10n
+        run: export PATH="$PWD/flutter/bin:$PATH" && flutter gen-l10n
       - name: Generate launcher icons
-        run: dart run flutter_launcher_icons
+        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_launcher_icons
       - name: Generate native splash
-        run: dart run flutter_native_splash:create
+        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_native_splash:create
       - name: Build Android APK
         run: |
+          export PATH="$PWD/flutter/bin:$PATH"
           echo "=== Starting Android APK Build ==="
           flutter build apk --release --target-platform android-arm64 2>&1 | tee build.log
           BUILD_EXIT_CODE=${PIPESTATUS[0]}
