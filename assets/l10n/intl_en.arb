@@ -1048,7 +1048,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "fluffychat": "Extera",
+  "fluffychat": "Plusly",
   "@fluffychat": {
     "type": "String",
     "placeholders": {}
@@ -1236,7 +1236,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "inviteText": "{username} invited you to Extera.\n1. Visit fluffychat.im and install the app \n2. Sign up or sign in \n3. Open the invite link: \n {link}",
+  "inviteText": "{username} invited you to Plusly.\n1. Visit plusly.im and install the app \n2. Sign up or sign in \n3. Open the invite link: \n {link}",
   "@inviteText": {
     "type": "String",
     "placeholders": {
@@ -1425,7 +1425,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "newMessageInFluffyChat": "💬 New message in Extera",
+  "newMessageInFluffyChat": "💬 New message in Plusly",
   "@newMessageInFluffyChat": {
     "type": "String",
     "placeholders": {}
