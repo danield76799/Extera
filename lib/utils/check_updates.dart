@@ -53,7 +53,7 @@ class GitHubRelease {
 }
 
 Future<GitHubRelease?> getLatestRelease() async {
-  const repo = 'danield76799/Extera';
+  const repo = 'danield76799/Plusly';
   final url = 'https://api.github.com/repos/$repo/releases/latest';
 
   try {
@@ -90,6 +90,18 @@ bool isNewerVersion(String latest, String current) {
   latest = latest.startsWith('v') ? latest.substring(1) : latest;
   current = current.startsWith('v') ? current.substring(1) : current;
 
+  // Handle Plusly build tags like "plusly-build-337"
+  // Extract the build number for comparison
+  final latestBuildMatch = RegExp(r'(\d+)$').firstMatch(latest);
+  final currentBuildMatch = RegExp(r'(\d+)$').firstMatch(current);
+  
+  if (latestBuildMatch != null && currentBuildMatch != null) {
+    final latestBuild = int.tryParse(latestBuildMatch.group(1) ?? '0') ?? 0;
+    final currentBuild = int.tryParse(currentBuildMatch.group(1) ?? '0') ?? 0;
+    return latestBuild > currentBuild;
+  }
+
+  // Fall back to semantic version comparison
   final latestParts = latest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
   final currentParts = current.split('.').map((e) => int.tryParse(e) ?? 0).toList();
 
