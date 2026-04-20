@@ -8,7 +8,7 @@ For privacy concerns, contact us at: **danielplusly@gmail.com**
 
 ## About Plusly
 
-Plusly is a fork of [FluffyChat](https://fluffychat.im). Plusly builds on FluffyChat's features with additional enhancements.
+Plusly is a fork of [FluffyChat](https://fluffychat.im) and [Extera](https://github.com/ExteraApp/Extera). Plusly builds on their features with additional enhancements.
 
 ## Data Handling
 
