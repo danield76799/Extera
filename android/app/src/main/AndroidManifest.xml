@@ -82,12 +82,12 @@
                 <data android:scheme="matrix" />
             </intent-filter>
 
-            <!-- App can open com.danield.extrachat:// uris -->
+            <!-- App can open com.danield.plusly:// uris -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="com.danield.extrachat" android:host="chat" />
+                <data android:scheme="com.danield.plusly" android:host="chat" />
             </intent-filter>
 
             <!-- App can receive shared text -->
@@ -118,7 +118,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="com.danield.extrachat.auth" />
+                <data android:scheme="com.danield.plusly.auth" />
             </intent-filter>
         </activity>
 
@@ -163,14 +163,14 @@
 
         <!-- Chat Widget Provider (Legacy) -->
         <receiver
-            android:name="com.danield.extrachat.ChatWidgetProvider"
+            android:name="com.danield.plusly.ChatWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/extrachat_widget_info" />
+                android:resource="@xml/plusly_widget_info" />
         </receiver>
 
         <!-- Don't delete the meta-data below.

@@ -20,7 +20,7 @@ class ChatWidgetService {
     
     // Use MethodChannel to get the exact path from Android
     try {
-      final channel = MethodChannel('com.danield.extrachat/widget_data');
+      final channel = MethodChannel('com.danield.plusly/widget_data');
       final path = await channel.invokeMethod<String>('getWidgetDataPath');
       if (path != null) {
         return Directory(path.substring(0, path.lastIndexOf('/')));

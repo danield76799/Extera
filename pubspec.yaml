@@ -1,4 +1,4 @@
-name: Pulsly
+name: plusly
 description: Plusly - Chat with your friends.
 publish_to: none
 # Version schema: <YEAR>.<MAJOR UPDATE>.<MINOR><PATCH>
@@ -176,14 +176,14 @@ flutter:
 
 msix_config:
   display_name: Plusly
-  publisher_display_name: ExtraChat
-  publisher: CN=Daan, O=ExtraChat, L=Laren, S=NH, C=NL
-  identity_name: com.danield.extrachat
+  publisher_display_name: Plusly
+  publisher: CN=Daan, O=Plusly, L=Laren, S=NH, C=NL
+  identity_name: com.danield.plusly
   logo_path: assets\logo.png
   capabilities: internetClient, location, microphone, webcam
   protocol_activation: https
-  app_uri_handler_hosts: extrachat.app, fluffychat.im, matrix.to
-  execution_alias: extrachat
+  app_uri_handler_hosts: plusly.app, fluffychat.im, matrix.to
+  execution_alias: plusly
   sign_msix: false
   install_certificate: false
 

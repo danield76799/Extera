@@ -1,4 +1,4 @@
-package com.danield.extrachat
+package com.danield.plusly
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -44,7 +44,7 @@ class ChatWidgetProvider : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-            val views = RemoteViews(context.packageName, R.layout.extrachat_widget)
+            val views = RemoteViews(context.packageName, R.layout.plusly_widget)
             
             // Create intent to open app
             val intent = Intent(context, MainActivity::class.java).apply {
@@ -110,7 +110,7 @@ class ChatWidgetProvider : AppWidgetProvider() {
                 }
             } else {
                 // Show welcome message
-                views.setTextViewText(R.id.chat_name_1, "💬 ExtraChat")
+                views.setTextViewText(R.id.chat_name_1, "💬 Plusly")
                 views.setTextViewText(R.id.chat_message_1, "Open de app om chats te zien")
                 views.setTextViewText(R.id.chat_time_1, "")
                 views.setTextColor(R.id.chat_status_1, Color.parseColor(COLOR_ONLINE))

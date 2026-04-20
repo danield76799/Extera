@@ -36,7 +36,7 @@ jobs:
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           echo "=== Starting Web Build ==="
-          flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/extrachat/" --verbose 2>&1 | tee build.log
+          flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/plusly/" --verbose 2>&1 | tee build.log
           echo "=== Build completed with exit code: $? ==="
           if [ -f build/web/index.html ]; then echo "SUCCESS: index.html found"; else echo "ERROR: index.html NOT found"; fi
       - run: mv build/web/ public
@@ -46,7 +46,7 @@ jobs:
           personal_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          destination_dir: extrachat
+          destination_dir: plusly
 
   build_android_apk:
     runs-on: ubuntu-latest
@@ -118,13 +118,13 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: extrachat-build-${{ github.run_number }}
-          name: ExtraChat Build ${{ github.run_number }}
+          tag_name: plusly-build-${{ github.run_number }}
+          name: Plusly Build ${{ github.run_number }}
           body: |
-            Automated APK build for ExtraChat
+            Automated APK build for Plusly
             - Run: ${{ github.run_number }}
             - Commit: ${{ github.sha }}
-            - Package: com.danield.extrachat
+            - Package: com.danield.plusly
           files: build/app/outputs/apk/release/app-release.apk
           prerelease: true
           generate_release_notes: false

@@ -8,7 +8,7 @@ abstract class AppConfig {
 
   static const String aboutProfileField = 'xyz.plusly.about';
   static const String updateCheckUrl =
-      'https://raw.githubusercontent.com/danield76799/Extera/main/plusly-version.txt';
+      'https://raw.githubusercontent.com/danield76799/Plusly/main/plusly-version.txt';
   static const String downloadUpdateUrl =
       'https://github.com/danield76799/Plusly/releases';
 
@@ -42,8 +42,8 @@ abstract class AppConfig {
       'https://github.com/krille-chan/fluffychat/wiki/How-to-use-end-to-end-encryption-in-FluffyChat';
   static const String startChatTutorial =
       'https://github.com/krille-chan/fluffychat/wiki/How-to-Find-Users-in-FluffyChat';
-  static const String appId = 'com.danield.extrachat';
-  static const String appOpenUrlScheme = 'com.danield.extrachat';
+  static const String appId = 'com.danield.plusly';
+  static const String appOpenUrlScheme = 'com.danield.plusly';
   static String _webBaseUrl = 'https://fluffychat.im/web';
 
   static String get webBaseUrl => _webBaseUrl;
@@ -61,10 +61,10 @@ abstract class AppConfig {
   static const bool hideTypingUsernames = false;
   static const bool hideAllStateEvents = false;
   static const String inviteLinkPrefix = 'https://matrix.to/#/';
-  static const String deepLinkPrefix = 'com.danield.extrachat://chat/';
+  static const String deepLinkPrefix = 'com.danield.plusly://chat/';
   static const String schemePrefix = 'matrix:';
-  static const String pushNotificationsChannelId = 'extrachat_push';
-  static const String pushNotificationsAppId = 'com.danield.extrachat';
+  static const String pushNotificationsChannelId = 'plusly_push';
+  static const String pushNotificationsAppId = 'com.danield.plusly';
   static const String recentEmojisAccountDataKey = 'io.element.recent_emoji';
   static const double borderRadius = 18.0;
   static const double columnWidth = 360.0;
