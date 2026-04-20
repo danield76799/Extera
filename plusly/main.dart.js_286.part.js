@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Extera \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -815,5 +815,5 @@ var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(A.Nq,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"Nq":{"bk":[]}}'))
 var y={d:" \u0b87\u0bb2\u0bcd \u0b9f\u0bc6\u0bb5\u0bb2\u0baa\u0bcd\u0baa\u0bb0\u0bcd\u0b95\u0bb3\u0bbf\u0b9f\u0bae\u0bcd \u0b87\u0ba8\u0bcd\u0ba4\u0baa\u0bcd \u0baa\u0bbf\u0bb4\u0bc8\u0baf\u0bc8\u0baa\u0bcd \u0baa\u0bc1\u0b95\u0bbe\u0bb0\u0bb3\u0bbf\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0bae\u0bcd. \u0baa\u0bbf\u0bb4\u0bc8 \u0b9a\u0bc6\u0baf\u0bcd\u0ba4\u0bbf: "}};
-(a=>{a["lagEc/cjkconTZ1LA+O0pJWL9wA="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["8mvM76GNPFWaIYMgRYCVN2Cu9EA="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_286.part.js.map

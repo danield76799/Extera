@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Extera \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.Ne,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"Ne":{"bk":[]}}'))};
-(a=>{a["qFkMZ4XATt4VC7Zb/L2WDlDiDDs="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["eFyM+h2/wzfikl+xPe9vsv7hVSc="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_271.part.js.map

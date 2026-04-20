@@ -762,7 +762,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Extera \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -1547,5 +1547,5 @@ x(A.GY,C.bk)
 w(A.GY,[A.Ni,A.Nj])})()
 B.f0(b.typeUniverse,JSON.parse('{"GY":{"bk":[]},"Ni":{"bk":[]},"Nj":{"bk":[]}}'))
 var y={d:" alterou a visibilidade do hist\xf3rico para: "}};
-(a=>{a["Vho90kXvv6egHaCD3ysCUXupPn0="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["efI57TPIAsfdgSGAN9RgO/P1SG4="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_17.part.js.map
