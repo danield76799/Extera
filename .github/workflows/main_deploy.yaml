@@ -137,14 +137,10 @@ jobs:
           chmod +x scripts/prepare-web.sh
           ./scripts/prepare-web.sh
           ls -la assets/js/package/
-      - name: Update base href
-        run: |
-          sed -i 's|<base href="/">|<base href="/Plusly/plusly/">|' web/index.html
-          grep 'base href' web/index.html
       - name: Build Web
         run: |
           flutter pub get
-          flutter build web --release 2>&1 | tee build.log
+          flutter build web --release --base-href=/Plusly/plusly/ 2>&1 | tee build.log
           BUILD_EXIT_CODE=${PIPESTATUS[0]}
           echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
           if [ $BUILD_EXIT_CODE -ne 0 ]; then
