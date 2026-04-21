@@ -36,7 +36,7 @@ jobs:
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           echo "=== Starting Web Build ==="
-          flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/plusly/" --verbose 2>&1 | tee build.log
+          flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/Plusly/plusly/" --verbose 2>&1 | tee build.log
           echo "=== Build completed with exit code: $? ==="
           if [ -f build/web/index.html ]; then echo "SUCCESS: index.html found"; else echo "ERROR: index.html NOT found"; fi
       - run: mv build/web/ public
