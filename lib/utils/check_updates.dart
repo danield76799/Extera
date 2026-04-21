@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:matrix/matrix.dart';
 
@@ -327,14 +328,23 @@ void checkForUpdates(BuildContext context) async {
                     downloadAndInstallApk(context, release.downloadUrl);
                   },
                 ),
+              ListTile(
+                leading: const Icon(Icons.open_in_browser),
+                title: const Text('Open GitHub releasepagina'),
+                subtitle: const Text('Direct downloaden via browser'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                  launchUrlString('https://github.com/danield76799/Plusly/releases');
+                },
+              ),
               if (release.browserDownloadUrl.isNotEmpty)
                 ListTile(
                   leading: const Icon(Icons.source),
                   title: const Text('Download source code'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
-                    // Open in browser - existing behavior
-                    // UrlLauncher(context, release.browserDownloadUrl).launchUrl();
+                    launchUrlString(release.browserDownloadUrl);
                   },
                 ),
             ],
