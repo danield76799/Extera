@@ -140,7 +140,7 @@ class IntroPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 Image.asset(
-                                  './assets/logo_clean.png',
+                                  './assets/logo.png',
                                   fit: BoxFit.fitWidth,
                                   height: 120,
                                 ),
