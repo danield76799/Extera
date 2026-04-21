@@ -119,3 +119,44 @@ jobs:
         with:
           name: windows-exe
           path: build/windows/x64/runner/Release/
+
+  build_web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          echo "$PWD/flutter/bin" >> $GITHUB_PATH
+      - name: Verify Flutter
+        run: |
+          flutter doctor
+          flutter --version
+      - name: Prepare Web Assets
+        run: |
+          chmod +x scripts/prepare-web.sh
+          ./scripts/prepare-web.sh
+          ls -la assets/js/package/
+      - name: Update base href
+        run: |
+          sed -i 's|<base href="/">|<base href="/Plusly/plusly/">|' web/index.html
+          grep 'base href' web/index.html
+      - name: Build Web
+        run: |
+          flutter pub get
+          flutter build web --release 2>&1 | tee build.log
+          BUILD_EXIT_CODE=${PIPESTATUS[0]}
+          echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then
+            echo "=== Build failed, showing logs ==="
+            tail -50 build.log
+            cat build.log
+            exit 1
+          fi
+          ls -la build/web/
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          publish_branch: gh-pages
