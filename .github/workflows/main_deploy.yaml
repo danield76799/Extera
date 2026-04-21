@@ -153,15 +153,6 @@ jobs:
           flutter --version
           flutter pub get
           flutter build windows --release 2>&1 | Tee-Object -FilePath build_windows.log
-          echo "=== Looking for Windows exe ==="
-          Get-ChildItem -Path build/windows -Recurse -Filter "*.exe" | Select-Object FullName,Length
-          if (Test-Path "build/windows/runner/Release/Plusly.exe") {
-            echo "SUCCESS: Plusly.exe found"
-            Get-ChildItem "build/windows/runner/Release/"
-          } else {
-            echo "Plusly.exe not found, listing all files"
-            Get-ChildItem -Path build/windows -Recurse | Select-Object FullName
-          }
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
