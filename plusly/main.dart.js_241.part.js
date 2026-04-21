@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEf(){return new A.N_(B.eq("fr"))},
+dEh(){return new A.N_(B.eq("fr"))},
 N_:function N_(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" discussions et "+e+" participants"},
 gpF(){return"Aucune autre discussion trouv\xe9e..."},
 gpE(){return"Aucune discussion trouv\xe9e. Utilisez le bouton ci-dessous pour commencer une nouvelle discussion. \u2935\ufe0f"},
 gqa(){return"Non lu"},
-gff(){return"Espace"},
+gfg(){return"Espace"},
 goM(){return"Espaces"},
 ghR(){return"Bannir de la discussion"},
 ghS(){return"Banni"},
 jk(d,e){return d+" a banni "+e},
 gjl(){return"Bloquer l'appareil"},
-gdW(){return"Bloqu\xe9"},
+gdX(){return"Bloqu\xe9"},
 gbF(d){return"Annuler"},
 hU(d){return"Impossible d'ouvrir l'URI "+d},
 ghV(){return"Modifier le nom de l'appareil"},
@@ -416,7 +416,7 @@ gol(){return"Qui est autoris\xe9\xb7e \xe0 rejoindre ce groupe"},
 glz(){return"Pourquoi voulez-vous le signaler ?"},
 gop(){return"Gr\xe2ce \xe0 ces adresses, vous pouvez r\xe9cup\xe9rer votre mot de passe si vous en avez besoin."},
 goq(){return"\xc9crivez un message\u2026"},
-gfe(){return"Oui"},
+gff(){return"Oui"},
 gos(){return"Vous"},
 gfv(){return"Vous ne participez plus \xe0 cette discussion"},
 gov(){return"Vous avez \xe9t\xe9 banni\xb7e de cette discussion"},
@@ -463,7 +463,7 @@ go5(){return"Utilisateurs/trices"},
 gnZ(){return"D\xe9verrouiller les anciens messages"},
 glM(){return"Enregistrer cette cl\xe9 manuellement en d\xe9clenchant la bo\xeete de dialogue de partage du syst\xe8me ou le presse-papiers."},
 mr(d){return""+d+" fichiers"},
-gfd(){return"Utilisateur/trice"},
+gfe(){return"Utilisateur/trice"},
 gk9(){return"Personnalis\xe9"},
 gmL(){return"Cette notification s\u2019affiche lorsque le service au premier plan est en cours d\u2019ex\xe9cution."},
 gom(){return"Pourquoi ce message est-il illisible ?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.N_,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"N_":{"bk":[]}}'))};
-(a=>{a["peS7J/wCTEU8Ch85zzLHvn16XOs="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["Ij59oq3XQN4d5OCbBsOr0fG3T1o="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_241.part.js.map

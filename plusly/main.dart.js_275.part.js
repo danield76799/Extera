@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEx(){return new A.Nh(B.eq("pl"))},
+dEz(){return new A.Nh(B.eq("pl"))},
 Nh:function Nh(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -86,13 +86,13 @@ return y+d+" czat\xf3w i "+y+" uczestnik\xf3w"},
 gpF(){return"Nie znaleziono wi\u0119cej czat\xf3w..."},
 gpE(){return"Nie jeszcze ma \u017cadnych czat\xf3w. Wci\u015bnij poni\u017cszy przycisk, aby rozpocz\u0105\u0107 nowy czat. \u2935\ufe0f"},
 gqa(){return"Nieprzeczytane"},
-gff(){return"Przestrze\u0144"},
+gfg(){return"Przestrze\u0144"},
 goM(){return"Przestrzenie"},
 ghR(){return"Ban w czacie"},
 ghS(){return"Zbanowany/-a"},
 jk(d,e){return d+" zbanowa\u0142/-a "+e},
 gjl(){return"Zablokuj urz\u0105dzenie"},
-gdW(){return"Zablokowane"},
+gdX(){return"Zablokowane"},
 gbF(d){return"Anuluj"},
 hU(d){return"Nie mo\u017cna otworzy\u0107 linku "+d},
 ghV(){return"Zmie\u0144 nazw\u0119 urz\u0105dzenia"},
@@ -417,7 +417,7 @@ gol(){return"Kto mo\u017ce do\u0142\u0105czy\u0107 do tej grupy"},
 glz(){return"Dlaczego chcesz to zg\u0142osi\u0107?"},
 gop(){return"Dzi\u0119ki tym adresom mo\u017cesz odzyska\u0107 swoje has\u0142o."},
 goq(){return"Napisz wiadomo\u015b\u0107\u2026"},
-gfe(){return"Tak"},
+gff(){return"Tak"},
 gos(){return"Ty"},
 gfv(){return"Nie uczestniczysz ju\u017c w tym czacie"},
 gov(){return"Zosta\u0142e\u015b/-a\u015b zbanowany/-a w tym czacie"},
@@ -464,7 +464,7 @@ go5(){return"U\u017cytkownicy"},
 gnZ(){return"Odblokuj stare wiadomo\u015bci"},
 glM(){return"Zapisz ten klucz r\u0119cznie, uruchamiaj\u0105c systemowe okno dialogowe udost\u0119pniania lub schowek."},
 mr(d){return""+d+" plik\xf3w"},
-gfd(){return"U\u017cytkownik"},
+gfe(){return"U\u017cytkownik"},
 gk9(){return"W\u0142asne"},
 gmL(){return"To powiadomienie pojawia si\u0119, gdy us\u0142uga w tle jest uruchomiona."},
 gom(){return"Dlaczego nie mo\u017cna odczyta\u0107 tej wiadomo\u015bci?"},
@@ -815,5 +815,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.Nh,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"Nh":{"bk":[]}}'))};
-(a=>{a["CZtwhpcwoEGL3LhdwAahAw22vTE="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["2NiVlqGAHQFguis7jH7CaKBMih4="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_275.part.js.map

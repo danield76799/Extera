@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEk(){return new A.N4(B.eq("hr"))},
+dEm(){return new A.N4(B.eq("hr"))},
 N4:function N4(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" chats and "+e+" participants"},
 gpF(){return"No more chats found..."},
 gpE(){return"No chats found here yet. Start a new chat with someone by using the button below. \u2935\ufe0f"},
 gqa(){return"Unread"},
-gff(){return"Space"},
+gfg(){return"Space"},
 goM(){return"Spaces"},
 ghR(){return"Isklju\u010di iz razgovora"},
 ghS(){return"Isklju\u010den"},
 jk(d,e){return d+" je isklju\u010dio/la "+e},
 gjl(){return"Blokiraj ure\u0111aj"},
-gdW(){return"Blokirano"},
+gdX(){return"Blokirano"},
 gbF(d){return"Odustani"},
 hU(d){return"URI adresa "+d+" se ne mo\u017ee otvoriti"},
 ghV(){return"Promijeni ime ure\u0111aja"},
@@ -416,7 +416,7 @@ gol(){return"Tko se smije pridru\u017eiti grupi"},
 glz(){return"Za\u0161to \u017eeli\u0161 ovo prijaviti?"},
 gop(){return"Lozinku mo\u017ee\u0161 obnoviti pomo\u0107u ovih adresa."},
 goq(){return"Napi\u0161i poruku \u2026"},
-gfe(){return"Da"},
+gff(){return"Da"},
 gos(){return"Ti"},
 gfv(){return"Vi\u0161e ne sudjeluje\u0161 u ovom razgovoru"},
 gov(){return"Isklju\u010den/a si iz ovog razgovora"},
@@ -463,7 +463,7 @@ go5(){return"Korisnici"},
 gnZ(){return"Otklju\u010daj stare poruke"},
 glM(){return"Spremi ovaj klju\u010d ru\u010dno pokretanjem dijaloga za dijeljenje sustava ili me\u0111uspremnika."},
 mr(d){return"Broj datoteka: "+d},
-gfd(){return"Korisnik"},
+gfe(){return"Korisnik"},
 gk9(){return"Prilago\u0111eno"},
 gmL(){return"Ova se obavijest pojavljuje kada se pokre\u0107e usluga u prvom planu."},
 gom(){return"Za\u0161to nije mogu\u0107e \u010ditati ovu poruku?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.N4,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"N4":{"bk":[]}}'))};
-(a=>{a["meE83mE3dN8QxLTeYnRfYBCGsI0="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["fk18buW0k0Aehee4nnppBmSWMn8="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_250.part.js.map

@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEh(){return new A.N1(B.eq("gl"))},
+dEj(){return new A.N1(B.eq("gl"))},
 N1:function N1(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" charlas e "+e+" participantes"},
 gpF(){return"Non se atopan m\xe1is charlas\u2026"},
 gpE(){return"Sen charlas por aqu\xed. Comeza unha nova conversa con algu\xe9n premendo no bot\xf3n de abaixo. \u2935\ufe0f"},
 gqa(){return"Sen ler"},
-gff(){return"Espazo"},
+gfg(){return"Espazo"},
 goM(){return"Espazos"},
 ghR(){return"Vetar na conversa"},
 ghS(){return"Vetada"},
 jk(d,e){return d+" vetou a "+e},
 gjl(){return"Bloquear dispositivo"},
-gdW(){return"Bloqueado"},
+gdX(){return"Bloqueado"},
 gbF(d){return"Cancelar"},
 hU(d){return"Non se pode abrir o URI "+d},
 ghV(){return"Cambiar nome do dispositivo"},
@@ -416,7 +416,7 @@ gol(){return"Quen se pode unir a este grupo"},
 glz(){return"Por que queres denunciar esto?"},
 gop(){return"Con estos enderezos podes recuperar o contrasinal."},
 goq(){return"Escribe unha mensaxe\u2026"},
-gfe(){return"Si"},
+gff(){return"Si"},
 gos(){return"Ti"},
 gfv(){return"Xa non participas desta conversa"},
 gov(){return"Foches vetada nesta conversa"},
@@ -463,7 +463,7 @@ go5(){return"Usuarias"},
 gnZ(){return"Desbloquear mensaxes antigas"},
 glM(){return"Garda esta chave manualmente usando o sistema para compartir do dispositivo ou portapapeis."},
 mr(d){return""+d+" ficheiros"},
-gfd(){return"Usuaria"},
+gfe(){return"Usuaria"},
 gk9(){return"Personal"},
 gmL(){return"Esta notificaci\xf3n aparece cando se est\xe1 a executar o servizo en segundo plano."},
 gom(){return"Por que non podo ler esta mensaxe?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.N1,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"N1":{"bk":[]}}'))};
-(a=>{a["VsaGd+/so+owNB5d91HZcNHqfCk="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["y3o+NMQYGa2WRbPVh8sNDgdJDy8="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_245.part.js.map

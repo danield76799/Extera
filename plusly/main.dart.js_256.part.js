@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEl(){return new A.N5(B.eq("hu"))},
+dEn(){return new A.N5(B.eq("hu"))},
 N5:function N5(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" cseveg\xe9sek \xe9s "+e+" r\xe9sztvev\u0151k"},
 gpF(){return"Nincs t\xf6bb cseveg\xe9s..."},
 gpE(){return"Itt m\xe9g nincs cseveg\xe9s. Kezdjen \xfajat valakivel a lentebbi gombbal. \u2935\ufe0f"},
 gqa(){return"Olvasatlan"},
-gff(){return"T\xe9r"},
+gfg(){return"T\xe9r"},
 goM(){return"Terek"},
 ghR(){return"Kitilt\xe1s cseveg\xe9sb\u0151l"},
 ghS(){return"Kitiltva"},
 jk(d,e){return d+" kitiltotta: "+e},
 gjl(){return"Eszk\xf6z blokkol\xe1sa"},
-gdW(){return"Blokkolva"},
+gdX(){return"Blokkolva"},
 gbF(d){return"M\xe9gse"},
 hU(d){return"Nem siker\xfclt az URI megnyit\xe1sa: "+d},
 ghV(){return"Eszk\xf6zn\xe9v m\xf3dos\xedt\xe1sa"},
@@ -416,7 +416,7 @@ gol(){return"Ki csatlakozhat a csoporthoz"},
 glz(){return"Mi\xe9rt k\xedv\xe1nja ezt bejelenteni?"},
 gop(){return"Ezekkel a c\xedmekkel vissza tudja \xe1ll\xedtani a jelszav\xe1t."},
 goq(){return"\xcdrjon egy \xfczenetet\u2026"},
-gfe(){return"Igen"},
+gff(){return"Igen"},
 gos(){return"\xd6n"},
 gfv(){return"Imm\xe1ron nem vesz r\xe9szt ebben a cseveg\xe9sben"},
 gov(){return"Kitiltott\xe1k ebb\u0151l a cseveg\xe9sb\u0151l"},
@@ -463,7 +463,7 @@ go5(){return"Felhaszn\xe1l\xf3k"},
 gnZ(){return"R\xe9gi \xfczenetek felold\xe1sa"},
 glM(){return"A kulcs manu\xe1lis ment\xe9se rendszer megoszt\xe1s vagy v\xe1g\xf3lap m\xe1sol\xe1s seg\xedts\xe9g\xe9vel."},
 mr(d){return""+d+" f\xe1jl"},
-gfd(){return"Felhaszn\xe1l\xf3"},
+gfe(){return"Felhaszn\xe1l\xf3"},
 gk9(){return"Egy\xe9ni"},
 gmL(){return"Ez az \xe9rtes\xedt\xe9s akkor jelenik meg ha az el\u0151t\xe9ri szolg\xe1ltat\xe1s fut."},
 gom(){return"Mi\xe9rt nem olvashat\xf3 ez az \xfczenet?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.N5,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"N5":{"bk":[]}}'))};
-(a=>{a["b6I6mDIltImd1iLnjT892rQ1P/A="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["8pzf5gnt9vQnlL0eMirZhRHYL/A="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_256.part.js.map

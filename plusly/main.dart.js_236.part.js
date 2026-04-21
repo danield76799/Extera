@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEb(){return new A.MW(B.eq("eu"))},
+dEd(){return new A.MW(B.eq("eu"))},
 MW:function MW(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" txat eta "+e+" partaide"},
 gpF(){return"Ez da beste txatik aurkitu..."},
 gpE(){return"Ez da txatik aurkitu. Hasi norbaitekin txateatzen beheko botoia erabiliz. \u2935\ufe0f"},
 gqa(){return"Irakurtzeke"},
-gff(){return"Gunea"},
+gfg(){return"Gunea"},
 goM(){return"Guneak"},
 ghR(){return"Txatera batzeko debekua ezarri"},
 ghS(){return"Kanporatuta"},
 jk(d,e){return d+"(e)k "+e+"(r)i debekua ezarri dio"},
 gjl(){return"Blokeatu gailua"},
-gdW(){return"Blokeatuta"},
+gdX(){return"Blokeatuta"},
 gbF(d){return"Utzi"},
 hU(d){return"Ezin da "+d+" URIa ireki"},
 ghV(){return"Aldatu gailuaren izena"},
@@ -416,7 +416,7 @@ gol(){return"Nor batu daiteke talde honetara?"},
 glz(){return"Zergatik salatu nahi duzu?"},
 gop(){return"Helbide hauekin pasahitza berreskuratu dezakezu."},
 goq(){return"Idatzi mezua\u2026"},
-gfe(){return"Bai"},
+gff(){return"Bai"},
 gos(){return"Zeu"},
 gfv(){return"Ez duzu txat honetan parte hartzen honezkero"},
 gov(){return"Txat honetan debekua ezarri dizute"},
@@ -463,7 +463,7 @@ go5(){return"Erabiltzaileak"},
 gnZ(){return"Desblokeatu mezu zaharrak"},
 glM(){return"Gorde eskuz gako hau gailuko partekatze-menua edo arbela erabiliz."},
 mr(d){return""+d+" fitxategi"},
-gfd(){return"Erabiltzailea"},
+gfe(){return"Erabiltzailea"},
 gk9(){return"Neurrira egindakoa"},
 gmL(){return"Jakinarazpen hau zerbitzua martxan dagoenean agertzen da."},
 gom(){return"Zergatik ezin da mezu hau irakurri?"},
@@ -815,5 +815,5 @@ var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(A.MW,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MW":{"bk":[]}}'))
 var y={d:" helbidean. Errorearen mezua ondorengoa da: "}};
-(a=>{a["N4/hcobKfgBVLCACD7FO/TbIyJY="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["3iBcL9hye9ffwto4UwUaU3xtrY8="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_236.part.js.map

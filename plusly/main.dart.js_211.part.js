@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dE4(){return new A.MP(B.eq("cs"))},
+dE6(){return new A.MP(B.eq("cs"))},
 MP:function MP(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" konverzaci a "+e+" \xfa\u010dastn\xedci"},
 gpF(){return"\u017d\xe1dn\xe9 dal\u0161\xed konverzace nalezeny..."},
 gpE(){return"Nejsou zde \u017e\xe1dn\xe9 chaty. Za\u010dn\u011bte nov\xfd chat s n\u011bk\xfdm, pou\u017eit\xedm n\xed\u017ee uveden\xe9ho tla\u010d\xedtka. \u2935\ufe0f"},
 gqa(){return"Nep\u0159e\u010dten\xe9"},
-gff(){return"Prostor"},
+gfg(){return"Prostor"},
 goM(){return"Prostory"},
 ghR(){return"Zak\xe1zat chat"},
 ghS(){return"Zak\xe1z\xe1n"},
 jk(d,e){return d+" zak\xe1zal "+e},
 gjl(){return"Blokovat za\u0159\xedzen\xed"},
-gdW(){return"Zak\xe1z\xe1n"},
+gdX(){return"Zak\xe1z\xe1n"},
 gbF(d){return"Zru\u0161it"},
 hU(d){return"Nelze otev\u0159\xedt URI "+d},
 ghV(){return"Zm\u011bnit n\xe1zev za\u0159\xedzen\xed"},
@@ -416,7 +416,7 @@ gol(){return"Kdo se m\u016f\u017ee p\u0159ipojit do t\xe9to skupiny"},
 glz(){return"Pro\u010d to chcete nahl\xe1sit?"},
 gop(){return"S t\u011bmito adresami m\u016f\u017eete obnovit sv\xe9 heslo."},
 goq(){return"Napi\u0161te zpr\xe1vu\u2026"},
-gfe(){return"Ano"},
+gff(){return"Ano"},
 gos(){return"Vy"},
 gfv(){return"Tohoto chatu se nad\xe1le ne\xfa\u010dastn\xedte"},
 gov(){return"Byl v\xe1m zablokov\xe1n p\u0159\xedstup k tomuto chatu"},
@@ -463,7 +463,7 @@ go5(){return"U\u017eivatel\xe9"},
 gnZ(){return"Odemknout star\xe9 zpr\xe1vy"},
 glM(){return"Ulo\u017ete tento kl\xed\u010d manu\xe1ln\u011b pomoc\xed syst\xe9mov\xe9ho dialogu sd\xedlen\xed nebo zkop\xedrov\xe1n\xedm do schr\xe1nky."},
 mr(d){return""+d+" soubor\u016f"},
-gfd(){return"U\u017eivatel"},
+gfe(){return"U\u017eivatel"},
 gk9(){return"Vlastn\xed"},
 gmL(){return"Toto ozn\xe1men\xed se zobrazuje kdy\u017e b\u011b\u017e\xed slu\u017eba na pozad\xed."},
 gom(){return"Pro\u010d nelze p\u0159e\u010d\xedst tuto zpr\xe1vu?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.MP,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MP":{"bk":[]}}'))};
-(a=>{a["OaW3hXPZ0Ow+GDE//En3FyfHLKM="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["bk8zbUqn+AiCCgczqRlX2haOUe8="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_211.part.js.map

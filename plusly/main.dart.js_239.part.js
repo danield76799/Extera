@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEd(){return new A.MY(B.eq("fi"))},
+dEf(){return new A.MY(B.eq("fi"))},
 MY:function MY(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" chats and "+e+" participants"},
 gpF(){return"Lis\xe4\xe4 keskusteluja ei l\xf6ytynyt..."},
 gpE(){return"No chats found here yet. Start a new chat with someone by using the button below. \u2935\ufe0f"},
 gqa(){return"Lukemattomat"},
-gff(){return"Space"},
+gfg(){return"Space"},
 goM(){return"Spaces"},
 ghR(){return"Anna porttikielto keskusteluun"},
 ghS(){return"Porttikiellossa"},
 jk(d,e){return d+" antoi porttikiellon k\xe4ytt\xe4j\xe4lle "+e},
 gjl(){return"Est\xe4 laite"},
-gdW(){return"Estetty"},
+gdX(){return"Estetty"},
 gbF(d){return"Peruuta"},
 hU(d){return"URI-osoitetta "+d+" ei voida avata"},
 ghV(){return"Vaihda laitteen nime\xe4"},
@@ -416,7 +416,7 @@ gol(){return"Kenen on sallittua liitty\xe4 ryhm\xe4\xe4n"},
 glz(){return"Miksi haluat ilmoittaa t\xe4m\xe4n?"},
 gop(){return"N\xe4ill\xe4 osoitteilla voit palauttaa salasanasi."},
 goq(){return"Kirjoita viesti\u2026"},
-gfe(){return"Kyll\xe4"},
+gff(){return"Kyll\xe4"},
 gos(){return"Sin\xe4"},
 gfv(){return"Et en\xe4\xe4 osallistu t\xe4h\xe4n keskusteluun"},
 gov(){return"Sinulle on annettu porttikielto t\xe4h\xe4n keskusteluun"},
@@ -463,7 +463,7 @@ go5(){return"K\xe4ytt\xe4j\xe4t"},
 gnZ(){return"Pura vanhojen viestien salaus"},
 glM(){return"Tallenna t\xe4m\xe4 avain manuaalisesti k\xe4ytt\xe4en j\xe4rjestelm\xe4n jakodialogia tai leikep\xf6yt\xe4\xe4."},
 mr(d){return""+d+" tiedostoa"},
-gfd(){return"K\xe4ytt\xe4j\xe4"},
+gfe(){return"K\xe4ytt\xe4j\xe4"},
 gk9(){return"Mukautettu"},
 gmL(){return"T\xe4m\xe4 ilmoitus n\xe4kyy etualapalvelun ollessa k\xe4ynniss\xe4."},
 gom(){return"Miksei t\xe4t\xe4 viesti\xe4 voida lukea?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.MY,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MY":{"bk":[]}}'))};
-(a=>{a["CDK/hfi7QPWkIN8YltI7+2ByAks="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["y8N0GERtAt8uAKEzGubDKlPIETw="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_239.part.js.map

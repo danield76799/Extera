@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEu(){return new A.Ne(B.eq("lv"))},
+dEw(){return new A.Ne(B.eq("lv"))},
 Ne:function Ne(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" t\u0113rz\u0113\u0161anas un "+e+" dal\u012bbnieki"},
 gpF(){return"Vairs netika atrasta neviena t\u0113rz\u0113\u0161ana..."},
 gpE(){return"\u0160eit v\u0113l nav t\u0113rz\u0113\u0161anu. Jauna saruna ar k\u0101du ir uzs\u0101kama ar zem\u0101k eso\u0161o pogu. \u2935\ufe0f"},
 gqa(){return"Nelas\u012btas"},
-gff(){return"Vieta"},
+gfg(){return"Vieta"},
 goM(){return"Vietas"},
 ghR(){return"Izsl\u0113gt no t\u0113rz\u0113\u0161anas"},
 ghS(){return"Izsl\u0113gts"},
 jk(d,e){return d+" izsl\u0113dza "+e},
 gjl(){return"Liegt ier\u012bci"},
-gdW(){return"Liegta"},
+gdX(){return"Liegta"},
 gbF(d){return"Atcelt"},
 hU(d){return"Nevar atv\u0113rt adresi "+d},
 ghV(){return"Main\u012bt ier\u012bces nosaukumu"},
@@ -416,7 +416,7 @@ gol(){return"Kuram ir \u013cauts pievienoties \u0161ai kopai"},
 glz(){return"K\u0101d\u0113\u013c v\u0113lies zi\u0146ot par \u0161o?"},
 gop(){return"Ar \u0161\u012bm adres\u0113m var atjaunot savu paroli."},
 goq(){return"Rakst\u012bt zi\u0146u\u2026"},
-gfe(){return"J\u0101"},
+gff(){return"J\u0101"},
 gos(){return"Tu"},
 gfv(){return"Tu vairs nepiedalies \u0161aj\u0101 t\u0113rz\u0113\u0161an\u0101"},
 gov(){return"Tev tika liegta piek\u013cuve \u0161ai t\u0113rz\u0113\u0161anai"},
@@ -463,7 +463,7 @@ go5(){return"Lietot\u0101ji"},
 gnZ(){return"Atsl\u0113gt vec\u0101s zi\u0146as"},
 glM(){return"\u0160o atsl\u0113gu var pa\u0161roc\u012bgi saglab\u0101t ar sist\u0113mas kop\u012bgo\u0161anas dialogloga vai starpliktuves izsauk\u0161anu."},
 mr(d){return""+d+" datnes"},
-gfd(){return"Lietot\u0101js"},
+gfe(){return"Lietot\u0101js"},
 gk9(){return"Piel\u0101gots"},
 gmL(){return"\u0160is pazi\u0146ojums par\u0101d\u0101s, kad darbojas priek\u0161pl\u0101na pakalpojums."},
 gom(){return"K\u0101d\u0113\u013c \u0161\u012b zi\u0146a ir nelas\u0101ma?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.Ne,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"Ne":{"bk":[]}}'))};
-(a=>{a["eFyM+h2/wzfikl+xPe9vsv7hVSc="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["DTnht0FKQauGa6hIt9UUprk5G/E="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_271.part.js.map

@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dE3(){return new A.MO(B.eq("ca"))},
+dE5(){return new A.MO(B.eq("ca"))},
 MO:function MO(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" xats i "+e+" participants"},
 gpF(){return"No hi ha m\xe9s xats..."},
 gpE(){return"Encara no hi ha xats. Obre una conversa amb alg\xfa picant al bot\xf3 de sota. \u2935\ufe0f"},
 gqa(){return"Sense llegir"},
-gff(){return"Espai"},
+gfg(){return"Espai"},
 goM(){return"Espais"},
 ghR(){return"Veta del xat"},
 ghS(){return"Vetadi"},
 jk(d,e){return d+" ha vetat a "+e},
 gjl(){return"Bloca el dispositiu"},
-gdW(){return"Blocat"},
+gdX(){return"Blocat"},
 gbF(d){return"Cancel\xb7la"},
 hU(d){return"No es pot obrir l\u2019URI "+d},
 ghV(){return"Canvia el nom del dispositiu"},
@@ -416,7 +416,7 @@ gol(){return"Qui pot unir-se a aquest grup"},
 glz(){return"Per qu\xe8 voleu denunciar aix\xf2?"},
 gop(){return"Amb aquestes adreces, si ho necessiteu, podeu recuperar la vostra contrasenya."},
 goq(){return"Escriviu un missatge\u2026"},
-gfe(){return"S\xed"},
+gff(){return"S\xed"},
 gos(){return"V\xf3s"},
 gfv(){return"Ja no participeu en aquest xat"},
 gov(){return"T'han vetat en aquest xat"},
@@ -463,7 +463,7 @@ go5(){return"Usu\xe0r\xefis"},
 gnZ(){return"Desbloqueja els missatges antics"},
 glM(){return"Per desar aquesta clau manualment, pica l'eina de compartir o copia-la al porta-retalls."},
 mr(d){return""+d+" arxius"},
-gfd(){return"Usu\xe0r\xefi"},
+gfe(){return"Usu\xe0r\xefi"},
 gk9(){return"Personalitzat"},
 gmL(){return"Aquesta notificaci\xf3 apareix quan el servei de primer pla est\xe0 corrent."},
 gom(){return"Per qu\xe8 no es pot llegir aquest missatge?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.MO,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MO":{"bk":[]}}'))};
-(a=>{a["bF9RpjGfuQcqvOoBYBGgy5XJ1+A="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["/zoX3pivKdes4O+kRshR3nOqk1A="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_202.part.js.map

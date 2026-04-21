@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dE6(){return new A.MR(B.eq("el"))},
+dE8(){return new A.MR(B.eq("el"))},
 MR:function MR(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" chats and "+e+" participants"},
 gpF(){return"No more chats found..."},
 gpE(){return"No chats found here yet. Start a new chat with someone by using the button below. \u2935\ufe0f"},
 gqa(){return"Unread"},
-gff(){return"Space"},
+gfg(){return"Space"},
 goM(){return"Spaces"},
 ghR(){return"\u0391\u03c0\u03b1\u03b3\u03cc\u03c1\u03b5\u03c5\u03c3\u03b7 \u03b1\u03c0\u03cc \u03c4\u03b7 \u03c3\u03c5\u03bd\u03bf\u03bc\u03b9\u03bb\u03af\u03b1"},
 ghS(){return"\u0391\u03c0\u03b1\u03b3\u03bf\u03c1\u03b5\u03c5\u03bc\u03ad\u03bd\u03bf"},
 jk(d,e){return d+" banned "+e},
 gjl(){return"\u03a3\u03c5\u03c3\u03ba\u03b5\u03c5\u03ae \u03bc\u03c0\u03bb\u03bf\u03ba"},
-gdW(){return"\u0391\u03c0\u03bf\u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03bf"},
+gdX(){return"\u0391\u03c0\u03bf\u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03bf"},
 gbF(d){return"\u0391\u03ba\u03cd\u03c1\u03c9\u03c3\u03b7"},
 hU(d){return"\u0394\u03b5\u03bd \u03bc\u03c0\u03bf\u03c1\u03b5\u03af \u03bd\u03b1 \u03b1\u03bd\u03bf\u03af\u03be\u03b5\u03b9 \u03c4\u03bf URI "+d},
 ghV(){return"Change device name"},
@@ -416,7 +416,7 @@ gol(){return"Who is allowed to join this group"},
 glz(){return"Why do you want to report this?"},
 gop(){return"With these addresses you can recover your password."},
 goq(){return"Write a message\u2026"},
-gfe(){return"Yes"},
+gff(){return"Yes"},
 gos(){return"You"},
 gfv(){return"You are no longer participating in this chat"},
 gov(){return"You have been banned from this chat"},
@@ -463,7 +463,7 @@ go5(){return"Users"},
 gnZ(){return"Unlock old messages"},
 glM(){return"Save this key manually by triggering the system share dialog or clipboard."},
 mr(d){return""+d+" files"},
-gfd(){return"User"},
+gfe(){return"User"},
 gk9(){return"Custom"},
 gmL(){return"This notification appears when the foreground service is running."},
 gom(){return"Why is this message unreadable?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.MR,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MR":{"bk":[]}}'))};
-(a=>{a["Ae8TaqcLeT4wa/DPxfA/wChPrr8="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["WljZoZCnP05rTzAFTjSrjVjnejI="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_225.part.js.map

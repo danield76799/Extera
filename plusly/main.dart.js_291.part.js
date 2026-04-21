@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEM(){return new A.Nv(B.eq("vi"))},
+dEO(){return new A.Nv(B.eq("vi"))},
 Nv:function Nv(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" chats and "+e+" participants"},
 gpF(){return"No more chats found..."},
 gpE(){return"No chats found here yet. Start a new chat with someone by using the button below. \u2935\ufe0f"},
 gqa(){return"Unread"},
-gff(){return"Space"},
+gfg(){return"Space"},
 goM(){return"Spaces"},
 ghR(){return"C\u1ea5m kh\u1ecfi cu\u1ed9c tr\xf2 chuy\u1ec7n"},
 ghS(){return"\u0110\xe3 b\u1ecb c\u1ea5m"},
 jk(d,e){return d+" \u0111\xe3 c\u1ea5m "+e},
 gjl(){return"Thi\u1ebft b\u1ecb b\u1ecb ch\u1eb7n"},
-gdW(){return"\u0110\xe3 ch\u1eb7n"},
+gdX(){return"\u0110\xe3 ch\u1eb7n"},
 gbF(d){return"H\u1ee7y"},
 hU(d){return"Can't open the URI "+d},
 ghV(){return"Thay \u0111\u1ed5i t\xean thi\u1ebft b\u1ecb"},
@@ -416,7 +416,7 @@ gol(){return"Who is allowed to join this group"},
 glz(){return"Why do you want to report this?"},
 gop(){return"With these addresses you can recover your password."},
 goq(){return"Write a message\u2026"},
-gfe(){return"Yes"},
+gff(){return"Yes"},
 gos(){return"You"},
 gfv(){return"You are no longer participating in this chat"},
 gov(){return"You have been banned from this chat"},
@@ -463,7 +463,7 @@ go5(){return"Users"},
 gnZ(){return"Unlock old messages"},
 glM(){return"Save this key manually by triggering the system share dialog or clipboard."},
 mr(d){return""+d+" files"},
-gfd(){return"User"},
+gfe(){return"User"},
 gk9(){return"Custom"},
 gmL(){return"This notification appears when the foreground service is running."},
 gom(){return"Why is this message unreadable?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.Nv,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"Nv":{"bk":[]}}'))};
-(a=>{a["HUNuJw0yuDs3KGnwd9yfHBWEt3c="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["mVuHEn5tLShot9UqH5BmBzOzX2U="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_291.part.js.map

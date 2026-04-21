@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEp(){return new A.N9(B.eq("it"))},
+dEr(){return new A.N9(B.eq("it"))},
 N9:function N9(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -85,13 +85,13 @@ pk(d,e){return""+d+" chat e "+e+" partecipanti"},
 gpF(){return"Non sono state trovate altre chat..."},
 gpE(){return"Nessuna chat trovata. Inizia una nuova chat con qualcuno usando il pulsante qui sotto. \u2935\ufe0f"},
 gqa(){return"Non letti"},
-gff(){return"Spazio"},
+gfg(){return"Spazio"},
 goM(){return"Spazi"},
 ghR(){return"Bandisci dalla chat"},
 ghS(){return"Bandito"},
 jk(d,e){return d+" ha bandito "+e},
 gjl(){return"Blocca dispositivo"},
-gdW(){return"Bloccato"},
+gdX(){return"Bloccato"},
 gbF(d){return"Annulla"},
 hU(d){return"Impossibile aprire l'URI "+d},
 ghV(){return"Cambia nome dispositivo"},
@@ -416,7 +416,7 @@ gol(){return"Chi \xe8 autorizzato a unirsi a questo gruppo"},
 glz(){return"Perch\xe9 vuoi segnalarlo?"},
 gop(){return"Con questi indirizzi puoi recuperare la tua password se necessario."},
 goq(){return"Scrivi un messaggio\u2026"},
-gfe(){return"S\xec"},
+gff(){return"S\xec"},
 gos(){return"Tu"},
 gfv(){return"Non stai pi\xf9 partecipando a questa chat"},
 gov(){return"Sei stato/a bandito/a da questa chat"},
@@ -463,7 +463,7 @@ go5(){return"Utenti"},
 gnZ(){return"Sblocca i vecchi messaggi"},
 glM(){return"Salva questa chiave manualmente attivando la finestra di condivisione o gli appunti."},
 mr(d){return""+d+" file"},
-gfd(){return"Utente"},
+gfe(){return"Utente"},
 gk9(){return"Personalizzato"},
 gmL(){return"Questa notifica viene mostrata quando il servizio in primo piano \xe8 in esecuzione."},
 gom(){return"Perch\xe9 questo messaggio \xe8 illeggibile?"},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.N9,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"N9":{"bk":[]}}'))};
-(a=>{a["c0Bq4Moq1nnjbkRo4chdFPyCipw="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["c39A5p1+VlYfLqttPN+8rGKDaCk="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_265.part.js.map
