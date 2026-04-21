@@ -114,7 +114,7 @@ jobs:
           Get-ChildItem -Path . -Recurse -Filter "*.exe" | Select-Object FullName, Length
           Get-ChildItem -Path build -Recurse -Filter "*.exe" | Select-Object FullName, Length
       - name: Upload Windows Artifact
-        if: Test-Path "build\windows\runner\Release\Plusly.exe"
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-exe
