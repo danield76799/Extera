@@ -1,4 +1,4 @@
-﻿name: Main Deploy Workflow
+name: Main Deploy Workflow
 
 on:
   push:
@@ -11,43 +11,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy_web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: cat .github/workflows/versions.env >> $GITHUB_ENV
-      - name: Setup Flutter
-        run: |
-          git clone https://github.com/flutter/flutter.git -b stable --depth 1
-          echo "$PWD/flutter/bin" >> $GITHUB_PATH
-      - name: Verify Flutter
-        run: |
-          export PATH="$PWD/flutter/bin:$PATH"
-          flutter doctor -v
-          flutter --version
-      - run: export PATH="$PWD/flutter/bin:$PATH" && flutter pub get
-      - name: Generate launcher icons
-        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_launcher_icons
-      - name: Generate native splash
-        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_native_splash:create
-      - name: Prepare web
-        run: export PATH="$PWD/flutter/bin:$PATH" && ./scripts/prepare-web.sh
-      - name: Build Release Web
-        run: |
-          export PATH="$PWD/flutter/bin:$PATH"
-          echo "=== Starting Web Build ==="
-          flutter build web --dart-define=FLUTTER_WEB_CANVASKIT_URL=canvaskit/ --release --source-maps --base-href "/Plusly/plusly/" --verbose 2>&1 | tee build.log
-          echo "=== Build completed with exit code: $? ==="
-          if [ -f build/web/index.html ]; then echo "SUCCESS: index.html found"; else echo "ERROR: index.html NOT found"; fi
-      - run: mv build/web/ public
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          personal_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
-          destination_dir: plusly
-
   build_android_apk:
     runs-on: ubuntu-latest
     steps:
@@ -154,5 +117,3 @@ jobs:
         with:
           name: windows-exe
           path: build/windows/runner/Release/
-
-
