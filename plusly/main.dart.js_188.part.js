@@ -377,7 +377,7 @@ j4(d){return"\u0628\u062f\u0623 "+d+" \u0645\u0643\u0627\u0644\u0645\u0629"},
 gb5(d){return"\u0627\u0644\u062d\u0627\u0644\u0629"},
 gm_(d){return"\u0623\u0631\u0633\u0644"},
 gm1(){return"\u064a\u064f\u0632\u0627\u0645\u0646\u2026 \u064a\u0631\u062c\u0649 \u0627\u0644\u0627\u0646\u062a\u0638\u0627\u0631."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"\u0627\u0644\u0646\u0638\u0627\u0645"},
 gnO(){return"\u0644\u0627 \u064a\u062a\u0637\u0628\u0642\u0627\u0646"},
 gnP(){return"\u0645\u062a\u0637\u0628\u0642\u0627\u0646"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly - a fork of FluffyChat/Extera Next, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.MK,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MK":{"bk":[]}}'))};
-(a=>{a["FQ5iKQrE4KgzsTwBeC6+xD4HFbI="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["3JdbFAmYb3UPvml+ukf+kXfZVfo="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_188.part.js.map

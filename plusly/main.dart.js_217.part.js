@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly - a fork of FluffyChat/Extera Next, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -815,5 +815,5 @@ var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(A.MQ,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MQ":{"bk":[]}}'))
 var y={b:"Die App versucht nun, deine Sitzung aus der Sicherung wiederherzustellen. Bitte melde diesen Fehler an die Entwickler unter "}};
-(a=>{a["syyfpJ8W1UT1dINVykk8SAzhmfY="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["1L8M3Ikc20n3Iguv3wtPuRCN9jc="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_217.part.js.map

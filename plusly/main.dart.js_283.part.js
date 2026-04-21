@@ -277,7 +277,7 @@ gkW(){return"\u0408\u043e\u0448 \u043d\u0438\u0441\u0442\u0435 \u043e\u0434\u044
 gh7(){return"\u041d\u0435\u043c\u0430 \u0434\u043e\u0437\u0432\u043e\u043b\u0430"},
 ghB(){return"\u041d\u0438\u0441\u0430\u043c \u043d\u0430\u0448\u0430\u043e \u0441\u043e\u0431\u0435\u2026"},
 gfJ(){return"\u041e\u0431\u0430\u0432\u0435\u0448\u0442\u0435\u045a\u0430"},
-gkX(){return"Obtaining location\u2026"},
+gkX(){return"Obtaining location..."},
 gkY(){return"\u0423\u0432\u0440\u0435\u0434\u0459\u0438\u0432"},
 ge9(){return"\u0443 \u0440\u0435\u0434\u0443"},
 gl_(){return"\u0420\u0435\u0437\u0435\u0440\u0432\u0430 \u043a\u0459\u0443\u0447\u0435\u0432\u0430 \u043d\u0430 \u043c\u0440\u0435\u0436\u0438 \u0458\u0435 \u0443\u043a\u0459\u0443\u0447\u0435\u043d\u0430"},
@@ -377,7 +377,7 @@ j4(d){return d+" \u0437\u0430\u043f\u043e\u0447\u0435 \u043f\u043e\u0437\u0438\u
 gb5(d){return"\u0421\u0442\u0430\u045a\u0435"},
 gm_(d){return"\u041f\u043e\u0448\u0430\u0459\u0438"},
 gm1(){return"Synchronizing keys can take several minutes. Please wait."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"\u0441\u0438\u0441\u0442\u0435\u043c\u0441\u043a\u0438"},
 gnO(){return"\u041d\u0435 \u043f\u043e\u043a\u043b\u0430\u043f\u0430\u0458\u0443 \u0441\u0435"},
 gnP(){return"\u041f\u043e\u043a\u043b\u0430\u043f\u0430\u0458\u0443 \u0441\u0435"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly - a fork of FluffyChat/Extera Next, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.No,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"No":{"bk":[]}}'))};
-(a=>{a["C66bCeKKD0C5zFC83zCRQO2dHKg="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["w6iKGwJMLcMH+Q47C05kQmN6L0M="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_283.part.js.map

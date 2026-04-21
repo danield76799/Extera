@@ -377,7 +377,7 @@ j4(d){return d+" komencis vokon"},
 gb5(d){return"Stato"},
 gm_(d){return"Sendi"},
 gm1(){return"Spegulante\u2026 Bonvolu atendi."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"Sistema"},
 gnO(){return"Ili ne akordas"},
 gnP(){return"Ili akordas"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return"Welcome to Plusly - a fork of FluffyChat/Extera Next, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -814,5 +814,5 @@ E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.MT,C.bk)})()
 B.f0(b.typeUniverse,JSON.parse('{"MT":{"bk":[]}}'))};
-(a=>{a["OAhJeQR2PoA7UNdaCUfHc88nAqs="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["6mptonUDGLPwWdATrnuGPpO43c8="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_227.part.js.map
