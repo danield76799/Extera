@@ -1,0 +1,6 @@
+<svg width="250" height="60" viewBox="0 0 250 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="30" cy="30" r="22" stroke="#49AFC2" stroke-width="5"/>
+  <path d="M30 19V41" stroke="#49AFC2" stroke-width="5" stroke-linecap="round"/>
+  <path d="M19 30H41" stroke="#49AFC2" stroke-width="5" stroke-linecap="round"/>
+  <text x="65" y="42" fill="#333333" style="font-family: Arial, sans-serif; font-size: 34px; font-weight: bold; letter-spacing: -1px;">Plusly</text>
+</svg>
