@@ -1248,7 +1248,7 @@
       }
     }
   },
-  "isTyping": "is typing…",
+  "isTyping": "is typing...",
   "@isTyping": {
     "type": "String",
     "placeholders": {}
@@ -1348,12 +1348,12 @@
   "@hydrateTorLong": {},
   "hydrate": "Restore from backup file",
   "@hydrate": {},
-  "loadingPleaseWait": "Loading… Please wait.",
+  "loadingPleaseWait": "Loading... Please wait.",
   "@loadingPleaseWait": {
     "type": "String",
     "placeholders": {}
   },
-  "loadMore": "Load more…",
+  "loadMore": "Load more...",
   "@loadMore": {
     "type": "String",
     "placeholders": {}
@@ -1496,7 +1496,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "noRoomsFound": "No rooms found…",
+  "noRoomsFound": "No rooms found...",
   "@noRoomsFound": {
     "type": "String",
     "placeholders": {}
@@ -1511,7 +1511,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "numUsersTyping": "{count} users are typing…",
+  "numUsersTyping": "{count} users are typing...",
   "@numUsersTyping": {
     "type": "String",
     "placeholders": {
@@ -1520,7 +1520,7 @@
       }
     }
   },
-  "obtainingLocation": "Obtaining location…",
+  "obtainingLocation": "Obtaining location...",
   "@obtainingLocation": {
     "type": "String",
     "placeholders": {}
@@ -1555,7 +1555,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "oopsSomethingWentWrong": "Oops, something went wrong…",
+  "oopsSomethingWentWrong": "Oops, something went wrong...",
   "@oopsSomethingWentWrong": {
     "type": "String",
     "placeholders": {}
@@ -2191,7 +2191,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "synchronizingPleaseWaitCounter": " Synchronizing… ({percentage}%)",
+  "synchronizingPleaseWaitCounter": " Synchronizing... ({percentage}%)",
   "@synchronizingPleaseWaitCounter": {
     "type": "String",
     "placeholders": {
@@ -2311,7 +2311,7 @@
       }
     }
   },
-  "userAndOthersAreTyping": "{username} and {count} others are typing…",
+  "userAndOthersAreTyping": "{username} and {count} others are typing...",
   "@userAndOthersAreTyping": {
     "type": "String",
     "placeholders": {
@@ -2323,7 +2323,7 @@
       }
     }
   },
-  "userAndUserAreTyping": "{username} and {username2} are typing…",
+  "userAndUserAreTyping": "{username} and {username2} are typing...",
   "@userAndUserAreTyping": {
     "type": "String",
     "placeholders": {
@@ -2335,7 +2335,7 @@
       }
     }
   },
-  "userIsTyping": "{username} is typing…",
+  "userIsTyping": "{username} is typing...",
   "@userIsTyping": {
     "type": "String",
     "placeholders": {
@@ -2422,17 +2422,17 @@
     "type": "String",
     "placeholders": {}
   },
-  "waitingPartnerAcceptRequest": "Waiting for partner to accept the request…",
+  "waitingPartnerAcceptRequest": "Waiting for partner to accept the request...",
   "@waitingPartnerAcceptRequest": {
     "type": "String",
     "placeholders": {}
   },
-  "waitingPartnerEmoji": "Waiting for partner to accept the emoji…",
+  "waitingPartnerEmoji": "Waiting for partner to accept the emoji...",
   "@waitingPartnerEmoji": {
     "type": "String",
     "placeholders": {}
   },
-  "waitingPartnerNumbers": "Waiting for partner to accept the numbers…",
+  "waitingPartnerNumbers": "Waiting for partner to accept the numbers...",
   "@waitingPartnerNumbers": {
     "type": "String",
     "placeholders": {}
@@ -2477,7 +2477,7 @@
     "type": "String",
     "placeholders": {}
   },
-  "writeAMessage": "Write a message…",
+  "writeAMessage": "Write a message...",
   "@writeAMessage": {
     "type": "String",
     "placeholders": {}
@@ -3546,7 +3546,7 @@
   "featureSwitches": "Feature switches",
   "useLegacyAppBar": "Legacy search bar",
   "useLegacyNavBar": "Legacy navigation bar",
-  "appIntro": "Welcome to Plusly — a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/",
+  "appIntro": "Welcome to Plusly - a fork of FluffyChat/Extera Next, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/",
   "signIn": "Sign in",
   "createNewAccount": "Sign up",
   "signUpGreeting": "Extera is decentralised. Pick a server to begin.",
