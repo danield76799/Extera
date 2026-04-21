@@ -134,7 +134,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_windows:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup Flutter
@@ -149,14 +149,21 @@ jobs:
       - run: export PATH="$PWD/flutter/bin:$PATH" && flutter pub get
       - name: Build Windows
         run: |
-          export PATH="$PWD/flutter/bin:$PATH"
-          flutter build windows --release 2>&1 | tee build_windows.log
+          flutter doctor -v
+          flutter --version
+          flutter pub get
+          flutter build windows --release 2>&1 | Tee-Object -FilePath build_windows.log
           echo "=== Looking for Windows exe ==="
-          find build/windows -type f -name "*.exe" 2>/dev/null
-          find build -type f -name "*.exe" 2>/dev/null | head -20
-          ls -la build/windows/ 2>/dev/null || echo "build/windows not found"
+          Get-ChildItem -Path build/windows -Recurse -Filter "*.exe" | Select-Object FullName,Length
+          if (Test-Path "build/windows/runner/Release/Plusly.exe") {
+            echo "SUCCESS: Plusly.exe found"
+            Get-ChildItem "build/windows/runner/Release/"
+          } else {
+            echo "Plusly.exe not found, listing all files"
+            Get-ChildItem -Path build/windows -Recurse | Select-Object FullName
+          }
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-exe
-          path: build/windows/
+          path: build/windows/runner/Release/
