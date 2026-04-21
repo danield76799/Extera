@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEJ(){return new A.Nq(B.eq("ta"))},
-Nq:function Nq(d){this.a=d}}
+dEJ(){return new A.Np(B.eq("ta"))},
+Np:function Np(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[46],A)
-A.Nq.prototype={
+A.Np.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -377,7 +377,7 @@ j4(d){return d+" \u0b85\u0bb4\u0bc8\u0baa\u0bcd\u0baa\u0bc8\u0ba4\u0bcd \u0ba4\u
 gb5(d){return"\u0ba8\u0bbf\u0bb2\u0bc8"},
 gm_(d){return"\u0b9a\u0bae\u0bb0\u0bcd\u0baa\u0bcd\u0baa\u0bbf\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0bae\u0bcd"},
 gm1(){return"\u0b92\u0ba4\u0bcd\u0ba4\u0bbf\u0b9a\u0bc8\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd\u2026 \u0ba4\u0baf\u0bb5\u0bc1\u0b9a\u0bc6\u0baf\u0bcd\u0ba4\u0bc1 \u0b95\u0bbe\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"\u0bae\u0ba3\u0bcd\u0b9f\u0bb2\u0bae\u0bcd"},
 gnO(){return"\u0b85\u0bb5\u0bb0\u0bcd\u0b95\u0bb3\u0bcd \u0baa\u0bca\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bb5\u0bbf\u0bb2\u0bcd\u0bb2\u0bc8"},
 gnP(){return"\u0b85\u0bb5\u0bb0\u0bcd\u0b95\u0bb3\u0bcd \u0baa\u0bca\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1\u0b95\u0bbf\u0bb1\u0bbe\u0bb0\u0bcd\u0b95\u0bb3\u0bcd"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -812,8 +812,8 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
-x(A.Nq,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"Nq":{"bk":[]}}'))
+x(A.Np,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"Np":{"bk":[]}}'))
 var y={d:" \u0b87\u0bb2\u0bcd \u0b9f\u0bc6\u0bb5\u0bb2\u0baa\u0bcd\u0baa\u0bb0\u0bcd\u0b95\u0bb3\u0bbf\u0b9f\u0bae\u0bcd \u0b87\u0ba8\u0bcd\u0ba4\u0baa\u0bcd \u0baa\u0bbf\u0bb4\u0bc8\u0baf\u0bc8\u0baa\u0bcd \u0baa\u0bc1\u0b95\u0bbe\u0bb0\u0bb3\u0bbf\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0bae\u0bcd. \u0baa\u0bbf\u0bb4\u0bc8 \u0b9a\u0bc6\u0baf\u0bcd\u0ba4\u0bbf: "}};
-(a=>{a["3S1eMnkoVbicoomooYtIXy2ehs4="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["F4V/xsQYwyQkyItbMjbOXM9D2ak="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_286.part.js.map

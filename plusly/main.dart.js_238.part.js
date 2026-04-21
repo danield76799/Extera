@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEe(){return new A.MX(B.eq("fa"))},
-MX:function MX(d){this.a=d}}
+dEe(){return new A.MW(B.eq("fa"))},
+MW:function MW(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[18],A)
-A.MX.prototype={
+A.MW.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -377,7 +377,7 @@ j4(d){return d+" \u062a\u0645\u0627\u0633\u06cc \u0631\u0627 \u0634\u0631\u0648\
 gb5(d){return"\u0648\u0636\u0639\u06cc\u062a"},
 gm_(d){return"\u0627\u0631\u0633\u0627\u0644"},
 gm1(){return"\u062f\u0631 \u062d\u0627\u0644 \u0647\u0645\u06af\u0627\u0645\u200c\u0633\u0627\u0632\u06cc... \u0644\u0637\u0641\u0627 \u0635\u0628\u0631 \u06a9\u0646\u06cc\u062f."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"\u0633\u06cc\u0633\u062a\u0645"},
 gnO(){return"\u0628\u0627 \u0647\u0645 \u0645\u0646\u0637\u0628\u0642 \u0646\u06cc\u0633\u062a\u0646\u062f"},
 gnP(){return"\u0628\u0627 \u0647\u0645 \u0645\u0646\u0637\u0628\u0642 \u0647\u0633\u062a\u0646\u062f"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -812,7 +812,7 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
-y(A.MX,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"MX":{"bk":[]}}'))};
-(a=>{a["zTSijdY+MRtknM1L8ZPhYDVuj3E="]=a.current})($__dart_deferred_initializers__);
+y(A.MW,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"MW":{"bk":[]}}'))};
+(a=>{a["qdAbWITWN9b9XHjhWKcq9/tXuNg="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_238.part.js.map

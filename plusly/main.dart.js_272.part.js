@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEx(){return new A.Nf(B.eq("nb"))},
-Nf:function Nf(d){this.a=d}}
+dEx(){return new A.Ne(B.eq("nb"))},
+Ne:function Ne(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[37],A)
-A.Nf.prototype={
+A.Ne.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -277,7 +277,7 @@ gkW(){return"Du har ikke lagt til en m\xe5te \xe5 gjenopprette passordet ditt p\
 gh7(){return"Ingen tilgang"},
 ghB(){return"Fant ingen rom \u2026"},
 gfJ(){return"Merknader"},
-gkX(){return"Obtaining location\u2026"},
+gkX(){return"Obtaining location..."},
 gkY(){return"St\xf8tende"},
 ge9(){return"OK"},
 gl_(){return"Nettbasert sikkerhetskopiering av n\xf8kler p\xe5"},
@@ -377,7 +377,7 @@ j4(d){return d+" startet en samtale"},
 gb5(d){return"Status"},
 gm_(d){return"Send inn"},
 gm1(){return"Synchronizing keys can take several minutes. Please wait."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"System"},
 gnO(){return"Samsvarer ikke"},
 gnP(){return"Samsvarer"},
@@ -406,8 +406,8 @@ gob(){return"Sludrehistorikkens synlighet"},
 goc(){return"Synlig for alle deltagere"},
 god(){return"Synlig for alle"},
 gof(){return"Lydmelding"},
-gog(){return"Waiting for partner to accept the request\u2026"},
-goh(){return"Waiting for partner to accept the emoji\u2026"},
+gog(){return"Waiting for partner to accept the request..."},
+goh(){return"Waiting for partner to accept the emoji..."},
 goi(){return"Venter p\xe5 at samtalepartner skal godta tallene \u2026"},
 giD(){return"Advarsel!"},
 gly(){return"Du har f\xe5tt en e-post"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -812,7 +812,7 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
-y(A.Nf,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"Nf":{"bk":[]}}'))};
-(a=>{a["KpIT72aIUsXTqIGpKN50TlQ1/Ns="]=a.current})($__dart_deferred_initializers__);
+y(A.Ne,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"Ne":{"bk":[]}}'))};
+(a=>{a["y6OuRcA/fZxMIjO79xkpVOpITQw="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_272.part.js.map

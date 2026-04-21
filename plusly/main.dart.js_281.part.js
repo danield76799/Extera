@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEF(){return new A.Nm(B.eq("sk"))},
-Nm:function Nm(d){this.a=d}}
+dEF(){return new A.Nl(B.eq("sk"))},
+Nl:function Nl(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[42],A)
-A.Nm.prototype={
+A.Nl.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -277,7 +277,7 @@ gkW(){return"You have not added a way to recover your password yet."},
 gh7(){return"Ch\xfdba povolenie"},
 ghB(){return"Nena\u0161li sa \u017eiadne miestnosti\u2026"},
 gfJ(){return"Notifications"},
-gkX(){return"Obtaining location\u2026"},
+gkX(){return"Obtaining location..."},
 gkY(){return"Offensive"},
 ge9(){return"ok"},
 gl_(){return"Online z\xe1loha k\u013e\xfa\u010dov je zapnut\xe1"},
@@ -377,7 +377,7 @@ j4(d){return d+" started a call"},
 gb5(d){return"Status"},
 gm_(d){return"Odosla\u0165"},
 gm1(){return"Synchronizing keys can take several minutes. Please wait."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"Syst\xe9mov\xe1 farba"},
 gnO(){return"Sa nezhoduj\xfa"},
 gnP(){return"Zhoduj\xfa sa"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -812,7 +812,7 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
-y(A.Nm,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"Nm":{"bk":[]}}'))};
-(a=>{a["s7JbLKa4uBC5bwJkRJ3drlp7lhQ="]=a.current})($__dart_deferred_initializers__);
+y(A.Nl,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"Nl":{"bk":[]}}'))};
+(a=>{a["iEKGWijwY9u7QeBE5xc19RPA54Q="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_281.part.js.map

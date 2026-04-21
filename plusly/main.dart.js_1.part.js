@@ -1,9 +1,9 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,A={
 dEP(d){return new A.GZ(B.eq(d))},
-dEQ(){return new A.Nw(B.eq("zh_Hant"))},
+dEQ(){return new A.Nv(B.eq("zh_Hant"))},
 GZ:function GZ(d){this.a=d},
-Nw:function Nw(d){this.a=d}},C
+Nv:function Nv(d){this.a=d}},C
 B=c[0]
 A=a.updateHolder(c[3],A)
 C=c[52]
@@ -760,7 +760,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -813,7 +813,7 @@ ghn(){return"Preview media"},
 goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
-A.Nw.prototype={
+A.Nv.prototype={
 goU(){return"false"},
 glj(){return"\u518d\u6b21\u8f38\u5165\u5bc6\u78bc"},
 gnm(){return"\u4e0d\u662f\u5716\u7247\u6a94\u6848\u3002"},
@@ -1382,7 +1382,7 @@ gmE(){return"\u9032\u5165\u65b0\u804a\u5929\u5ba4"},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.GZ,C.bk)
-y(A.Nw,A.GZ)})()
-B.f0(b.typeUniverse,JSON.parse('{"GZ":{"bk":[]},"Nw":{"bk":[]}}'))};
-(a=>{a["7UdRb2TR8HltN56gM+1qIZzU5zg="]=a.current})($__dart_deferred_initializers__);
+y(A.Nv,A.GZ)})()
+B.f0(b.typeUniverse,JSON.parse('{"GZ":{"bk":[]},"Nv":{"bk":[]}}'))};
+(a=>{a["TSbP08WQ4HAw/9xKG7b2RS1FkNo="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_1.part.js.map

@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEy(){return new A.Ng(B.eq("nl"))},
-Ng:function Ng(d){this.a=d}}
+dEy(){return new A.Nf(B.eq("nl"))},
+Nf:function Nf(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[38],A)
-A.Ng.prototype={
+A.Nf.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -812,7 +812,7 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
-y(A.Ng,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"Ng":{"bk":[]}}'))};
-(a=>{a["wnlVOewak/HrPfkY0oXqXi5jPhc="]=a.current})($__dart_deferred_initializers__);
+y(A.Nf,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"Nf":{"bk":[]}}'))};
+(a=>{a["4hoNo6tgI9etEFvF+nrowPJlb/c="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_274.part.js.map

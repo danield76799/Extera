@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEq(){return new A.N8(B.eq("ie"))},
-N8:function N8(d){this.a=d}}
+dEq(){return new A.N7(B.eq("ie"))},
+N7:function N7(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[30],A)
-A.N8.prototype={
+A.N7.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -281,7 +281,7 @@ gkX(){return"Obtenente li localisation\u2026"},
 gkY(){return"Offensiv"},
 ge9(){return"OK"},
 gl_(){return"Recovery Key is enabled"},
-geN(){return"Oops, something went wrong\u2026"},
+geN(){return"Oops, something went wrong..."},
 gkZ(){return"One of your clients has been logged out"},
 ghm(){return"Adjunter un conto"},
 gkj(){return"Edit bundles for this account"},
@@ -377,7 +377,7 @@ j4(d){return d+" started a call"},
 gb5(d){return"Statu"},
 gm_(d){return"Inviar"},
 gm1(){return"Synchronizing keys can take several minutes. Please wait."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"Del sistema"},
 gnO(){return"They Don't Match"},
 gnP(){return"Corresponde"},
@@ -391,9 +391,9 @@ glp(){return"Unknown encryption algorithm"},
 nY(d){return"Unknown event '"+d+"'"},
 glq(){return"Unmute chat"},
 ghe(){return"Defixar"},
-o0(d,e){return d+" and "+e+" others are typing\u2026"},
-o1(d,e){return d+" and "+e+" are typing\u2026"},
-o2(d){return d+" is typing\u2026"},
+o0(d,e){return d+" and "+e+" others are typing..."},
+o1(d,e){return d+" and "+e+" are typing..."},
+o2(d){return d+" is typing..."},
 o3(d){return"\ud83d\udeaa "+d+" left the chat"},
 lr(d,e){return d+" sent a "+e+" event"},
 go_(){return"\xcdnverificat"},
@@ -406,16 +406,16 @@ gob(){return"Visibility of the chat history"},
 goc(){return"Visible for all participants"},
 god(){return"Visible for everyone"},
 gof(){return"Voce-missage"},
-gog(){return"Waiting for partner to accept the request\u2026"},
-goh(){return"Waiting for partner to accept the emoji\u2026"},
-goi(){return"Waiting for partner to accept the numbers\u2026"},
+gog(){return"Waiting for partner to accept the request..."},
+goh(){return"Waiting for partner to accept the emoji..."},
+goi(){return"Waiting for partner to accept the numbers..."},
 giD(){return"Avise!"},
 gly(){return"We sent you an email"},
 goj(){return"Who can perform which action"},
 gol(){return"Who is allowed to join this group"},
 glz(){return"Why do you want to report this?"},
 gop(){return"With these addresses you can recover your password."},
-goq(){return"Write a message\u2026"},
+goq(){return"Write a message..."},
 gff(){return"Yes"},
 gos(){return"Vu"},
 gfv(){return"You are no longer participating in this chat"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -812,7 +812,7 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
-y(A.N8,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"N8":{"bk":[]}}'))};
-(a=>{a["8ph2kc9WCVyYlQqwBhxnhcgGHww="]=a.current})($__dart_deferred_initializers__);
+y(A.N7,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"N7":{"bk":[]}}'))};
+(a=>{a["98fqYc+fdb9CxbOzMYDQW8chikM="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_263.part.js.map

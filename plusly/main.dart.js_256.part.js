@@ -1,11 +1,11 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEn(){return new A.N5(B.eq("hu"))},
-N5:function N5(d){this.a=d}}
+dEn(){return new A.N4(B.eq("hu"))},
+N4:function N4(d){this.a=d}}
 B=c[0]
 C=c[52]
 A=a.updateHolder(c[27],A)
-A.N5.prototype={
+A.N4.prototype={
 gtd(){return"No messages yet"},
 gpD(){return"New sub space"},
 gt4(){return"Move to different space"},
@@ -377,7 +377,7 @@ j4(d){return d+" h\xedv\xe1st ind\xedtott"},
 gb5(d){return"St\xe1tusz"},
 gm_(d){return"Bek\xfcld\xe9s"},
 gm1(){return"Szinkroniz\xe1l\xe1s...k\xe9rem v\xe1rjon."},
-oR(d){return" Synchronizing\u2026 ("+d+"%)"},
+oR(d){return" Synchronizing... ("+d+"%)"},
 gj5(){return"Rendszer"},
 gnO(){return"Nem egyeznek"},
 gnP(){return"Egyeznek"},
@@ -758,7 +758,7 @@ gpC(){return"New invitation"},
 gmI(){return"Feature switches"},
 guo(){return"Legacy search bar"},
 guq(){return"Legacy navigation bar"},
-gqQ(){return"Welcome to Plusly \u2014 a fork of FluffyChat, enhanced for a smoother Matrix experience. A decentralised chat app for [matrix]. Learn more at https://matrix.org/"},
+gqQ(){return""},
 gqv(){return"Sign in"},
 gpl(){return"Sign up"},
 gqx(){return"Extera is decentralised. Pick a server to begin."},
@@ -812,7 +812,7 @@ goZ(){return"If disabled, media won't load automatically until you click it."},
 grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
-y(A.N5,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"N5":{"bk":[]}}'))};
-(a=>{a["8pzf5gnt9vQnlL0eMirZhRHYL/A="]=a.current})($__dart_deferred_initializers__);
+y(A.N4,C.bk)})()
+B.f0(b.typeUniverse,JSON.parse('{"N4":{"bk":[]}}'))};
+(a=>{a["fNF2dzZKszS0lURmJur3eUjG/kU="]=a.current})($__dart_deferred_initializers__);
 //# sourceMappingURL=main.dart.js_256.part.js.map
