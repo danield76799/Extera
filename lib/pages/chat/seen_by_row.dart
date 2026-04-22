@@ -108,7 +108,7 @@ class SeenByDialog extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(L10n.of(context).readReceipts)),
       body: Padding(
-        padding: const .all(8),
+        padding: const EdgeInsets.all(8),
         child: Material(
           clipBehavior: .hardEdge,
           color: theme.colorScheme.surfaceContainerHigh,
