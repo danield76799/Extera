@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEl(){return new A.N1(B.eq("hi"))},
+dEz(){return new A.N1(B.eq("hi"))},
 N1:function N1(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -813,5 +813,5 @@ grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var y=a.inherit
 y(A.N1,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"N1":{"bk":[]}}'))};
-(a=>{a["jLME0zg5d39yuJzLH9rzgIaaXqc="]=a.current})($__dart_deferred_initializers__);
+B.f2(b.typeUniverse,JSON.parse('{"N1":{"bk":[]}}'))};
+(a=>{a["OJNXPP+VkP7677vPAgoop388B+0="]=a.current})($__dart_deferred_initializers__);

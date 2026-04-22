@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-dEd(){return new A.MU(B.eq("eu"))},
+dEr(){return new A.MU(B.eq("eu"))},
 MU:function MU(d){this.a=d}}
 B=c[0]
 C=c[52]
@@ -813,6 +813,6 @@ grB(){return'Enable "People" tab'},
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(A.MU,C.bk)})()
-B.f0(b.typeUniverse,JSON.parse('{"MU":{"bk":[]}}'))
+B.f2(b.typeUniverse,JSON.parse('{"MU":{"bk":[]}}'))
 var y={d:" helbidean. Errorearen mezua ondorengoa da: "}};
-(a=>{a["Rm0sLPG6K6pE6geoQqx3pTpjQkQ="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["kAO2f/Y8ZWWs+e1cGeqXFdDkRcI="]=a.current})($__dart_deferred_initializers__);

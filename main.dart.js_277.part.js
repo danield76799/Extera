@@ -1,6 +1,6 @@
 ((a,b)=>{a[b]=a[b]||{}})(self,"$__dart_deferred_initializers__")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var A,C,B={
-dEE(){return new B.Nj(A.eq("ru"))},
+dES(){return new B.Nj(A.eq("ru"))},
 Nj:function Nj(d){this.a=d}}
 A=c[0]
 C=c[52]
@@ -815,6 +815,6 @@ grB(){return'\u0412\u043a\u043b\u0430\u0434\u043a\u0430 "\u041b\u044e\u0434\u043
 E(d,e){return this.gbD(this).$1(e)}}
 var z=a.updateTypes([]);(function inheritance(){var x=a.inherit
 x(B.Nj,C.bk)})()
-A.f0(b.typeUniverse,JSON.parse('{"Nj":{"bk":[]}}'))
+A.f2(b.typeUniverse,JSON.parse('{"Nj":{"bk":[]}}'))
 var y={c:"\u041e\u0442\u043f\u0440\u0430\u0432\u043b\u044f\u0442\u044c \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u0435, \u043a\u043e\u0433\u0434\u0430 \u0432 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0438 \u0435\u0441\u0442\u044c '@room'."}};
-(a=>{a["xSwHAZ+S3LOndLoWGnZi4iHDb/4="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["Zh+VxM9yBenYbwQoacsXHyN+hRY="]=a.current})($__dart_deferred_initializers__);
