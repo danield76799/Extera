@@ -53,8 +53,6 @@ jobs:
           flutter --version
           echo "Dart version:"
           dart --version
-          echo "Pub cache location:"
-          flutter pub cache path
           echo "=== Running flutter build apk ==="
           flutter build apk --release --target-platform android-arm64,android-arm --verbose 2>&1 | tee build.log
           BUILD_EXIT_CODE=${PIPESTATUS[0]}
