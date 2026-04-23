@@ -133,7 +133,8 @@ dev_dependencies:
   translations_cleaner: ^0.1.0
 
   hive_flutter: any
-  integration_test: any
+  integration_test:
+    sdk: flutter
 flutter_launcher_icons:
   image_path: "assets/logo.png"
   android: true
