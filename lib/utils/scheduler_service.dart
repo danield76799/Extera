@@ -9,20 +9,20 @@ import 'package:Pulsly/utils/scheduled_messages_service.dart';
 class SchedulerService {
   static Timer? _checkTimer;
   static const Duration _checkInterval = Duration(minutes: 1);
-  
+
   /// Start the scheduler service
   static void start(Client client) {
     // Cancel any existing timer
     stop();
-    
+
     // Initial check
     _checkScheduledMessages(client);
-    
+
     // Set up periodic checks
     _checkTimer = Timer.periodic(_checkInterval, (_) {
       _checkScheduledMessages(client);
     });
-    
+
     // Also check when app becomes visible
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _setupAppLifecycleListener(client);
@@ -30,11 +30,11 @@ class SchedulerService {
   }
 
   static bool _lifecycleListenerSetup = false;
-  
+
   static void _setupAppLifecycleListener(Client client) {
     if (_lifecycleListenerSetup) return;
     _lifecycleListenerSetup = true;
-    
+
     WidgetsBinding.instance.addObserver(_AppLifecycleObserver(client));
   }
 
@@ -61,9 +61,9 @@ class SchedulerService {
 
 class _AppLifecycleObserver extends WidgetsBindingObserver {
   final Client client;
-  
+
   _AppLifecycleObserver(this.client);
-  
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {

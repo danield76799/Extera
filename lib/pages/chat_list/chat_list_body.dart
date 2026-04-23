@@ -134,11 +134,11 @@ class ChatListViewBody extends StatelessWidget {
                             selected: {controller.searchScope},
                             onSelectionChanged:
                                 (Set<SearchScope> newSelection) {
-                              controller.setState(() {
-                                controller.searchScope = newSelection.first;
-                              });
-                              controller.triggerSearch();
-                            },
+                                  controller.setState(() {
+                                    controller.searchScope = newSelection.first;
+                                  });
+                                  controller.triggerSearch();
+                                },
                           ),
                         ),
                       ),
@@ -185,15 +185,20 @@ class ChatListViewBody extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: userSearchResult.results.length,
                                   itemBuilder: (context, i) => _SearchItem(
-                                    key: ValueKey(userSearchResult.results[i].userId),
+                                    key: ValueKey(
+                                      userSearchResult.results[i].userId,
+                                    ),
                                     title:
-                                        userSearchResult.results[i].displayName ??
+                                        userSearchResult
+                                            .results[i]
+                                            .displayName ??
                                         userSearchResult
                                             .results[i]
                                             .userId
                                             .localpart ??
                                         L10n.of(context).unknownDevice,
-                                    avatar: userSearchResult.results[i].avatarUrl,
+                                    avatar:
+                                        userSearchResult.results[i].avatarUrl,
                                     onPressed: () => showProfile(
                                       context: context,
                                       profile: userSearchResult.results[i],
@@ -309,7 +314,9 @@ class ChatListViewBody extends StatelessWidget {
                       );
                     },
                   ),
-                SliverToBoxAdapter(child: const SizedBox(height: 80)),  // Padding for FAB
+                SliverToBoxAdapter(
+                  child: const SizedBox(height: 80),
+                ), // Padding for FAB
               ],
             ),
           ),

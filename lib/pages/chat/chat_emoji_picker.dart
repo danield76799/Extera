@@ -24,9 +24,9 @@ class ChatEmojiPicker extends StatelessWidget {
     final recentEmojis = controller.localRecentEmojis.isNotEmpty
         ? controller.localRecentEmojis
         : client.recentEmojis.entries
-            .sortedByCompare((element) => element.value, (a, b) => b - a)
-            .map((entry) => entry.key)
-            .toList();
+              .sortedByCompare((element) => element.value, (a, b) => b - a)
+              .map((entry) => entry.key)
+              .toList();
 
     return ClipRect(
       child: AnimatedSize(

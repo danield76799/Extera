@@ -64,11 +64,13 @@ class ChatListBottomNavbar extends StatelessWidget {
 
             // Pre-calculate styles
             final backgroundColor = isActive
-                ? const Color(0xFF49AFC2).withOpacity(0.1)  // Light turquoise 10%
+                ? const Color(0xFF49AFC2).withOpacity(
+                    0.1,
+                  ) // Light turquoise 10%
                 : Colors.transparent;
 
             final foregroundColor = isActive
-                ? const Color(0xFF49AFC2)  // Turquoise for active
+                ? const Color(0xFF49AFC2) // Turquoise for active
                 : theme.colorScheme.onSurfaceVariant;
 
             final currentBorderRadius = BorderRadius.circular(
@@ -113,7 +115,7 @@ class ChatListBottomNavbar extends StatelessWidget {
                               badgePosition: BadgePosition.topEnd(),
                               child: Icon(
                                 filter.toIconData(!isActive),
-                                size: 20,  // 25% larger
+                                size: 20, // 25% larger
                                 color: foregroundColor,
                               ),
                             ),

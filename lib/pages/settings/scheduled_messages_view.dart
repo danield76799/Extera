@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:matrix/matrix.dart';
-
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/utils/scheduled_messages_service.dart';
 import 'package:Pulsly/widgets/matrix.dart';
@@ -12,9 +10,7 @@ class ScheduledMessagesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(L10n.of(context).chatBackup),
-      ),
+      appBar: AppBar(title: Text(L10n.of(context).chatBackup)),
       body: FutureBuilder<List<ScheduledMessage>>(
         future: ScheduledMessagesService.loadScheduledMessages(),
         builder: (context, snapshot) {
@@ -44,8 +40,8 @@ class ScheduledMessagesView extends StatelessWidget {
                   Text(
                     'Messages you schedule will appear here',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -133,9 +129,7 @@ class _ScheduledMessageTile extends StatelessWidget {
             _getMessagePreview(),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+            style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
           ),
           const SizedBox(height: 4),
           Row(
@@ -159,18 +153,13 @@ class _ScheduledMessageTile extends StatelessWidget {
         ],
       ),
       trailing: IconButton(
-        icon: Icon(
-          Icons.delete_outline,
-          color: theme.colorScheme.error,
-        ),
+        icon: Icon(Icons.delete_outline, color: theme.colorScheme.error),
         onPressed: () async {
           final confirm = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('Cancel scheduled message?'),
-              content: const Text(
-                'This message will not be sent.',
-              ),
+              content: const Text('This message will not be sent.'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),

@@ -17,7 +17,7 @@ class ChatWidgetService {
     if (kIsWeb) {
       return await getApplicationDocumentsDirectory();
     }
-    
+
     // Use MethodChannel to get the exact path from Android
     try {
       final channel = MethodChannel('com.danield.plusly/widget_data');
@@ -28,7 +28,7 @@ class ChatWidgetService {
     } catch (e) {
       Logs().e('Failed to get widget data path from Android', e);
     }
-    
+
     // Fallback
     return await getApplicationSupportDirectory();
   }
@@ -50,8 +50,8 @@ class ChatWidgetService {
 
     final chatData = recentRooms.map((room) {
       final lastEvent = room.lastEvent;
-      String lastMessage = '';
-      
+      var lastMessage = '';
+
       if (lastEvent != null) {
         if (lastEvent.type == EventTypes.Message) {
           lastMessage = lastEvent.body;
@@ -61,17 +61,18 @@ class ChatWidgetService {
           lastMessage = lastEvent.type;
         }
       }
-      
+
       // Truncate message
       if (lastMessage.length > _maxMessageChars) {
         lastMessage = '${lastMessage.substring(0, _maxMessageChars)}…';
       }
 
       // Get online status (simplified - would need presence data for real online status)
-      final isOnline = false; // Default to offline, can be enhanced with presence
+      final isOnline =
+          false; // Default to offline, can be enhanced with presence
 
       // Format timestamp for widget
-      String timestamp = '';
+      var timestamp = '';
       if (lastEvent != null) {
         final ts = lastEvent.originServerTs;
         final now = DateTime.now();

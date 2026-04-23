@@ -12,7 +12,6 @@ import 'package:Pulsly/utils/platform_infos.dart';
 import 'package:Pulsly/utils/room_status_extension.dart';
 import 'package:Pulsly/widgets/avatar.dart';
 import 'package:Pulsly/widgets/list_divider.dart';
-import 'package:Pulsly/widgets/matrix.dart';
 
 class SeenByRow extends StatelessWidget {
   final ChatController controller;

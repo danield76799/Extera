@@ -35,9 +35,13 @@ class ChatSearchController extends State<ChatSearchPage>
 
   List<Event> _applyFilters(List<Event> events) {
     return events.where((event) {
-      if (filterSenderId != null && event.senderId != filterSenderId) return false;
-      if (filterFromDate != null && event.originServerTs.isBefore(filterFromDate!)) return false;
-      if (filterToDate != null && event.originServerTs.isAfter(filterToDate!)) return false;
+      if (filterSenderId != null && event.senderId != filterSenderId)
+        return false;
+      if (filterFromDate != null &&
+          event.originServerTs.isBefore(filterFromDate!))
+        return false;
+      if (filterToDate != null && event.originServerTs.isAfter(filterToDate!))
+        return false;
       return true;
     }).toList();
   }
@@ -86,23 +90,21 @@ class ChatSearchController extends State<ChatSearchPage>
             requestHistoryCount: 200,
             limit: 50,
           )
-          .map(
-            (result) {
-              var events = result.$1;
-              // Only filter new events, not all previous results
-              if (searchController.text.isNotEmpty) {
-                events = _applyTextFilter(events, searchController.text);
-              }
-              events = _applyFilters(events);
-              return (
-                [
-                  if (previousSearchResult != null) ...previousSearchResult,
-                  ...events,
-                ],
-                result.$2,
-              );
-            },
-          )
+          .map((result) {
+            var events = result.$1;
+            // Only filter new events, not all previous results
+            if (searchController.text.isNotEmpty) {
+              events = _applyTextFilter(events, searchController.text);
+            }
+            events = _applyFilters(events);
+            return (
+              [
+                if (previousSearchResult != null) ...previousSearchResult,
+                ...events,
+              ],
+              result.$2,
+            );
+          })
           .asBroadcastStream();
     });
   }
@@ -124,22 +126,20 @@ class ChatSearchController extends State<ChatSearchPage>
             requestHistoryCount: 1000,
             limit: 32,
           )
-          .map(
-            (result) {
-              var events = result.$1;
-              if (searchController.text.isNotEmpty) {
-                events = _applyTextFilter(events, searchController.text);
-              }
-              events = _applyFilters(events);
-              return (
-                [
-                  if (previousSearchResult != null) ...previousSearchResult,
-                  ...events,
-                ],
-                result.$2,
-              );
-            },
-          )
+          .map((result) {
+            var events = result.$1;
+            if (searchController.text.isNotEmpty) {
+              events = _applyTextFilter(events, searchController.text);
+            }
+            events = _applyFilters(events);
+            return (
+              [
+                if (previousSearchResult != null) ...previousSearchResult,
+                ...events,
+              ],
+              result.$2,
+            );
+          })
           .asBroadcastStream();
     });
   }
@@ -161,22 +161,20 @@ class ChatSearchController extends State<ChatSearchPage>
             requestHistoryCount: 1000,
             limit: 32,
           )
-          .map(
-            (result) {
-              var events = result.$1;
-              if (searchController.text.isNotEmpty) {
-                events = _applyTextFilter(events, searchController.text);
-              }
-              events = _applyFilters(events);
-              return (
-                [
-                  if (previousSearchResult != null) ...previousSearchResult,
-                  ...events,
-                ],
-                result.$2,
-              );
-            },
-          )
+          .map((result) {
+            var events = result.$1;
+            if (searchController.text.isNotEmpty) {
+              events = _applyTextFilter(events, searchController.text);
+            }
+            events = _applyFilters(events);
+            return (
+              [
+                if (previousSearchResult != null) ...previousSearchResult,
+                ...events,
+              ],
+              result.$2,
+            );
+          })
           .asBroadcastStream();
     });
   }

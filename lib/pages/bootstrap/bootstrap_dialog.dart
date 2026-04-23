@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -61,9 +60,7 @@ ThemeData _buildPluslyTheme(BuildContext context) {
       ),
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        foregroundColor: accentColor,
-      ),
+      style: TextButton.styleFrom(foregroundColor: accentColor),
     ),
     inputDecorationTheme: InputDecorationTheme(
       fillColor: bgColor,
@@ -234,7 +231,8 @@ class BootstrapDialogState extends State<BootstrapDialog> {
               stream: client.onSyncStatus.stream,
               builder: (context, snapshot) {
                 final status = snapshot.data;
-                final isComplete = status?.progress != null && (status!.progress ?? 0) >= 1.0;
+                final isComplete =
+                    status?.progress != null && (status!.progress ?? 0) >= 1.0;
                 return Column(
                   mainAxisAlignment: .center,
                   children: [
@@ -242,7 +240,8 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       value: status?.progress,
                       color: const Color(0xFF8B5E34),
                     ),
-                    if (status != null) Text(status.calcLocalizedString(context)),
+                    if (status != null)
+                      Text(status.calcLocalizedString(context)),
                     if (_bootstrapStep.isNotEmpty) ...[
                       const SizedBox(height: 16),
                       Text(
@@ -326,11 +325,17 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                     minLines: 2,
                     maxLines: 4,
                     readOnly: true,
-                    style: const TextStyle(fontFamily: 'RobotoMono', color: Color(0xFF2D1C16)),
+                    style: const TextStyle(
+                      fontFamily: 'RobotoMono',
+                      color: Color(0xFF2D1C16),
+                    ),
                     controller: TextEditingController(text: key),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      suffixIcon: const Icon(Icons.key_outlined, color: Color(0xFF8B5E34)),
+                      suffixIcon: const Icon(
+                        Icons.key_outlined,
+                        color: Color(0xFF8B5E34),
+                      ),
                       fillColor: const Color(0xFFFDF6F0),
                       filled: true,
                       border: OutlineInputBorder(
@@ -339,14 +344,19 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Color(0xFF8B5E34), width: 2),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF8B5E34),
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
                   if (_supportsSecureStorage)
                     CheckboxListTile.adaptive(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                      ),
                       value: _storeInSecureStorage,
                       activeColor: const Color(0xFF8B5E34),
                       onChanged: (b) {
@@ -489,34 +499,37 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                 _recoveryKeyInputError = null;
                                 _recoveryKeyInputLoading = true;
                               });
-                              
+
                               // Progress tracking
                               void updateStep(String step) {
-                                if (mounted) setState(() => _currentStep = step);
+                                if (mounted)
+                                  setState(() => _currentStep = step);
                               }
-                              
+
                               try {
                                 final key = _recoveryKeyTextEditingController
                                     .text
                                     .trim();
                                 if (key.isEmpty) {
-                                  setState(() => _recoveryKeyInputLoading = false);
+                                  setState(
+                                    () => _recoveryKeyInputLoading = false,
+                                  );
                                   return;
                                 }
-                                
+
                                 // Step 1: Unlock with timeout
                                 updateStep('Validating key...');
-                                await bootstrap.newSsssKey!.unlock(
-                                  keyOrPassphrase: key,
-                                ).timeout(
-                                  const Duration(seconds: 30),
-                                  onTimeout: () {
-                                    throw TimeoutException(
-                                      'Recovery key validation timed out. Server may be slow.',
+                                await bootstrap.newSsssKey!
+                                    .unlock(keyOrPassphrase: key)
+                                    .timeout(
+                                      const Duration(seconds: 30),
+                                      onTimeout: () {
+                                        throw TimeoutException(
+                                          'Recovery key validation timed out. Server may be slow.',
+                                        );
+                                      },
                                     );
-                                  },
-                                );
-                                
+
                                 // Step 2: Open existing SSSS
                                 updateStep('Opening encrypted backup...');
                                 await bootstrap.openExistingSsss().timeout(
@@ -527,9 +540,9 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                     );
                                   },
                                 );
-                                
+
                                 Logs().d('SSSS unlocked');
-                                
+
                                 // Step 3: Self-sign if needed
                                 if (bootstrap.encryption.crossSigning.enabled) {
                                   updateStep('Setting up cross-signing...');
@@ -553,15 +566,19 @@ class BootstrapDialogState extends State<BootstrapDialog> {
                                 }
                               } on TimeoutException catch (e) {
                                 setState(
-                                  () => _recoveryKeyInputError = 
-                                    'Timeout: ${e.message}\n\nThe server is taking too long. Try again later or use "Transfer from another device".',
+                                  () => _recoveryKeyInputError =
+                                      'Timeout: ${e.message}\n\nThe server is taking too long. Try again later or use "Transfer from another device".',
                                 );
                               } on Exception catch (e) {
                                 // Handle specific cross-signing errors
                                 final errorMsg = e.toString();
-                                if (errorMsg.contains('Master or user keys not found')) {
+                                if (errorMsg.contains(
+                                  'Master or user keys not found',
+                                )) {
                                   // Keys don't exist yet, this is OK - just log and continue
-                                  Logs().w('Cross-signing keys not found, skipping self-sign');
+                                  Logs().w(
+                                    'Cross-signing keys not found, skipping self-sign',
+                                  );
                                   // Don't show error, just continue
                                 } else {
                                   rethrow;

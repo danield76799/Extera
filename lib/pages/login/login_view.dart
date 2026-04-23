@@ -39,7 +39,10 @@ class LoginView extends StatelessWidget {
                   child: SvgPicture.asset(
                     'assets/plusly_icon_white.svg',
                     height: 120,
-                    colorFilter: const ColorFilter.mode(Color(0xFF49AFC2), BlendMode.srcIn),
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF49AFC2),
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -57,7 +60,10 @@ class LoginView extends StatelessWidget {
                         ? null
                         : [AutofillHints.username],
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.account_box_outlined, color: Color(0xFF49AFC2)),
+                      prefixIcon: const Icon(
+                        Icons.account_box_outlined,
+                        color: Color(0xFF49AFC2),
+                      ),
                       errorText: controller.usernameError,
                       errorStyle: const TextStyle(color: Colors.orange),
                       hintText: '@username:domain',
@@ -82,7 +88,10 @@ class LoginView extends StatelessWidget {
                     obscureText: !controller.showPassword,
                     onSubmitted: (_) => controller.login(),
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.lock_outlined, color: Color(0xFF49AFC2)),
+                      prefixIcon: const Icon(
+                        Icons.lock_outlined,
+                        color: Color(0xFF49AFC2),
+                      ),
                       errorText: controller.passwordError,
                       errorStyle: const TextStyle(color: Colors.orange),
                       suffixIcon: IconButton(

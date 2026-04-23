@@ -118,6 +118,8 @@ dependencies:
   material_design_icons_flutter: ^7.0.7296
   open_file: ^3.5.11
 
+  html_unescape: any
+  fluffy_chat: any
 dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.3
@@ -131,6 +133,9 @@ dev_dependencies:
   msix: ^3.6.13
   translations_cleaner: ^0.1.0
 
+  hive_flutter: any
+  integration_test: any
+  fluffychat: any
 flutter_launcher_icons:
   image_path: "assets/logo.png"
   android: true

@@ -5,8 +5,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:matrix/matrix.dart';
 
-import 'package:Pulsly/config/app_config.dart';
-
 /// Model for a scheduled message
 class ScheduledMessage {
   final String id;
@@ -78,23 +76,25 @@ class ScheduledMessagesService {
   /// Load all scheduled messages from storage
   static Future<List<ScheduledMessage>> loadScheduledMessages() async {
     if (_cachedMessages != null) return List.from(_cachedMessages!);
-    
+
     try {
       final file = await _getStorageFile();
       if (!await file.exists()) {
         _cachedMessages = [];
         return [];
       }
-      
+
       final contents = await file.readAsString();
       final List<dynamic> jsonList = jsonDecode(contents);
       _cachedMessages = jsonList
-          .map((json) => ScheduledMessage.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) => ScheduledMessage.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
-      
+
       // Sort by scheduled time
       _cachedMessages!.sort((a, b) => a.scheduledAt.compareTo(b.scheduledAt));
-      
+
       return List.from(_cachedMessages!);
     } catch (e) {
       Logs().e('Failed to load scheduled messages', e);
@@ -119,7 +119,9 @@ class ScheduledMessagesService {
     await loadScheduledMessages();
     _cachedMessages!.add(message);
     await _saveScheduledMessages();
-    Logs().d('Scheduled message added: ${message.id} for room ${message.roomId}');
+    Logs().d(
+      'Scheduled message added: ${message.id} for room ${message.roomId}',
+    );
   }
 
   /// Remove a scheduled message (after it's sent or cancelled)
@@ -137,7 +139,9 @@ class ScheduledMessagesService {
   }
 
   /// Get scheduled messages for a specific room
-  static Future<List<ScheduledMessage>> getMessagesForRoom(String roomId) async {
+  static Future<List<ScheduledMessage>> getMessagesForRoom(
+    String roomId,
+  ) async {
     final messages = await loadScheduledMessages();
     return messages.where((m) => m.roomId == roomId && !m.isSent).toList();
   }
@@ -146,9 +150,9 @@ class ScheduledMessagesService {
   static Future<void> checkAndSendDueMessages(Client client) async {
     final pending = await getPendingMessages();
     final now = DateTime.now();
-    
+
     for (final message in pending) {
-      if (message.scheduledAt.isBefore(now) || 
+      if (message.scheduledAt.isBefore(now) ||
           message.scheduledAt.isAtSameMomentAs(now) ||
           message.scheduledAt.isBefore(now.add(const Duration(minutes: 1)))) {
         // Message is due - send it
@@ -158,7 +162,10 @@ class ScheduledMessagesService {
   }
 
   /// Send a single scheduled message
-  static Future<bool> _sendScheduledMessage(Client client, ScheduledMessage message) async {
+  static Future<bool> _sendScheduledMessage(
+    Client client,
+    ScheduledMessage message,
+  ) async {
     try {
       final room = client.getRoomById(message.roomId);
       if (room == null) {
@@ -172,8 +179,8 @@ class ScheduledMessagesService {
       if (body.isNotEmpty) {
         await room.sendTextEvent(
           body,
-          inReplyTo: message.replyEventId != null 
-              ? await room.getEventById(message.replyEventId!) 
+          inReplyTo: message.replyEventId != null
+              ? await room.getEventById(message.replyEventId!)
               : null,
         );
       } else {
@@ -184,7 +191,7 @@ class ScheduledMessagesService {
       // Mark as sent
       message.isSent = true;
       await _saveScheduledMessages();
-      
+
       Logs().d('Scheduled message sent successfully: ${message.id}');
       return true;
     } catch (e) {

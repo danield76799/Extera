@@ -25,9 +25,9 @@ class SettingsFeaturesController extends State<SettingsFeatures> {
       );
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Export failed: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Export failed: $e')));
     }
   }
 
@@ -45,9 +45,7 @@ class SettingsFeaturesController extends State<SettingsFeatures> {
 
     // Try default app folder first, fall back to file picker
     var data = await SettingsBackup.readFromAppFolder();
-    if (data == null) {
-      data = await SettingsBackup.pickAndRead();
-    }
+    data ??= await SettingsBackup.pickAndRead();
     if (data == null) return;
     if (!mounted) return;
 

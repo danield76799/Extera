@@ -135,7 +135,9 @@ class ClientChooserButton extends StatelessWidget {
                                 client.userID!.localpart!,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                              fontWeight: isActive
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
                               color: isActive ? const Color(0xFF49AFC2) : null,
                             ),
                           ),
@@ -143,7 +145,11 @@ class ClientChooserButton extends StatelessWidget {
                         if (isActive)
                           const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: Icon(Icons.check_circle, color: Color(0xFF49AFC2), size: 20),
+                            child: Icon(
+                              Icons.check_circle,
+                              color: Color(0xFF49AFC2),
+                              size: 20,
+                            ),
                           ),
                         IconButton(
                           icon: const Icon(Icons.edit_outlined, size: 18),

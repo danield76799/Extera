@@ -43,8 +43,12 @@ class ChatListItem extends StatelessWidget {
     // Check if this is a bridge room
     final isBridge = isBridgeRoom(room);
     final bridgeType = isBridge ? (getBridgeType(room) ?? 'other') : null;
-    final bridgeIcon = bridgeType != null ? getBridgeTypeIcon(bridgeType) : null;
-    final bridgeColor = bridgeType != null ? getBridgeTypeColor(bridgeType) : null;
+    final bridgeIcon = bridgeType != null
+        ? getBridgeTypeIcon(bridgeType)
+        : null;
+    final bridgeColor = bridgeType != null
+        ? getBridgeTypeColor(bridgeType)
+        : null;
 
     // Get last message preview
     final lastEvent = room.lastEvent;
@@ -68,8 +72,8 @@ class ChatListItem extends StatelessWidget {
         color: activeChat
             ? theme.colorScheme.primaryContainer
             : isHovering
-                ? theme.colorScheme.surfaceContainerHighest
-                : Colors.transparent,
+            ? theme.colorScheme.surfaceContainerHighest
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(12), // Consistent border-radius
         child: InkWell(
           onTap: onTap,
@@ -86,11 +90,7 @@ class ChatListItem extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Avatar(
-                      mxContent: room.avatar,
-                      size: 48,
-                      name: displayname,
-                    ),
+                    Avatar(mxContent: room.avatar, size: 48, name: displayname),
                     // Platform icon overlay (bottom-right)
                     if (bridgeIcon != null && bridgeColor != null)
                       Positioned(
@@ -150,7 +150,9 @@ class ChatListItem extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Text(
-                                unreadCount > 99 ? '99+' : unreadCount.toString(),
+                                unreadCount > 99
+                                    ? '99+'
+                                    : unreadCount.toString(),
                                 style: TextStyle(
                                   color: theme.colorScheme.onPrimary,
                                   fontSize: 12,
@@ -167,8 +169,12 @@ class ChatListItem extends StatelessWidget {
                           lastMessage,
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: isUnread ? FontWeight.w600 : FontWeight.normal,
-                            color: const Color(0xFF4A4A4A), // Darker gray #4A4A4A
+                            fontWeight: isUnread
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                            color: const Color(
+                              0xFF4A4A4A,
+                            ), // Darker gray #4A4A4A
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

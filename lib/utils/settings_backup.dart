@@ -13,7 +13,7 @@ class SettingsBackup {
   static Future<Map<String, dynamic>> export() async {
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys();
-    final Map<String, dynamic> result = {};
+    final result = <String, dynamic>{};
     for (final key in keys) {
       final value = prefs.get(key);
       if (value != null) {
@@ -59,10 +59,9 @@ class SettingsBackup {
     final tempDir = await getTemporaryDirectory();
     final file = File('${tempDir.path}/$_backupFileName');
     await file.writeAsString(jsonString);
-    await Share.shareXFiles(
-      [XFile(file.path)],
-      subject: 'Plusly Settings Backup',
-    );
+    await Share.shareXFiles([
+      XFile(file.path),
+    ], subject: 'Plusly Settings Backup');
   }
 
   static Future<Map<String, dynamic>?> pickAndRead() async {

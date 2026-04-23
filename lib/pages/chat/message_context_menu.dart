@@ -125,10 +125,10 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
     final recentEmojis = controller.localRecentEmojis.isNotEmpty
         ? controller.localRecentEmojis.take(5).toList()
         : client.recentEmojis.entries
-            .sortedByCompare((element) => element.value, (a, b) => b - a)
-            .map((entry) => entry.key)
-            .take(5)
-            .toList();
+              .sortedByCompare((element) => element.value, (a, b) => b - a)
+              .map((entry) => entry.key)
+              .take(5)
+              .toList();
 
     final receipts = room
         .getReceipts(timeline!, eventId: event.eventId)
@@ -242,10 +242,20 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                                       : () {
                                           controller.closeMessageMenu();
                                           // Add to recent emojis when sending reaction
-                                          controller.localRecentEmojis.remove(emoji);
-                                          controller.localRecentEmojis.insert(0, emoji);
-                                          if (controller.localRecentEmojis.length > 50) {
-                                            controller.localRecentEmojis = controller.localRecentEmojis.sublist(0, 50);
+                                          controller.localRecentEmojis.remove(
+                                            emoji,
+                                          );
+                                          controller.localRecentEmojis.insert(
+                                            0,
+                                            emoji,
+                                          );
+                                          if (controller
+                                                  .localRecentEmojis
+                                                  .length >
+                                              50) {
+                                            controller.localRecentEmojis =
+                                                controller.localRecentEmojis
+                                                    .sublist(0, 50);
                                           }
                                           controller.saveLocalRecentEmojis();
                                           // Also try to add to SDK
@@ -395,8 +405,11 @@ class _MessageContextMenuState extends State<MessageContextMenu> {
                                   // Add to recent emojis when sending reaction
                                   controller.localRecentEmojis.remove(emoji);
                                   controller.localRecentEmojis.insert(0, emoji);
-                                  if (controller.localRecentEmojis.length > 50) {
-                                    controller.localRecentEmojis = controller.localRecentEmojis.sublist(0, 50);
+                                  if (controller.localRecentEmojis.length >
+                                      50) {
+                                    controller.localRecentEmojis = controller
+                                        .localRecentEmojis
+                                        .sublist(0, 50);
                                   }
                                   await controller.saveLocalRecentEmojis();
                                   // Also try to add to SDK

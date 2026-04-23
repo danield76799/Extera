@@ -105,7 +105,7 @@ class ExifCleaner {
     if (bytes.length < 12) return false;
 
     // Check for 'ftyp' at position 4
-    var hasFtyp =
+    final hasFtyp =
         bytes[4] == 0x66 && // f
         bytes[5] == 0x74 && // t
         bytes[6] == 0x79 && // y
@@ -114,7 +114,7 @@ class ExifCleaner {
     if (!hasFtyp) return false;
 
     // Check for HEIC brand variants
-    var heicBrands = <List<int>>[
+    final heicBrands = <List<int>>[
       [0x68, 0x65, 0x69, 0x63], // heic
       [0x68, 0x65, 0x69, 0x78], // heix
       [0x68, 0x65, 0x76, 0x63], // hevc

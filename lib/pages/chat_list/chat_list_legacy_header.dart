@@ -51,8 +51,10 @@ class ChatListLegacyHeader extends StatelessWidget
                   textInputAction: TextInputAction.search,
                   onChanged: (text) =>
                       controller.onSearchEnter(text, globalSearch: false),
-                  onSubmitted: (text) =>
-                      controller.onSearchEnter(text, globalSearch: globalSearch),
+                  onSubmitted: (text) => controller.onSearchEnter(
+                    text,
+                    globalSearch: globalSearch,
+                  ),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: theme.colorScheme.secondaryContainer,
@@ -72,19 +74,20 @@ class ChatListLegacyHeader extends StatelessWidget
                     ),
                     prefixIcon: hide
                         ? controller.isSearchMode
-                            ? IconButton(
-                                tooltip: L10n.of(context).cancel,
-                                icon: const Icon(Icons.close_outlined),
-                                onPressed: controller.cancelSearch,
-                                color: theme.colorScheme.onSecondaryContainer,
-                              )
-                            : IconButton(
-                                onPressed: controller.startSearch,
-                                icon: Icon(
-                                  Icons.search_outlined,
+                              ? IconButton(
+                                  tooltip: L10n.of(context).cancel,
+                                  icon: const Icon(Icons.close_outlined),
+                                  onPressed: controller.cancelSearch,
                                   color: theme.colorScheme.onSecondaryContainer,
-                                ),
-                              )
+                                )
+                              : IconButton(
+                                  onPressed: controller.startSearch,
+                                  icon: Icon(
+                                    Icons.search_outlined,
+                                    color:
+                                        theme.colorScheme.onSecondaryContainer,
+                                  ),
+                                )
                         : Container(
                             margin: const EdgeInsets.all(12),
                             width: 8,
@@ -103,33 +106,38 @@ class ChatListLegacyHeader extends StatelessWidget
                           ),
                     suffixIcon: controller.isSearchMode && globalSearch
                         ? controller.isSearching
-                            ? const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 10.0,
-                                  horizontal: 12,
-                                ),
-                                child: SizedBox.square(
-                                  dimension: 24,
-                                  child: CircularProgressIndicator.adaptive(
-                                    strokeWidth: 2,
+                              ? const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                    horizontal: 12,
                                   ),
-                                ),
-                              )
-                            : TextButton.icon(
-                                onPressed: controller.setServer,
-                                style: TextButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(99),
+                                  child: SizedBox.square(
+                                    dimension: 24,
+                                    child: CircularProgressIndicator.adaptive(
+                                      strokeWidth: 2,
+                                    ),
                                   ),
-                                  textStyle: const TextStyle(fontSize: 12),
-                                ),
-                                icon: const Icon(Icons.edit_outlined, size: 16),
-                                label: Text(
-                                  controller.searchServer ??
-                                      Matrix.of(context).client.homeserver!.host,
-                                  maxLines: 2,
-                                ),
-                              )
+                                )
+                              : TextButton.icon(
+                                  onPressed: controller.setServer,
+                                  style: TextButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(99),
+                                    ),
+                                    textStyle: const TextStyle(fontSize: 12),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.edit_outlined,
+                                    size: 16,
+                                  ),
+                                  label: Text(
+                                    controller.searchServer ??
+                                        Matrix.of(
+                                          context,
+                                        ).client.homeserver!.host,
+                                    maxLines: 2,
+                                  ),
+                                )
                         : null,
                   ),
                 );

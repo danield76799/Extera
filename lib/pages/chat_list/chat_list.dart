@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +16,6 @@ import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/pages/chat_list/chat_list_view.dart';
 import 'package:Pulsly/pages/chat_list/invite_dialog.dart';
 import 'package:Pulsly/utils/adaptive_bottom_sheet.dart';
-import 'package:Pulsly/utils/check_updates.dart';
 import 'package:Pulsly/utils/localized_exception_extension.dart';
 import 'package:Pulsly/utils/matrix_sdk_extensions/matrix_locals.dart';
 import 'package:Pulsly/utils/platform_infos.dart';
@@ -35,13 +34,7 @@ import '../../utils/bridge_utils.dart';
 import '../../utils/url_launcher.dart';
 import '../../widgets/matrix.dart';
 
-enum PopupMenuAction {
-  settings,
-  invite,
-  newGroup,
-  newSpace,
-  archive,
-}
+enum PopupMenuAction { settings, invite, newGroup, newSpace, archive }
 
 enum ActiveFilter { allChats, messages, groups, unread, spaces, people }
 
@@ -177,23 +170,25 @@ class ChatListController extends State<ChatList>
 
   Set<String> allBridgeTypes = {};
   Set<String> visibleBridgeTypes = {};
-  
+
   // Cached getter voor ongelezen counts - 2 second cache
   Map<String, int> get unreadBridgeCounts {
     final now = DateTime.now();
     if (now.difference(_lastUnreadCalc) < Duration(seconds: 2)) {
       return _cachedUnreadCounts;
     }
-    
+
     final client = Matrix.of(context).client;
     final counts = <String, int>{};
     for (final room in client.rooms) {
       if (!room.isSpace && room.isUnreadOrInvited) {
-        final bridgeType = isBridgeRoom(room) ? (getBridgeType(room) ?? 'other') : 'matrix';
+        final bridgeType = isBridgeRoom(room)
+            ? (getBridgeType(room) ?? 'other')
+            : 'matrix';
         counts[bridgeType] = (counts[bridgeType] ?? 0) + 1;
       }
     }
-    
+
     _cachedUnreadCounts = counts;
     _lastUnreadCalc = now;
     return counts;
@@ -208,7 +203,7 @@ class ChatListController extends State<ChatList>
     if (DateTime.now().difference(_lastBridgeSync) < Duration(seconds: 5)) {
       return;
     }
-    
+
     final client = Matrix.of(context).client;
     final hasMatrixRooms = client.rooms.any((room) => !isBridgeRoom(room));
     final detectedTypes = client.rooms
@@ -251,8 +246,7 @@ class ChatListController extends State<ChatList>
             (AppSettings.showSpaceRoomsInGlobalList.value ||
                 room.spaceParents.isEmpty);
       case .unread:
-        return (room) =>
-            room.isUnreadOrInvited && _isBridgeTypeVisible(room);
+        return (room) => room.isUnreadOrInvited && _isBridgeTypeVisible(room);
       case .spaces:
         return (room) => room.isSpace;
       case .people:
@@ -275,10 +269,10 @@ class ChatListController extends State<ChatList>
         _lastActiveFilter == activeFilter) {
       return _cachedFilteredRooms;
     }
-    
-    _cachedFilteredRooms = Matrix.of(context).client.rooms
-        .where(getRoomFilterByActiveFilter(activeFilter))
-        .toList();
+
+    _cachedFilteredRooms = Matrix.of(
+      context,
+    ).client.rooms.where(getRoomFilterByActiveFilter(activeFilter)).toList();
     _lastFilterCalc = now;
     _lastActiveFilter = activeFilter;
     return _cachedFilteredRooms;

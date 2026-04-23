@@ -16,7 +16,7 @@ class ChatListShortcuts extends StatefulWidget {
   final void Function() onNextChat;
   final Widget child;
 
-  ChatListShortcuts({
+  const ChatListShortcuts({
     required this.onPreviousChat,
     required this.onNextChat,
     required this.child,

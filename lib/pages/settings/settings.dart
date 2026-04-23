@@ -6,7 +6,6 @@ import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:matrix/encryption.dart';
 import 'package:matrix/matrix.dart';
 
 import 'package:Pulsly/config/app_config.dart';
@@ -355,8 +354,8 @@ class SettingsController extends State<Settings> {
         await client.encryption?.crossSigning.isCached() ?? false;
     final needsBootstrap =
         client.encryption?.keyManager.isCached() == false ||
-            client.encryption?.crossSigning.enabled == false ||
-            crossSigning == false;
+        client.encryption?.crossSigning.enabled == false ||
+        crossSigning == false;
     final isUnknownSession = client.isUnknownSession;
     setState(() {
       showChatBackupBanner = needsBootstrap || isUnknownSession;
@@ -383,7 +382,8 @@ class SettingsController extends State<Settings> {
       await showOkAlertDialog(
         context: context,
         title: 'Encryption not active',
-        message: 'E2EE is not enabled on this account. Recovery key cannot be used.',
+        message:
+            'E2EE is not enabled on this account. Recovery key cannot be used.',
         okLabel: L10n.of(context).ok,
       );
       return;
@@ -407,13 +407,17 @@ class SettingsController extends State<Settings> {
         final bootstrap = matrix.client.encryption!.bootstrap();
         bootstrap.useExistingSsss(true);
         if (bootstrap.newSsssKey == null) {
-          throw Exception('Geen recovery key gevonden in je account. Is E2EE ingesteld?');
+          throw Exception(
+            'Geen recovery key gevonden in je account. Is E2EE ingesteld?',
+          );
         }
         await bootstrap.newSsssKey!.unlock(keyOrPassphrase: recoveryKey);
         await bootstrap.openExistingSsss();
         Logs().d('SSSS unlocked via settings');
         if (bootstrap.encryption.crossSigning.enabled) {
-          await bootstrap.client.encryption!.crossSigning.selfSign(recoveryKey: recoveryKey);
+          await bootstrap.client.encryption!.crossSigning.selfSign(
+            recoveryKey: recoveryKey,
+          );
           Logs().d('Successful selfsigned via settings');
         }
       },

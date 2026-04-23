@@ -290,7 +290,7 @@ class _EmojiImportPreviewState extends State<_EmojiImportPreview> {
     );
   }
 
-  _setRenderError() {
+  void _setRenderError() {
     hasErrorNotifier.value = true;
     widget.onRemove.call();
   }

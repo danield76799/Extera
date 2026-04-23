@@ -436,7 +436,8 @@ class ChatInputRow extends StatelessWidget {
                         : IconButton(
                             tooltip: L10n.of(context).send,
                             onPressed: controller.send,
-                            onLongPress: controller.sendController.text.isNotEmpty
+                            onLongPress:
+                                controller.sendController.text.isNotEmpty
                                 ? () => controller.sendScheduleAction()
                                 : null,
                             style: IconButton.styleFrom(

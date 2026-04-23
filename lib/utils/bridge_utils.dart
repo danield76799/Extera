@@ -62,9 +62,7 @@ Color getBridgeTypeColor(String? type) {
 }
 
 /// Known bridge bot suffixes/patterns for common Matrix bridges
-const _excludedBotPatterns = [
-  'extera',
-];
+const _excludedBotPatterns = ['extera'];
 
 const _bridgePatterns = [
   // Generic bot patterns
@@ -172,8 +170,8 @@ bool isBridgeRoom(Room room) {
   }
 
   // Check room name and topic for bridge bot patterns as fallback
-  final roomName = room.name?.toLowerCase() ?? '';
-  final roomTopic = room.topic?.toLowerCase() ?? '';
+  final roomName = room.name.toLowerCase() ?? '';
+  final roomTopic = room.topic.toLowerCase() ?? '';
   final bridgeNamePatterns = [
     'whatsapp',
     'telegram',
@@ -182,13 +180,14 @@ bool isBridgeRoom(Room room) {
     'slack',
     'beeper',
   ];
-  if (bridgeNamePatterns.any((pattern) =>
-      roomName.contains(pattern) || roomTopic.contains(pattern))) {
+  if (bridgeNamePatterns.any(
+    (pattern) => roomName.contains(pattern) || roomTopic.contains(pattern),
+  )) {
     return true;
   }
 
   // Check canonical alias for common bridge portal patterns
-  final canonicalAlias = room.canonicalAlias?.toLowerCase() ?? '';
+  final canonicalAlias = room.canonicalAlias.toLowerCase() ?? '';
   final aliasPatterns = [
     'telegram_',
     'discord_',
@@ -222,27 +221,40 @@ bool isBridgeRoom(Room room) {
 String? getBridgeType(Room room) {
   // Only check directChatMatrixID for actual bridge bot patterns
   final userId = room.directChatMatrixID?.toLowerCase() ?? '';
-  final roomName = room.name?.toLowerCase() ?? '';
-  final roomTopic = room.topic?.toLowerCase() ?? '';
+  final roomName = room.name.toLowerCase() ?? '';
+  final roomTopic = room.topic.toLowerCase() ?? '';
 
   // WhatsApp bridge patterns - be specific to avoid false positives
-  if (userId.contains('wa-bot') || userId.contains('whappbot') || userId.contains('whatsapp_') || userId.contains('bot.whatsapp')) {
+  if (userId.contains('wa-bot') ||
+      userId.contains('whappbot') ||
+      userId.contains('whatsapp_') ||
+      userId.contains('bot.whatsapp')) {
     return 'whatsapp';
   }
   // Telegram bridge patterns
-  if (userId.contains('telegram-bot') || userId.contains('mautrix-telegram') || userId.contains('tgbot') || userId.contains('bot.telegram') || userId.contains('telegram_')) {
+  if (userId.contains('telegram-bot') ||
+      userId.contains('mautrix-telegram') ||
+      userId.contains('tgbot') ||
+      userId.contains('bot.telegram') ||
+      userId.contains('telegram_')) {
     return 'telegram';
   }
   // Signal bridge patterns
-  if (userId.contains('signal-bot') || userId.contains('bot.signal') || userId.contains('signal_')) {
+  if (userId.contains('signal-bot') ||
+      userId.contains('bot.signal') ||
+      userId.contains('signal_')) {
     return 'signal';
   }
   // Discord bridge patterns
-  if (userId.contains('discord-bot') || userId.contains('bot.discord') || userId.contains('discord_')) {
+  if (userId.contains('discord-bot') ||
+      userId.contains('bot.discord') ||
+      userId.contains('discord_')) {
     return 'discord';
   }
   // Slack bridge patterns
-  if (userId.contains('slack-bot') || userId.contains('bot.slack') || userId.contains('slack_')) {
+  if (userId.contains('slack-bot') ||
+      userId.contains('bot.slack') ||
+      userId.contains('slack_')) {
     return 'slack';
   }
   // Other bridges
@@ -265,7 +277,7 @@ String? getBridgeType(Room room) {
   }
 
   // Check canonical alias for portal patterns
-  final canonicalAlias = room.canonicalAlias?.toLowerCase() ?? '';
+  final canonicalAlias = room.canonicalAlias.toLowerCase() ?? '';
   if (canonicalAlias.contains('whatsapp')) return 'whatsapp';
   if (canonicalAlias.contains('telegram')) return 'telegram';
   if (canonicalAlias.contains('signal')) return 'signal';
@@ -275,7 +287,8 @@ String? getBridgeType(Room room) {
   // Check room creator for bridge bot type
   final createEvent = room.getState(EventTypes.RoomCreate);
   if (createEvent != null) {
-    final creator = createEvent.content['creator']?.toString().toLowerCase() ?? '';
+    final creator =
+        createEvent.content['creator']?.toString().toLowerCase() ?? '';
     if (creator.contains('whatsapp')) return 'whatsapp';
     if (creator.contains('telegram')) return 'telegram';
     if (creator.contains('signal')) return 'signal';
@@ -302,7 +315,8 @@ String? getBridgeType(Room room) {
     if (stateEvent != null) {
       // Try to extract bridge type from content
       final content = stateEvent.content;
-      final bridgeName = content['bridge_name'] ?? content['name'] ?? content['service'];
+      final bridgeName =
+          content['bridge_name'] ?? content['name'] ?? content['service'];
       if (bridgeName != null) {
         return bridgeName.toString().toLowerCase();
       }

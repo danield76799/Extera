@@ -132,9 +132,7 @@ class SendLaterDialogState extends State<SendLaterDialog> {
   Future<void> _scheduleMessage() async {
     if (_selected == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select date and time'),
-        ),
+        const SnackBar(content: Text('Please select date and time')),
       );
       return;
     }
@@ -142,31 +140,26 @@ class SendLaterDialogState extends State<SendLaterDialog> {
     final now = DateTime.now();
     if (!_selected!.isAfter(now)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Selected time is in the past'),
-        ),
+        const SnackBar(content: Text('Selected time is in the past')),
       );
       return;
     }
 
     final text = _textController.text.trim();
     if (text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a message'),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please enter a message')));
       return;
     }
 
     // Build message content
-    final messageContent = widget.content ?? {
-      'msgtype': 'm.text',
-      'body': text,
-    };
+    final messageContent =
+        widget.content ?? {'msgtype': 'm.text', 'body': text};
 
     // Generate a unique ID for this scheduled message
-    final id = 'sched_${DateTime.now().millisecondsSinceEpoch}_${_generateRandomId()}';
+    final id =
+        'sched_${DateTime.now().millisecondsSinceEpoch}_${_generateRandomId()}';
 
     // Create the scheduled message
     final scheduledMessage = ScheduledMessage(
@@ -187,9 +180,7 @@ class SendLaterDialogState extends State<SendLaterDialog> {
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            'Message scheduled for ${_formatSelected()}',
-          ),
+          content: Text('Message scheduled for ${_formatSelected()}'),
           duration: const Duration(seconds: 3),
         ),
       );
@@ -198,7 +189,8 @@ class SendLaterDialogState extends State<SendLaterDialog> {
   }
 
   String _generateRandomId() {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const chars =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     final random = Random.secure();
     return List.generate(8, (_) => chars[random.nextInt(chars.length)]).join();
   }

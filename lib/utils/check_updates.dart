@@ -29,8 +29,8 @@ class GitHubRelease {
   });
 
   factory GitHubRelease.fromJson(Map<String, dynamic> json) {
-    String apkUrl = '';
-    String browserUrl = '';
+    var apkUrl = '';
+    var browserUrl = '';
 
     // Find the first APK asset
     final assets = json['assets'] as List<dynamic>? ?? [];
@@ -43,9 +43,8 @@ class GitHubRelease {
     }
 
     // Fall back to tarball/zipball URL if no APK found
-    browserUrl = json['tarball_url'] as String? ??
-                 json['zipball_url'] as String? ??
-                 '';
+    browserUrl =
+        json['tarball_url'] as String? ?? json['zipball_url'] as String? ?? '';
 
     return GitHubRelease(
       tagName: json['tag_name'] as String? ?? '',
@@ -68,7 +67,7 @@ Future<GitHubRelease?> getLatestRelease({bool forceRefresh = false}) async {
       final prefs = await SharedPreferences.getInstance();
       final cachedData = prefs.getString(cacheKey);
       final cachedTime = prefs.getInt(cacheTimeKey);
-      
+
       if (cachedData != null && cachedTime != null) {
         final cacheAge = DateTime.now().millisecondsSinceEpoch - cachedTime;
         if (cacheAge < cacheDuration.inMilliseconds) {
@@ -96,8 +95,10 @@ Future<GitHubRelease?> getLatestRelease({bool forceRefresh = false}) async {
     );
 
     if (response.statusCode == 200) {
-      final release = GitHubRelease.fromJson(response.data as Map<String, dynamic>);
-      
+      final release = GitHubRelease.fromJson(
+        response.data as Map<String, dynamic>,
+      );
+
       // Cache the response
       try {
         final prefs = await SharedPreferences.getInstance();
@@ -106,13 +107,16 @@ Future<GitHubRelease?> getLatestRelease({bool forceRefresh = false}) async {
       } catch (e) {
         Logs().v('Failed to cache release info');
       }
-      
+
       return release;
     } else {
       Logs().w('GitHub API returned status ${response.statusCode}');
     }
   } on DioException catch (e) {
-    Logs().e('Failed to fetch GitHub release', 'DioError: ${e.type} - ${e.message}');
+    Logs().e(
+      'Failed to fetch GitHub release',
+      'DioError: ${e.type} - ${e.message}',
+    );
   } catch (e) {
     Logs().e('Failed to fetch GitHub release', e);
   }
@@ -130,7 +134,7 @@ bool isNewerVersion(String latest, String current) {
   // Extract the build number for comparison
   final latestBuildMatch = RegExp(r'(\d+)$').firstMatch(latest);
   final currentBuildMatch = RegExp(r'(\d+)$').firstMatch(current);
-  
+
   if (latestBuildMatch != null && currentBuildMatch != null) {
     final latestBuild = int.tryParse(latestBuildMatch.group(1) ?? '0') ?? 0;
     final currentBuild = int.tryParse(currentBuildMatch.group(1) ?? '0') ?? 0;
@@ -138,8 +142,14 @@ bool isNewerVersion(String latest, String current) {
   }
 
   // Fall back to semantic version comparison
-  final latestParts = latest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-  final currentParts = current.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+  final latestParts = latest
+      .split('.')
+      .map((e) => int.tryParse(e) ?? 0)
+      .toList();
+  final currentParts = current
+      .split('.')
+      .map((e) => int.tryParse(e) ?? 0)
+      .toList();
 
   // Pad with zeros
   while (latestParts.length < currentParts.length) {
@@ -177,7 +187,9 @@ Future<void> downloadAndInstallApk(BuildContext context, String url) async {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircularProgressIndicator(value: progress > 0 ? progress : null),
+                  CircularProgressIndicator(
+                    value: progress > 0 ? progress : null,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     statusText,
@@ -220,7 +232,8 @@ Future<void> downloadAndInstallApk(BuildContext context, String url) async {
           progress = received / total;
           statusText = 'Downloaden... ${(progress * 100).toStringAsFixed(0)}%';
         } else {
-          statusText = 'Downloaden... ${(received / 1024 / 1024).toStringAsFixed(1)} MB';
+          statusText =
+              'Downloaden... ${(received / 1024 / 1024).toStringAsFixed(1)} MB';
         }
         // Force dialog rebuild
         if (context.mounted) {
@@ -259,13 +272,12 @@ Future<void> downloadAndInstallApk(BuildContext context, String url) async {
     if (result.type != ResultType.done) {
       throw Exception('Kon APK niet openen: ${result.message}');
     }
-
   } on DioException catch (e) {
     // Handle Dio specific errors
     if (context.mounted && Navigator.of(context).canPop()) {
       Navigator.of(context).pop();
     }
-    
+
     String errorMsg;
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
@@ -282,16 +294,13 @@ Future<void> downloadAndInstallApk(BuildContext context, String url) async {
       default:
         errorMsg = 'Download mislukt: ${e.message}';
     }
-    
+
     if (context.mounted) {
       scaffold.showSnackBar(
         SnackBar(
           content: Text(errorMsg),
           duration: const Duration(seconds: 5),
-          action: SnackBarAction(
-            label: 'OK',
-            onPressed: () {},
-          ),
+          action: SnackBarAction(label: 'OK', onPressed: () {}),
         ),
       );
     }
@@ -311,8 +320,9 @@ Future<void> downloadAndInstallApk(BuildContext context, String url) async {
 }
 
 void checkForUpdates(BuildContext context) async {
-  if (!AppSettings.checkForUpdates.value || AppConfig.alreadyCheckedUpdates)
+  if (!AppSettings.checkForUpdates.value || AppConfig.alreadyCheckedUpdates) {
     return;
+  }
 
   Logs().v('Checking updates via GitHub Releases...');
 
@@ -370,7 +380,9 @@ void checkForUpdates(BuildContext context) async {
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
                   Navigator.of(ctx).pop();
-                  launchUrlString('https://github.com/danield76799/Plusly/releases');
+                  launchUrlString(
+                    'https://github.com/danield76799/Plusly/releases',
+                  );
                 },
               ),
               if (release.browserDownloadUrl.isNotEmpty)

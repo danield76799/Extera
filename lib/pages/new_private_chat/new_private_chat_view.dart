@@ -125,14 +125,12 @@ class NewPrivateChatView extends StatelessWidget {
                     ),
                   ),
                 ),
-                ...Matrix.of(context)
-                    .client
-                    .rooms
+                ...Matrix.of(context).client.rooms
                     .where(
                       (room) =>
-                          room.name?.toLowerCase().contains(
-                                controller.controller.text.toLowerCase(),
-                              ) ??
+                          room.name.toLowerCase().contains(
+                            controller.controller.text.toLowerCase(),
+                          ) ??
                           false,
                     )
                     .map(
@@ -142,9 +140,7 @@ class NewPrivateChatView extends StatelessWidget {
                           mxContent: room.avatar,
                         ),
                         title: Text(room.getLocalizedDisplayname()),
-                        subtitle: room.canonicalAlias != null
-                            ? Text(room.canonicalAlias!)
-                            : null,
+                        subtitle: Text(room.canonicalAlias),
                         onTap: () => context.go('/rooms/${room.id}'),
                       ),
                     ),

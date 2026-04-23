@@ -83,11 +83,14 @@ class ChatSearchView extends StatelessWidget {
                               ? 'Sender: ${room.unsafeGetUserFromMemoryOrFallback(controller.filterSenderId!).calcDisplayname()}'
                               : 'Sender: All',
                           icon: Icons.person_outline,
-                          onPressed: () => _showSenderPicker(context, room, controller),
-                          onClear: controller.filterSenderId != null ? () {
-                            controller.filterSenderId = null;
-                            controller.restartSearch();
-                          } : null,
+                          onPressed: () =>
+                              _showSenderPicker(context, room, controller),
+                          onClear: controller.filterSenderId != null
+                              ? () {
+                                  controller.filterSenderId = null;
+                                  controller.restartSearch();
+                                }
+                              : null,
                         ),
                         const SizedBox(width: 8),
                         _FilterChip(
@@ -95,11 +98,17 @@ class ChatSearchView extends StatelessWidget {
                               ? 'From: ${_formatDate(controller.filterFromDate!)}'
                               : 'From date',
                           icon: Icons.calendar_today_outlined,
-                          onPressed: () => _showDatePicker(context, controller, isFrom: true),
-                          onClear: controller.filterFromDate != null ? () {
-                            controller.filterFromDate = null;
-                            controller.restartSearch();
-                          } : null,
+                          onPressed: () => _showDatePicker(
+                            context,
+                            controller,
+                            isFrom: true,
+                          ),
+                          onClear: controller.filterFromDate != null
+                              ? () {
+                                  controller.filterFromDate = null;
+                                  controller.restartSearch();
+                                }
+                              : null,
                         ),
                         const SizedBox(width: 8),
                         _FilterChip(
@@ -107,11 +116,17 @@ class ChatSearchView extends StatelessWidget {
                               ? 'To: ${_formatDate(controller.filterToDate!)}'
                               : 'To date',
                           icon: Icons.calendar_today_outlined,
-                          onPressed: () => _showDatePicker(context, controller, isFrom: false),
-                          onClear: controller.filterToDate != null ? () {
-                            controller.filterToDate = null;
-                            controller.restartSearch();
-                          } : null,
+                          onPressed: () => _showDatePicker(
+                            context,
+                            controller,
+                            isFrom: false,
+                          ),
+                          onClear: controller.filterToDate != null
+                              ? () {
+                                  controller.filterToDate = null;
+                                  controller.restartSearch();
+                                }
+                              : null,
                         ),
                       ],
                     ),
@@ -158,7 +173,11 @@ class ChatSearchView extends StatelessWidget {
 
   String _formatDate(DateTime d) => '${d.day}/${d.month}/${d.year}';
 
-  Future<void> _showSenderPicker(BuildContext context, Room room, ChatSearchController controller) async {
+  Future<void> _showSenderPicker(
+    BuildContext context,
+    Room room,
+    ChatSearchController controller,
+  ) async {
     List<User> members;
     try {
       members = await room.requestParticipants();
@@ -167,7 +186,11 @@ class ChatSearchView extends StatelessWidget {
     }
     if (!context.mounted) return;
 
-    final senders = members.map((m) => m.stateKey).whereType<String>().toSet().toList();
+    final senders = members
+        .map((m) => m.stateKey)
+        .whereType<String>()
+        .toSet()
+        .toList();
 
     await showModalBottomSheet(
       context: context,
@@ -193,13 +216,19 @@ class ChatSearchView extends StatelessWidget {
               child: ListView.builder(
                 itemCount: senders.length,
                 itemBuilder: (ctx, i) {
-                  final user = room.unsafeGetUserFromMemoryOrFallback(senders[i]);
+                  final user = room.unsafeGetUserFromMemoryOrFallback(
+                    senders[i],
+                  );
                   final name = user.calcDisplayname();
                   final selected = senders[i] == controller.filterSenderId;
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: selected ? Theme.of(ctx).colorScheme.primary : Theme.of(ctx).colorScheme.surfaceContainerHighest,
-                      child: Text(name.isNotEmpty ? name[0].toUpperCase() : '?'),
+                      backgroundColor: selected
+                          ? Theme.of(ctx).colorScheme.primary
+                          : Theme.of(ctx).colorScheme.surfaceContainerHighest,
+                      child: Text(
+                        name.isNotEmpty ? name[0].toUpperCase() : '?',
+                      ),
                     ),
                     title: Text(name),
                     trailing: selected ? const Icon(Icons.check) : null,
@@ -218,7 +247,11 @@ class ChatSearchView extends StatelessWidget {
     );
   }
 
-  Future<void> _showDatePicker(BuildContext context, ChatSearchController controller, {required bool isFrom}) async {
+  Future<void> _showDatePicker(
+    BuildContext context,
+    ChatSearchController controller, {
+    required bool isFrom,
+  }) async {
     final initial = isFrom
         ? (controller.filterFromDate ?? DateTime.now())
         : (controller.filterToDate ?? DateTime.now());
@@ -260,7 +293,9 @@ class _FilterChip extends StatelessWidget {
     final isActive = onClear != null;
 
     return Material(
-      color: isActive ? theme.colorScheme.primaryContainer : theme.colorScheme.surfaceContainerHighest,
+      color: isActive
+          ? theme.colorScheme.primaryContainer
+          : theme.colorScheme.surfaceContainerHighest,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
@@ -270,14 +305,32 @@ class _FilterChip extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 16, color: isActive ? theme.colorScheme.onPrimaryContainer : theme.colorScheme.onSurfaceVariant),
+              Icon(
+                icon,
+                size: 16,
+                color: isActive
+                    ? theme.colorScheme.onPrimaryContainer
+                    : theme.colorScheme.onSurfaceVariant,
+              ),
               const SizedBox(width: 4),
-              Text(label, style: TextStyle(fontSize: 12, color: isActive ? theme.colorScheme.onPrimaryContainer : theme.colorScheme.onSurfaceVariant)),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: isActive
+                      ? theme.colorScheme.onPrimaryContainer
+                      : theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
               if (onClear != null) ...[
                 const SizedBox(width: 4),
                 GestureDetector(
                   onTap: onClear,
-                  child: Icon(Icons.close, size: 14, color: theme.colorScheme.onPrimaryContainer),
+                  child: Icon(
+                    Icons.close,
+                    size: 14,
+                    color: theme.colorScheme.onPrimaryContainer,
+                  ),
                 ),
               ],
             ],

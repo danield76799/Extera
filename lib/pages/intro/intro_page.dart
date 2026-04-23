@@ -14,10 +14,10 @@ import 'package:Pulsly/widgets/matrix.dart';
 
 /// Plusly theme colors for branding pages
 class PluslyColors {
-  static const bgColor     = Color(0xFF0a0a0f);  // dark background
-  static const textColor   = Color(0xFFFFFFFF);  // white text
-  static const accentColor = Color(0xFF40E0D0);  // turquoise
-  static const secondaryColor = Color(0xFF00B4A6);  // dark turquoise
+  static const bgColor = Color(0xFF0a0a0f); // dark background
+  static const textColor = Color(0xFFFFFFFF); // white text
+  static const accentColor = Color(0xFF40E0D0); // turquoise
+  static const secondaryColor = Color(0xFF00B4A6); // dark turquoise
 }
 
 class IntroPage extends StatelessWidget {
@@ -43,7 +43,7 @@ class IntroPage extends StatelessWidget {
           onSecondary: PluslyColors.textColor,
         ),
         textTheme: const TextTheme(
-          bodyLarge:  TextStyle(color: PluslyColors.textColor),
+          bodyLarge: TextStyle(color: PluslyColors.textColor),
           bodyMedium: TextStyle(color: PluslyColors.textColor),
           labelLarge: TextStyle(color: PluslyColors.bgColor),
         ),
@@ -130,13 +130,17 @@ class IntroPage extends StatelessWidget {
               builder: (context, constraints) {
                 return SingleChildScrollView(
                   child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
                     child: IntrinsicHeight(
                       child: Column(
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
                             child: Hero(
                               tag: 'info-logo',
                               child: Image.asset(
@@ -147,7 +151,9 @@ class IntroPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 32),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32.0,
+                            ),
                             child: SelectableLinkify(
                               text: L10n.of(context).appIntro,
                               textScaleFactor: MediaQuery.textScalerOf(
@@ -172,17 +178,26 @@ class IntroPage extends StatelessWidget {
                                   onPressed: () => context.go(
                                     '${GoRouterState.of(context).uri.path}/sign_up',
                                   ),
-                                  child: Text(L10n.of(context).createNewAccount),
+                                  child: Text(
+                                    L10n.of(context).createNewAccount,
+                                  ),
                                 ),
                                 const SizedBox(height: 16),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: PluslyColors.bgColor,
                                     foregroundColor: PluslyColors.accentColor,
-                                    side: const BorderSide(color: PluslyColors.accentColor),
-                                    minimumSize: const Size(double.infinity, 56),
+                                    side: const BorderSide(
+                                      color: PluslyColors.accentColor,
+                                    ),
+                                    minimumSize: const Size(
+                                      double.infinity,
+                                      56,
+                                    ),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                                      borderRadius: BorderRadius.circular(
+                                        AppConfig.borderRadius,
+                                      ),
                                     ),
                                   ),
                                   onPressed: () => context.go(
@@ -200,7 +215,9 @@ class IntroPage extends StatelessWidget {
                                       extra: client,
                                     );
                                   },
-                                  child: Text(L10n.of(context).loginWithMatrixId),
+                                  child: Text(
+                                    L10n.of(context).loginWithMatrixId,
+                                  ),
                                 ),
                               ],
                             ),

@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:Pulsly/utils/check_updates.dart';
 import 'package:Pulsly/config/app_config.dart';
-import 'package:Pulsly/config/setting_keys.dart';
 import 'package:Pulsly/config/themes.dart';
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/utils/fluffy_share.dart';
@@ -492,60 +491,71 @@ class SettingsView extends StatelessWidget {
                           ),
                           const ListDivider(),
 
-
                           const ListDivider(),
                           SwitchListTile.adaptive(
                             controlAffinity: ListTileControlAffinity.trailing,
                             value: controller.isRecoveryActive,
                             secondary: CircleAvatar(
-                              backgroundColor: controller.showChatBackupBanner == null
+                              backgroundColor:
+                                  controller.showChatBackupBanner == null
                                   ? theme.colorScheme.surfaceContainerHighest
-                                  : controller.isRecoveryActive 
-                                      ? theme.colorScheme.primary 
-                                      : theme.colorScheme.secondary,
+                                  : controller.isRecoveryActive
+                                  ? theme.colorScheme.primary
+                                  : theme.colorScheme.secondary,
                               child: controller.showChatBackupBanner == null
                                   ? SizedBox(
                                       width: 20,
                                       height: 20,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
-                                        color: theme.colorScheme.onSurfaceVariant,
+                                        color:
+                                            theme.colorScheme.onSurfaceVariant,
                                       ),
                                     )
                                   : Icon(
-                                      controller.isRecoveryActive 
-                                          ? Icons.check_circle_outlined 
+                                      controller.isRecoveryActive
+                                          ? Icons.check_circle_outlined
                                           : Icons.cloud_upload_outlined,
                                       color: controller.isRecoveryActive
                                           ? theme.colorScheme.onPrimary
                                           : theme.colorScheme.onSecondary,
                                     ),
                             ),
-                            title: Text(controller.isRecoveryActive 
-                                ? 'Recovery Active' 
-                                : L10n.of(context).chatBackup),
-                            subtitle: Text(controller.showChatBackupBanner == null
-                                ? 'Checking recovery status...'
-                                : controller.isRecoveryActive
-                                    ? 'Your messages are secured and can be recovered'
-                                    : L10n.of(context).chatBackupDescription),
-                            onChanged: controller.showChatBackupBanner == null || controller.isRecoveryActive 
-                                ? null 
+                            title: Text(
+                              controller.isRecoveryActive
+                                  ? 'Recovery Active'
+                                  : L10n.of(context).chatBackup,
+                            ),
+                            subtitle: Text(
+                              controller.showChatBackupBanner == null
+                                  ? 'Checking recovery status...'
+                                  : controller.isRecoveryActive
+                                  ? 'Your messages are secured and can be recovered'
+                                  : L10n.of(context).chatBackupDescription,
+                            ),
+                            onChanged:
+                                controller.showChatBackupBanner == null ||
+                                    controller.isRecoveryActive
+                                ? null
                                 : (_) => controller.firstRunBootstrapAction(),
                           ),
 
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundColor: theme.colorScheme.primaryContainer,
+                              backgroundColor:
+                                  theme.colorScheme.primaryContainer,
                               child: Icon(
                                 Icons.schedule,
                                 color: theme.colorScheme.onPrimaryContainer,
                               ),
                             ),
                             title: const Text('Scheduled Messages'),
-                            subtitle: const Text('View and cancel scheduled messages'),
+                            subtitle: const Text(
+                              'View and cancel scheduled messages',
+                            ),
                             trailing: const Icon(Icons.chevron_right),
-                            onTap: () => context.push('/rooms/settings/scheduled'),
+                            onTap: () =>
+                                context.push('/rooms/settings/scheduled'),
                           ),
 
                           ListTile(

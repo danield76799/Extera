@@ -22,6 +22,28 @@ import 'widgets/fluffy_chat_app.dart';
 ReceivePort? mainIsolateReceivePort;
 
 void main() async {
+  try {
+    await _initializeApp();
+  } catch (e, s) {
+    Logs().e('Fatal error during app initialization', e, s);
+    // Show error UI instead of crashing
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Text(
+              'Failed to start ${AppConfig.applicationName}.\nError: $e',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> _initializeApp() async {
   Logs().i('Welcome to ${AppConfig.applicationName}! Wonderhoy!!');
 
   if (PlatformInfos.isAndroid) {

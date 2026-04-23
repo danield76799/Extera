@@ -6,13 +6,14 @@ class BridgeFilterBar extends StatelessWidget {
   final Set<String> allBridgeTypes;
   final Set<String> visibleBridgeTypes;
   final void Function(Set<String>) onChanged;
-  final Map<String, int> unreadCounts;  // Nieuw: ongelezen counts per bridge type
+  final Map<String, int>
+  unreadCounts; // Nieuw: ongelezen counts per bridge type
 
   const BridgeFilterBar({
     required this.allBridgeTypes,
     required this.visibleBridgeTypes,
     required this.onChanged,
-    this.unreadCounts = const {},  // Default leeg
+    this.unreadCounts = const {}, // Default leeg
     super.key,
   });
 
@@ -24,7 +25,15 @@ class BridgeFilterBar extends StatelessWidget {
 
     final sortedTypes = allBridgeTypes.toList()
       ..sort((a, b) {
-        const order = ['whatsapp', 'telegram', 'signal', 'discord', 'slack', 'irc', 'matrix'];
+        const order = [
+          'whatsapp',
+          'telegram',
+          'signal',
+          'discord',
+          'slack',
+          'irc',
+          'matrix',
+        ];
         final ia = order.indexOf(a);
         final ib = order.indexOf(b);
         if (ia != -1 && ib != -1) return ia.compareTo(ib);
@@ -41,7 +50,7 @@ class BridgeFilterBar extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
         itemCount: sortedTypes.length + (hasActiveFilters ? 1 : 0),
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, i) {
           if (hasActiveFilters && i == sortedTypes.length) {
             return ActionChip(
@@ -56,7 +65,7 @@ class BridgeFilterBar extends StatelessWidget {
           final isSelected = visibleBridgeTypes.contains(type);
           final color = getBridgeTypeColor(type);
           final unreadCount = unreadCounts[type] ?? 0;
-          
+
           return FilterChip(
             avatar: Stack(
               clipBehavior: Clip.none,
@@ -109,9 +118,9 @@ class BridgeFilterBar extends StatelessWidget {
             selectedColor: color.withOpacity(0.2),
             checkmarkColor: color,
             labelStyle: TextStyle(
-              color: isSelected 
-                  ? color 
-                  : Colors.black87,  // Donkerder voor beter contrast (WCAG AA)
+              color: isSelected
+                  ? color
+                  : Colors.black87, // Donkerder voor beter contrast (WCAG AA)
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
             side: BorderSide.none,

@@ -378,7 +378,7 @@ class ChatController extends State<ChatPageWithRoom>
         .toList();
     if (files.isEmpty) return;
     if (!mounted) return;
-    if (!context.mounted) return;  // Extra check for null context
+    if (!context.mounted) return; // Extra check for null context
     showAdaptiveDialog(
       context: context,
       builder: (c) => SendFileDialog(
@@ -1431,18 +1431,23 @@ class ChatController extends State<ChatPageWithRoom>
 
   void onEmojiSelected(Category? _, PickerEmoji emoji) async {
     final emojiChar = emoji.customData ?? emoji.standardEmoji!.char;
-    
+
     // Add to local recent emojis list
-    _localRecentEmojis.remove(emojiChar); // Remove if already exists (to move to front)
+    _localRecentEmojis.remove(
+      emojiChar,
+    ); // Remove if already exists (to move to front)
     _localRecentEmojis.insert(0, emojiChar); // Add to front
     if (_localRecentEmojis.length > 50) {
-      _localRecentEmojis = _localRecentEmojis.sublist(0, 50); // Keep only last 50
+      _localRecentEmojis = _localRecentEmojis.sublist(
+        0,
+        50,
+      ); // Keep only last 50
     }
     await _saveLocalRecentEmojis();
-    
+
     // Also try to add to SDK (for server sync if supported)
     await room.client.addRecentEmoji(emojiChar);
-    
+
     // Force rebuild to update recent emojis list
     setState(() {});
     // print('selected emoji ${emoji.customData ?? emoji.standardEmoji!.char}');
@@ -1566,16 +1571,14 @@ class ChatController extends State<ChatPageWithRoom>
     for (final event in events) {
       await room.sendReaction(event.eventId, emoji!);
       // Add to recent emojis when sending reaction
-      if (emoji != null) {
-        _localRecentEmojis.remove(emoji);
-        _localRecentEmojis.insert(0, emoji);
-        if (_localRecentEmojis.length > 50) {
-          _localRecentEmojis = _localRecentEmojis.sublist(0, 50);
-        }
-        await _saveLocalRecentEmojis();
-        // Also try to add to SDK
-        await room.client.addRecentEmoji(emoji);
+      _localRecentEmojis.remove(emoji);
+      _localRecentEmojis.insert(0, emoji);
+      if (_localRecentEmojis.length > 50) {
+        _localRecentEmojis = _localRecentEmojis.sublist(0, 50);
       }
+      await _saveLocalRecentEmojis();
+      // Also try to add to SDK
+      await room.client.addRecentEmoji(emoji);
     }
   }
 
@@ -1771,7 +1774,7 @@ class ChatController extends State<ChatPageWithRoom>
     }
   }
 
-  unpinEvent(String eventId) async {
+  Future<void> unpinEvent(String eventId) async {
     final response = await showOkCancelAlertDialog(
       context: context,
       title: L10n.of(context).unpin,

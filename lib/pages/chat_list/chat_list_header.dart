@@ -4,7 +4,6 @@ import 'package:matrix/matrix.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:Pulsly/config/app_config.dart';
 import 'package:Pulsly/config/themes.dart';
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/pages/chat_list/chat_list.dart';
@@ -90,17 +89,15 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
                 child: Row(
                   children: [
                     // Plusly logo SVG
-                    SvgPicture.asset(
-                      'assets/plusly_header.svg',
-                      height: 40,
-                    ),
+                    SvgPicture.asset('assets/plusly_header.svg', height: 40),
                     const Spacer(),
                     // Tijd weergave
                     StreamBuilder(
                       stream: Stream.periodic(const Duration(seconds: 1)),
                       builder: (context, snapshot) {
                         final now = DateTime.now();
-                        final timeString = '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+                        final timeString =
+                            '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
                         return Text(
                           timeString,
                           style: TextStyle(
@@ -190,7 +187,7 @@ class _ChatListHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 color: status.error != null
                                     ? theme.colorScheme.error
                                     : theme.colorScheme.onSecondaryContainer
-                                        .withOpacity(0.87),  // 10% darker
+                                          .withOpacity(0.87), // 10% darker
                                 fontWeight: FontWeight.normal,
                               ),
                               prefixIcon: hide

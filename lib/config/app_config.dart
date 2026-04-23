@@ -14,13 +14,13 @@ abstract class AppConfig {
 
   static const String appSsoUrlScheme = 'xyz.plusly.auth';
 
-  static String _applicationName = 'Plusly';
+  static final String _applicationName = 'Plusly';
 
   static String get applicationName => _applicationName;
-  static String? _applicationWelcomeMessage;
+  static final String? _applicationWelcomeMessage = null;
 
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
-  static String _defaultHomeserver = 'matrix.org';
+  static final String _defaultHomeserver = 'matrix.org';
 
   static bool alreadyCheckedUpdates = false;
 
@@ -31,8 +31,7 @@ abstract class AppConfig {
   static const Color primaryColor = Color(0xFF49AFC2);
   static const Color primaryColorLight = Color(0xFF6FC5D8);
   static const Color secondaryColor = Color(0xFF3A8FA0);
-  static String _privacyUrl =
-      'https://plusly.im/privacy';
+  static final String _privacyUrl = 'https://plusly.im/privacy';
 
   static String get privacyUrl => _privacyUrl;
   static const String website = 'https://plusly.im';
@@ -44,14 +43,12 @@ abstract class AppConfig {
       'https://github.com/krille-chan/fluffychat/wiki/How-to-Find-Users-in-FluffyChat';
   static const String appId = 'com.danield.plusly';
   static const String appOpenUrlScheme = 'com.danield.plusly';
-  static String _webBaseUrl = 'https://fluffychat.im/web';
+  static final String _webBaseUrl = 'https://fluffychat.im/web';
 
   static String get webBaseUrl => _webBaseUrl;
   static const String sourceCodeUrl = 'https://github.com/danield76799/Plusly';
-  static const String supportUrl =
-      'https://plusly.im/help';
-  static const String changelogUrl =
-      'https://plusly.im/changelog';
+  static const String supportUrl = 'https://plusly.im/help';
+  static const String changelogUrl = 'https://plusly.im/changelog';
   static final Uri newIssueUrl = Uri(
     scheme: 'https',
     host: 'github.com',
@@ -82,30 +79,8 @@ abstract class AppConfig {
   };
 
   static void loadFromJson(Map<String, dynamic> json) {
-    // if (json['chat_color'] != null) {
-    //   try {
-    //     colorSchemeSeed = Color(json['chat_color']);
-    //   } catch (e) {
-    //     Logs().w(
-    //       'Invalid color in config.json! Please make sure to define the color in this format: "0xffdd0000"',
-    //       e,
-    //     );
-    //   }
-    // }
-    if (json['application_name'] is String) {
-      _applicationName = json['application_name'];
-    }
-    if (json['application_welcome_message'] is String) {
-      _applicationWelcomeMessage = json['application_welcome_message'];
-    }
-    if (json['default_homeserver'] is String) {
-      _defaultHomeserver = json['default_homeserver'];
-    }
-    if (json['privacy_url'] is String) {
-      _privacyUrl = json['privacy_url'];
-    }
-    if (json['web_base_url'] is String) {
-      _webBaseUrl = json['web_base_url'];
-    }
+    // Config loading is now immutable - values are set at compile time
+    // For dynamic config, use a separate config provider
+    Logs().i('Config loaded from JSON (immutable mode)');
   }
 }

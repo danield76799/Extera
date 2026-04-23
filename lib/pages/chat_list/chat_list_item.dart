@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:matrix/matrix.dart';
 
-import 'package:Pulsly/config/app_config.dart';
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/pages/chat_list/unread_bubble.dart';
 import 'package:Pulsly/utils/matrix_sdk_extensions/matrix_locals.dart';
@@ -13,7 +12,6 @@ import 'package:Pulsly/widgets/hover_builder.dart';
 import 'package:Pulsly/utils/bridge_utils.dart';
 import 'package:Pulsly/config/themes.dart';
 import 'package:Pulsly/widgets/matrix.dart';
-import '../../config/themes.dart';
 import '../../utils/date_time_extension.dart';
 import '../../widgets/avatar.dart';
 
@@ -302,9 +300,10 @@ class ChatListItem extends StatelessWidget {
                                     removeMarkdown: true,
                                     withSenderNamePrefix:
                                         (!isDirectChat ||
-                                        directChatMatrixId !=
-                                            room.lastEvent?.senderId) &&
-                                        getBridgeType(room) == null, // Hide prefix if bridge icon shown
+                                            directChatMatrixId !=
+                                                room.lastEvent?.senderId) &&
+                                        getBridgeType(room) ==
+                                            null, // Hide prefix if bridge icon shown
                                   )
                                 : null,
                             initialData: lastEvent?.calcLocalizedBodyFallback(
@@ -360,7 +359,9 @@ class ChatListItem extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: unread || room.hasNewMessages
-                                          ? const Color(0xFF4A4A4A)  // Darker gray #4A4A4A
+                                          ? const Color(
+                                              0xFF4A4A4A,
+                                            ) // Darker gray #4A4A4A
                                           : theme.colorScheme.outline,
                                       decoration:
                                           room.lastEvent?.redacted == true

@@ -27,13 +27,18 @@ class UnreadRoomsBadge extends StatelessWidget {
         .length;
     return b.Badge(
       badgeStyle: b.BadgeStyle(
-        badgeColor: const Color(0xFFFF6B6B),  // Coral red consistent with unread bubble
+        badgeColor: const Color(
+          0xFFFF6B6B,
+        ), // Coral red consistent with unread bubble
         elevation: 4,
         borderSide: BorderSide(color: theme.colorScheme.surface, width: 2),
       ),
       badgeContent: Text(
         unreadCount.toString(),
-        style: const TextStyle(color: Colors.white, fontSize: 12),  // White text on red
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+        ), // White text on red
       ),
       showBadge: unreadCount != 0,
       badgeAnimation: const b.BadgeAnimation.scale(),
