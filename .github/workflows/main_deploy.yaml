@@ -54,9 +54,19 @@ jobs:
           echo "Dart version:"
           dart --version
           echo "=== Running flutter build apk ==="
-          flutter build apk --release --target-platform android-arm64,android-arm --verbose 2>&1 | tee build.log
+          set -o pipefail
+          flutter build apk --release --target-platform android-arm64,android-arm --verbose 2>&1 | tee build.log || true
           BUILD_EXIT_CODE=${PIPESTATUS[0]}
           echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then 
+            echo "=== BUILD FAILED ==="
+            echo "=== Last 300 lines of build.log ==="
+            tail -300 build.log
+            echo "=== Full build.log contents ==="
+            cat build.log
+            echo "=== END OF LOGS ==="
+            exit 1
+          fi
           echo "=== Directory structure ==="
           ls -la build/ 2>/dev/null || echo "No build directory"
           ls -la build/app/ 2>/dev/null || echo "No build/app directory"
@@ -70,13 +80,6 @@ jobs:
             ls -la build/app/outputs/flutter-apk/
           else
             echo "ERROR: APK NOT found at expected location"
-            echo "=== Last 200 lines of build.log ==="
-            tail -200 build.log
-            echo "=== Full build.log contents ==="
-            cat build.log
-          fi
-          if [ $BUILD_EXIT_CODE -ne 0 ]; then 
-            echo "Build failed with exit code $BUILD_EXIT_CODE"
             exit 1
           fi
       - name: Upload Build Log
