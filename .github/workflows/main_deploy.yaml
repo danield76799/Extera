@@ -49,7 +49,7 @@ jobs:
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           echo "=== Starting Android APK Build ==="
-          flutter build apk --release --target-platform android-arm64,android-arm 2>&1 | tee build.log
+          flutter build apk --release --target-platform android-arm64,android-arm --verbose 2>&1 | tee build.log
           BUILD_EXIT_CODE=${PIPESTATUS[0]}
           echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
           ls -la build/app/outputs/flutter-apk/ 2>/dev/null || ls -la build/app/outputs/ 2>/dev/null || ls -la build/app/ 2>/dev/null || echo "No build/app directory found"
@@ -96,30 +96,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  build_windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Flutter
-        run: |
-          git clone https://github.com/flutter/flutter.git -b stable --depth 1
-          cmd /c "flutter\bin\flutter.bat doctor"
-      - name: Build Windows
-        run: |
-          cmd /c "flutter\bin\flutter.bat pub get"
-          cmd /c "flutter\bin\flutter.bat build windows --release"
-          cmd /c "dir build /s /b | findstr .exe"
-      - name: Find Windows exe
-        run: |
-          Get-ChildItem -Path . -Recurse -Filter "*.exe" | Select-Object FullName, Length
-          Get-ChildItem -Path build -Recurse -Filter "*.exe" | Select-Object FullName, Length
-      - name: Upload Windows Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows-exe
-          path: build/windows/x64/runner/Release/
-
   build_web:
     runs-on: ubuntu-latest
     steps:
@@ -140,7 +116,7 @@ jobs:
       - name: Build Web
         run: |
           flutter pub get
-          flutter build web --release --base-href=/Plusly/ 2>&1 | tee build.log
+          flutter build web --release --base-href=/Plusly/ --verbose 2>&1 | tee build.log
           BUILD_EXIT_CODE=${PIPESTATUS[0]}
           echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
           if [ $BUILD_EXIT_CODE -ne 0 ]; then
