@@ -57,7 +57,7 @@ class ChatDetailsView extends StatelessWidget {
         final canRequestMoreMembers = members.length < actualMembersCount;
         final displayname = room.getLocalizedDisplayname(
           MatrixLocals(L10n.of(context)),
-        );
+        ).replaceAll(RegExp(r'\s*\((WA|TG|Signal|Discord|Slack|Matrix|Telegram|WhatsApp)\)\s*$'), '').replaceAll(RegExp(r'^(Telegram|WhatsApp|Signal|Discord|Matrix)\s+'), '');
         return Scaffold(
           appBar: AppBar(
             leading:
