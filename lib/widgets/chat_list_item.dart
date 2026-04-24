@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:Pulsly/generated/l10n/l10n.dart';
 
 import '../utils/bridge_utils.dart';
 import '../utils/matrix_sdk_extensions/matrix_locals.dart';
