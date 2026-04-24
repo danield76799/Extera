@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
-import 'package:fluffy_chat/utils/room_extension.dart';
-import 'package:fluffy_chat/utils/string_extension.dart';
-import 'package:fluffy_chat/config/themes.dart';
-import 'package:fluffy_chat/widgets/avatar.dart';
-import 'package:fluffy_chat/widgets/hover_builder.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 
 import '../utils/bridge_utils.dart';
+import '../utils/matrix_sdk_extensions/matrix_locals.dart';
+import 'avatar.dart';
+import 'hover_builder.dart';
 
 /// Custom ChatListItem with platform icons and improved styling
 class ChatListItem extends StatelessWidget {
