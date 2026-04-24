@@ -9,6 +9,7 @@ import 'package:Pulsly/config/setting_keys.dart';
 import 'package:Pulsly/config/themes.dart';
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/utils/fluffy_share.dart';
+import 'package:Pulsly/utils/check_updates.dart';
 import 'package:Pulsly/utils/platform_infos.dart';
 import 'package:Pulsly/widgets/avatar.dart';
 import 'package:Pulsly/widgets/list_divider.dart';
