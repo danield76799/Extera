@@ -311,6 +311,7 @@ class ChatListViewBody extends StatelessWidget {
                         activeChat: controller.activeChat == room.id,
                         firstElement: i == 0,
                         lastElement: rooms.length - 1 == i,
+                        compactMode: AppSettings.chatListCompactMode.value,
                       );
                     },
                   ),

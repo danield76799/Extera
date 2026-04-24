@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:Pulsly/utils/check_updates.dart';
 import 'package:Pulsly/config/app_config.dart';
+import 'package:Pulsly/config/setting_keys.dart';
 import 'package:Pulsly/config/themes.dart';
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/utils/fluffy_share.dart';
@@ -556,6 +556,30 @@ class SettingsView extends StatelessWidget {
                             trailing: const Icon(Icons.chevron_right),
                             onTap: () =>
                                 context.push('/rooms/settings/scheduled'),
+                          ),
+
+                          StatefulBuilder(
+                            builder: (context, setInnerState) {
+                              return SwitchListTile.adaptive(
+                                controlAffinity: ListTileControlAffinity.trailing,
+                                value: AppSettings.chatListCompactMode.value,
+                                secondary: CircleAvatar(
+                                  backgroundColor: theme.colorScheme.secondary,
+                                  child: Icon(
+                                    Icons.view_agenda_outlined,
+                                    color: theme.colorScheme.onSecondary,
+                                  ),
+                                ),
+                                title: const Text('Compact Chat List'),
+                                subtitle: const Text(
+                                  'Smaller avatars and spacing',
+                                ),
+                                onChanged: (value) {
+                                  AppSettings.chatListCompactMode.setItem(value);
+                                  setInnerState(() {});
+                                },
+                              );
+                            },
                           ),
 
                           ListTile(

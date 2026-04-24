@@ -39,6 +39,7 @@ enum AppSettings<T> {
   latexMath<bool>('xyz.plusly.latexMath', false),
   messageTranslation<bool>('xyz.plusly.messageTranslation', true),
   useLegacyChatListAppBar<bool>('xyz.plusly.legacyAppBar', false),
+  chatListCompactMode<bool>('xyz.plusly.chatListCompactMode', false),
   useLegacyNavBar<bool>('xyz.plusly.legacyNavBar', false),
   showSpaceRoomsInGlobalList<bool>(
     'xyz.plusly.showSpaceRoomsInGlobalList',

@@ -28,6 +28,7 @@ class ChatListItem extends StatelessWidget {
   final void Function()? onForget;
   final void Function() onTap;
   final String? filter;
+  final bool compactMode;
 
   const ChatListItem(
     this.room, {
@@ -40,6 +41,7 @@ class ChatListItem extends StatelessWidget {
     this.space,
     this.firstElement = false,
     this.lastElement = false,
+    this.compactMode = false,
     super.key,
   });
 
@@ -84,8 +86,8 @@ class ChatListItem extends StatelessWidget {
           future: room.name.isEmpty ? room.loadHeroUsers() : null,
           builder: (context, _) => HoverBuilder(
             builder: (context, listTileHovered) => ListTile(
-              visualDensity: const VisualDensity(vertical: -0.5),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+              visualDensity: VisualDensity(vertical: compactMode ? -1.5 : -0.5),
+              contentPadding: EdgeInsets.symmetric(horizontal: compactMode ? 4 : 8),
               onLongPress: () => onLongPress?.call(context),
               leading: HoverBuilder(
                 builder: (context, hovered) => AnimatedScale(
@@ -93,8 +95,8 @@ class ChatListItem extends StatelessWidget {
                   curve: FluffyThemes.animationCurve,
                   scale: hovered ? 1.1 : 1.0,
                   child: SizedBox(
-                    width: Avatar.defaultSize,
-                    height: Avatar.defaultSize,
+                    width: compactMode ? 36.0 : Avatar.defaultSize,
+                    height: compactMode ? 36.0 : Avatar.defaultSize,
                     child: Stack(
                       children: [
                         if (space != null)
@@ -108,7 +110,7 @@ class ChatListItem extends StatelessWidget {
                               ),
                               borderRadius: BorderRadius.circular(12),
                               mxContent: space.avatar,
-                              size: Avatar.defaultSize * 0.75,
+                              size: compactMode ? 28.0 : Avatar.defaultSize * 0.75,
                               name: space.getLocalizedDisplayname(),
                               onTap: () => onLongPress?.call(context),
                             ),
@@ -128,8 +130,8 @@ class ChatListItem extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             mxContent: room.avatar,
                             size: space != null
-                                ? Avatar.defaultSize * 0.75
-                                : Avatar.defaultSize,
+                                ? (compactMode ? 28.0 : Avatar.defaultSize * 0.75)
+                                : (compactMode ? 36.0 : Avatar.defaultSize),
                             name: displayname,
                             presenceUserId: directChatMatrixId,
                             presenceBackgroundColor: backgroundColor,
@@ -173,7 +175,7 @@ class ChatListItem extends StatelessWidget {
                               ),
                               child: Icon(
                                 getBridgeTypeIcon(getBridgeType(room)),
-                                size: 12,
+                                size: compactMode ? 10 : 12,
                                 color: getBridgeTypeColor(getBridgeType(room)),
                               ),
                             ),
