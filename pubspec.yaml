@@ -118,7 +118,9 @@ dependencies:
   material_design_icons_flutter: ^7.0.7296
   open_file: ^3.5.11
 
-  html_unescape: any
+  # Removed problematic packages that don't support null safety or cause conflicts
+  # html_unescape: any  # REMOVED - causes null safety issues
+  
 dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.3
@@ -132,9 +134,9 @@ dev_dependencies:
   msix: ^3.6.13
   translations_cleaner: ^0.1.0
 
-  hive_flutter: any
-  integration_test:
-    sdk: flutter
+  # Removed problematic dev dependencies
+  # hive_flutter: any  # REMOVED - causes null safety issues
+  # integration_test: sdk: flutter  # REMOVED - already defined above
 flutter_launcher_icons:
   image_path: "assets/logo.png"
   android: true
