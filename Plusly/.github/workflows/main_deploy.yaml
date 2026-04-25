@@ -1,0 +1,158 @@
+name: Main Deploy Workflow
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: main_deploy
+  cancel-in-progress: true
+
+jobs:
+  build_android_apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cat .github/workflows/versions.env >> $GITHUB_ENV
+      - uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'zulu'
+      - name: Setup Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          echo "$PWD/flutter/bin" >> $GITHUB_PATH
+      - name: Verify Flutter
+        run: |
+          export PATH="$PWD/flutter/bin:$PATH"
+          flutter doctor -v
+          flutter --version
+          java -version
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          echo "JAVA_HOME: $JAVA_HOME"
+      - name: Clean Flutter build
+        run: |
+          export PATH="$PWD/flutter/bin:$PATH"
+          flutter clean
+          rm -rf build/
+      - run: export PATH="$PWD/flutter/bin:$PATH" && flutter pub get
+      - name: Generate l10n
+        run: export PATH="$PWD/flutter/bin:$PATH" && flutter gen-l10n
+      - name: Generate launcher icons
+        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_launcher_icons
+      - name: Generate native splash
+        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_native_splash:create
+      - name: Build Android APK
+        run: |
+          export PATH="$PWD/flutter/bin:$PATH"
+          echo "=== Starting Android APK Build ==="
+          flutter build apk --release --target-platform android-arm64,android-arm 2>&1 | tee build.log
+          BUILD_EXIT_CODE=${PIPESTATUS[0]}
+          echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
+          ls -la build/app/outputs/flutter-apk/ 2>/dev/null || ls -la build/app/outputs/ 2>/dev/null || ls -la build/app/ 2>/dev/null || echo "No build/app directory found"
+          find . -name "*.apk" 2>/dev/null || echo "No APK files found"
+          if [ -f build/app/outputs/flutter-apk/app-release.apk ]; then
+            echo "SUCCESS: APK found"
+            ls -la build/app/outputs/flutter-apk/
+          else
+            echo "ERROR: APK NOT found"
+            echo "=== Last 100 lines of build.log ==="
+            tail -100 build.log
+            echo "=== Full build.log contents ==="
+            cat build.log
+          fi
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then exit 1; fi
+      - name: Upload Build Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-log
+          path: build.log
+          retention-days: 30
+      - name: Upload APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: plusly-build-${{ github.run_number }}
+          name: Plusly Build ${{ github.run_number }}
+          body: |
+            Automated build for Plusly
+            - Run: ${{ github.run_number }}
+            - Commit: ${{ github.sha }}
+            - Package: com.danield.plusly
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+          prerelease: true
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          cmd /c "flutter\bin\flutter.bat doctor"
+      - name: Build Windows
+        run: |
+          cmd /c "flutter\bin\flutter.bat pub get"
+          cmd /c "flutter\bin\flutter.bat build windows --release"
+          cmd /c "dir build /s /b | findstr .exe"
+      - name: Find Windows exe
+        run: |
+          Get-ChildItem -Path . -Recurse -Filter "*.exe" | Select-Object FullName, Length
+          Get-ChildItem -Path build -Recurse -Filter "*.exe" | Select-Object FullName, Length
+      - name: Upload Windows Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-exe
+          path: build/windows/x64/runner/Release/
+
+  build_web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          echo "$PWD/flutter/bin" >> $GITHUB_PATH
+      - name: Verify Flutter
+        run: |
+          flutter doctor
+          flutter --version
+      - name: Prepare Web Assets
+        run: |
+          chmod +x scripts/prepare-web.sh
+          ./scripts/prepare-web.sh
+          ls -la web/assets/assets/js/package/
+      - name: Build Web
+        run: |
+          flutter pub get
+          flutter build web --release --base-href=/Plusly/ 2>&1 | tee build.log
+          BUILD_EXIT_CODE=${PIPESTATUS[0]}
+          echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then
+            echo "=== Build failed, showing logs ==="
+            tail -50 build.log
+            cat build.log
+            exit 1
+          fi
+          ls -la build/web/
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+          publish_branch: gh-pages
