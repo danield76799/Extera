@@ -2,7 +2,7 @@ name: Pulsly
 description: Plusly - Chat with your friends.
 publish_to: none
 # Version schema: <YEAR>.<MAJOR UPDATE>.<MINOR><PATCH>
-version: 0.8.9
+version: 0.9.2
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
