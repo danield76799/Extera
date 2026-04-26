@@ -75,13 +75,11 @@ extension InitWithRestoreExtension on Client {
             Logs().i('Database migration started - this may take a while');
             onMigration?.call();
           }
-          if (state == InitState.initialized) {
-            Logs().i('Client initialization completed successfully');
-          }
         },
         waitForFirstSync: false,
         waitUntilLoadCompletedLoaded: false,
       );
+      Logs().i('Client initialization completed successfully');
       if (isLogged()) {
         final accessToken = this.accessToken;
         final homeserver = this.homeserver?.toString();
