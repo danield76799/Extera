@@ -228,7 +228,11 @@ String? getBridgeType(Room room) {
   if (userId.contains('wa-bot') ||
       userId.contains('whappbot') ||
       userId.contains('whatsapp_') ||
-      userId.contains('bot.whatsapp')) {
+      userId.contains('bot.whatsapp') ||
+      userId.contains('@whatsapp') ||
+      userId.contains('@botwhatsapp') ||
+      userId.contains('@bot.whatsapp') ||
+      userId.contains('@whatsappbot')) {
     return 'whatsapp';
   }
   // Telegram bridge patterns

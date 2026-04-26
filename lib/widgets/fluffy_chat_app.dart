@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:android_system_font/android_system_font.dart';
+// import 'package:android_system_font/android_system_font.dart'; // TEMPORARILY DISABLED - causes Kotlin daemon crash on cross-drive builds
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,7 +59,7 @@ class FluffyChatApp extends StatefulWidget {
 }
 
 class _FluffyChatAppState extends State<FluffyChatApp> {
-  final _androidSystemFontPlugin = AndroidSystemFont();
+  // final _androidSystemFontPlugin = AndroidSystemFont(); // DISABLED
 
   @override
   void initState() {
@@ -85,28 +85,11 @@ class _FluffyChatAppState extends State<FluffyChatApp> {
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
+  // DISABLED - android_system_font plugin causes Kotlin daemon crash on cross-drive builds
   Future<void> initPlatformState() async {
-    String fontFilePath;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      fontFilePath =
-          await _androidSystemFontPlugin.getFilePath() ??
-          'Unknown font file path';
-    } on PlatformException {
-      fontFilePath = 'Failed to get font file path.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      final fontLoader = FontLoader('SystemFont');
-      fontLoader.addFont(_readFileBytes(fontFilePath));
-      fontLoader.load();
-    });
+    // Font loading disabled - was using android_system_font plugin
+    // if (!mounted) return;
+    // setState(() { });
   }
 
   @override

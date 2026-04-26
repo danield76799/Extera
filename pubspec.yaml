@@ -9,10 +9,10 @@ environment:
 
 dependencies:
   action_slider: ^0.7.0
-  android_system_font:
-    git:
-      url: https://github.com/re7gog/android_system_font.git
-      ref: master
+  # android_system_font: DISABLED - causes Kotlin daemon crash on cross-drive builds
+  #   git:
+  #     url: https://github.com/re7gog/android_system_font.git
+  #     ref: master
   app_links: ^7.0.0
   archive: ^4.0.9
   async: ^2.13.0
