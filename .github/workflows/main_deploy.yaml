@@ -103,11 +103,14 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v0.9.2-build-477
-          name: Plusly v0.9.2 (Build #477)
+          name: Plusly v0.9.2 (Build #477 - Reference Build)
           body: |
-            Plusly Pre-release v0.9.2
+            Plusly v0.9.2 - Reference Build #477
+            
+            This is the reference build that has been in development for a long time.
+            
+            - Version: 0.9.2
             - Build: #477
-            - Run: ${{ github.run_number }}
             - Commit: ${{ github.sha }}
             - Package: com.danield.plusly
             
