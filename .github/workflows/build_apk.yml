@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK (Test Build)
 
 on:
   push:
@@ -40,9 +40,18 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/app/outputs/flutter-apk/app-release.apk
-        tag_name: v${{ github.run_number }}
-        name: Release v${{ github.run_number }}
+        tag_name: test-whatsapp-bridge-fix-${{ github.run_number }}
+        name: Test Build - WhatsApp Bridge Fix #${{ github.run_number }}
+        body: |
+          ## Test Build - WhatsApp Bridge Detection Fix
+          
+          **Wijzigingen:**
+          - WhatsApp bridge detectie patronen uitgebreid
+          - Toegevoegd: `@whatsapp`, `@botwhatsapp`, `@bot.whatsapp`, `@whatsappbot`
+          - `android_system_font` plugin tijdelijk uitgeschakeld (Kotlin daemon crash)
+          
+          **Let op:** Dit is een test build. Gebruik op eigen risico.
         draft: false
-        prerelease: false
+        prerelease: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
