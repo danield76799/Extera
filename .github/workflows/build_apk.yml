@@ -40,17 +40,17 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/app/outputs/flutter-apk/app-release.apk
-        tag_name: v0.9.6-build${{ github.run_number }}
-        name: Plusly v0.9.6 (Build #${{ github.run_number }})
+        tag_name: v0.9.9-build${{ github.run_number }}
+        name: Plusly v0.9.9 (Build #${{ github.run_number }})
         body: |
-          ## Plusly v0.9.6
+          ## Plusly v0.9.9
           
           **Belangrijke fixes:**
           - WhatsApp bridge detectie verbeterd (server-onafhankelijk)
-          - Image resize voor snellere foto uploads (max 1200px, 40% JPEG)
-          - Fix voor MatrixImageFile nativeImplementations (onthoudingen/OCR)
-          - Phone number detectie voor WhatsApp chats
           - Bot patronen herkenning (`@whatsapp`, `@botwhatsapp`, etc)
+          - Phone number detectie voor WhatsApp chats
+          
+          **Let op:** Image resize voor foto uploads is tijdelijk uitgeschakeld i.v.m. crash op Android 17.
           
           **Build info:**
           - Build nummer: ${{ github.run_number }}
