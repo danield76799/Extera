@@ -187,6 +187,13 @@ bool isBridgeRoom(Room room) {
     return true;
   }
 
+  // Check for phone numbers in room name (WhatsApp bridge indicator)
+  // Phone number formats: +316..., +31 6..., 06..., etc.
+  final phoneNumberPattern = RegExp(r'^(\+\d{1,3}[\s\d]{7,}|\d{10,})$');
+  if (phoneNumberPattern.hasMatch(room.name ?? '')) {
+    return true;
+  }
+
   // Check canonical alias
   final canonicalAlias = room.canonicalAlias?.toLowerCase() ?? '';
   final aliasPatterns = [
@@ -287,6 +294,13 @@ String? getBridgeType(Room room) {
       roomName.contains('wa ') || roomTopic.contains('wa ')) {
     return 'whatsapp';
   }
+  
+  // Check for phone numbers (WhatsApp bridge indicator)
+  final phoneNumberPattern = RegExp(r'^(\+\d{1,3}[\s\d]{7,}|\d{10,})$');
+  if (phoneNumberPattern.hasMatch(room.name ?? '')) {
+    return 'whatsapp';
+  }
+  
   if (roomName.contains('telegram_') || roomTopic.contains('telegram_')) {
     return 'telegram';
   }
