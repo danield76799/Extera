@@ -22,6 +22,7 @@ import 'package:Pulsly/widgets/adaptive_dialogs/dialog_text_field.dart';
 import 'package:Pulsly/widgets/adaptive_dialogs/image_editor_dialog.dart';
 import 'package:Pulsly/widgets/matrix.dart';
 import '../../utils/resize_video.dart';
+import '../../utils/resize_image.dart';
 
 // ignore: implementation_imports
 // ignore: depend_on_referenced_packages
@@ -90,6 +91,31 @@ class SendFileDialogState extends State<SendFileDialog> {
             compress) {
           scaffoldMessenger.showLoadingSnackBar(l10n.compressVideo);
           file = await xfile.resizeVideo();
+        } else if (mimeType != null &&
+            mimeType.startsWith('image') &&
+            length > minSizeToCompress &&
+            compress) {
+          // Resize image before upload (much faster sending)
+          scaffoldMessenger.showLoadingSnackBar(l10n.compressVideo);
+          final resizedImage = await ImageResizer.resizeImage(xfile);
+          if (resizedImage != null) {
+            file = resizedImage;
+          } else if (AppSettings.cleanExif.value) {
+            // Fallback: just remove EXIF if cleanExif is enabled
+            file = MatrixFile(
+              bytes: Uint8List.fromList(
+                ExifCleaner.removeExifData(await xfile.readAsBytes()),
+              ),
+              name: name,
+              mimeType: mimeType,
+            ).detectFileType;
+          } else {
+            file = MatrixFile(
+              bytes: await xfile.readAsBytes(),
+              name: name,
+              mimeType: mimeType,
+            ).detectFileType;
+          }
         } else if (mimeType != null &&
             mimeType.startsWith('image') &&
             AppSettings.cleanExif.value) {
