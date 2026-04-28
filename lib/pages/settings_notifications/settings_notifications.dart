@@ -91,8 +91,43 @@ class SettingsNotificationsController extends State<SettingsNotifications> {
     }
   }
 
+  void registerPush() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      Logs().i('[Push] Manual push registration requested');
+      await Matrix.of(context).backgroundPush?.setupPush(
+        Matrix.of(context).widget.clients,
+      );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Push notificaties geregistreerd!'),
+        ),
+      );
+      // Refresh pusher list
+      setState(() {
+        pusherFuture = null;
+      });
+    } catch (e, s) {
+      Logs().e('[Push] Manual registration failed', e, s);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registratie mislukt: ${e.toLocalizedString(context)}'),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
   void editPushRule(PushRule rule, PushRuleKind kind) async {
-    final theme = Theme.of(context);
     final action = await showAdaptiveDialog<PushRuleDialogAction>(
       context: context,
       builder: (context) => ConstrainedBox(
