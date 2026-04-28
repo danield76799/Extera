@@ -145,7 +145,7 @@
 
         <receiver android:name="org.unifiedpush.flutter.connector.UnifiedPushReceiver"
             tools:replace="android:enabled"
-            android:enabled="false">
+            android:enabled="true">
         </receiver>
 
         <receiver android:exported="false" android:enabled="true"
