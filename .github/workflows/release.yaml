@@ -23,8 +23,11 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           cache: true
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install nodejs -y
+      - name: Install Node.js 20
+        run: |
+          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          node --version
       - run: flutter pub get
       - name: Prepare web
         run: ./scripts/prepare-web.sh
