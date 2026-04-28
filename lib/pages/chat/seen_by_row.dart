@@ -28,9 +28,13 @@ class SeenByRow extends StatelessWidget {
 
     // Get receipts for the most recent message (last event in reversed timeline)
     final lastEvent = timeline.events.isNotEmpty ? timeline.events.last : null;
-    final receipts = lastEvent != null
+    final allReceipts = lastEvent != null
         ? controller.room.getReceipts(timeline, eventId: lastEvent.eventId)
         : <Receipt>[];
+    // Filter out own receipts - only show OTHER people's receipts
+    final receipts = allReceipts
+        .where((r) => r.user.id != controller.room.client.userID)
+        .toList();
     const maxAvatars = 7;
     return Container(
       width: double.infinity,
