@@ -321,11 +321,15 @@ class BackgroundPush {
       matrix!.store.remove(AppSettings.unifiedPushRegistered.key);
     }
 
-    if (!clients.any(
+    // Check if any client is logged in
+    final anyLoggedIn = clients.any(
           (c) => c.onLoginStateChanged.value == LoginState.loggedIn,
-        ) ||
-        !PlatformInfos.isMobile ||
-        matrix == null) {
+        );
+    Logs().d("Any client logged in: $anyLoggedIn");
+    Logs().d("Is mobile: ${PlatformInfos.isMobile}");
+    Logs().d("Matrix is null: ${matrix == null}");
+    
+    if (!anyLoggedIn || !PlatformInfos.isMobile || matrix == null) {
       Logs().w("SetupPush early return - not logged in or not mobile");
       return;
     }

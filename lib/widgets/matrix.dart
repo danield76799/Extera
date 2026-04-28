@@ -280,8 +280,9 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
     onLoginStateChanged[name] ??= c.onLoginStateChanged.stream.listen((state) {
       if (state == LoginState.loggedIn) {
         // Re-setup push notifications for new login
-        // Delay to ensure client is fully initialized
-        Future.delayed(const Duration(seconds: 2), () {
+        // Wait for full initialization before setting up push
+        Future.delayed(const Duration(seconds: 3), () {
+          Logs().i('[Matrix] Login complete, setting up push notifications...');
           backgroundPush?.upAction = false; // Reset UP action flag
           backgroundPush?.setupPush(widget.clients);
         });
