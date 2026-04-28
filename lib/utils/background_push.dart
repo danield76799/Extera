@@ -334,11 +334,13 @@ class BackgroundPush {
       return;
     }
     // Do not setup unifiedpush if this has been initialized by
-    // an unifiedpush action
+    // an unifiedpush action - DISABLED to allow manual re-registration
+    /*
     if (upAction) {
       Logs().w("SetupPush early return - upAction is true");
       return;
     }
+    */
     Logs().i("Setting up push notifications...");
     if (!PlatformInfos.isIOS &&
         (await UnifiedPush.getDistributors()).isNotEmpty) {
