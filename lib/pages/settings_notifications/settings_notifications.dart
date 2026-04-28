@@ -97,11 +97,21 @@ class SettingsNotificationsController extends State<SettingsNotifications> {
     });
     try {
       Logs().i('[Push] Manual push registration requested');
-      // Reset upAction to force re-registration
-      Matrix.of(context).backgroundPush?.upAction = false;
-      await Matrix.of(context).backgroundPush?.setupPush(
-        Matrix.of(context).widget.clients,
-      );
+      final backgroundPush = Matrix.of(context).backgroundPush;
+      if (backgroundPush != null) {
+        // Reset all flags to force fresh registration
+        backgroundPush.upAction = false;
+        
+        // Clear saved distributor to force picker
+        final store = Matrix.of(context).store;
+        await store.setString('unifiedpush distributor', '');
+        
+        // Now setup push - this will show distributor picker
+        await backgroundPush.setupPush(
+          Matrix.of(context).widget.clients,
+        );
+      }
+      
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
