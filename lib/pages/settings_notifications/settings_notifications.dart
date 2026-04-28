@@ -130,42 +130,45 @@ class SettingsNotificationsController extends State<SettingsNotifications> {
   void editPushRule(PushRule rule, PushRuleKind kind) async {
     final action = await showAdaptiveDialog<PushRuleDialogAction>(
       context: context,
-      builder: (context) => ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 256),
-        child: AlertDialog.adaptive(
-          title: Text(rule.getPushRuleName(L10n.of(context))),
-          content: Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Material(
-              borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-              color: theme.colorScheme.surfaceContainer,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                scrollDirection: Axis.horizontal,
-                child: SelectableText(
-                  prettyJson(rule.toJson()),
-                  style: TextStyle(color: theme.colorScheme.onSurface),
+      builder: (context) {
+        final theme = Theme.of(context);
+        return ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 256),
+          child: AlertDialog.adaptive(
+            title: Text(rule.getPushRuleName(L10n.of(context))),
+            content: Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Material(
+                borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+                color: theme.colorScheme.surfaceContainer,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  scrollDirection: Axis.horizontal,
+                  child: SelectableText(
+                    prettyJson(rule.toJson()),
+                    style: TextStyle(color: theme.colorScheme.onSurface),
+                  ),
                 ),
               ),
             ),
-          ),
-          actions: [
-            AdaptiveDialogAction(
-              onPressed: Navigator.of(context).pop,
-              child: Text(L10n.of(context).close),
-            ),
-            if (!rule.ruleId.startsWith('.m.'))
+            actions: [
               AdaptiveDialogAction(
-                onPressed: () =>
-                    Navigator.of(context).pop(PushRuleDialogAction.delete),
-                child: Text(
-                  L10n.of(context).delete,
-                  style: TextStyle(color: theme.colorScheme.error),
-                ),
+                onPressed: Navigator.of(context).pop,
+                child: Text(L10n.of(context).close),
               ),
-          ],
-        ),
-      ),
+              if (!rule.ruleId.startsWith('.m.'))
+                AdaptiveDialogAction(
+                  onPressed: () =>
+                      Navigator.of(context).pop(PushRuleDialogAction.delete),
+                  child: Text(
+                    L10n.of(context).delete,
+                    style: TextStyle(color: theme.colorScheme.error),
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
     if (action == null) return;
     if (!mounted) return;
