@@ -49,7 +49,7 @@ class SettingsNotificationsView extends StatelessWidget {
           builder: (BuildContext context, _) {
             final theme = Theme.of(context);
             return Padding(
-              padding: const .symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 children: [
                   if (pushRules != null)
@@ -141,7 +141,7 @@ class SettingsNotificationsView extends StatelessWidget {
                           ).client.getPushers(),
                           builder: (context, snapshot) {
                             if (snapshot.hasError) {
-                              Center(
+                              return Center(
                                 child: Text(
                                   snapshot.error!.toLocalizedString(context),
                                 ),
