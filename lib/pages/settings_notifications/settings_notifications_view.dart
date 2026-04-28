@@ -108,11 +108,6 @@ class SettingsNotificationsView extends StatelessWidget {
                                   value: rule.enabled,
                                   onChanged: controller.isLoading
                                       ? null
-                                      : rule.ruleId != '.m.rule.master' &&
-                                            Matrix.of(
-                                              context,
-                                            ).client.allPushNotificationsMuted
-                                      ? null
                                       : (_) => controller.togglePushRule(
                                           category.kind,
                                           rule,
