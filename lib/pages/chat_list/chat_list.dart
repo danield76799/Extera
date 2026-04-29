@@ -285,8 +285,18 @@ class ChatListController extends State<ChatList>
   }
 
   bool _isBridgeTypeVisible(Room room) {
-    // Always show all rooms - filtering disabled for stability
-    return true;
+    // If no bridge types have been detected yet, show all rooms
+    // This prevents rooms from disappearing during initial load
+    if (allBridgeTypes.isEmpty) {
+      return true;
+    }
+    if (!isBridgeRoom(room)) {
+      return visibleBridgeTypes.contains('matrix');
+    }
+    final bridgeType = getBridgeType(room) ?? 'other';
+    final visible = visibleBridgeTypes.contains(bridgeType);
+    Logs().d('[Filter] Room ${room.name} bridgeType=$bridgeType visible=$visible visibleBridgeTypes=$visibleBridgeTypes');
+    return visible;
   }
 
   // Cached filteredRooms - 500ms cache
@@ -963,9 +973,15 @@ class ChatListController extends State<ChatList>
     await client.accountDataLoading;
     await client.userDeviceKeysLoading;
     if (client.prevBatch == null) {
-      await client.onSyncStatus.stream.firstWhere(
-        (status) => status.status == SyncStatus.finished,
-      );
+      // Add timeout to prevent ANR if sync never starts
+      try {
+        await client.onSyncStatus.stream.firstWhere(
+          (status) => status.status == SyncStatus.finished,
+        ).timeout(const Duration(seconds: 30));
+      } catch (_) {
+        // Sync timed out, continue anyway
+        Logs().w('[ChatList] First sync timed out after 30 seconds');
+      }
 
       if (!mounted) return;
       setState(() {
