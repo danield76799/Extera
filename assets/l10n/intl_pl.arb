@@ -3361,5 +3361,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Włącz",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

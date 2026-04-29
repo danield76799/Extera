@@ -3356,5 +3356,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Attiva",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

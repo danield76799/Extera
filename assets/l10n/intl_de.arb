@@ -3313,5 +3313,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Aktivieren",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

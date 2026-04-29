@@ -3377,5 +3377,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Activeer",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

@@ -2149,5 +2149,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Ativar",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

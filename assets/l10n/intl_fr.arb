@@ -3117,5 +3117,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Activer",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

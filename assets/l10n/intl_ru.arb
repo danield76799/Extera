@@ -3802,5 +3802,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Включить",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

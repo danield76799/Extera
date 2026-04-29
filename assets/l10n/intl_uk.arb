@@ -3300,5 +3300,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Увімкнути",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }

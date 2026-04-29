@@ -2537,5 +2537,10 @@
         "type": "String"
       }
     }
+  },
+  "enable": "Enable",
+  "@enable": {
+    "type": "String",
+    "placeholders": {}
   }
 }
