@@ -199,59 +199,30 @@ class ChatListController extends State<ChatList>
     syncBridgeTypes();
   }
 
-  Future<void> syncBridgeTypes() async {
-    // If allBridgeTypes is empty, we haven't detected any bridges yet - don't cache
-    // and keep trying on every call until we find something
-    // Once we have detected bridges, use a 2-second cache to avoid excessive recomputation
-    if (!allBridgeTypes.isEmpty) {
-      if (DateTime.now().difference(_lastBridgeSync) < const Duration(seconds: 2)) {
-        return;
-      }
+  void syncBridgeTypes() {
+    // Cache for 5 seconds to avoid recomputation
+    if (DateTime.now().difference(_lastBridgeSync) < Duration(seconds: 5)) {
+      return;
     }
 
     final client = Matrix.of(context).client;
-    
-    // Debug: log all rooms and their bridge status
-    final bridgeRooms = client.rooms.where((room) => isBridgeRoom(room)).toList();
-    Logs().d('[BridgeSync] Total rooms: ${client.rooms.length}, Bridge rooms: ${bridgeRooms.length}');
-    for (final room in bridgeRooms) {
-      final bt = getBridgeType(room);
-      Logs().d('[BridgeSync] Room "${room.name}" isBridgeRoom=true bridgeType=${bt ?? 'null'}');
-    }
-    
     final hasMatrixRooms = client.rooms.any((room) => !isBridgeRoom(room));
     final detectedTypes = client.rooms
         .where((room) => isBridgeRoom(room))
         .map((room) => getBridgeType(room) ?? 'other')
         .toSet();
-    
-    // Always add 'matrix' if there are any rooms at all
-    // This ensures the filter bar shows even when bridge detection hasn't run yet
-    if (client.rooms.isNotEmpty) {
+    if (hasMatrixRooms) {
       detectedTypes.add('matrix');
     }
-    Logs().d('[BridgeSync] Detected types: $detectedTypes, allBridgeTypes was: $allBridgeTypes');
-    
     // Only auto-add types that were not previously known.
     // If a user manually removed a type, do not re-add it.
-    // But if visibleBridgeTypes is empty (initial load), add all detected types
-    if (visibleBridgeTypes.isEmpty) {
-      visibleBridgeTypes = Set<String>.from(detectedTypes);
-    } else {
-      visibleBridgeTypes = {
-        ...visibleBridgeTypes,
-        ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
-      };
-    }
+    visibleBridgeTypes = {
+      ...visibleBridgeTypes,
+      ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
+    };
     allBridgeTypes = detectedTypes;
     _cachedBridgeTypes = detectedTypes;
     _lastBridgeSync = DateTime.now();
-    Logs().d('[BridgeSync] Final allBridgeTypes: $allBridgeTypes');
-    
-    // Trigger UI rebuild after bridge types are updated
-    if (mounted) {
-      setState(() {});
-    }
   }
 
   bool Function(Room) getRoomFilterByActiveFilter(ActiveFilter activeFilter) {
@@ -285,18 +256,8 @@ class ChatListController extends State<ChatList>
   }
 
   bool _isBridgeTypeVisible(Room room) {
-    // If no bridge types have been detected yet, show all rooms
-    // This prevents rooms from disappearing during initial load
-    if (allBridgeTypes.isEmpty) {
-      return true;
-    }
-    if (!isBridgeRoom(room)) {
-      return visibleBridgeTypes.contains('matrix');
-    }
-    final bridgeType = getBridgeType(room) ?? 'other';
-    final visible = visibleBridgeTypes.contains(bridgeType);
-    Logs().d('[Filter] Room ${room.name} bridgeType=$bridgeType visible=$visible visibleBridgeTypes=$visibleBridgeTypes');
-    return visible;
+    // Bridge filtering disabled - show all rooms
+    return true;
   }
 
   // Cached filteredRooms - 500ms cache
@@ -973,15 +934,9 @@ class ChatListController extends State<ChatList>
     await client.accountDataLoading;
     await client.userDeviceKeysLoading;
     if (client.prevBatch == null) {
-      // Add timeout to prevent ANR if sync never starts
-      try {
-        await client.onSyncStatus.stream.firstWhere(
-          (status) => status.status == SyncStatus.finished,
-        ).timeout(const Duration(seconds: 30));
-      } catch (_) {
-        // Sync timed out, continue anyway
-        Logs().w('[ChatList] First sync timed out after 30 seconds');
-      }
+      await client.onSyncStatus.stream.firstWhere(
+        (status) => status.status == SyncStatus.finished,
+      );
 
       if (!mounted) return;
       setState(() {

@@ -7,7 +7,6 @@ import 'package:matrix/matrix.dart';
 import 'package:Pulsly/config/setting_keys.dart';
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/pages/chat_list/chat_list.dart';
-import 'package:Pulsly/pages/chat_list/bridge_filter_bar.dart';
 import 'package:Pulsly/pages/chat_list/chat_list_item.dart';
 import 'package:Pulsly/pages/chat_list/chat_list_legacy_header.dart';
 import 'package:Pulsly/pages/chat_list/dummy_chat_list_item.dart';
@@ -213,17 +212,6 @@ class ChatListViewBody extends StatelessWidget {
                       GestureDetector(
                         onLongPress: () => controller.dismissStatusList(),
                         child: StatusMessageList(),
-                      ),
-                    if (!controller.isSearchMode)
-                      BridgeFilterBar(
-                        allBridgeTypes: controller.allBridgeTypes,
-                        visibleBridgeTypes: controller.visibleBridgeTypes,
-                        unreadCounts: controller.unreadBridgeCounts,
-                        onChanged: (newTypes) {
-                          controller.setState(() {
-                            controller.visibleBridgeTypes = newTypes;
-                          });
-                        },
                       ),
                     if (!FluffyThemes.isColumnMode(context)) ...[
                       const BackToCallButton(),
