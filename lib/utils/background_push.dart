@@ -438,41 +438,11 @@ class BackgroundPush {
       return;
     }
 
-    // Check if a distributor is already saved
-    final savedDistributor = await UnifiedPush.getDistributor();
+    // Always clear saved distributor to force fresh registration after phone restart
+    // This ensures push works reliably without manual "Activeer" button
+    Logs().i('[Push] Clearing saved distributor to force re-registration');
+    await UnifiedPush.saveDistributor('');
     
-    // Check if stored endpoint looks valid (starts with https://, reasonable length)
-    // If not valid, clear the distributor to force picker to show
-    bool endpointLooksValid = false;
-    if (savedDistributor != null) {
-      // Check endpoint for first logged-in client
-      final firstLoggedIn = clients.firstWhere(
-        (c) => c.isLogged(),
-        orElse: () => clients.first,
-      );
-      final storedEndpoint = matrix?.store.getString(
-        firstLoggedIn.clientName + AppSettings.unifiedPushEndpoint.key,
-      );
-      endpointLooksValid = storedEndpoint != null && 
-                           storedEndpoint.isNotEmpty && 
-                           storedEndpoint.startsWith('https://') &&
-                           storedEndpoint.length > 50;
-      
-      Logs().i('[Push] Saved distributor: $savedDistributor, endpoint valid: $endpointLooksValid');
-    }
-    
-    if (savedDistributor != null && endpointLooksValid) {
-      Logs().i('[Push] Using saved UnifiedPush distributor: $savedDistributor');
-      for (final client in clients) {
-        if (client.isLogged()) {
-          await UnifiedPush.register(instance: client.clientName);
-        }
-      }
-      return;
-    }
-
-    // Endpoint invalid or no saved distributor - show picker
-
     String selectedDistributor;
     if (distributors.length == 1) {
       selectedDistributor = distributors.first;
