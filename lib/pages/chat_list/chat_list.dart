@@ -235,7 +235,10 @@ class ChatListController extends State<ChatList>
         .where((room) => isBridgeRoom(room))
         .map((room) => getBridgeType(room) ?? 'other')
         .toSet();
-    if (hasMatrixRooms) {
+    
+    // Always add 'matrix' if there are any rooms at all
+    // This ensures the filter bar shows even when bridge detection hasn't run yet
+    if (client.rooms.isNotEmpty) {
       detectedTypes.add('matrix');
     }
     Logs().d('[BridgeSync] Detected types: $detectedTypes, allBridgeTypes was: $allBridgeTypes');
