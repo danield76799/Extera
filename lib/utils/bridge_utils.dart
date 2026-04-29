@@ -248,7 +248,7 @@ bool isBridgeRoom(Room room) {
   // (SDK only loads ~20), use group size as heuristic
   // Small-to-medium groups without canonical alias are likely WhatsApp bridges
   if (!room.isDirectChat && room.canonicalAlias == null) {
-    final memberCount = room.summary?.mJoinedMemberCount ?? room.members.length;
+    final memberCount = room.summary?.mJoinedMemberCount ?? 0;
     if (memberCount > 2 && memberCount < 100) {
       return true;
     }
@@ -392,7 +392,7 @@ String? getBridgeType(Room room) {
   // Fallback for groups: if we can't find the bridge bot in loaded members
   // but the room matches the fallback heuristic, assume WhatsApp
   if (!room.isDirectChat && room.canonicalAlias == null) {
-    final memberCount = room.summary?.mJoinedMemberCount ?? room.members.length;
+    final memberCount = room.summary?.mJoinedMemberCount ?? 0;
     if (memberCount > 2 && memberCount < 100) {
       return 'whatsapp';
     }
