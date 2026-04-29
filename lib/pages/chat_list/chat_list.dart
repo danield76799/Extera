@@ -245,10 +245,15 @@ class ChatListController extends State<ChatList>
     
     // Only auto-add types that were not previously known.
     // If a user manually removed a type, do not re-add it.
-    visibleBridgeTypes = {
-      ...visibleBridgeTypes,
-      ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
-    };
+    // But if visibleBridgeTypes is empty (initial load), add all detected types
+    if (visibleBridgeTypes.isEmpty) {
+      visibleBridgeTypes = Set<String>.from(detectedTypes);
+    } else {
+      visibleBridgeTypes = {
+        ...visibleBridgeTypes,
+        ...detectedTypes.where((t) => !allBridgeTypes.contains(t)),
+      };
+    }
     allBridgeTypes = detectedTypes;
     _cachedBridgeTypes = detectedTypes;
     _lastBridgeSync = DateTime.now();
