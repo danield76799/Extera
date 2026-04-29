@@ -93,7 +93,7 @@ class ChatList extends StatefulWidget {
 }
 
 class ChatListController extends State<ChatList>
-    with TickerProviderStateMixin, RouteAware {
+    with TickerProviderStateMixin, RouteAware, WidgetsBindingObserver {
   StreamSubscription? _intentDataStreamSubscription;
 
   StreamSubscription? _intentFileStreamSubscription;
@@ -200,8 +200,11 @@ class ChatListController extends State<ChatList>
   }
 
   void syncBridgeTypes() {
-    // Cache for 5 seconds to avoid recomputation
-    if (DateTime.now().difference(_lastBridgeSync) < Duration(seconds: 5)) {
+    // If we've never detected any bridge types, always try to detect
+    // (bridge state events may not have been loaded on first attempt)
+    // Only cache if we have successfully detected bridge types before
+    if (allBridgeTypes.isNotEmpty &&
+        DateTime.now().difference(_lastBridgeSync) < Duration(seconds: 5)) {
       return;
     }
 
@@ -544,6 +547,7 @@ class ChatListController extends State<ChatList>
   @override
   void initState() {
     _initReceiveSharingIntent();
+    WidgetsBinding.instance.addObserver(this);
 
     scrollController.addListener(_onScroll);
     _waitForFirstSync();
@@ -581,6 +585,7 @@ class ChatListController extends State<ChatList>
     searchFocusNode.dispose();
     _coolDown?.cancel();
     scrolledToTop.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -1087,6 +1092,15 @@ class ChatListController extends State<ChatList>
 
   void _hackyWebRTCFixForWeb() {
     ChatList.contextForVoip = context;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Re-sync bridge types when app resumes (e.g., from background)
+    // Bridge state events may have been loaded while app was inactive
+    if (state == AppLifecycleState.resumed) {
+      syncBridgeTypes();
+    }
   }
 
   Future<void> dehydrate() => Matrix.of(context).dehydrateAction(context);
