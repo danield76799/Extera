@@ -260,7 +260,9 @@ class ChatListController extends State<ChatList>
       return visibleBridgeTypes.contains('matrix');
     }
     final bridgeType = getBridgeType(room) ?? 'other';
-    return visibleBridgeTypes.contains(bridgeType);
+    final visible = visibleBridgeTypes.contains(bridgeType);
+    Logs().d('[Filter] Room ${room.name} bridgeType=$bridgeType visible=$visible visibleBridgeTypes=$visibleBridgeTypes');
+    return visible;
   }
 
   // Cached filteredRooms - 500ms cache
