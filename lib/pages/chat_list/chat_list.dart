@@ -199,7 +199,7 @@ class ChatListController extends State<ChatList>
     syncBridgeTypes();
   }
 
-  void syncBridgeTypes() {
+  Future<void> syncBridgeTypes() async {
     // If allBridgeTypes is empty, we haven't detected any bridges yet - don't cache
     // and keep trying on every call until we find something
     // Once we have detected bridges, use a 2-second cache to avoid excessive recomputation
@@ -210,6 +210,17 @@ class ChatListController extends State<ChatList>
     }
 
     final client = Matrix.of(context).client;
+    
+    // Pre-load room states to ensure bridge state events are available
+    // This is necessary because bridge detection depends on state events that
+    // may not be loaded on initial app start
+    for (final room in client.rooms) {
+      try {
+        await room.postLoad();
+      } catch (_) {
+        // Ignore errors for individual rooms
+      }
+    }
     
     // Debug: log all rooms and their bridge status
     final bridgeRooms = client.rooms.where((room) => isBridgeRoom(room)).toList();
