@@ -975,9 +975,15 @@ class ChatListController extends State<ChatList>
     await client.accountDataLoading;
     await client.userDeviceKeysLoading;
     if (client.prevBatch == null) {
-      await client.onSyncStatus.stream.firstWhere(
-        (status) => status.status == SyncStatus.finished,
-      );
+      // Add timeout to prevent ANR if sync never starts
+      try {
+        await client.onSyncStatus.stream.firstWhere(
+          (status) => status.status == SyncStatus.finished,
+        ).timeout(const Duration(seconds: 30));
+      } catch (_) {
+        // Sync timed out, continue anyway
+        Logs().w('[ChatList] First sync timed out after 30 seconds');
+      }
 
       if (!mounted) return;
       setState(() {
