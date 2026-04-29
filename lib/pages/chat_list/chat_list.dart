@@ -959,6 +959,10 @@ class ChatListController extends State<ChatList>
       waitForFirstSync = true;
     });
 
+    // Sync bridge types after first sync completes
+    // Bridge state events should now be available
+    syncBridgeTypes();
+
     if (client.userDeviceKeys[client.userID!]?.deviceKeys.values.any(
           (device) => !device.verified && !device.blocked,
         ) ??
