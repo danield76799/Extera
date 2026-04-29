@@ -211,17 +211,6 @@ class ChatListController extends State<ChatList>
 
     final client = Matrix.of(context).client;
     
-    // Pre-load room states to ensure bridge state events are available
-    // Note: We cannot force-load all members for large groups - the SDK only loads ~20 by default
-    // Bridge detection for large groups relies on other heuristics (room name, alias, etc.)
-    for (final room in client.rooms) {
-      try {
-        await room.postLoad();
-      } catch (_) {
-        // Ignore errors for individual rooms
-      }
-    }
-    
     // Debug: log all rooms and their bridge status
     final bridgeRooms = client.rooms.where((room) => isBridgeRoom(room)).toList();
     Logs().d('[BridgeSync] Total rooms: ${client.rooms.length}, Bridge rooms: ${bridgeRooms.length}');
