@@ -108,6 +108,7 @@ class ChatListController extends State<ChatList>
   List<Room> _cachedFilteredRooms = [];
   DateTime _lastFilterCalc = DateTime(2000);
   ActiveFilter _lastActiveFilter = ActiveFilter.allChats;
+  Set<String> _lastVisibleBridgeTypes = {};
 
   ActiveFilter activeFilter = AppSettings.separateChatTypes.value
       ? ActiveFilter.messages
@@ -266,7 +267,8 @@ class ChatListController extends State<ChatList>
   List<Room> get filteredRooms {
     final now = DateTime.now();
     if (now.difference(_lastFilterCalc) < Duration(milliseconds: 500) &&
-        _lastActiveFilter == activeFilter) {
+        _lastActiveFilter == activeFilter &&
+        _lastVisibleBridgeTypes == visibleBridgeTypes) {
       return _cachedFilteredRooms;
     }
 
@@ -275,6 +277,7 @@ class ChatListController extends State<ChatList>
     ).client.rooms.where(getRoomFilterByActiveFilter(activeFilter)).where(_isBridgeTypeVisible).toList();
     _lastFilterCalc = now;
     _lastActiveFilter = activeFilter;
+    _lastVisibleBridgeTypes = Set<String>.from(visibleBridgeTypes);
     return _cachedFilteredRooms;
   }
 
