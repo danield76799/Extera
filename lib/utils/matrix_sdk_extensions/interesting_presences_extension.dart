@@ -3,6 +3,7 @@ import 'package:matrix/matrix.dart';
 
 extension InterestingPresencesExtension on Client {
   Set<String> get interestingPresences {
+    if (userID == null) return {};  // Guard against null userID
     final allHeroes = rooms
         .map((room) => room.summary.mHeroes)
         .fold(
