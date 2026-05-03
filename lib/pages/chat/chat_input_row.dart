@@ -462,7 +462,7 @@ class ChatInputRow extends StatelessWidget {
                             decoration: BoxDecoration(
                               gradient: controller.sendController.text.isNotEmpty
                                   ? const LinearGradient(
-                                      colors: [Color(0xFF1a237e), Color(0xFF7b1fa2)],
+                                      colors: [Color(0xFF49AFC2), Color(0xFF6FC5D8)],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
                                     )
@@ -474,7 +474,7 @@ class ChatInputRow extends StatelessWidget {
                               boxShadow: controller.sendController.text.isNotEmpty
                                   ? [
                                       BoxShadow(
-                                        color: const Color(0xFF7b1fa2).withOpacity(0.3),
+                                        color: const Color(0xFF49AFC2).withOpacity(0.3),
                                         blurRadius: 8.0,
                                         offset: const Offset(0, 2),
                                       ),
