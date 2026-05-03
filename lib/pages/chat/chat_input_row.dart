@@ -456,33 +456,39 @@ class ChatInputRow extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            height: 56,
-                            width: 56,
+                            height: 48,
+                            width: 48,
                             alignment: Alignment.center,
-                            child: IconButton(
-                              tooltip: L10n.of(context).send,
-                              onPressed: controller.send,
-                              onLongPress:
-                                  controller.sendController.text.isNotEmpty
-                                  ? () => controller.sendScheduleAction()
-                                  : null,
-                              style: IconButton.styleFrom(
-                                backgroundColor: controller.sendController.text.isNotEmpty
-                                    ? theme.colorScheme.primary
-                                    : theme.bubbleColor,
-                                foregroundColor: controller.sendController.text.isNotEmpty
-                                    ? theme.colorScheme.onPrimary
-                                    : theme.onBubbleColor,
-                                minimumSize: const Size(48, 48),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24.0),
+                            child: Material(
+                              color: controller.sendController.text.isNotEmpty
+                                  ? theme.colorScheme.primary
+                                  : theme.bubbleColor,
+                              borderRadius: BorderRadius.circular(24.0),
+                              elevation: controller.sendController.text.isNotEmpty ? 2.0 : 0.0,
+                              shadowColor: controller.sendController.text.isNotEmpty
+                                  ? theme.colorScheme.primary.withOpacity(0.3)
+                                  : Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(24.0),
+                                onTap: controller.sendController.text.isNotEmpty
+                                    ? controller.send
+                                    : null,
+                                onLongPress: controller.sendController.text.isNotEmpty
+                                    ? () => controller.sendScheduleAction()
+                                    : null,
+                                child: Container(
+                                  height: 48,
+                                  width: 48,
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.send_outlined,
+                                    color: controller.sendController.text.isNotEmpty
+                                        ? theme.colorScheme.onPrimary
+                                        : theme.onBubbleColor,
+                                    size: 24,
+                                  ),
                                 ),
-                                elevation: controller.sendController.text.isNotEmpty ? 2.0 : 0.0,
-                                shadowColor: controller.sendController.text.isNotEmpty
-                                    ? theme.colorScheme.primary.withOpacity(0.3)
-                                    : Colors.transparent,
                               ),
-                              icon: const Icon(Icons.send_outlined),
                             ),
                           ),
                   ),
