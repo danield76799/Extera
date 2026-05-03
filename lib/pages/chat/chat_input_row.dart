@@ -459,15 +459,31 @@ class ChatInputRow extends StatelessWidget {
                             height: 48,
                             width: 48,
                             alignment: Alignment.center,
-                            child: Material(
-                              color: controller.sendController.text.isNotEmpty
-                                  ? theme.colorScheme.primary
-                                  : theme.bubbleColor,
+                            decoration: BoxDecoration(
+                              gradient: controller.sendController.text.isNotEmpty
+                                  ? const LinearGradient(
+                                      colors: [Color(0xFF1a237e), Color(0xFF7b1fa2)],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    )
+                                  : null,
+                              color: controller.sendController.text.isEmpty
+                                  ? theme.bubbleColor
+                                  : null,
                               borderRadius: BorderRadius.circular(24.0),
-                              elevation: controller.sendController.text.isNotEmpty ? 2.0 : 0.0,
-                              shadowColor: controller.sendController.text.isNotEmpty
-                                  ? theme.colorScheme.primary.withOpacity(0.3)
-                                  : Colors.transparent,
+                              boxShadow: controller.sendController.text.isNotEmpty
+                                  ? [
+                                      BoxShadow(
+                                        color: const Color(0xFF7b1fa2).withOpacity(0.3),
+                                        blurRadius: 8.0,
+                                        offset: const Offset(0, 2),
+                                      ),
+                                    ]
+                                  : null,
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(24.0),
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(24.0),
                                 onTap: controller.sendController.text.isNotEmpty
@@ -480,12 +496,13 @@ class ChatInputRow extends StatelessWidget {
                                   height: 48,
                                   width: 48,
                                   alignment: Alignment.center,
+                                  padding: const EdgeInsets.all(15.0),
                                   child: Icon(
                                     Icons.send_outlined,
                                     color: controller.sendController.text.isNotEmpty
-                                        ? theme.colorScheme.onPrimary
+                                        ? Colors.white
                                         : theme.onBubbleColor,
-                                    size: 24,
+                                    size: 18,
                                   ),
                                 ),
                               ),
