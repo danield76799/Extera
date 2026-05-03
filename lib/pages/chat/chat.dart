@@ -379,16 +379,18 @@ class ChatController extends State<ChatPageWithRoom>
     if (files.isEmpty) return;
     if (!mounted) return;
     if (!context.mounted) return; // Extra check for null context
-    showAdaptiveDialog(
-      context: context,
-      builder: (c) => SendFileDialog(
-        files: files,
-        room: room,
-        thread: thread,
-        outerContext: context,
-        replyEvent: replyEvent,
-      ),
-    );
+    if (context.mounted) {
+      showAdaptiveDialog(
+        context: context,
+        builder: (c) => SendFileDialog(
+          files: files,
+          room: room,
+          thread: thread,
+          outerContext: context,
+          replyEvent: replyEvent,
+        ),
+      );
+    }
   }
 
   KeyEventResult _shiftEnterKeyHandling(FocusNode node, KeyEvent evt) {
