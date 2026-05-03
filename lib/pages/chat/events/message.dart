@@ -23,6 +23,7 @@ import 'package:Pulsly/widgets/member_actions_popup_menu_button.dart';
 import '../../../config/app_config.dart';
 import 'message_content.dart';
 import 'message_reactions.dart';
+import 'message_read_receipts.dart'; // NEW
 import 'reply_content.dart';
 import 'state_message.dart';
 
@@ -48,6 +49,7 @@ class Message extends StatefulWidget {
   final bool singleSelected;
   final Thread? thread;
   final bool hasBeenRead;
+  final List<Receipt>? readReceipts; // NEW: Read receipts for this message
 
   const Message(
     this.event, {
@@ -58,6 +60,7 @@ class Message extends StatefulWidget {
     this.gradient = false,
     this.singleSelected = false,
     this.hasBeenRead = false,
+    this.readReceipts, // NEW
     this.thread,
     required this.onSelect,
     required this.onInfoTab,
@@ -780,6 +783,13 @@ class _MessageState extends State<Message> {
                   ),
                 ),
               ],
+            ),
+          // NEW: Show read receipts for own messages
+          if (widget.readReceipts != null && widget.readReceipts!.isNotEmpty && ownMessage)
+            MessageReadReceipts(
+              receipts: widget.readReceipts!,
+              isOwnMessage: ownMessage,
+              ownUserId: event.room.client.userID,
             ),
         ],
       );
