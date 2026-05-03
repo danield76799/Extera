@@ -300,41 +300,63 @@ class ChatInputRow extends StatelessWidget {
                     ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0.0),
-                      child: ChatPasteShortcut(
-                        onPaste: () {
-                          controller.sendImageFromClipBoard(null);
-                        },
-                        child: InputBar(
-                          room: controller.room,
-                          minLines: 1,
-                          maxLines: 8,
-                          autofocus: !PlatformInfos.isMobile,
-                          keyboardType: TextInputType.multiline,
-                          textInputAction:
-                              AppSettings.sendOnEnter.value &&
-                                  PlatformInfos.isMobile
-                              ? TextInputAction.send
-                              : null,
-                          onSubmitted: controller.onInputBarSubmitted,
-                          onSubmitImage: controller.sendImageFromClipBoard,
-                          focusNode: controller.inputFocus,
-                          controller: controller.sendController,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                              left: 6.0,
-                              right: 6.0,
-                              bottom: 6.0,
-                              top: 3.0,
-                            ),
-                            counter: const SizedBox.shrink(),
-                            hintText: L10n.of(context).writeAMessage,
-                            hintMaxLines: 1,
-                            border: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            filled: false,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12.0,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(24.0),
+                          border: Border.all(
+                            color: controller.sendController.text.isNotEmpty
+                                ? theme.colorScheme.primary.withOpacity(0.3)
+                                : theme.colorScheme.outline.withOpacity(0.2),
+                            width: 1.5,
                           ),
-                          onChanged: controller.onInputBarChanged,
+                          boxShadow: [
+                            BoxShadow(
+                              color: theme.colorScheme.shadow.withOpacity(0.05),
+                              blurRadius: 8.0,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: ChatPasteShortcut(
+                          onPaste: () {
+                            controller.sendImageFromClipBoard(null);
+                          },
+                          child: InputBar(
+                            room: controller.room,
+                            minLines: 1,
+                            maxLines: 8,
+                            autofocus: !PlatformInfos.isMobile,
+                            keyboardType: TextInputType.multiline,
+                            textInputAction:
+                                AppSettings.sendOnEnter.value &&
+                                    PlatformInfos.isMobile
+                                ? TextInputAction.send
+                                : null,
+                            onSubmitted: controller.onInputBarSubmitted,
+                            onSubmitImage: controller.sendImageFromClipBoard,
+                            focusNode: controller.inputFocus,
+                            controller: controller.sendController,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(
+                                left: 16.0,
+                                right: 16.0,
+                                bottom: 12.0,
+                                top: 12.0,
+                              ),
+                              counter: const SizedBox.shrink(),
+                              hintText: L10n.of(context).writeAMessage,
+                              hintMaxLines: 1,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              filled: false,
+                            ),
+                            onChanged: controller.onInputBarChanged,
+                          ),
                         ),
                       ),
                     ),
@@ -441,8 +463,20 @@ class ChatInputRow extends StatelessWidget {
                                 ? () => controller.sendScheduleAction()
                                 : null,
                             style: IconButton.styleFrom(
-                              backgroundColor: theme.bubbleColor,
-                              foregroundColor: theme.onBubbleColor,
+                              backgroundColor: controller.sendController.text.isNotEmpty
+                                  ? theme.colorScheme.primary
+                                  : theme.bubbleColor,
+                              foregroundColor: controller.sendController.text.isNotEmpty
+                                  ? theme.colorScheme.onPrimary
+                                  : theme.onBubbleColor,
+                              minimumSize: const Size(48, 48),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              elevation: controller.sendController.text.isNotEmpty ? 2.0 : 0.0,
+                              shadowColor: controller.sendController.text.isNotEmpty
+                                  ? theme.colorScheme.primary.withOpacity(0.3)
+                                  : Colors.transparent,
                             ),
                             icon: const Icon(Icons.send_outlined),
                           ),
