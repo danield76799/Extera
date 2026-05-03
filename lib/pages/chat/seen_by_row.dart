@@ -34,6 +34,7 @@ class SeenByRow extends StatelessWidget {
     // Filter out own receipts - only show OTHER people's receipts
     final receipts = allReceipts
         .where((r) => r.user.id != controller.room.client.userID)
+        .where((r) => r.user.id != controller.room.client.userID)
         .toList();
     const maxAvatars = 7;
     return Container(
