@@ -32,51 +32,36 @@ jobs:
           export PATH="$PWD/flutter/bin:$PATH"
           flutter doctor -v
           flutter --version
-          java -version
-          echo "ANDROID_HOME: $ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
-          echo "JAVA_HOME: $JAVA_HOME"
       - name: Clean Flutter build
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           flutter clean
-          rm -rf build/
-      - run: export PATH="$PWD/flutter/bin:$PATH" && flutter pub get
       - name: Generate l10n
-        run: export PATH="$PWD/flutter/bin:$PATH" && flutter gen-l10n
+        run: |
+          export PATH="$PWD/flutter/bin:$PATH"
+          flutter gen-l10n
       - name: Generate launcher icons
-        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_launcher_icons
+        run: |
+          export PATH="$PWD/flutter/bin:$PATH"
+          flutter pub run flutter_launcher_icons:main
       - name: Generate native splash
-        run: export PATH="$PWD/flutter/bin:$PATH" && dart run flutter_native_splash:create
+        run: |
+          export PATH="$PWD/flutter/bin:$PATH"
+          flutter pub run flutter_native_splash:create
       - name: Build Android APK
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
-          echo "=== Starting Android APK Build ==="
-          echo "Flutter version:"
-          flutter --version
-          echo "Dart version:"
-          dart --version
-          echo "=== Running flutter build apk ==="
-          set -o pipefail
           flutter build apk --release --target-platform android-arm64,android-arm --verbose 2>&1 | tee build.log
           BUILD_EXIT_CODE=$?
           echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
-          if [ $BUILD_EXIT_CODE -ne 0 ]; then 
+          if [ $BUILD_EXIT_CODE -ne 0 ]; then
             echo "=== BUILD FAILED ==="
             echo "=== Last 300 lines of build.log ==="
             tail -300 build.log
             echo "=== Full build.log contents ==="
             cat build.log
             echo "=== END OF LOGS ==="
-            exit 1
           fi
-          echo "=== Directory structure ==="
-          ls -la build/ 2>/dev/null || echo "No build directory"
-          ls -la build/app/ 2>/dev/null || echo "No build/app directory"
-          ls -la build/app/outputs/ 2>/dev/null || echo "No build/app/outputs directory"
-          ls -la build/app/outputs/flutter-apk/ 2>/dev/null || echo "No build/app/outputs/flutter-apk directory"
-          ls -la build/app/outputs/apk/ 2>/dev/null || echo "No build/app/outputs/apk directory"
-          echo "=== Searching for APK files ==="
           find . -name "*.apk" -type f 2>/dev/null || echo "No APK files found"
           if [ -f build/app/outputs/flutter-apk/app-release.apk ]; then
             echo "SUCCESS: APK found at build/app/outputs/flutter-apk/app-release.apk"
@@ -85,41 +70,47 @@ jobs:
             echo "ERROR: APK NOT found at expected location"
             exit 1
           fi
+          exit $BUILD_EXIT_CODE
       - name: Upload Build Log
-        if: always()
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: android-build-log
           path: build.log
-          retention-days: 30
+          retention-days: 7
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: |
-            build/app/outputs/flutter-apk/app-release.apk
-
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v0.9.2-build-477
-          name: Plusly v0.9.2 (Build #477 - Reference Build)
+          tag_name: v1.0.6
+          name: Plusly v1.0.6 (Chat UI Improvements)
           body: |
-            Plusly v0.9.2 - Reference Build #477
+            ## What's New in v1.0.6
             
-            This is the reference build that has been in development for a long time.
+            ### Chat UI Improvements
+            - **Better padding**: 16px horizontal, 12px vertical for more comfortable typing
+            - **Visual shadow**: Subtle shadow effect on input field for depth
+            - **Rounded corners**: Smooth 24px border radius on input container
+            - **Send button styling**: 
+              - Color changes based on text presence (primary when active)
+              - Larger touch target (48x48dp minimum)
+              - Rounded corners with subtle elevation when active
+            - **Border feedback**: Input border changes color when text is present
             
-            - Version: 0.9.2
-            - Build: #477
-            - Commit: ${{ github.sha }}
-            - Package: com.danield.plusly
-            
-            Changes in this version:
-            - Performance fixes: reduced network timeout, improved error handling
-            - Fixed Node.js 24 deprecation warning
+            ### Previous Features
+            - Seen by filter (eigen avatar gefilterd)
+            - "Read by" tekst (was "Read receipts")
+            - Performance fixes
+            - Enhanced presence handling
+            - Unified Push notifications
           files: |
             build/app/outputs/flutter-apk/app-release.apk
-          prerelease: true
+          prerelease: false
           generate_release_notes: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
