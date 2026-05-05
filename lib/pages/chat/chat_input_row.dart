@@ -19,7 +19,7 @@ import 'input_bar.dart';
 class ChatInputRow extends StatelessWidget {
   final ChatController controller;
 
-  static const double height = 56.0;
+  static const double height = 48.0;
 
   const ChatInputRow(this.controller, {super.key});
 
@@ -456,8 +456,8 @@ class ChatInputRow extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            height: height,
-                            width: height,
+                            height: 48,
+                            width: 48,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               gradient: controller.sendController.text.isNotEmpty
@@ -493,20 +493,16 @@ class ChatInputRow extends StatelessWidget {
                                     ? () => controller.sendScheduleAction()
                                     : null,
                                 child: Container(
-                                  height: height,
-                                  width: height,
+                                  height: 48,
+                                  width: 48,
                                   alignment: Alignment.center,
                                   padding: const EdgeInsets.all(15.0),
-                                  child: AnimatedSwitcher(
-                                    duration: Duration(milliseconds: 200),
-                                    child: Icon(
-                                      Icons.send_outlined,
-                                      key: ValueKey(controller.sendController.text.isNotEmpty),
-                                      color: controller.sendController.text.isNotEmpty
-                                          ? Colors.white
-                                          : theme.onBubbleColor,
-                                      size: 18,
-                                    ),
+                                  child: Icon(
+                                    Icons.send_outlined,
+                                    color: controller.sendController.text.isNotEmpty
+                                        ? Colors.white
+                                        : theme.onBubbleColor,
+                                    size: 18,
                                   ),
                                 ),
                               ),
