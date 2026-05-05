@@ -274,8 +274,7 @@ class ChatInputRow extends StatelessWidget {
                     width: height,
                     alignment: Alignment.center,
                     child: IconButton(
-                      tooltip: L10n.of(context).emojis,
-                      semanticLabel: 'Open emoji picker',
+                      tooltip: L10n.of(context).emojis
                       color: theme.colorScheme.onSurface,
                       icon: Icon(
                         controller.sendController.text.isEmpty
@@ -374,8 +373,7 @@ class ChatInputRow extends StatelessWidget {
                                 recordingViewModel.recordingMode ==
                                     RecordingMode.video
                                 ? L10n.of(context).videoNote
-                                : L10n.of(context).voiceMessage,
-                            semanticLabel: recordingViewModel.recordingMode ==
+                                : L10n.of(context).voiceMessage
                                     RecordingMode.video
                                 ? 'Record video note'
                                 : 'Record voice message',
