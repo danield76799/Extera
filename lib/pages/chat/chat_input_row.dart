@@ -274,7 +274,7 @@ class ChatInputRow extends StatelessWidget {
                     width: height,
                     alignment: Alignment.center,
                     child: IconButton(
-                      tooltip: L10n.of(context).emojis
+                      tooltip: L10n.of(context).emojis,
                       color: theme.colorScheme.onSurface,
                       icon: Icon(
                         controller.sendController.text.isEmpty
@@ -373,10 +373,7 @@ class ChatInputRow extends StatelessWidget {
                                 recordingViewModel.recordingMode ==
                                     RecordingMode.video
                                 ? L10n.of(context).videoNote
-                                : L10n.of(context).voiceMessage
-                                    RecordingMode.video
-                                ? 'Record video note'
-                                : 'Record voice message',
+                                : L10n.of(context).voiceMessage,
                             onPressed: () {
                               // On tap: show tip and toggle mode if video notes enabled
                               final videoNotesEnabled =
