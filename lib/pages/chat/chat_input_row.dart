@@ -19,7 +19,7 @@ import 'input_bar.dart';
 class ChatInputRow extends StatelessWidget {
   final ChatController controller;
 
-  static const double height = 48.0;
+  static const double height = 56.0;
 
   const ChatInputRow(this.controller, {super.key});
 
@@ -275,6 +275,7 @@ class ChatInputRow extends StatelessWidget {
                     alignment: Alignment.center,
                     child: IconButton(
                       tooltip: L10n.of(context).emojis,
+                      semanticLabel: 'Open emoji picker',
                       color: theme.colorScheme.onSurface,
                       icon: Icon(
                         controller.sendController.text.isEmpty
@@ -374,6 +375,10 @@ class ChatInputRow extends StatelessWidget {
                                     RecordingMode.video
                                 ? L10n.of(context).videoNote
                                 : L10n.of(context).voiceMessage,
+                            semanticLabel: recordingViewModel.recordingMode ==
+                                    RecordingMode.video
+                                ? 'Record video note'
+                                : 'Record voice message',
                             onPressed: () {
                               // On tap: show tip and toggle mode if video notes enabled
                               final videoNotesEnabled =
@@ -456,8 +461,8 @@ class ChatInputRow extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            height: 48,
-                            width: 48,
+                            height: height,
+                            width: height,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               gradient: controller.sendController.text.isNotEmpty
@@ -493,16 +498,20 @@ class ChatInputRow extends StatelessWidget {
                                     ? () => controller.sendScheduleAction()
                                     : null,
                                 child: Container(
-                                  height: 48,
-                                  width: 48,
+                                  height: height,
+                                  width: height,
                                   alignment: Alignment.center,
                                   padding: const EdgeInsets.all(15.0),
-                                  child: Icon(
-                                    Icons.send_outlined,
-                                    color: controller.sendController.text.isNotEmpty
-                                        ? Colors.white
-                                        : theme.onBubbleColor,
-                                    size: 18,
+                                  child: AnimatedSwitcher(
+                                    duration: Duration(milliseconds: 200),
+                                    child: Icon(
+                                      Icons.send_outlined,
+                                      key: ValueKey(controller.sendController.text.isNotEmpty),
+                                      color: controller.sendController.text.isNotEmpty
+                                          ? Colors.white
+                                          : theme.onBubbleColor,
+                                      size: 18,
+                                    ),
                                   ),
                                 ),
                               ),
