@@ -307,7 +307,7 @@ class ChatInputRow extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           color: theme.colorScheme.surface,
-                          borderRadius: BorderRadius.circular(24.0),
+                          borderRadius: BorderRadius.circular(22.0),
                           border: Border.all(
                             color: controller.sendController.text.isNotEmpty
                                 ? theme.colorScheme.primary.withOpacity(0.3)
@@ -470,7 +470,7 @@ class ChatInputRow extends StatelessWidget {
                               color: controller.sendController.text.isEmpty
                                   ? theme.bubbleColor
                                   : null,
-                              borderRadius: BorderRadius.circular(24.0),
+                              borderRadius: BorderRadius.circular(22.0),
                               boxShadow: controller.sendController.text.isNotEmpty
                                   ? [
                                       BoxShadow(
@@ -483,9 +483,9 @@ class ChatInputRow extends StatelessWidget {
                             ),
                             child: Material(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(24.0),
+                              borderRadius: BorderRadius.circular(22.0),
                               child: InkWell(
-                                borderRadius: BorderRadius.circular(24.0),
+                                borderRadius: BorderRadius.circular(22.0),
                                 onTap: controller.sendController.text.isNotEmpty
                                     ? controller.send
                                     : null,
