@@ -269,24 +269,28 @@ class ChatInputRow extends StatelessWidget {
                         ],
                       ),
                     ),
-                  Container(
-                    height: height,
-                    width: height,
-                    alignment: Alignment.center,
-                    child: IconButton(
-                      tooltip: L10n.of(context).emojis,
-                      color: theme.colorScheme.onSurface,
-                      icon: Icon(
-                        controller.sendController.text.isEmpty
-                            ? controller.showEmojiPicker
-                                  ? MdiIcons.sticker
-                                  : MdiIcons.stickerOutline
-                            : controller.showEmojiPicker
-                            ? Icons.add_reaction
-                            : Icons.add_reaction_outlined,
-                        key: ValueKey(controller.showEmojiPicker),
+                  Semantics(
+                    label: 'Open emoji picker',
+                    button: true,
+                    child: Container(
+                      height: height,
+                      width: height,
+                      alignment: Alignment.center,
+                      child: IconButton(
+                        tooltip: L10n.of(context).emojis,
+                        color: theme.colorScheme.onSurface,
+                        icon: Icon(
+                          controller.sendController.text.isEmpty
+                              ? controller.showEmojiPicker
+                                    ? MdiIcons.sticker
+                                    : MdiIcons.stickerOutline
+                              : controller.showEmojiPicker
+                              ? Icons.add_reaction
+                              : Icons.add_reaction_outlined,
+                          key: ValueKey(controller.showEmojiPicker),
+                        ),
+                        onPressed: controller.emojiPickerAction,
                       ),
-                      onPressed: controller.emojiPickerAction,
                     ),
                   ),
                   if (Matrix.of(context).isMultiAccount &&
@@ -368,119 +372,129 @@ class ChatInputRow extends StatelessWidget {
                     child:
                         PlatformInfos.platformCanRecord &&
                             controller.sendController.text.isEmpty
-                        ? IconButton(
-                            tooltip:
-                                recordingViewModel.recordingMode ==
-                                    RecordingMode.video
-                                ? L10n.of(context).videoNote
-                                : L10n.of(context).voiceMessage,
-                            onPressed: () {
-                              // On tap: show tip and toggle mode if video notes enabled
-                              final videoNotesEnabled =
-                                  AppSettings.enableVideoNotes.value &&
-                                  PlatformInfos.isMobile;
-                              if (videoNotesEnabled) {
-                                final newMode =
-                                    recordingViewModel.recordingMode ==
-                                        RecordingMode.audio
-                                    ? RecordingMode.video
-                                    : RecordingMode.audio;
-                                recordingViewModel.setRecordingMode(newMode);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    margin: const EdgeInsets.only(
-                                      bottom: height + 16,
-                                      left: 16,
-                                      right: 16,
-                                      top: 16,
-                                    ),
-                                    showCloseIcon: true,
-                                    content: Text(
-                                      newMode == RecordingMode.video
-                                          ? L10n.of(
-                                              context,
-                                            ).longPressToRecordVideoNote
-                                          : L10n.of(
-                                              context,
-                                            ).longPressToRecordVoiceMessage,
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    margin: const EdgeInsets.only(
-                                      bottom: height + 16,
-                                      left: 16,
-                                      right: 16,
-                                      top: 16,
-                                    ),
-                                    showCloseIcon: true,
-                                    content: Text(
-                                      L10n.of(
-                                        context,
-                                      ).longPressToRecordVoiceMessage,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            onLongPress: () {
-                              if (recordingViewModel.recordingMode ==
-                                  RecordingMode.video) {
-                                // Open full-screen video note dialog
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    fullscreenDialog: true,
-                                    builder: (_) => VideoNoteRecordingDialog(
-                                      room: controller.room,
-                                      onVideoSend: controller.onVideoNoteSend,
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                recordingViewModel.startRecording(
-                                  controller.room,
-                                );
-                              }
-                            },
-                            style: IconButton.styleFrom(
-                              backgroundColor: theme.bubbleColor,
-                              foregroundColor: theme.onBubbleColor,
-                            ),
-                            icon: Icon(
-                              recordingViewModel.recordingMode ==
+                        ? Semantics(
+                            label: recordingViewModel.recordingMode == RecordingMode.video
+                                ? 'Record video note'
+                                : 'Record voice message',
+                            button: true,
+                            child: IconButton(
+                              tooltip:
+                                  recordingViewModel.recordingMode ==
                                       RecordingMode.video
-                                  ? Icons.camera_alt_outlined
-                                  : Icons.mic_none_outlined,
-                            ),
-                          )
-                        : Container(
-                            height: 56,
-                            width: 56,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              gradient: controller.sendController.text.isNotEmpty
-                                  ? const LinearGradient(
-                                      colors: [Color(0xFF49AFC2), Color(0xFF6FC5D8)],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    )
-                                  : null,
-                              color: controller.sendController.text.isEmpty
-                                  ? theme.bubbleColor
-                                  : null,
-                              borderRadius: BorderRadius.circular(28.0),
-                              boxShadow: controller.sendController.text.isNotEmpty
-                                  ? [
-                                      BoxShadow(
-                                        color: const Color(0xFF49AFC2).withOpacity(0.3),
-                                        blurRadius: 8.0,
-                                        offset: const Offset(0, 2),
+                                  ? L10n.of(context).videoNote
+                                  : L10n.of(context).voiceMessage,
+                              onPressed: () {
+                                // On tap: show tip and toggle mode if video notes enabled
+                                final videoNotesEnabled =
+                                    AppSettings.enableVideoNotes.value &&
+                                    PlatformInfos.isMobile;
+                                if (videoNotesEnabled) {
+                                  final newMode =
+                                      recordingViewModel.recordingMode ==
+                                          RecordingMode.audio
+                                      ? RecordingMode.video
+                                      : RecordingMode.audio;
+                                  recordingViewModel.setRecordingMode(newMode);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      margin: const EdgeInsets.only(
+                                        bottom: height + 16,
+                                        left: 16,
+                                        right: 16,
+                                        top: 16,
                                       ),
-                                    ]
-                                  : null,
+                                      showCloseIcon: true,
+                                      content: Text(
+                                        newMode == RecordingMode.video
+                                            ? L10n.of(
+                                                context,
+                                              ).longPressToRecordVideoNote
+                                            : L10n.of(
+                                                context,
+                                              ).longPressToRecordVoiceMessage,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      margin: const EdgeInsets.only(
+                                        bottom: height + 16,
+                                        left: 16,
+                                        right: 16,
+                                        top: 16,
+                                      ),
+                                      showCloseIcon: true,
+                                      content: Text(
+                                        L10n.of(
+                                          context,
+                                        ).longPressToRecordVoiceMessage,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              onLongPress: () {
+                                if (recordingViewModel.recordingMode ==
+                                    RecordingMode.video) {
+                                  // Open full-screen video note dialog
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      fullscreenDialog: true,
+                                      builder: (_) => VideoNoteRecordingDialog(
+                                        room: controller.room,
+                                        onVideoSend: controller.onVideoNoteSend,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  recordingViewModel.startRecording(
+                                    controller.room,
+                                  );
+                                }
+                              },
+                              style: IconButton.styleFrom(
+                                backgroundColor: theme.bubbleColor,
+                                foregroundColor: theme.onBubbleColor,
+                              ),
+                              icon: Icon(
+                                recordingViewModel.recordingMode ==
+                                        RecordingMode.video
+                                    ? Icons.camera_alt_outlined
+                                    : Icons.mic_none_outlined,
+                              ),
                             ),
+                          ),
+                        )
+                        : Semantics(
+                            label: 'Send message',
+                            button: true,
+                            child: Container(
+                              height: 56,
+                              width: 56,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                gradient: controller.sendController.text.isNotEmpty
+                                    ? const LinearGradient(
+                                        colors: [Color(0xFF49AFC2), Color(0xFF6FC5D8)],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                      )
+                                    : null,
+                                color: controller.sendController.text.isEmpty
+                                    ? theme.bubbleColor
+                                    : null,
+                                borderRadius: BorderRadius.circular(28.0),
+                                boxShadow: controller.sendController.text.isNotEmpty
+                                    ? [
+                                        BoxShadow(
+                                          color: const Color(0xFF49AFC2).withOpacity(0.3),
+                                          blurRadius: 8.0,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ]
+                                    : null,
+                              ),
                             child: Material(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(28.0),
