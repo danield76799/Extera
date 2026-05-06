@@ -18,72 +18,81 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clone for faster checkout
+          depth: 1        # Only fetch latest commit
+
       - run: cat .github/workflows/versions.env >> $GITHUB_ENV
+
       - uses: actions/setup-java@v4
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'zulu'
+          cache: 'gradle'  # Cache Gradle dependencies
+
       - name: Setup Flutter
         run: |
-          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          git clone --depth 1 https://github.com/flutter/flutter.git -b stable
           echo "$PWD/flutter/bin" >> $GITHUB_PATH
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+          key: flutter-deps-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            flutter-deps-${{ runner.os }}-
+
       - name: Verify Flutter
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
-          flutter doctor -v
           flutter --version
+
       - name: Clean Flutter build
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           flutter clean
-      - name: Generate l10n
+
+      - name: Generate localization
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           flutter gen-l10n
-      - name: Generate launcher icons
+
+      - name: Generate assets
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           flutter pub run flutter_launcher_icons:main
-      - name: Generate native splash
-        run: |
-          export PATH="$PWD/flutter/bin:$PATH"
           flutter pub run flutter_native_splash:create
+
       - name: Build Android APK
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
-          flutter build apk --release --target-platform android-arm64,android-arm --verbose 2>&1 | tee build.log
+          flutter build apk --release --target-platform android-arm64,android-arm 2>&1 | tee build.log
           BUILD_EXIT_CODE=$?
           echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
           if [ $BUILD_EXIT_CODE -ne 0 ]; then
             echo "=== BUILD FAILED ==="
-            echo "=== Last 300 lines of build.log ==="
-            tail -300 build.log
-            echo "=== Full build.log contents ==="
-            cat build.log
-            echo "=== END OF LOGS ==="
-          fi
-          find . -name "*.apk" -type f 2>/dev/null || echo "No APK files found"
-          if [ -f build/app/outputs/flutter-apk/app-release.apk ]; then
-            echo "SUCCESS: APK found at build/app/outputs/flutter-apk/app-release.apk"
-            ls -la build/app/outputs/flutter-apk/
-          else
-            echo "ERROR: APK NOT found at expected location"
-            exit 1
+            tail -100 build.log
           fi
           exit $BUILD_EXIT_CODE
+
       - name: Upload Build Log
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: android-build-log
           path: build.log
-          retention-days: 7
+          retention-days: 3
+
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 7
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
