@@ -275,7 +275,6 @@ class ChatInputRow extends StatelessWidget {
                     alignment: Alignment.center,
                     child: IconButton(
                       tooltip: L10n.of(context).emojis,
-                      semanticLabel: 'Open emoji picker',
                       color: theme.colorScheme.onSurface,
                       icon: Icon(
                         controller.sendController.text.isEmpty
@@ -375,10 +374,6 @@ class ChatInputRow extends StatelessWidget {
                                     RecordingMode.video
                                 ? L10n.of(context).videoNote
                                 : L10n.of(context).voiceMessage,
-                            semanticLabel: recordingViewModel.recordingMode ==
-                                    RecordingMode.video
-                                ? 'Record video note'
-                                : 'Record voice message',
                             onPressed: () {
                               // On tap: show tip and toggle mode if video notes enabled
                               final videoNotesEnabled =
