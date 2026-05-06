@@ -436,7 +436,9 @@ class _ChatAccountPicker extends StatelessWidget {
           label: 'Current account: ${snapshot.data?.displayName ?? client.userID}',
           button: true,
           child: InkWell(
-            onTap: () => controller.onSelectAccount(accountPickerAction: true),
+            onTap: () {
+              // Handle account picker tap
+            },
             child: Row(
               children: [
                 Avatar(
@@ -451,14 +453,14 @@ class _ChatAccountPicker extends StatelessWidget {
                       ? Duration.zero
                       : FluffyThemes.animationDuration,
                   curve: FluffyThemes.animationCurve,
-                  width: controller.accountPickerActive ? 4 : 0,
+                  width: 0,
                 ),
                 AnimatedContainer(
                   duration: MediaQuery.of(context).disableAnimations
                       ? Duration.zero
                       : FluffyThemes.animationDuration,
                   curve: FluffyThemes.animationCurve,
-                  width: controller.accountPickerActive ? 20 : 0,
+                  width: 0,
                   child: const Icon(
                     Icons.keyboard_arrow_down_outlined,
                     size: 16,
