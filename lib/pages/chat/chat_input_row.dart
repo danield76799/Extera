@@ -464,7 +464,7 @@ class ChatInputRow extends StatelessWidget {
                                     : Icons.mic_none_outlined,
                               ),
                             ),
-                          ),
+                          )
                         )
                         : Semantics(
                             label: 'Send message',
