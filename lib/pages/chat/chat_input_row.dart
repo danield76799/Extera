@@ -316,10 +316,13 @@ class ChatInputRow extends StatelessWidget {
                                   showDialog(
                                     context: context,
                                     builder: (context) =>
-                                        const VideoNoteRecordingDialog(),
+                                        VideoNoteRecordingDialog(
+                                          room: controller.room,
+                                          onVideoSend: controller.onVideoNoteSend,
+                                        ),
                                   );
                                 } else {
-                                  recordingViewModel.startRecording();
+                                  recordingViewModel.startRecording(controller.room);
                                 }
                               },
                               icon: AnimatedSwitcher(
