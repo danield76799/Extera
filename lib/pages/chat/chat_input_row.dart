@@ -206,34 +206,35 @@ class ChatInputRow extends StatelessWidget {
                             },
                             child: InputBar(
                               room: controller.room,
-                            minLines: 1,
-                            maxLines: 8,
-                            autofocus: !PlatformInfos.isMobile,
-                            keyboardType: TextInputType.multiline,
-                            textInputAction:
-                                AppSettings.sendOnEnter.value &&
-                                    PlatformInfos.isMobile
-                                ? TextInputAction.send
-                                : null,
-                            onSubmitted: controller.onInputBarSubmitted,
-                            onSubmitImage: controller.sendImageFromClipBoard,
-                            focusNode: controller.inputFocus,
-                            controller: controller.sendController,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(
-                                left: 16.0,
-                                right: 16.0,
-                                bottom: 12.0,
-                                top: 12.0,
+                              minLines: 1,
+                              maxLines: 8,
+                              autofocus: !PlatformInfos.isMobile,
+                              keyboardType: TextInputType.multiline,
+                              textInputAction:
+                                  AppSettings.sendOnEnter.value &&
+                                      PlatformInfos.isMobile
+                                  ? TextInputAction.send
+                                  : null,
+                              onSubmitted: controller.onInputBarSubmitted,
+                              onSubmitImage: controller.sendImageFromClipBoard,
+                              focusNode: controller.inputFocus,
+                              controller: controller.sendController,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                  left: 16.0,
+                                  right: 16.0,
+                                  bottom: 12.0,
+                                  top: 12.0,
+                                ),
+                                counter: const SizedBox.shrink(),
+                                hintText: L10n.of(context).writeAMessage,
+                                hintMaxLines: 1,
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                filled: false,
                               ),
-                              counter: const SizedBox.shrink(),
-                              hintText: L10n.of(context).writeAMessage,
-                              hintMaxLines: 1,
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              filled: false,
+                              onChanged: controller.onInputBarChanged,
                             ),
-                            onChanged: controller.onInputBarChanged,
                           ),
                         ),
                       ),
@@ -309,33 +310,32 @@ class ChatInputRow extends StatelessWidget {
                                 }
                               },
                               onLongPress: () {
+                                // On long press: start recording
                                 if (recordingViewModel.recordingMode ==
                                     RecordingMode.video) {
-                                  // Open full-screen video note dialog
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      fullscreenDialog: true,
-                                      builder: (_) => VideoNoteRecordingDialog(
-                                        room: controller.room,
-                                        onVideoSend: controller.onVideoNoteSend,
-                                      ),
-                                    ),
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        const VideoNoteRecordingDialog(),
                                   );
                                 } else {
-                                  recordingViewModel.startRecording(
-                                    controller.room,
-                                  );
+                                  recordingViewModel.startRecording();
                                 }
                               },
-                              style: IconButton.styleFrom(
-                                backgroundColor: theme.bubbleColor,
-                                foregroundColor: theme.onBubbleColor,
-                              ),
-                              icon: Icon(
-                                recordingViewModel.recordingMode ==
-                                        RecordingMode.video
-                                    ? Icons.camera_alt_outlined
-                                    : Icons.mic_none_outlined,
+                              icon: AnimatedSwitcher(
+                                duration: MediaQuery.of(context).disableAnimations
+                                    ? Duration.zero
+                                    : const Duration(milliseconds: 200),
+                                child: Icon(
+                                  recordingViewModel.recordingMode ==
+                                          RecordingMode.video
+                                      ? Icons.videocam_outlined
+                                      : Icons.mic_none_outlined,
+                                  key: ValueKey(
+                                    recordingViewModel.recordingMode,
+                                  ),
+                                  color: theme.colorScheme.onSurface,
+                                ),
                               ),
                             ),
                           )
@@ -402,7 +402,6 @@ class ChatInputRow extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ),
                   ),
                 ],
         );
