@@ -50,30 +50,38 @@ class ChatInputRow extends StatelessWidget {
                   ))
                     SizedBox(
                       height: height,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: theme.colorScheme.error,
-                        ),
-                        onPressed: controller.deleteErrorEventsAction,
-                        child: Row(
-                          children: <Widget>[
-                            const Icon(Icons.delete_forever_outlined),
-                            Text(L10n.of(context).delete),
-                          ],
+                      child: Semantics(
+                        label: L10n.of(context).delete,
+                        button: true,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: theme.colorScheme.error,
+                          ),
+                          onPressed: controller.deleteErrorEventsAction,
+                          child: Row(
+                            children: <Widget>[
+                              const Icon(Icons.delete_forever_outlined),
+                              Text(L10n.of(context).delete),
+                            ],
+                          ),
                         ),
                       ),
                     )
                   else
                     SizedBox(
                       height: height,
-                      child: TextButton(
-                        style: selectedTextButtonStyle,
-                        onPressed: controller.forwardEventsAction,
-                        child: Row(
-                          children: <Widget>[
-                            const Icon(Icons.keyboard_arrow_left_outlined),
-                            Text(L10n.of(context).forward),
-                          ],
+                      child: Semantics(
+                        label: L10n.of(context).forward,
+                        button: true,
+                        child: TextButton(
+                          style: selectedTextButtonStyle,
+                          onPressed: controller.forwardEventsAction,
+                          child: Row(
+                            children: <Widget>[
+                              const Icon(Icons.keyboard_arrow_left_outlined),
+                              Text(L10n.of(context).forward),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -84,28 +92,36 @@ class ChatInputRow extends StatelessWidget {
                                 .isSent
                             ? SizedBox(
                                 height: height,
-                                child: TextButton(
-                                  style: selectedTextButtonStyle,
-                                  onPressed: controller.replyAction,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(L10n.of(context).reply),
-                                      const Icon(Icons.keyboard_arrow_right),
-                                    ],
+                                child: Semantics(
+                                  label: L10n.of(context).reply,
+                                  button: true,
+                                  child: TextButton(
+                                    style: selectedTextButtonStyle,
+                                    onPressed: controller.replyAction,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(L10n.of(context).reply),
+                                        const Icon(Icons.keyboard_arrow_right),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )
                             : SizedBox(
                                 height: height,
-                                child: TextButton(
-                                  style: selectedTextButtonStyle,
-                                  onPressed: controller.sendAgainAction,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(L10n.of(context).tryToSendAgain),
-                                      const SizedBox(width: 4),
-                                      const Icon(Icons.send_outlined, size: 16),
-                                    ],
+                                child: Semantics(
+                                  label: L10n.of(context).tryToSendAgain,
+                                  button: true,
+                                  child: TextButton(
+                                    style: selectedTextButtonStyle,
+                                    onPressed: controller.sendAgainAction,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(L10n.of(context).tryToSendAgain),
+                                        const SizedBox(width: 4),
+                                        const Icon(Icons.send_outlined, size: 16),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )
@@ -119,179 +135,32 @@ class ChatInputRow extends StatelessWidget {
                     width: controller.sendController.text.isNotEmpty
                         ? 0
                         : height,
-                    height: height,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(),
-                    clipBehavior: Clip.hardEdge,
-                    child: PopupMenuButton<String>(
-                      useRootNavigator: false,
-                      icon: const Icon(Icons.add_circle_outline),
-                      iconColor: theme.colorScheme.onSurface,
-                      onSelected: controller.onAddPopupMenuButtonSelected,
-                      itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<String>>[
-                            if (PlatformInfos.isMobile)
-                              PopupMenuItem<String>(
-                                value: 'location',
-                                child: ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundColor:
-                                        theme.colorScheme.onPrimaryContainer,
-                                    foregroundColor:
-                                        theme.colorScheme.primaryContainer,
-                                    child: const Icon(Icons.gps_fixed_outlined),
-                                  ),
-                                  title: Text(L10n.of(context).shareLocation),
-                                  contentPadding: const EdgeInsets.all(0),
+                    child: controller.sendController.text.isNotEmpty
+                        ? const SizedBox.shrink()
+                        : Semantics(
+                            label: 'Open emoji picker',
+                            button: true,
+                            child: Container(
+                              height: height,
+                              width: height,
+                              alignment: Alignment.center,
+                              child: IconButton(
+                                tooltip: L10n.of(context).emojis,
+                                color: theme.colorScheme.onSurface,
+                                icon: Icon(
+                                  controller.sendController.text.isEmpty
+                                      ? controller.showEmojiPicker
+                                            ? MdiIcons.sticker
+                                            : MdiIcons.stickerOutline
+                                      : controller.showEmojiPicker
+                                      ? Icons.add_reaction
+                                      : Icons.add_reaction_outlined,
+                                  key: ValueKey(controller.showEmojiPicker),
                                 ),
+                                onPressed: controller.emojiPickerAction,
                               ),
-                            PopupMenuItem<String>(
-                              value: 'image',
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      theme.colorScheme.onPrimaryContainer,
-                                  foregroundColor:
-                                      theme.colorScheme.primaryContainer,
-                                  child: const Icon(Icons.photo_outlined),
-                                ),
-                                title: Text(L10n.of(context).sendImage),
-                                contentPadding: const EdgeInsets.all(0),
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'video',
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      theme.colorScheme.onPrimaryContainer,
-                                  foregroundColor:
-                                      theme.colorScheme.primaryContainer,
-                                  child: const Icon(
-                                    Icons.video_camera_back_outlined,
-                                  ),
-                                ),
-                                title: Text(L10n.of(context).sendVideo),
-                                contentPadding: const EdgeInsets.all(0),
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'file',
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      theme.colorScheme.onPrimaryContainer,
-                                  foregroundColor:
-                                      theme.colorScheme.primaryContainer,
-                                  child: const Icon(Icons.attachment_outlined),
-                                ),
-                                title: Text(L10n.of(context).sendFile),
-                                contentPadding: const EdgeInsets.all(0),
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'poll',
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      theme.colorScheme.onPrimaryContainer,
-                                  foregroundColor:
-                                      theme.colorScheme.primaryContainer,
-                                  child: const Icon(Icons.poll_outlined),
-                                ),
-                                title: Text(L10n.of(context).createPoll),
-                                contentPadding: const EdgeInsets.all(0),
-                              ),
-                            ),
-                            PopupMenuItem<String>(
-                              value: 'schedule',
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      theme.colorScheme.onPrimaryContainer,
-                                  foregroundColor:
-                                      theme.colorScheme.primaryContainer,
-                                  child: const Icon(Icons.schedule_outlined),
-                                ),
-                                title: Text(L10n.of(context).sendLater),
-                                contentPadding: const EdgeInsets.all(0),
-                              ),
-                            ),
-                          ],
-                    ),
-                  ),
-                  if (PlatformInfos.isMobile &&
-                      AppSettings.showCameraButton.value)
-                    AnimatedContainer(
-                      duration: FluffyThemes.animationDuration,
-                      curve: FluffyThemes.animationCurve,
-                      width: controller.sendController.text.isNotEmpty
-                          ? 0
-                          : height,
-                      height: height,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(),
-                      clipBehavior: Clip.hardEdge,
-                      child: PopupMenuButton(
-                        useRootNavigator: false,
-                        icon: const Icon(Icons.camera_alt_outlined),
-                        onSelected: controller.onAddPopupMenuButtonSelected,
-                        iconColor: theme.colorScheme.onSurface,
-                        itemBuilder: (context) => [
-                          PopupMenuItem<String>(
-                            value: 'camera-video',
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor:
-                                    theme.colorScheme.onPrimaryContainer,
-                                foregroundColor:
-                                    theme.colorScheme.primaryContainer,
-                                child: const Icon(Icons.videocam_outlined),
-                              ),
-                              title: Text(L10n.of(context).recordAVideo),
-                              contentPadding: const EdgeInsets.all(0),
                             ),
                           ),
-                          PopupMenuItem<String>(
-                            value: 'camera',
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor:
-                                    theme.colorScheme.onPrimaryContainer,
-                                foregroundColor:
-                                    theme.colorScheme.primaryContainer,
-                                child: const Icon(Icons.camera_alt_outlined),
-                              ),
-                              title: Text(L10n.of(context).takeAPhoto),
-                              contentPadding: const EdgeInsets.all(0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  Semantics(
-                    label: 'Open emoji picker',
-                    button: true,
-                    child: Container(
-                      height: height,
-                      width: height,
-                      alignment: Alignment.center,
-                      child: IconButton(
-                        tooltip: L10n.of(context).emojis,
-                        color: theme.colorScheme.onSurface,
-                        icon: Icon(
-                          controller.sendController.text.isEmpty
-                              ? controller.showEmojiPicker
-                                    ? MdiIcons.sticker
-                                    : MdiIcons.stickerOutline
-                              : controller.showEmojiPicker
-                              ? Icons.add_reaction
-                              : Icons.add_reaction_outlined,
-                          key: ValueKey(controller.showEmojiPicker),
-                        ),
-                        onPressed: controller.emojiPickerAction,
-                      ),
-                    ),
                   ),
                   if (Matrix.of(context).isMultiAccount &&
                       Matrix.of(context).hasComplexBundles &&
@@ -494,38 +363,38 @@ class ChatInputRow extends StatelessWidget {
                                       ]
                                     : null,
                               ),
-                            child: Material(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(28.0),
-                              child: InkWell(
+                              child: Material(
+                                color: Colors.transparent,
                                 borderRadius: BorderRadius.circular(28.0),
-                                onTap: controller.sendController.text.isNotEmpty
-                                    ? controller.send
-                                    : null,
-                                onLongPress: controller.sendController.text.isNotEmpty
-                                    ? () => controller.sendScheduleAction()
-                                    : null,
-                                child: Container(
-                                  height: 56,
-                                  width: 56,
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.all(18.0),
-                                  child: AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 200),
-                                    child: Icon(
-                                      Icons.send_outlined,
-                                      key: ValueKey(controller.sendController.text.isNotEmpty),
-                                      color: controller.sendController.text.isNotEmpty
-                                          ? Colors.white
-                                          : theme.onBubbleColor,
-                                      size: 18,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(28.0),
+                                  onTap: controller.sendController.text.isNotEmpty
+                                      ? controller.send
+                                      : null,
+                                  onLongPress: controller.sendController.text.isNotEmpty
+                                      ? () => controller.sendScheduleAction()
+                                      : null,
+                                  child: Container(
+                                    height: 56,
+                                    width: 56,
+                                    alignment: Alignment.center,
+                                    padding: const EdgeInsets.all(18.0),
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(milliseconds: 200),
+                                      child: Icon(
+                                        Icons.send_outlined,
+                                        key: ValueKey(controller.sendController.text.isNotEmpty),
+                                        color: controller.sendController.text.isNotEmpty
+                                            ? Colors.white
+                                            : theme.onBubbleColor,
+                                        size: 18,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
                   ),
                 ],
         );
@@ -539,55 +408,37 @@ class _ChatAccountPicker extends StatelessWidget {
 
   const _ChatAccountPicker(this.controller);
 
-  void _popupMenuButtonSelected(String mxid, BuildContext context) {
-    final client = Matrix.of(
-      context,
-    ).currentBundle!.firstWhere((cl) => cl!.userID == mxid, orElse: () => null);
-    if (client == null) {
-      Logs().w('Attempted to switch to a non-existing client $mxid');
-      return;
-    }
-    controller.setSendingClient(client);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final clients = controller.currentRoomBundle;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: FutureBuilder<Profile>(
-        future: controller.sendingClient.fetchOwnProfile(),
-        builder: (context, snapshot) => PopupMenuButton<String>(
-          useRootNavigator: false,
-          onSelected: (mxid) => _popupMenuButtonSelected(mxid, context),
-          itemBuilder: (BuildContext context) => clients
-              .map(
-                (client) => PopupMenuItem<String>(
-                  value: client!.userID,
-                  child: FutureBuilder<Profile>(
-                    future: client.fetchOwnProfile(),
-                    builder: (context, snapshot) => ListTile(
-                      leading: Avatar(
-                        mxContent: snapshot.data?.avatarUrl,
-                        name:
-                            snapshot.data?.displayName ??
-                            client.userID!.localpart,
-                        size: 20,
-                      ),
-                      title: Text(snapshot.data?.displayName ?? client.userID!),
-                      contentPadding: const EdgeInsets.all(0),
-                    ),
-                  ),
-                ),
-              )
-              .toList(),
-          child: Avatar(
-            mxContent: snapshot.data?.avatarUrl,
-            name:
-                snapshot.data?.displayName ??
-                Matrix.of(context).client.userID!.localpart,
-            size: 20,
-          ),
+    final client = Matrix.of(context).client;
+    return FutureBuilder(
+      future: client.ownProfile,
+      builder: (context, snapshot) => InkWell(
+        onTap: () => controller.onSelectAccount(accountPickerAction: true),
+        child: Row(
+          children: [
+            Avatar(
+              mxContent: snapshot.data?.avatarUrl,
+              name:
+                  snapshot.data?.displayName ??
+                  Matrix.of(context).client.userID!.localpart,
+              size: 20,
+            ),
+            AnimatedContainer(
+              duration: FluffyThemes.animationDuration,
+              curve: FluffyThemes.animationCurve,
+              width: controller.accountPickerActive ? 4 : 0,
+            ),
+            AnimatedContainer(
+              duration: FluffyThemes.animationDuration,
+              curve: FluffyThemes.animationCurve,
+              width: controller.accountPickerActive ? 20 : 0,
+              child: const Icon(
+                Icons.keyboard_arrow_down_outlined,
+                size: 16,
+              ),
+            ),
+          ],
         ),
       ),
     );
