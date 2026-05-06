@@ -465,7 +465,6 @@ class ChatInputRow extends StatelessWidget {
                               ),
                             ),
                           )
-                        )
                         : Semantics(
                             label: 'Send message',
                             button: true,
@@ -526,6 +525,7 @@ class ChatInputRow extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ),
                   ),
                 ],
         );
