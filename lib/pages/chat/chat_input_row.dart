@@ -19,7 +19,7 @@ import 'input_bar.dart';
 class ChatInputRow extends StatelessWidget {
   final ChatController controller;
 
-  static const double height = 56.0;
+  static const double height = 56.0; // Touch target size
 
   const ChatInputRow(this.controller, {super.key});
 
