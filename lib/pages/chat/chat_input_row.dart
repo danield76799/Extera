@@ -130,7 +130,9 @@ class ChatInputRow extends StatelessWidget {
               : <Widget>[
                   const SizedBox(width: 4),
                   AnimatedContainer(
-                    duration: FluffyThemes.animationDuration,
+                    duration: MediaQuery.of(context).disableAnimations
+                        ? Duration.zero
+                        : FluffyThemes.animationDuration,
                     curve: FluffyThemes.animationCurve,
                     width: controller.sendController.text.isNotEmpty
                         ? 0
@@ -195,11 +197,14 @@ class ChatInputRow extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: ChatPasteShortcut(
-                          onPaste: () {
-                            controller.sendImageFromClipBoard(null);
-                          },
-                          child: InputBar(
+                        child: Semantics(
+                          label: 'Paste image from clipboard',
+                          button: true,
+                          child: ChatPasteShortcut(
+                            onPaste: () {
+                              controller.sendImageFromClipBoard(null);
+                            },
+                            child: InputBar(
                             room: controller.room,
                             minLines: 1,
                             maxLines: 8,
@@ -380,7 +385,9 @@ class ChatInputRow extends StatelessWidget {
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.all(18.0),
                                     child: AnimatedSwitcher(
-                                      duration: const Duration(milliseconds: 200),
+                                      duration: MediaQuery.of(context).disableAnimations
+                                          ? Duration.zero
+                                          : const Duration(milliseconds: 200),
                                       child: Icon(
                                         Icons.send_outlined,
                                         key: ValueKey(controller.sendController.text.isNotEmpty),
@@ -395,6 +402,7 @@ class ChatInputRow extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ),
                   ),
                 ],
         );
@@ -413,34 +421,54 @@ class _ChatAccountPicker extends StatelessWidget {
     final client = Matrix.of(context).client;
     return FutureBuilder(
       future: client.ownProfile,
-      builder: (context, snapshot) => InkWell(
-        onTap: () => controller.onSelectAccount(accountPickerAction: true),
-        child: Row(
-          children: [
-            Avatar(
-              mxContent: snapshot.data?.avatarUrl,
-              name:
-                  snapshot.data?.displayName ??
-                  Matrix.of(context).client.userID!.localpart,
-              size: 20,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Semantics(
+            label: 'Loading account information',
+            child: const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
             ),
-            AnimatedContainer(
-              duration: FluffyThemes.animationDuration,
-              curve: FluffyThemes.animationCurve,
-              width: controller.accountPickerActive ? 4 : 0,
+          );
+        }
+        return Semantics(
+          label: 'Current account: ${snapshot.data?.displayName ?? client.userID}',
+          button: true,
+          child: InkWell(
+            onTap: () => controller.onSelectAccount(accountPickerAction: true),
+            child: Row(
+              children: [
+                Avatar(
+                  mxContent: snapshot.data?.avatarUrl,
+                  name:
+                      snapshot.data?.displayName ??
+                      Matrix.of(context).client.userID!.localpart,
+                  size: 20,
+                ),
+                AnimatedContainer(
+                  duration: MediaQuery.of(context).disableAnimations
+                      ? Duration.zero
+                      : FluffyThemes.animationDuration,
+                  curve: FluffyThemes.animationCurve,
+                  width: controller.accountPickerActive ? 4 : 0,
+                ),
+                AnimatedContainer(
+                  duration: MediaQuery.of(context).disableAnimations
+                      ? Duration.zero
+                      : FluffyThemes.animationDuration,
+                  curve: FluffyThemes.animationCurve,
+                  width: controller.accountPickerActive ? 20 : 0,
+                  child: const Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    size: 16,
+                  ),
+                ),
+              ],
             ),
-            AnimatedContainer(
-              duration: FluffyThemes.animationDuration,
-              curve: FluffyThemes.animationCurve,
-              width: controller.accountPickerActive ? 20 : 0,
-              child: const Icon(
-                Icons.keyboard_arrow_down_outlined,
-                size: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
