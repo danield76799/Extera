@@ -19,8 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          depth: 1
+          fetch-depth: 1
 
       - run: cat .github/workflows/versions.env >> $GITHUB_ENV
 
