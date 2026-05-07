@@ -1,4 +1,4 @@
-import 'package:async/async.dart' show Result as AsyncResult;
+import 'package:async/async.dart' as async show Result;
 import 'package:flutter/material.dart';
 
 import 'package:collection/collection.dart' show IterableExtension;
@@ -58,7 +58,7 @@ class DevicesSettingsController extends State<DevicesSettings> {
     final client = Matrix.of(context).client;
 
     // Check if server has external account management URL
-    final wellKnown = await AsyncResult.capture(client.getWellknown());
+    final wellKnown = await async.Result.capture(client.getWellknown());
     final accountManageUrl = wellKnown.asValue?.value.additionalProperties
         .tryGetMap<String, Object?>('org.matrix.msc2965.authentication')
         ?.tryGet<String>('account');
