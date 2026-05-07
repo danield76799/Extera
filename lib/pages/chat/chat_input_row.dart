@@ -188,6 +188,57 @@ class ChatInputRow extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Container(
+                    height: height,
+                    width: height,
+                    alignment: Alignment.center,
+                    child: Semantics(
+                      label: 'Add attachment',
+                      button: true,
+                      child: PopupMenuButton<String>(
+                        icon: const Icon(Icons.add_circle_outline),
+                        color: theme.colorScheme.onSurface,
+                        onSelected: controller.onAddPopupMenuButtonSelected,
+                        itemBuilder: (BuildContext context) => [
+                          PopupMenuItem(
+                            value: 'image',
+                            child: ListTile(
+                              leading: const Icon(Icons.photo_outlined),
+                              title: Text(L10n.of(context).sendImage),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'video',
+                            child: ListTile(
+                              leading: const Icon(Icons.video_camera_back_outlined),
+                              title: Text(L10n.of(context).sendVideo),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'file',
+                            child: ListTile(
+                              leading: const Icon(Icons.attachment_outlined),
+                              title: Text(L10n.of(context).sendFile),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'poll',
+                            child: ListTile(
+                              leading: const Icon(Icons.poll_outlined),
+                              title: Text(L10n.of(context).startPoll),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'location',
+                            child: ListTile(
+                              leading: const Icon(Icons.location_on_outlined),
+                              title: Text(L10n.of(context).shareLocation),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
