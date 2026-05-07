@@ -178,21 +178,6 @@ class ChatInputRow extends StatelessWidget {
                     width: height,
                     alignment: Alignment.center,
                     child: Semantics(
-                      label: 'Send location',
-                      button: true,
-                      child: IconButton(
-                        tooltip: L10n.of(context).shareLocation,
-                        color: theme.colorScheme.onSurface,
-                        icon: const Icon(Icons.location_on_outlined),
-                        onPressed: controller.sendLocationAction,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: height,
-                    width: height,
-                    alignment: Alignment.center,
-                    child: Semantics(
                       label: 'Add attachment',
                       button: true,
                       child: PopupMenuButton<String>(
@@ -239,6 +224,7 @@ class ChatInputRow extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(width: 4),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
