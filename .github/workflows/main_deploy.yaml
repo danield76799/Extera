@@ -19,8 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clone for faster checkout
-          depth: 1        # Only fetch latest commit
+          fetch-depth: 0
+          depth: 1
 
       - run: cat .github/workflows/versions.env >> $GITHUB_ENV
 
@@ -28,7 +28,7 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'zulu'
-          cache: 'gradle'  # Cache Gradle dependencies
+          cache: 'gradle'
 
       - name: Setup Flutter
         run: |
@@ -70,32 +70,9 @@ jobs:
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
           flutter build apk --release --target-platform android-arm64,android-arm
-        continue-on-error: true
-
-      - name: Check APK exists
-        id: check_apk
-        run: |
-          if [ -f "build/app/outputs/flutter-apk/app-release.apk" ]; then
-            echo "apk_exists=true" >> $GITHUB_OUTPUT
-            echo "APK found!"
-            ls -lh build/app/outputs/flutter-apk/app-release.apk
-          else
-            echo "apk_exists=false" >> $GITHUB_OUTPUT
-            echo "APK NOT FOUND"
-            ls -la build/app/outputs/flutter-apk/ || echo "Directory does not exist"
-          fi
-
-      - name: Upload Build Log
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: android-build-log
-          path: build.log
-          retention-days: 3
 
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
-        if: steps.check_apk.outputs.apk_exists == 'true'
         with:
           name: android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
@@ -103,28 +80,9 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: steps.check_apk.outputs.apk_exists == 'true'
         with:
-          tag_name: v1.0.7
-          name: Plusly v1.0.7 (Location Sharing)
-          body: |
-            ## What's New in v1.0.7
-            
-            ### Location Sharing
-            - Share your location in chats
-            - OpenStreetMap integration
-            - "Open in Maps" button
-            
-            ### Previous Features
-            - Chat UI Improvements
-            - Seen by filter
-            - "Read by" tekst
-            - Performance fixes
-            - Enhanced presence handling
-            - Unified Push notifications
-          files: |
-            build/app/outputs/flutter-apk/app-release.apk
-          prerelease: false
-          generate_release_notes: false
+          tag_name: v1.0.6
+          name: Plusly v1.0.6
+          files: build/app/outputs/flutter-apk/app-release.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
