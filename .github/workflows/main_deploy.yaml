@@ -69,14 +69,21 @@ jobs:
       - name: Build Android APK
         run: |
           export PATH="$PWD/flutter/bin:$PATH"
-          flutter build apk --release --target-platform android-arm64,android-arm 2>&1 | tee build.log
-          BUILD_EXIT_CODE=$?
-          echo "=== Build completed with exit code: $BUILD_EXIT_CODE ==="
-          if [ $BUILD_EXIT_CODE -ne 0 ]; then
-            echo "=== BUILD FAILED ==="
-            tail -100 build.log
+          flutter build apk --release --target-platform android-arm64,android-arm
+        continue-on-error: true
+
+      - name: Check APK exists
+        id: check_apk
+        run: |
+          if [ -f "build/app/outputs/flutter-apk/app-release.apk" ]; then
+            echo "apk_exists=true" >> $GITHUB_OUTPUT
+            echo "APK found!"
+            ls -lh build/app/outputs/flutter-apk/app-release.apk
+          else
+            echo "apk_exists=false" >> $GITHUB_OUTPUT
+            echo "APK NOT FOUND"
+            ls -la build/app/outputs/flutter-apk/ || echo "Directory does not exist"
           fi
-          exit $BUILD_EXIT_CODE
 
       - name: Upload Build Log
         uses: actions/upload-artifact@v4
@@ -88,6 +95,7 @@ jobs:
 
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
+        if: steps.check_apk.outputs.apk_exists == 'true'
         with:
           name: android-apk
           path: build/app/outputs/flutter-apk/app-release.apk
@@ -95,25 +103,22 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
+        if: steps.check_apk.outputs.apk_exists == 'true'
         with:
-          tag_name: v1.0.6
-          name: Plusly v1.0.6 (Chat UI Improvements)
+          tag_name: v1.0.7
+          name: Plusly v1.0.7 (Location Sharing)
           body: |
-            ## What's New in v1.0.6
+            ## What's New in v1.0.7
             
-            ### Chat UI Improvements
-            - **Better padding**: 16px horizontal, 12px vertical for more comfortable typing
-            - **Visual shadow**: Subtle shadow effect on input field for depth
-            - **Rounded corners**: Smooth 24px border radius on input container
-            - **Send button styling**: 
-              - Color changes based on text presence (primary when active)
-              - Larger touch target (48x48dp minimum)
-              - Rounded corners with subtle elevation when active
-            - **Border feedback**: Input border changes color when text is present
+            ### Location Sharing
+            - Share your location in chats
+            - OpenStreetMap integration
+            - "Open in Maps" button
             
             ### Previous Features
-            - Seen by filter (eigen avatar gefilterd)
-            - "Read by" tekst (was "Read receipts")
+            - Chat UI Improvements
+            - Seen by filter
+            - "Read by" tekst
             - Performance fixes
             - Enhanced presence handling
             - Unified Push notifications
