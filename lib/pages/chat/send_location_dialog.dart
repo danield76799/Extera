@@ -86,6 +86,7 @@ class SendLocationDialogState extends State<SendLocationDialog> {
           'body': body,
           'geo_uri': uri,
         },
+        type: EventTypes.Message,
       ),
     );
     if (!mounted) return;
