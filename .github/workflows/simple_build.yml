@@ -24,7 +24,17 @@ jobs:
           channel: 'stable'
       
       - name: Get dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get || true
+          flutter pub get
+      
+      - name: Generate localization
+        run: flutter gen-l10n || true
+      
+      - name: Generate assets
+        run: |
+          flutter pub run flutter_launcher_icons:main || true
+          flutter pub run flutter_native_splash:create || true
       
       - name: Build APK
         run: flutter build apk --release
