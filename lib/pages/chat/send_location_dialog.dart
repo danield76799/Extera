@@ -1,23 +1,19 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:geolocator/geolocator.dart';
 import 'package:matrix/matrix.dart';
 
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/pages/chat/events/map_bubble.dart';
+import 'package:Pulsly/widgets/adaptive_dialogs/adaptive_dialog_action.dart';
 import 'package:Pulsly/widgets/future_loading_dialog.dart';
 
 class SendLocationDialog extends StatefulWidget {
   final Room room;
-  final Thread? thread;
 
-  const SendLocationDialog({
-    required this.room,
-    required this.thread,
-    super.key,
-  });
+  const SendLocationDialog({required this.room, super.key});
 
   @override
   SendLocationDialogState createState() => SendLocationDialogState();
@@ -37,7 +33,6 @@ class SendLocationDialogState extends State<SendLocationDialog> {
   }
 
   Future<void> requestLocation() async {
-    error = null;
     if (!(await Geolocator.isLocationServiceEnabled())) {
       setState(() => disabled = true);
       return;
@@ -59,15 +54,15 @@ class SendLocationDialogState extends State<SendLocationDialog> {
       try {
         position = await Geolocator.getCurrentPosition(
           locationSettings: const LocationSettings(
-            accuracy: LocationAccuracy.high,
-            timeLimit: Duration(seconds: 5),
+            accuracy: LocationAccuracy.best,
+            timeLimit: Duration(seconds: 30),
           ),
         );
       } on TimeoutException {
         position = await Geolocator.getCurrentPosition(
           locationSettings: const LocationSettings(
             accuracy: LocationAccuracy.medium,
-            timeLimit: Duration(seconds: 5),
+            timeLimit: Duration(seconds: 30),
           ),
         );
       }
@@ -77,7 +72,7 @@ class SendLocationDialogState extends State<SendLocationDialog> {
     }
   }
 
-  void sendAction() async {
+  Future<void> sendAction() async {
     setState(() => isSending = true);
     final body =
         'https://www.openstreetmap.org/?mlat=${position!.latitude}&mlon=${position!.longitude}#map=16/${position!.latitude}/${position!.longitude}';
@@ -85,14 +80,9 @@ class SendLocationDialogState extends State<SendLocationDialog> {
         'geo:${position!.latitude},${position!.longitude};u=${position!.accuracy}';
     await showFutureLoadingDialog(
       context: context,
-      future: () {
-        if (widget.thread != null) {
-          return widget.thread!.sendLocation(body, uri);
-        } else {
-          return widget.room.sendLocation(body, uri);
-        }
-      },
+      future: () => widget.room.sendLocation(body, uri),
     );
+    if (!mounted) return;
     Navigator.of(context, rootNavigator: false).pop();
   }
 
@@ -117,7 +107,7 @@ class SendLocationDialogState extends State<SendLocationDialog> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircularProgressIndicator.adaptive(),
+          const CupertinoActivityIndicator(),
           const SizedBox(width: 12),
           Text(L10n.of(context).obtainingLocation),
         ],
@@ -127,22 +117,12 @@ class SendLocationDialogState extends State<SendLocationDialog> {
       title: Text(L10n.of(context).shareLocation),
       content: contentWidget,
       actions: [
-        OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ),
-          ),
+        AdaptiveDialogAction(
           onPressed: Navigator.of(context, rootNavigator: false).pop,
           child: Text(L10n.of(context).cancel),
         ),
-        if (error != null)
-          FilledButton(
-            onPressed: requestLocation,
-            child: Text(L10n.of(context).retry),
-          ),
         if (position != null)
-          FilledButton(
+          AdaptiveDialogAction(
             onPressed: isSending ? null : sendAction,
             child: Text(L10n.of(context).send),
           ),
