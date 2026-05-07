@@ -80,7 +80,7 @@ class SendLocationDialogState extends State<SendLocationDialog> {
         'geo:${position!.latitude},${position!.longitude};u=${position!.accuracy}';
     await showFutureLoadingDialog(
       context: context,
-      future: () => widget.room.sendLocation(body, uri),
+      future: () => widget.room.sendLocationEvent(body, geoUri: uri),
     );
     if (!mounted) return;
     Navigator.of(context, rootNavigator: false).pop();
