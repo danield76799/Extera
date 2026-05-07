@@ -1010,7 +1010,7 @@ class ChatController extends State<ChatPageWithRoom>
     await showAdaptiveDialog(
       context: context,
       useRootNavigator: false,
-      builder: (c) => SendLocationDialog(room: room, thread: thread),
+      builder: (c) => SendLocationDialog(room: room),
     );
   }
 
