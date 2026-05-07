@@ -1,8 +1,10 @@
+import 'package:async/async.dart' show Result as AsyncResult;
 import 'package:flutter/material.dart';
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:matrix/encryption/utils/key_verification.dart';
 import 'package:matrix/matrix.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:Pulsly/generated/l10n/l10n.dart';
 import 'package:Pulsly/pages/device_settings/device_settings_view.dart';
@@ -52,6 +54,19 @@ class DevicesSettingsController extends State<DevicesSettings> {
   }
 
   void removeDevicesAction(List<Device> devices) async {
+    final matrix = Matrix.of(context);
+    final client = Matrix.of(context).client;
+
+    // Check if server has external account management URL
+    final wellKnown = await AsyncResult.capture(client.getWellknown());
+    final accountManageUrl = wellKnown.asValue?.value.additionalProperties
+        .tryGetMap<String, Object?>('org.matrix.msc2965.authentication')
+        ?.tryGet<String>('account');
+    if (accountManageUrl != null) {
+      launchUrlString(accountManageUrl, mode: LaunchMode.inAppBrowserView);
+      return;
+    }
+
     if (await showOkCancelAlertDialog(
           context: context,
           title: L10n.of(context).areYouSure,
@@ -63,7 +78,6 @@ class DevicesSettingsController extends State<DevicesSettings> {
         OkCancelResult.cancel) {
       return;
     }
-    final matrix = Matrix.of(context);
     final deviceIds = <String>[];
     for (final userDevice in devices) {
       deviceIds.add(userDevice.deviceId);

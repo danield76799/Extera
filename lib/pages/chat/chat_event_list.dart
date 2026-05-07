@@ -180,6 +180,7 @@ class ChatEventList extends StatelessWidget {
                       hasBeenRead:
                           latestReadEventIndex != -1 &&
                           latestReadEventIndex <= i,
+                      readReceipts: event.receipts.toList(), // NEW: Pass read receipts to Message
                       // onQuote: () {
                       //   controller.replyAction(replyTo: event);
                       //   controller.sendController.text = "> ";
